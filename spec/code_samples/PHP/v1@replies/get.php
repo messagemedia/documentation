@@ -1,0 +1,1 @@
+$result = $repliesController->checkReplies();
