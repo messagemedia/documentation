@@ -25,6 +25,7 @@ jobs:
     # Runs the command to test and deploy the application to production
     - name: deploy to production
       run: |
+        npm install
         npm run build
         npm test
         npm run gh-pages
