@@ -28,7 +28,10 @@ jobs:
         npm run build
         npm test
         npm run gh-pages
-      
+    - name: Slack Notification
+      uses: rtCamp/action-slack-notify@v2.0.0
+      env:
+        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
     # Runs a single command using the runners shell
     #- name: Run a one-line script
     #  run: echo Hello, world!
