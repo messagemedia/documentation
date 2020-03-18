@@ -222,8 +222,10 @@ tags:
       [RestSharp](http://restsharp.org/) with custom authenticator
 
       ### Java
+      [Acquia HTTP Request Interceptor](https://github.com/acquia/http-hmac-java) for the Apache HTTP Client
 
       ### Javascript
+      [Acquia HTTP HMAC Signer for JavaScript](https://github.com/acquia/http-hmac-javascript)
 
       ### PHP
       [HTTP HMAC Signer for PHP](https://github.com/acquia/http-hmac-php) Which can be used with [Guzzle](http://docs.guzzlephp.org/en/stable/).
@@ -232,9 +234,9 @@ tags:
       [HMAC](https://github.com/guardian/httpie-hmac-auth) auth plugin for [HTTPie](https://github.com/jakubroztocil/httpie).
 
       ### Ruby
+      [APIAuth](https://github.com/mgomes/api_auth) Ruby Gem 
 
       ## Postman Collections
-      [Download](.postman.json)
 
   - name: Messages
     description: >-
