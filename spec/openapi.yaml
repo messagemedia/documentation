@@ -3685,17 +3685,15 @@ paths:
       operationId: GetSignatureKeyList
       parameters:
       - name: page
-        in: path
+        in: query
         description: ''
         required: true
-        style: simple
         schema:
           type: string
       - name: page_size
-        in: path
+        in: query
         description: ''
         required: true
-        style: simple
         schema:
           type: string
       responses:
