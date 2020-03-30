@@ -143,8 +143,10 @@ tags:
       [RestSharp](http://restsharp.org/) with custom authenticator
 
       ### Java
+      [Acquia HTTP Request Interceptor](https://github.com/acquia/http-hmac-java) for the Apache HTTP Client
 
       ### Javascript
+      [Acquia HTTP HMAC Signer for JavaScript](https://github.com/acquia/http-hmac-javascript)
 
       ### PHP
       [HTTP HMAC Signer for PHP](https://github.com/acquia/http-hmac-php) Which can be used with [Guzzle](http://docs.guzzlephp.org/en/stable/).
@@ -153,9 +155,9 @@ tags:
       [HMAC](https://github.com/guardian/httpie-hmac-auth) auth plugin for [HTTPie](https://github.com/jakubroztocil/httpie).
 
       ### Ruby
+      [APIAuth](https://github.com/mgomes/api_auth) Ruby Gem 
 
       ## Postman Collections
-      [Download](.postman.json)
   - name: Messages
     description: |-
       The MessageMedia Messages API provides a number of endpoints for building powerful two-way messaging applications. The Messages API provides access to three main resources:
@@ -794,9 +796,8 @@ paths:
           in the request. Please contact <support@messagemedia.com> for more information. Specifying a source
           number is optional and a by default a source number will be assigned to the message.
 
-        - ```media``` The media is used to specify the url of the media file
-        that you are trying to send. Supported file formats include png, jpeg
-        and gif. ```format``` parameter must be set to ```MMS``` for this to
+        - ```media``` The media is used to specify a list of URLs of the media file(s) that you are trying to send. 
+        Supported file formats include png, jpeg and gif. ```format``` parameter must be set to ```MMS``` for this to
         work.
 
         - ```subject``` The subject field is used to denote subject of the MMS
@@ -4317,17 +4318,15 @@ paths:
       operationId: GetSignatureKeyList
       parameters:
         - name: page
-          in: path
+          in: query
           description: ''
           required: true
-          style: simple
           schema:
             type: string
         - name: page_size
-          in: path
+          in: query
           description: ''
           required: true
-          style: simple
           schema:
             type: string
       responses:
@@ -5964,7 +5963,9 @@ components:
           type: array
           items:
             type: string
-          description: 'The media is used to specify the url of the media file that you are trying to send. Supported file formats include png, jpeg and gif. format parameter must be set to MMS for this to work.'
+          description: 'The media is used to specify a list of URLs of the media file(s) that you are trying to send. Supported file formats include png, jpeg and gif. format parameter must be set to MMS for this to work.'
+          example:
+            - 'https://images.pexels.com/photos/1018350/pexels-photo-1018350.jpeg?cs=srgb&dl=architecture-buildings-city-1018350.jpg'
         subject:
           type: string
           description: The subject field is used to denote subject of the MMS message and has a maximum size of 64 characters long
