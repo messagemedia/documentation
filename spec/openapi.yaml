@@ -792,9 +792,8 @@ paths:
           in the request. Please contact <support@messagemedia.com> for more information. Specifying a source
           number is optional and a by default a source number will be assigned to the message.
 
-        - ```media``` The media is used to specify the url of the media file
-        that you are trying to send. Supported file formats include png, jpeg
-        and gif. ```format``` parameter must be set to ```MMS``` for this to
+        - ```media``` The media is used to specify a list of URLs of the media file(s) that you are trying to send. 
+        Supported file formats include png, jpeg and gif. ```format``` parameter must be set to ```MMS``` for this to
         work.
 
         - ```subject``` The subject field is used to denote subject of the MMS
@@ -5347,9 +5346,11 @@ components:
           items:
             type: string
           description: >-
-            The media is used to specify the url of the media file that you are
+            The media is used to specify a list of URLs of the media file(s) that you are
             trying to send. Supported file formats include png, jpeg and gif.
             format parameter must be set to MMS for this to work.
+          example: 
+            - "https://images.pexels.com/photos/1018350/pexels-photo-1018350.jpeg?cs=srgb&dl=architecture-buildings-city-1018350.jpg"
         subject:
           type: string
           description: >-
