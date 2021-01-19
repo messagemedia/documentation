@@ -1,31 +1,35 @@
 {
-  "_from": "swagger-ui-dist@^3.20.1",
+  "_args": [
+    [
+      "swagger-ui-dist@3.25.0",
+      "/home/ruwen/src/mmgithub/documentation"
+    ]
+  ],
+  "_from": "swagger-ui-dist@3.25.0",
   "_id": "swagger-ui-dist@3.25.0",
   "_inBundle": false,
   "_integrity": "sha512-vwvJPPbdooTvDwLGzjIXinOXizDJJ6U1hxnJL3y6U3aL1d2MSXDmKg2139XaLBhsVZdnQJV2bOkX4reB+RXamg==",
   "_location": "/swagger-ui-dist",
   "_phantomChildren": {},
   "_requested": {
-    "type": "range",
+    "type": "version",
     "registry": true,
-    "raw": "swagger-ui-dist@^3.20.1",
+    "raw": "swagger-ui-dist@3.25.0",
     "name": "swagger-ui-dist",
     "escapedName": "swagger-ui-dist",
-    "rawSpec": "^3.20.1",
+    "rawSpec": "3.25.0",
     "saveSpec": null,
-    "fetchSpec": "^3.20.1"
+    "fetchSpec": "3.25.0"
   },
   "_requiredBy": [
     "/swagger-repo"
   ],
   "_resolved": "https://registry.npmjs.org/swagger-ui-dist/-/swagger-ui-dist-3.25.0.tgz",
-  "_shasum": "90279cdcc56e591fcfbe7b5240a9d653b989336d",
-  "_spec": "swagger-ui-dist@^3.20.1",
-  "_where": "/Users/rebecca.martin/MessageMedia/documentation-master/node_modules/swagger-repo",
+  "_spec": "3.25.0",
+  "_where": "/home/ruwen/src/mmgithub/documentation",
   "bugs": {
     "url": "https://github.com/swagger-api/swagger-ui/issues"
   },
-  "bundleDependencies": false,
   "contributors": [
     {
       "url": "in alphabetical order"
@@ -56,7 +60,6 @@
     }
   ],
   "dependencies": {},
-  "deprecated": false,
   "description": "[![NPM version](https://badge.fury.io/js/swagger-ui-dist.svg)](http://badge.fury.io/js/swagger-ui-dist)",
   "devDependencies": {},
   "homepage": "https://github.com/swagger-api/swagger-ui#readme",

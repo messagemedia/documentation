@@ -235,7 +235,68 @@ tags:
 
       * **Vendor Account ID**: The account used to submit the original message. The vendor will always be `MessageMedia`
 
-      * **Status Code**: A status code which provides additional information about the message status:
+      * **Error Code**: A status code which provides additional information about the message status:
+
+        * `101`: Message being processed by the gateway.
+        
+        * `102`: Message is being rerouted to a different provider after failing via the first provider.
+        
+        * `151`: Message held for screening.
+        
+        * `200`: Message submitted to downstream provider for delivery.
+        
+        * `210`: Message accepted by downstream provider.
+        
+        * `211`: Message is enroute for delivery by provider.
+        
+        * `212`: Message submitted. Delivery pending.
+        
+        * `213`: Message scheduled for delivery by downstream provider.
+        
+        * `220`: Message delivered.
+        
+        * `221`: Message delivered to the handset.
+        
+        * `320`: Message validity period has expired (prior to submission).
+        
+        * `401`: Message validity period has expired (before delivery).
+        
+        * `301`: Usage threshold reached. Message discarded.
+        
+        * `302`: Destination address blocked. Message discarded.
+        
+        * `303`: Source address blocked. Message discarded.
+        
+        * `304`: Message dropped. Contact support.
+        
+        * `305`: Message discarded due to duplicate detection.
+        
+        * `402`: Message rejected by downstream provider.
+        
+        * `403`: Message skipped by downstream provider.
+        
+        * `410`: Invalid source address.
+        
+        * `411`: Invalid destination address.
+        
+        * `412`: Destination address blocked.
+        
+        * `413`: SMS service unavailable on destination.
+        
+        * `414`: Destination unreachable.
+        
+        * `330`: Gateway failure.
+        
+        * `331`: Message discarded.
+        
+        * `332`: No available route to destination.
+        
+        * `333`: Source address unsupported for this destination.
+        
+        * `400`: Message failed; undeliverable.
+        
+        * `405`: Message cancelled or deleted by provider.
+        
   - name: Replies
     description: ''
   - name: Lookups
