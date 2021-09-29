@@ -93,7 +93,7 @@ tags:
       Create a signing string by concatenating the `Date` header, the
       `Content-MD5` header (if set) and the request line with line breaks:
       ```plain
-      Date: Sat, 30 Jul 2016 05:13:23 GMT\nContent-MD5:10fd4feab20d38432480c07301e49616\nPOST /v1/messages HTTP/1.1
+      Date: Sat, 30 Jul 2016 05:13:23 GMT\nContent-MD5: 10fd4feab20d38432480c07301e49616\nPOST /v1/messages HTTP/1.1
       ```
       or
       ```plain
