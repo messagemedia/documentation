@@ -6,7 +6,7 @@ info:
   version: "2.1.0" # Your API version
   # It can be any string but it is better to use semantic versioning: http://semver.org/
   # Warning: OpenAPI require version to be string, but without quotation YAML can recognize it as number.
-  
+
   title: MessageMedia # Replace with your API title
   # Keep it simple. Don't add "API" or version at the end of the string.
 
@@ -19,39 +19,39 @@ info:
     url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
   x-logo:
     url: 'https://developers.messagemedia.com/wp-content/themes/devportal/dist/images/MM-logo-New.png)'
-  
+
   # Describe your API here, you can use GFM (https://guides.github.com/features/mastering-markdown) here
   description: |
     # Introduction
-    The MessageMedia APIs provide powerful business messaging capabilities across sending, receiving, and processing SMS, MMS, and rich messaging. 
+    The MessageMedia APIs provide powerful business messaging capabilities across sending, receiving, and processing SMS, MMS, and rich messaging.
 
     All requests to the MessageMedia REST API must be authenticated, this can either be done using Basic Authentication or by signing with a HMAC signature.
-      
+
     # Credentials
-      
+
     To access the API, an API key and secret are required.
-      
+
     [Sign up for a developer account here to get access](https://developers.messagemedia.com/register/): https://developers.messagemedia.com/register/.
 
     # Features
-    ###  De-Duplication 
-    De-Duplication helps you avoid having to undertake data cleansing before commencing send outs.  
+    ###  De-Duplication
+    De-Duplication helps you avoid having to undertake data cleansing before commencing send outs.
     It automatically detects and withholds messages deemed to be duplicates through the use of a 24-hour window – if a message is sent to the same number with the same content within a 24hr period, the subsequent message(s) will be withheld and rejected. To enable this, you don't need to make any changes to your application, just an account configuration change by MessageMedia's support team.
 
-    ###  Social Sending 
-    Social Sending permits messages to be sent only during sociable hours - i.e. 8am to 6pm (based on your accounts local time zone - not local time). 
+    ###  Social Sending
+    Social Sending permits messages to be sent only during sociable hours - i.e. 8am to 6pm (based on your accounts local time zone - not local time).
     Messages sent outside of these hours are scheduled to be released during the next social time period. This feature helps businesses avoid send-outs during a time that would be deemed unsuitable by the customer. To enable this, you don't need to make any changes to your application, just an account configuration change by MessageMedia's support team.
 
     ###  Familiar Sender
-    Familiar Sender ensures all communication sent to a customer are from the same phone number. 
+    Familiar Sender ensures all communication sent to a customer are from the same phone number.
     This allows businesses to build trust and familiarity with their customers and not confuse them by changing outgoing numbers. To enable this, you don't need to make any changes to your application, just an account configuration change by MessageMedia's support team.
 
     ### Character Converter
-    Characters in a message may not always fall within the GSM-7 supported characterset, and when this occurs all 
-    outbound messages will be encoded using UCS-2 leading to the customer being double-charged for the SMS. Character Converter 
-    can help you avoid being double-charged for your SMS by converting all characters into the GSM-7 format ensuring you always 
-    get the maximum characters into an SMS. Bear in my mind, this will downgrade all your unicode characters so for instance, 
-    your emojis will be translated into a string of unknown characters (eg: �).  To enable this, you don't need to make any 
+    Characters in a message may not always fall within the GSM-7 supported characterset, and when this occurs all
+    outbound messages will be encoded using UCS-2 leading to the customer being double-charged for the SMS. Character Converter
+    can help you avoid being double-charged for your SMS by converting all characters into the GSM-7 format ensuring you always
+    get the maximum characters into an SMS. Bear in my mind, this will downgrade all your unicode characters so for instance,
+    your emojis will be translated into a string of unknown characters (eg: �).  To enable this, you don't need to make any
     changes to your application, just an account configuration change by MessageMedia's support team.
 
 #externalDocs:
@@ -62,20 +62,20 @@ info:
 # The order of the tags can be used to reflect on their order by the parsing tools.
 tags:
   - name: Basic Authentication
-    description: >- 
-    
+    description: >-
+
       Every request requires an `Authorization` header in the following format:
-      
+
       ```plain
 
       Authorization: Basic Base64(api_key:api_secret)
 
       ```
-      
+
       Where the header consists of the Basic keyword followed by your Basic Authentication `api_key` and `api_secret` that you have been supplied by support, separated with a colon (:) which is then Base64 encoded.
-      
+
       ### Example request with Basic Authentication
-      
+
       ```plain
 
       POST /v1/messages HTTP/1.1
@@ -96,18 +96,18 @@ tags:
             "format": "SMS"
           }
         ]
-      } 
-      
+      }
+
       ```
-      
+
       _Note: spaces are used as indentation in the body of the above request._
   - name: HMAC Authentication
-    description: >- 
-      
+    description: >-
+
       Every request requires an `Authorization` header in the following formats:
-      
+
       For a request with a request body:
-      
+
       ```plain
 
       Authorization: hmac username="<API KEY>", algorithm="hmac-sha1", headers  ="Date Content-MD5 request-line", signature="<SIGNATURE>"
@@ -123,7 +123,7 @@ tags:
       Authorization: hmac username="<API KEY>", algorithm="hmac-sha1", headers="Date request-line", signature="<SIGNATURE>"
 
       ```
-      
+
       ### To create this header
 
       #### Step 1
@@ -145,7 +145,7 @@ tags:
       Date: Sat, 30 Jul 2016 05:13:23 GMT\nContent-MD5: 10fd4feab20d38432480c07301e49616\nPOST /v1/messages HTTP/1.1
 
       ```
-      
+
       or
 
       ```plain
@@ -193,7 +193,7 @@ tags:
       }
 
       ```
-      
+
       _Note: spaces are used as indentation in the body of the above request._
 
       ### Example request without body
@@ -213,10 +213,10 @@ tags:
   - name: Development Tools
     description: |
       ## SDKs
-      Software Development Kits are available across six languages to assist with integration with the major endpoints. 
+      Software Development Kits are available across six languages to assist with integration with the major endpoints.
 
-      In the event an SDK is not available or does not work with your environment, any standard HTTP client library can be used. These are some client libraries we recommend, 
-      that include HMAC authentication capability: 
+      In the event an SDK is not available or does not work with your environment, any standard HTTP client library can be used. These are some client libraries we recommend,
+      that include HMAC authentication capability:
 
       ### C#
       [RestSharp](http://restsharp.org/) with custom authenticator
@@ -229,39 +229,39 @@ tags:
 
       ### PHP
       [HTTP HMAC Signer for PHP](https://github.com/acquia/http-hmac-php) Which can be used with [Guzzle](http://docs.guzzlephp.org/en/stable/).
-      
+
       ### Python
       [HMAC](https://github.com/guardian/httpie-hmac-auth) auth plugin for [HTTPie](https://github.com/jakubroztocil/httpie).
 
       ### Ruby
-      [APIAuth](https://github.com/mgomes/api_auth) Ruby Gem 
+      [APIAuth](https://github.com/mgomes/api_auth) Ruby Gem
 
       ## Postman Collections
 
   - name: Messages
     description: >-
       The MessageMedia Messages API provides a number of endpoints for building powerful two-way messaging applications. The Messages API provides access to three main resources:
-      
+
       * Messages - Messages delivered from an application to a handset.
-      
+
       * Delivery Reports - Real time reports on the delivery status of a message. As a message is processed, it's status may change several times before it is finally delivered to a handset.
-      
+
       * Replies - Messages sent from a handset to an application. These messages are typically a reply to a previously sent message.
-      
+
       ![Message Flow](https://i.imgur.com/jJeHwf5.png)
   - name: Delivery Reports
     description: |
-      If a callback URL is specified in the submit message request, then changes to the message status, 
-      replies received in response to the message or delivery reports received for the message will be pushed via a HTTP POST request. An alternative to delivery reports via callbacks is custom webhooks using the webhooks management API. 
-      
+      If a callback URL is specified in the submit message request, then changes to the message status,
+      replies received in response to the message or delivery reports received for the message will be pushed via a HTTP POST request. An alternative to delivery reports via callbacks is custom webhooks using the webhooks management API.
+
       All notifications are JSON encoded and the request expects to receive a response in the HTTP 200 range. If a valid response isn't received the request will be retried in an exponentially backing off fashion.
 
       Delivery Reports may carry an additional charge. For pricing, please contact your Account Manager or Support Team (support@messagemedia.com).
 
       For delivery reports or changes in the status of a message, the POST request to the specified URL will be as follows:
-        
+
         _Note, multiple delivery report notifications will be recieved for a single message._
-      
+
       ```json
       {
         "callback_url":"http://mockbin.org/bin/ac52ebd4-eca1-4c86-bf38-4dce79633906",
@@ -322,74 +322,74 @@ tags:
       * **Error Code**: A status code which provides additional information about the message status:
 
         * `101`: Message being processed by the gateway.
-        
+
         * `102`: Message is being rerouted to a different provider after failing via the first provider.
-        
+
         * `151`: Message held for screening.
-        
+
         * `200`: Message submitted to downstream provider for delivery.
-        
+
         * `210`: Message accepted by downstream provider.
-        
+
         * `211`: Message is enroute for delivery by provider.
-        
+
         * `212`: Message submitted. Delivery pending.
-        
+
         * `213`: Message scheduled for delivery by downstream provider.
-        
+
         * `220`: Message delivered.
-        
+
         * `221`: Message delivered to the handset.
-        
+
         * `320`: Message validity period has expired (prior to submission).
-        
+
         * `401`: Message validity period has expired (before delivery).
-        
+
         * `301`: Usage threshold reached. Message discarded.
-        
+
         * `302`: Destination address blocked. Message discarded.
-        
+
         * `303`: Source address blocked. Message discarded.
-        
+
         * `304`: Message dropped. Contact support.
-        
+
         * `305`: Message discarded due to duplicate detection.
-        
+
         * `402`: Message rejected by downstream provider.
-        
+
         * `403`: Message skipped by downstream provider.
-        
+
         * `410`: Invalid source address.
-        
+
         * `411`: Invalid destination address.
-        
+
         * `412`: Destination address blocked.
-        
+
         * `413`: SMS service unavailable on destination.
-        
+
         * `414`: Destination unreachable.
-        
+
         * `330`: Gateway failure.
-        
+
         * `331`: Message discarded.
-        
+
         * `332`: No available route to destination.
-        
+
         * `333`: Source address unsupported for this destination.
-        
+
         * `400`: Message failed; undeliverable.
-        
+
         * `405`: Message cancelled or deleted by provider.
-        
+
   - name: Replies
     description: ''
   - name: Lookups
     description: |
       How confident are you in the accuracy of your database? Sending text messages to inactive, invalid or unrecognisable numbers wastes resources on messages that will never be read.
- 
+
       Our Lookups API provides a simple way to keep your database clean. It accesses mobile carrier information about any mobile number, in real-time, anywhere in the world.
-      * Identify invalid numbers and reduce the number of failed or undeliverable messages  
-      * Separate mobiles and landlines, so you don’t pay for messages that will never be delivered 
+      * Identify invalid numbers and reduce the number of failed or undeliverable messages
+      * Separate mobiles and landlines, so you don’t pay for messages that will never be delivered
       * Identify carriers to determine which are low cost
 
       To learn more about the benefits of the Lookups API, [visit our product page](https://www.messagemedia.com/au/feature/lookups/).
@@ -399,7 +399,7 @@ tags:
       Required Parameters
 
       `{phone_number} `
-      This should be set to the phone number to be looked up. 
+      This should be set to the phone number to be looked up.
 
       By default, a request will only return the country_code and phone_number properties in the response.
       ```json
@@ -408,15 +408,15 @@ tags:
         "phone_number": "+61491570156",
       }
       ```
-      
+
       Options for Parameters
-      
-      The options query parameter can also be used to request additional information about the phone number. 
+
+      The options query parameter can also be used to request additional information about the phone number.
 
       * `carrier` Request details about the carrier.
       * `type` Use as a value of the options parameter
 
-      _Note: The `carrier` and the `type` values can be used together using a comma separated list, i.e. carrier,type._ 
+      _Note: The `carrier` and the `type` values can be used together using a comma separated list, i.e. carrier,type._
 
       * `hlr` Request details about the location by including as a value of the options parameter.
 
@@ -424,42 +424,42 @@ tags:
   - name: Number Authorisation
     description: >-
       The number authorisation API allows you to manage your blacklists. MessageMedia automatically adds numbers to your blacklist if people send one of the opt out keywords in response to one of your messages.
-      
+
       This is a legal requirement. If you decide to handle the legal compliance yourself, calls to this endpoint will not affect your messages.
   - name: Dedicated Numbers
     description: |
-      The Numbers API allows your to purchase, provision and configure the dedicated numbers assigned to your MessageMedia account. 
-      
+      The Numbers API allows your to purchase, provision and configure the dedicated numbers assigned to your MessageMedia account.
+
       To learn more about the benefits of dedicated numbers, and their use cases, visit our [feature page](https://messagemedia.com/au/feature/dedicated-virtual-numbers/).
-      
+
       This is a paid feature and must be enabled on your account. Please contact [support@messagemedia.com](support@messagemedia.com) or your account manager.
-      
+
       ## Concepts
 
       This API allows you to purchase and assign to your account a number from a pool of dedicated numbers. Dedicated numbers are priced differently according to their classification.
 
-      The following is the system by which we classify dedicated numbers. 
+      The following is the system by which we classify dedicated numbers.
 
       | Pattern Type | Gold|  Silver |
       |---|---|---|
-      | Same Number  |  Six of same (e.g. 999999) | Five of same (e.g. 999991 or 199999)  | 
+      | Same Number  |  Six of same (e.g. 999999) | Five of same (e.g. 999991 or 199999)  |
       | Sequence  |  Six in sequence (e.g. 234567, or 765432) | Five in sequence (e.g. 245678, 456782, or 287654)  |
-      |  Triplets |  Two identical (e.g. 123123) or two double (e.g. 444666) | Identical pairs within triplets (e.g. 004008, or 400800), one identical and one in sequence (e.g. 444789, or 345777), or mirror image (e.g. 468864)| 
+      |  Triplets |  Two identical (e.g. 123123) or two double (e.g. 444666) | Identical pairs within triplets (e.g. 004008, or 400800), one identical and one in sequence (e.g. 444789, or 345777), or mirror image (e.g. 468864)|
       |Pair|Three identical (e.g. 454545)|Three non-identical (e.g. 447700) or three in sequence (e.g. 232425, or 090807)|
 
       Any numbers that do not meet the criteria for Gold or Silver are classified as Bronze.
 
-      For pricing on dedicated numbers please refer to the Numbers page in our Hub web portal, or speak with your MessageMedia Account Manager.   
+      For pricing on dedicated numbers please refer to the Numbers page in our Hub web portal, or speak with your MessageMedia Account Manager.
   - name: Messaging Reports
     description: >-
-      The MessageMedia Reports API provides a number of endpoints for running reports of messages sent and received using Messages API. 
+      The MessageMedia Reports API provides a number of endpoints for running reports of messages sent and received using Messages API.
       Reports can be detailed, a list of all messages and details of each message, or summary reports, which can be aggregated on a number of dimensions.
   - name: Short Trackable Links Reports
     description: |
       Short Trackable Links is a feature available to [Messaging API](https://developers.messagemedia.com/code/messages-api-documentation/) users whereby it automatically and seamlessly shortens any URL to just 22 characters. Every shortened URL is unique to each recipient.
 
-      The reporting API has endpoints specific to 
-      this feature, allowing users to obtain details regarding 
+      The reporting API has endpoints specific to
+      this feature, allowing users to obtain details regarding
       the number of click-throughs on each URL.
 
       To enable this feature on your account, contact your account manager or contact support on [support@messagemedia.com](support@messagemedia.com).
@@ -491,12 +491,12 @@ tags:
       * `Date`: This Date is the one sent in the header eg: `Tue, 17 Jul 2018 04:52:31 GMT`
       * `Body`: This is the the body of the request that is sent back when the webhook is triggered eg: ```{"vendor_account_id":{"vendor_id":"MessageMedia","account_id":"MessageMediaM123"},"callback_url":"https://webhook.site/25f79a05-00cf-4997-a127-c55a889eb97a","delivery_report_id":"6737fda5-bb86-4fdb-8b62-d7ea49863801","source_number":"+61439123036","date_received":"2018-07-26T23:39:25.387Z","status":"enroute","delay":0,"submitted_date":"2018-07-26T23:39:25.382Z","original_text":"Hey there!","message_id":"a0589035-df10-4f3a-92a5-5beac2d100c3","error_code":"101","metadata":{}}```
 
-      The order of concatentation would be `Request-Line` + `Date` + `Body` without any spaces in between. This order must be maintained to build a valid comparison string. 
+      The order of concatentation would be `Request-Line` + `Date` + `Body` without any spaces in between. This order must be maintained to build a valid comparison string.
 
 
       ## Verifying using public key
 
-      Once you've created the comparison string, you need to use your public key to verify it against the signature (`X-MESSAGEMEDIA-SIGNATURE`) using RSA and the digest type of your key. 
+      Once you've created the comparison string, you need to use your public key to verify it against the signature (`X-MESSAGEMEDIA-SIGNATURE`) using RSA and the digest type of your key.
       The way of doing this can vary depending on the language you are coding in. Below are some suggestions on which built-in functions or libraries you can use for each language:
       * PHP - [Openssl_verify](http://php.net/manual/en/function.openssl-verify.php)
       * Python - [Pycrypto](https://gist.github.com/lkdocs/6519372)
@@ -506,13 +506,13 @@ tags:
       * Ruby - [Verify](http://ruby-doc.org/stdlib-2.5.1/libdoc/openssl/rdoc/OpenSSL/PKey/PKey.html#method-i-verify)
   - name: Signature Key Management
     description: |
-      As MessageMedia's customer, you want to be able to ensure that callbacks are coming from MessageMedia and not from a 3rd party. Since 
-      these are calls to your own system, you should be provided with an extra level of security 
+      As MessageMedia's customer, you want to be able to ensure that callbacks are coming from MessageMedia and not from a 3rd party. Since
+      these are calls to your own system, you should be provided with an extra level of security
       when calling your resources.
 
-      The MessageMedia Signature Key API provides a number of endpoints 
-      for managing key used to sign each unique request to ensure security 
-      and the requests can't (easily) be spoofed. This is similar to using 
+      The MessageMedia Signature Key API provides a number of endpoints
+      for managing key used to sign each unique request to ensure security
+      and the requests can't (easily) be spoofed. This is similar to using
       HMAC in your outbound messaging (rather than HTTP Basic).
 
       The Signature Key API provides seven main endpoints:
@@ -526,34 +526,34 @@ tags:
   - name: Mobile Landing Pages (beta)
     description: |
       The mobile landing pages (MLP) API provides the facilities to create mobile landing pages and sends them to recipients. This API is currently in beta.
-      
+
       ## Concepts
-      
+
       The approach to creating mobile landing pages involves creating a _Campaign_ and sending them to one or more _Recipients_.  A campaign consists of the baseline configuration of a mobile landing page and message that will be generated and sent to each recipient.
 
       ## Parameters
-      
+
       Campaign and Recipients can contain parameters.  These parameters are used to customise the generated landing page and the message that is to be sent to each user.  Campaign and Recipient parameters are merged to form a complete set when processing a recipient.
-      
+
       When resolving parameters sets, Recipient parameters override Campaign parameters with the same name.
-      
+
       Parameter names used within the template have an associated type, which will be validated when creating the Campaign or sending it to Recipients.  You are free to define additional parameters for your own uses, such as when specifying the message.
 
-      The SMS message that is to be sent to each user is defined at the Campaign level. 
-      
+      The SMS message that is to be sent to each user is defined at the Campaign level.
+
       The message itself can consist of parameter references surrounded in `${...}`, for example:
-      
+
       ```Hello ${firstName} ${lastName}, this is your message.```
 
-      ## Sending Mobile Landing Pages 
+      ## Sending Mobile Landing Pages
 
-      From end to end, sending a Mobile Landing Pages involves the following steps: 
+      From end to end, sending a Mobile Landing Pages involves the following steps:
 
       ### Step 1: Create a campaign
 
-      Choose a template from the template catalogue, and work out what you are going to specify for the required parameters for that template. You will then use the `Create new campaign` endpoint to create the campaign. The following example 
+      Choose a template from the template catalogue, and work out what you are going to specify for the required parameters for that template. You will then use the `Create new campaign` endpoint to create the campaign. The following example
       specifies the desired parameters for the template_id and sets up a message template:
-      
+
       ```
       {
           "template_id": "ac895f01-3149-4bf8-a8fe-01d3b8a9ba97",
@@ -575,13 +575,13 @@ tags:
           }
       }
       ```
-      
+
       Inside the message content the `{}` curly braces indicate template placeholders. These are the names of the parameters you will need to specify for the message when you send to your recipients.
 
       ### Step 2: Send to recipients
 
-      Using the `Send campaign to recipients` endpoint, you can specify the id of your campaign in the path and a array of recipients as the payload. Each recipient will include an E.164 formatted 
-      (international) phone number, an optional scheduled time, and values of any recipient scoped template parameters you may have created. In the following example the recipients have been scoped with the template parameters above: 
+      Using the `Send campaign to recipients` endpoint, you can specify the id of your campaign in the path and a array of recipients as the payload. Each recipient will include an E.164 formatted
+      (international) phone number, an optional scheduled time, and values of any recipient scoped template parameters you may have created. In the following example the recipients have been scoped with the template parameters above:
 
       ```
       {
@@ -600,11 +600,11 @@ tags:
 
       ## Landing Page Store
 
-      The Landing Page Store is used by the Hub portal to store landing page templates that have been configured using the visual interface. This means that you can 
+      The Landing Page Store is used by the Hub portal to store landing page templates that have been configured using the visual interface. This means that you can
       optionally use this data store to programatically send landing pages that have been designed and configured in the hub.
-    
-      If you have made a landing page in the hub, use the `Get landing pages` endpoint to find the landing pages you have made, along with the template and parameters that have been configured. 
-      You will then need to copy those template and parameters into a campaign. 
+
+      If you have made a landing page in the hub, use the `Get landing pages` endpoint to find the landing pages you have made, along with the template and parameters that have been configured.
+      You will then need to copy those template and parameters into a campaign.
 
       ## Template Parameters
 
@@ -654,7 +654,7 @@ servers:
   - url: 'https://api.messagemedia.com/'
 
 # Holds the relative paths to the individual endpoints. The path is appended to the
-# basePath in order to construct the full URL. 
+# basePath in order to construct the full URL.
 paths:
   '/v1/messages/{messageId}':
     get:
@@ -721,13 +721,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/403response' 
+                $ref: '#/components/schemas/403response'
         '404':
           description: Resource not found
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/404response'  
+                $ref: '#/components/schemas/404response'
       deprecated: false
     put:
       security:
@@ -793,7 +793,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/404response'  
+                $ref: '#/components/schemas/404response'
       deprecated: false
   /v1/messages:
     post:
@@ -853,7 +853,7 @@ paths:
           in the request. Please contact <support@messagemedia.com> for more information. Specifying a source
           number is optional and a by default a source number will be assigned to the message.
 
-        - ```media``` The media is used to specify a list of URLs of the media file(s) that you are trying to send. 
+        - ```media``` The media is used to specify a list of URLs of the media file(s) that you are trying to send.
         Supported file formats include png, jpeg and gif. ```format``` parameter must be set to ```MMS``` for this to
         work.
 
@@ -877,16 +877,16 @@ paths:
         - ```message_expiry_timestamp``` A message expiry timestamp can be
         provided to specify the latest time
           at which the message should be delivered. If the message cannot be delivered before the specified
-          message expiry timestamp elapses, the message will be discarded. Specifying a message expiry 
+          message expiry timestamp elapses, the message will be discarded. Specifying a message expiry
           timestamp is optional.
 
         - ```metadata``` Metadata can be included with the message which will
         then be included with any delivery
           reports or replies matched to the message. This can be used to create powerful two-way messaging
           applications without having to store persistent data in the application. Up to 10 key / value metadata data
-          pairs can be specified in a message. Each key can be up to 100 characters long, and each value up to 
+          pairs can be specified in a message. Each key can be up to 100 characters long, and each value up to
           256 characters long. Specifying metadata for a message is optional.
-        
+
         The response body of a successful POST request to the messages endpoint
         will include a ```messages``` property which contains a list of all messages submitted. The list of
         messages submitted will reflect the list of messages included in the request, but each message
@@ -896,7 +896,7 @@ paths:
         time which will always be ```queued```. See the Delivery Reports section of this documentation for
         more information on message statues.
 
-        *Note: when sending multiple messages in a request, all messages must be valid for the request 
+        *Note: when sending multiple messages in a request, all messages must be valid for the request
         to be successful. If any messages in the request are invalid, no messages will be sent.*
       operationId: SendMessages
       parameters: []
@@ -1036,7 +1036,7 @@ paths:
         change in status of a
 
         message) and the timestamp at which the status changed. Every delivery
-        report will have a 
+        report will have a
 
         unique delivery report ID for use with the confirm delivery reports
         endpoint.
@@ -1119,7 +1119,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/403response' 
+                $ref: '#/components/schemas/403response'
         '404':
           description: Resource not found
           content:
@@ -1200,7 +1200,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/403response' 
+                $ref: '#/components/schemas/403response'
         '404':
           description: Resource not found
           content:
@@ -1371,7 +1371,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/403response' 
+                $ref: '#/components/schemas/403response'
         '404':
           description: Resource not found
           content:
@@ -1450,7 +1450,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/403response' 
+                $ref: '#/components/schemas/403response'
         '404':
           description: Resource not found
           content:
@@ -1468,52 +1468,52 @@ paths:
       summary: Lookup a phone number
       description: |
         Use the Lookups API to find information about a phone number.
-        
+
         A request to the lookups API has the following format:
-        
+
         ```/v1/lookups/phone/{phone_number}?options={x}```
-        
-        where `{x}` is an individual value or a combination of values. 
-        
+
+        where `{x}` is an individual value or a combination of values.
+
         The `{phone_number}` parameter is a required field and should be set to the phone number to be looked up.
-        
+
         The options query parameter can also be used to request additional information about the phone number.
-        
+
         By default, a request will only return the `country_code` and `phone_number` properties in the response.
-        
+
         ```json
         {  "country_code": "AU", "phone_number": "+61491570156"}
         ```
-        
-        To request details about the the carrier, include `carrier` as a value of the options parameter and to 
+
+        To request details about the the carrier, include `carrier` as a value of the options parameter and to
         request details about the type, include `type` as a value of the options parameter. The `carrier` and
         the `type` values can be used together using a comma separated list, i.e. `carrier,type`.
-        
-        To request details about the location, include `hlr` as a value of the options parameter. 
-        
+
+        To request details about the location, include `hlr` as a value of the options parameter.
+
         NOTE: The `hlr` value CANNOT be used in conjuction with the other values.
-        
-        A successful request to the lookups endpoint with `carrier` and `type` as values will 
-        
+
+        A successful request to the lookups endpoint with `carrier` and `type` as values will
+
         return a response body as follows:
-        
+
         ```json
-        {  
+        {
           "country_code": "AU",
           "phone_number": "+61491570156",
           "type": "mobile",  "carrier": {"name": "Telstra"  }
         }
         ```
-        
+
         A successful request to the lookups endpoint with `hlr` as the value will return a response body as follows:
-        
+
         ```json
         {"result": "OK",    "imsi": 24008,    "location": 46}
         ```
         Each property in the response body is defined as follows:- ```country_code``` ISO ALPHA 2 country code of the phone number
         - ```phone_number``` E.164 formatted phone number
         - ```type``` The type of number. This can be ```"mobile"``` or ```"landline"```
-        - ```carrier``` Holds information about the specific carrier (if available)  
+        - ```carrier``` Holds information about the specific carrier (if available)
         - ```name``` The carrier's name as reported by the network
         - `imsi` A unique number identifying a GSM subscriber
         - `location` The location of the mobile number"
@@ -1560,7 +1560,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/403response' 
+                $ref: '#/components/schemas/403response'
         '404':
           description: Resource not found
           content:
@@ -1649,11 +1649,11 @@ paths:
 
         NOTE:  numbers need to be in international format and therefore start with a +
       operationId: RemoveANumberFromTheBlacklist
-      parameters: 
+      parameters:
         - in: path
           name: number
           required: true
-          schema: 
+          schema:
             type: string
           description: a number in international format e.g. ```+61491570156```
       responses:
@@ -1688,7 +1688,7 @@ paths:
         - in: path
           name: numbers
           required: true
-          schema: 
+          schema:
             type: array
             minimum: 1
             items:
@@ -3483,15 +3483,15 @@ paths:
       summary: Create webhook
       description: |
         Create a webhook for one or more of the specified events.
-        
+
         A webhook would typically have the following structure:
-        
+
         ```
-        { 
+        {
           "url": "http://webhook.com",
           "method": "POST",
-          "encoding": "JSON",  
-          "headers": {"Account": "DeveloperPortal7000"  },  
+          "encoding": "JSON",
+          "headers": {"Account": "DeveloperPortal7000"  },
           "events": ["RECEIVED_SMS"  ],
           "template": {
             "id":"$mtId",
@@ -3499,28 +3499,28 @@ paths:
           }
 
         ```
-        
+
         A valid webhook must consist of the following properties:
-        
+
         - ```url``` The configured URL which will trigger the webhook when a selected event occurs.
-        
+
         - ```method``` The methods to map CRUD (create, retrieve, update, delete) operations to HTTP requests.
-        
+
         - ```encoding``` Webhooks can be delivered using different content types. You can choose from ```JSON```, ```FORM_ENCODED``` or ```XML```. This will automatically add the Content-Type header for you so you don't have to add it again in the `headers` property.
-        
+
         - ```headers``` HTTP header fields which provide required information about the request or response, or about the object sent in the message body. This should NOT include the `Content-Type` header.
-        
+
         - ```events``` Event or events that will trigger the webhook. Atleast one event should be present.
-        
+
         - ```template``` The structure of the payload that will be returned. You can format this in JSON or XML.
-        
+
         #### Types of Events
-        
+
         You can select all of the events (listed below) or combine them in whatever way you like but atleast one event must be used. Otherwise, the webhook won't be created.
-        
+
         A webhook will be triggered when any one or more of the events occur:
-        
-        + **SMS** 
+
+        + **SMS**
           + `RECEIVED_SMS` Receive an SMS
           + `OPT_OUT_SMS` Opt-out occured
         + **MMS**
@@ -3534,13 +3534,13 @@ paths:
           + `SUBMITTED_DR` Message is submitted
 
         #### Template Parameters
-        
+
         You can choose what to include in the data that will be sent as the payload via the Webhook. It's upto you to choose what format you would like the payload to be returned. You can choose between JSON or XML.
-        
+
         Keep in my mind, if you've chosen JSON as the format, you must escape the JSON in the template value (see example above).
-        
+
         The table illustrates a list of all the parameters that can be included in the template and which event types it can be applied to.
-        
+
         | Data  | Parameter Name | Example | Event Type |
         |:--|--|--|--:|
         | **Service Type**  | $type| `SMS` | `DR` `MO` `MO MMS` |
@@ -3554,10 +3554,10 @@ paths:
         | **External Metadata** | $metadata.get('key')| `name` | `DR` `MO` `MO MMS` |
         | **Source Address**| $sourceAddress| `+61491570156` | `DR` `MO` `MO MMS` |
         | **Destination Address**| $destinationAddress| `+61491593156` | `MO` `MO MMS` |
-        | **Message Content**| $mtContent, $messageContent| `Hi Derp` | `DR` `MO` `MO MMS` |
-        | **Reply Content**| $moContent, $replyContent| `Hello Derpina` | `MO` `MO MMS` |
+        | **Message Content**| $mtContent, $messageContent| `Hello. This is a message.` | `DR` `MO` `MO MMS` |
+        | **Reply Content**| $moContent, $replyContent| `Hi. This is a reply.` | `MO` `MO MMS` |
         | **Retry Count**| $retryCount| `1` | `DR` `MO` `MO MMS` |
-        
+
         *Note: A 400 response will be returned if the `url` is invalid, the `events`, `encoding` or `method` is null or the `headers` has a Content-Type  attribute.*
       operationId: CreateWebhook
       parameters: []
@@ -5410,7 +5410,7 @@ components:
             The media is used to specify a list of URLs of the media file(s) that you are
             trying to send. Supported file formats include png, jpeg and gif.
             format parameter must be set to MMS for this to work.
-          example: 
+          example:
             - "https://images.pexels.com/photos/1018350/pexels-photo-1018350.jpeg?cs=srgb&dl=architecture-buildings-city-1018350.jpg"
         subject:
           type: string
@@ -6278,7 +6278,7 @@ components:
       type: string
       description: The value of the sort_by field provided for this report
       example: ACCOUNT
-    
+
     order:
       title: order
       enum:
@@ -8203,7 +8203,7 @@ components:
       type: http
       scheme: basic
     hmac_auth:  # security definition name (you can name it as you want)
-      type: apiKey 
+      type: apiKey
       # The following options are specific to apiKey type
       in: header # Where API key will be passed: header or query
       name: Authorization # API key parameter name
