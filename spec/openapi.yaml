@@ -3554,8 +3554,8 @@ paths:
         | **External Metadata** | $metadata.get('key')| `name` | `DR` `MO` `MO MMS` |
         | **Source Address**| $sourceAddress| `+61491570156` | `DR` `MO` `MO MMS` |
         | **Destination Address**| $destinationAddress| `+61491593156` | `MO` `MO MMS` |
-        | **Message Content**| $mtContent, $messageContent| `Hi Derp` | `DR` `MO` `MO MMS` |
-        | **Reply Content**| $moContent, $replyContent| `Hello Derpina` | `MO` `MO MMS` |
+        | **Message Content**| $mtContent, $messageContent, $esc.json($!mtContent) *- when used in `JSON` encoded `template`*| `Hi Derp` | `DR` `MO` `MO MMS` |
+        | **Reply Content**| $moContent, $replyContent, $esc.json($!moContent) *- when used in `JSON` encoded `template`*| `Hello Derpina` | `MO` `MO MMS` |
         | **Retry Count**| $retryCount| `1` | `DR` `MO` `MO MMS` |
         
         *Note: A 400 response will be returned if the `url` is invalid, the `events`, `encoding` or `method` is null or the `headers` has a Content-Type  attribute.*
