@@ -5967,6 +5967,7 @@ components:
       required:
       - end_date
       - start_date
+      - delivery_options
       type: object
       properties:
         end_date:
