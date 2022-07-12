@@ -2723,7 +2723,7 @@ paths:
                   accounts: []
         '400':
           description: Bad Request. Check the json response for more details on what went wrong.
-      deprecated: false
+      deprecated: true
       x-code-samples:
         - lang: 'C#'
           source: ''
@@ -2777,7 +2777,7 @@ paths:
                   - created_datetime: 2017-02-12T13:30:00.000Z
                     last_modified_datetime: 2017-02-12T13:30:00.000Z
                 pagination: {}
-      deprecated: false
+      deprecated: true
       x-code-samples:
         - lang: 'C#'
           source: ''
@@ -2818,8 +2818,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/AsyncReport'
               example:
-                created_datetime: 2017-02-12T13:30:00.000Z
-                last_modified_datetime: 2017-02-12T13:30:00.000Z
+                id: 762b24ad-9110-42e3-b1d8-6c60a61a7235
+                report_status: DONE
         '400':
           description: Bad Request. Check the json response for more details on what went wrong.
         '404':
@@ -2870,7 +2870,7 @@ paths:
           description: Bad Request. Check the json response for more details on what went wrong.
         '404':
           description: Report not found or not finished.
-      deprecated: false
+      deprecated: true
       x-code-samples:
         - lang: 'C#'
           source: ''
@@ -2905,8 +2905,6 @@ paths:
               end_date: 2017-02-10T13:30:00.000Z
               start_date: 2017-02-12T13:30:00.000Z
               period: TODAY
-              sort_by: ACCOUNT
-              sort_direction: ASCENDING
               timezone: Australia/Melbourne
               accounts: []
               delivery_options:
@@ -2990,13 +2988,6 @@ paths:
           explode: true
           schema:
             $ref: '#/components/schemas/action'
-        - name: destination_address_country
-          in: query
-          description: Filter results by destination address country.
-          style: form
-          explode: true
-          schema:
-            type: string
         - name: destination_address
           in: query
           description: Filter results by destination address.
@@ -3041,27 +3032,6 @@ paths:
           schema:
             type: number
             format: double
-        - name: sort_by
-          in: query
-          description: Field to sort results set by
-          style: form
-          explode: true
-          schema:
-            $ref: '#/components/schemas/sort_by'
-        - name: sort_direction
-          in: query
-          description: Order to sort results by.
-          style: form
-          explode: true
-          schema:
-            $ref: '#/components/schemas/sort_direction'
-        - name: source_address_country
-          in: query
-          description: Filter results by source address country.
-          style: form
-          explode: true
-          schema:
-            type: string
         - name: source_address
           in: query
           description: Filter results by source address.
@@ -3140,8 +3110,6 @@ paths:
               end_date: 2017-02-10T13:30:00.000Z
               start_date: 2017-02-12T13:30:00.000Z
               period: TODAY
-              sort_by: DELIVERY_REPORT
-              sort_direction: ASCENDING
               timezone: Australia/Melbourne
               accounts: []
               statuses:
@@ -3220,20 +3188,6 @@ paths:
             type: array
             items:
               type: string
-        - name: delivery_report
-          in: query
-          description: Filter results by delivery report.
-          style: form
-          explode: true
-          schema:
-            type: boolean
-        - name: destination_address_country
-          in: query
-          description: Filter results by destination address country.
-          style: form
-          explode: true
-          schema:
-            type: string
         - name: destination_address
           in: query
           description: Filter results by destination address.
@@ -3299,27 +3253,6 @@ paths:
           schema:
             type: number
             format: double
-        - name: sort_by
-          in: query
-          description: Field to sort results set by
-          style: form
-          explode: true
-          schema:
-            $ref: '#/components/schemas/sort_by'
-        - name: sort_direction
-          in: query
-          description: Order to sort results by.
-          style: form
-          explode: true
-          schema:
-            $ref: '#/components/schemas/sort_direction'
-        - name: source_address_country
-          in: query
-          description: Filter results by source address country.
-          style: form
-          explode: true
-          schema:
-            type: string
         - name: source_address
           in: query
           description: Filter results by source address.
@@ -3398,8 +3331,6 @@ paths:
             example:
               end_date: 2017-02-10T13:30:00.000Z
               start_date: 2017-02-12T13:30:00.000Z
-              summary_by: COUNT
-              summary_field: MESSAGE_ID
               group_by:
                 - DAY
               period: THIS_WEEK
@@ -3489,13 +3420,6 @@ paths:
             type: array
             items:
               type: string
-        - name: destination_address_country
-          in: query
-          description: Filter results by destination address country.
-          style: form
-          explode: true
-          schema:
-            type: string
         - name: destination_address
           in: query
           description: Filter results by destination address.
@@ -3520,27 +3444,6 @@ paths:
         - name: metadata_value
           in: query
           description: 'Filter results for messages that include a metadata key containing this value. If this parameter is provided, the metadata_key parameter must also be provided.'
-          style: form
-          explode: true
-          schema:
-            type: string
-        - name: summary_by
-          in: query
-          description: Function to apply when summarising results
-          style: form
-          explode: true
-          schema:
-            $ref: '#/components/schemas/summary_by'
-        - name: summary_field
-          in: query
-          description: Field to summarise results by
-          style: form
-          explode: true
-          schema:
-            $ref: '#/components/schemas/summary_field'
-        - name: source_address_country
-          in: query
-          description: Filter results by source address country.
           style: form
           explode: true
           schema:
@@ -3701,20 +3604,6 @@ paths:
             type: array
             items:
               type: string
-        - name: delivery_report
-          in: query
-          description: Filter results by delivery report.
-          style: form
-          explode: true
-          schema:
-            type: boolean
-        - name: destination_address_country
-          in: query
-          description: Filter results by destination address country.
-          style: form
-          explode: true
-          schema:
-            type: string
         - name: destination_address
           in: query
           description: Filter results by destination address.
@@ -3722,20 +3611,6 @@ paths:
           explode: true
           schema:
             type: string
-        - name: summary_by
-          in: query
-          description: Function to apply when summarising results
-          style: form
-          explode: true
-          schema:
-            $ref: '#/components/schemas/summary_by'
-        - name: summary_field
-          in: query
-          description: Field to summarise results by
-          style: form
-          explode: true
-          schema:
-            $ref: '#/components/schemas/summary_field'
         - name: message_format
           in: query
           description: Filter results by message format.
@@ -3760,13 +3635,6 @@ paths:
         - name: status_code
           in: query
           description: Filter results by message status code.
-          style: form
-          explode: true
-          schema:
-            type: string
-        - name: source_address_country
-          in: query
-          description: Filter results by source address country.
           style: form
           explode: true
           schema:
@@ -3904,7 +3772,7 @@ paths:
           description: Data cannot be found
         '500':
           description: System Error
-      deprecated: false
+      deprecated: true
       x-code-samples:
         - lang: 'C#'
           source: ''
@@ -3986,7 +3854,7 @@ paths:
           description: Data cannot be found
         '500':
           description: System Error
-      deprecated: false
+      deprecated: true
       x-code-samples:
         - lang: 'C#'
           source: ''
@@ -6211,8 +6079,6 @@ components:
           type: string
           description: 'Start date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.'
           example: 2017-02-12T13:30:00.000Z
-        sorting:
-          $ref: '#/components/schemas/Sorting'
         filters:
           $ref: '#/components/schemas/Filters'
         timezone:
@@ -6264,23 +6130,11 @@ components:
         id:
           type: string
           description: Unique ID for this reply
-        message_type:
-          $ref: '#/components/schemas/message_type'
-        type:
-          $ref: '#/components/schemas/type'
         report_status:
           $ref: '#/components/schemas/report_status'
-        created_datetime:
-          type: string
-          description: Date time at which this report was created.
-          example: 2017-02-12T13:30:00.000Z
-        last_modified_datetime:
-          type: string
-          description: Date time at which this report was last modified.
-          example: 2017-02-12T13:30:00.000Z
       example:
-        created_datetime: 2017-02-12T13:30:00.000Z
-        last_modified_datetime: 2017-02-12T13:30:00.000Z
+        id: 762b24ad-9110-42e3-b1d8-6c60a61a7235
+        report_status: DONE
     ReceivedMessage:
       title: ReceivedMessage
       type: object
@@ -6371,13 +6225,6 @@ components:
           type: string
           description: Content of the message
           example: Hello world!
-        delivered_timestamp:
-          type: string
-          description: 'If a delivery report was requested for this message, this is the time at which the message was delivered (or failed to be delivered) to the destination address.'
-          example: 2017-02-12T13:30:00.000Z
-        delivery_report:
-          type: boolean
-          description: Indicates if a delivery report was requested for this message
         destination_address:
           type: string
           description: Address this message was delivered to
@@ -6405,13 +6252,6 @@ components:
           type: string
           description: Country associated with the source address
           example: AU
-        units:
-          type: number
-          description: |-
-            The total number of calculated SMS units this message cost. 1 SMS unit is defined as 160 GSM characters, or 153 GSM characters for multi-part messages as some characters are used to concatenate the message on the receiving handset.
-
-            Messages with one or more non-GSM characters will be submitted using UCS-2 encoding. UCS-2 encoding means the message has a maximum of 70 characters per SMS, or 67 characters for multi-part messages.
-          example: 2
         timestamp:
           type: string
           description: 'Date time at which this message was submitted to the API, refer to the delivered timestamp for the time at which the message was delivered (or failed to be delivered) to the destination address.'
@@ -6433,19 +6273,16 @@ components:
         data:
           - account: MyAccount001
             content: Hello world!
-            delivered_timestamp: 2017-02-12T13:30:00.000Z
             destination_address: 61491570156
             destination_address_country: AU
             format: AU
             source_address: 61491570156
             source_address_country: AU
-            units: 2
             timestamp: 2017-02-12T13:30:00.000Z
         pagination: {}
         properties:
           end_date: 2017-02-10T13:30:00.000Z
           start_date: 2017-02-12T13:30:00.000Z
-          sorting: {}
           filters:
             accounts: []
           timezone: 'The timezone that this report is presented in, this may be passed in as a parameter to the report, or taken from account settings'
@@ -6497,10 +6334,6 @@ components:
           description: Any filters provided as parameters for this report
         grouping:
           $ref: '#/components/schemas/grouping'
-        summary:
-          $ref: '#/components/schemas/summary'
-        summary_field:
-          $ref: '#/components/schemas/summary_field'
         timezone:
           type: string
           example: 'The timezone that this report is presented in, this may be passed in as a parameter to the report, or taken from account settings'
@@ -6533,6 +6366,7 @@ components:
       required:
         - end_date
         - start_date
+        - delivery_options
       type: object
       properties:
         end_date:
@@ -6545,10 +6379,6 @@ components:
           example: 2017-02-12T13:30:00.000Z
         period:
           $ref: '#/components/schemas/period'
-        sort_by:
-          $ref: '#/components/schemas/sort_by'
-        sort_direction:
-          $ref: '#/components/schemas/sort_direction'
         timezone:
           type: string
           description: 'The timezone to use for the context of the request. If provided this will be used as the timezone for the start date and end date parameters, and all datetime fields returns in the response. The timezone should be provided as a IANA (Internet Assigned Numbers Authority) time zone database zone name, i.e., ''Australia/Melbourne''.'
@@ -6563,9 +6393,6 @@ components:
             will be returned for the account associated with the authentication
 
             credentials and all sub accounts.
-        destination_address_country:
-          type: string
-          description: Filter results by destination address country.
         destination_address:
           type: string
           description: Filter results by destination address.
@@ -6577,9 +6404,6 @@ components:
         metadata_value:
           type: string
           description: 'Filter results for messages that include a metadata key containing this value. If this parameter is provided, the metadata_key parameter must also be provided.'
-        source_address_country:
-          type: string
-          description: Filter results by source address country.
         source_address:
           type: string
           description: Filter results by source address.
@@ -6607,6 +6431,7 @@ components:
       required:
         - end_date
         - start_date
+        - delivery_options
       type: object
       properties:
         end_date:
@@ -6619,10 +6444,6 @@ components:
           example: 2017-02-12T13:30:00.000Z
         period:
           $ref: '#/components/schemas/period'
-        sort_by:
-          $ref: '#/components/schemas/sort_by'
-        sort_direction:
-          $ref: '#/components/schemas/sort_direction'
         timezone:
           type: string
           description: 'The timezone to use for the context of the request. If provided this will be used as the timezone for the start date and end date parameters, and all datetime fields returns in the response. The timezone should be provided as a IANA (Internet Assigned Numbers Authority) time zone database zone name, i.e., ''Australia/Melbourne''.'
@@ -6637,9 +6458,6 @@ components:
             will be returned for the account associated with the authentication
 
             credentials and all sub accounts.
-        destination_address_country:
-          type: string
-          description: Filter results by destination address country.
         destination_address:
           type: string
           description: Filter results by destination address.
@@ -6651,9 +6469,6 @@ components:
         metadata_value:
           type: string
           description: 'Filter results for messages that include a metadata key containing this value. If this parameter is provided, the metadata_key parameter must also be provided.'
-        source_address_country:
-          type: string
-          description: Filter results by source address country.
         source_address:
           type: string
           description: Filter results by source address.
@@ -6667,9 +6482,6 @@ components:
         status_code:
           type: string
           description: Filter results by message status code.
-        delivery_report:
-          type: boolean
-          description: Filter results by delivery report.
         delivery_options:
           type: array
           items:
@@ -6679,8 +6491,6 @@ components:
         end_date: 2017-02-10T13:30:00.000Z
         start_date: 2017-02-12T13:30:00.000Z
         period: TODAY
-        sort_by: DELIVERY_REPORT
-        sort_direction: ASCENDING
         timezone: Australia/Melbourne
         accounts: []
         statuses:
@@ -6694,6 +6504,7 @@ components:
       required:
         - end_date
         - start_date
+        - delivery_options
       type: object
       properties:
         end_date:
@@ -6704,10 +6515,6 @@ components:
           type: string
           description: 'Start date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.'
           example: 2017-02-12T13:30:00.000Z
-        summary_by:
-          $ref: '#/components/schemas/summary_by'
-        summary_field:
-          $ref: '#/components/schemas/summary_field'
         group_by:
           type: array
           items:
@@ -6729,9 +6536,6 @@ components:
             will be returned for the account associated with the authentication
 
             credentials and all sub accounts.
-        destination_address_country:
-          type: string
-          description: Filter results by destination address country.
         destination_address:
           type: string
           description: Filter results by destination address.
@@ -6743,9 +6547,6 @@ components:
         metadata_value:
           type: string
           description: 'Filter results for messages that include a metadata key containing this value. If this parameter is provided, the metadata_key parameter must also be provided.'
-        source_address_country:
-          type: string
-          description: Filter results by source address country.
         source_address:
           type: string
           description: Filter results by source address.
@@ -6759,8 +6560,6 @@ components:
       example:
         end_date: 2017-02-10T13:30:00.000Z
         start_date: 2017-02-12T13:30:00.000Z
-        summary_by: COUNT
-        summary_field: MESSAGE_ID
         group_by:
           - DAY
         period: THIS_WEEK
@@ -6775,6 +6574,7 @@ components:
       required:
         - end_date
         - start_date
+        - delivery_options
       type: object
       properties:
         end_date:
@@ -6785,10 +6585,6 @@ components:
           type: string
           description: 'Start date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.'
           example: 2017-02-12T13:30:00.000Z
-        summary_by:
-          $ref: '#/components/schemas/summary_by'
-        summary_field:
-          $ref: '#/components/schemas/summary_field'
         group_by:
           type: array
           items:
@@ -6810,9 +6606,6 @@ components:
             will be returned for the account associated with the authentication
 
             credentials and all sub accounts.
-        destination_address_country:
-          type: string
-          description: Filter results by destination address country.
         destination_address:
           type: string
           description: Filter results by destination address.
@@ -6824,15 +6617,9 @@ components:
         metadata_value:
           type: string
           description: 'Filter results for messages that include a metadata key containing this value. If this parameter is provided, the metadata_key parameter must also be provided.'
-        source_address_country:
-          type: string
-          description: Filter results by source address country.
         source_address:
           type: string
           description: Filter results by source address.
-        delivery_report:
-          type: boolean
-          description: Filter results by delivery report.
         status_code:
           type: string
           description: Filter results by message status code.
@@ -8748,15 +8535,10 @@ components:
       title: group_by
       enum:
         - DAY
-        - DESTINATION_ADDRESS
         - DESTINATION_ADDRESS_COUNTRY
-        - FORMAT
-        - HOUR
         - METADATA_KEY
         - METADATA_VALUE
-        - MINUTE
         - MONTH
-        - SOURCE_ADDRESS
         - SOURCE_ADDRESS_COUNTRY
         - STATUS
         - STATUS_CODE
@@ -8768,16 +8550,10 @@ components:
       title: grouping
       enum:
         - DAY
-        - DELIVERY_REPORT
-        - DESTINATION_ADDRESS
         - DESTINATION_ADDRESS_COUNTRY
-        - FORMAT
-        - HOUR
         - METADATA_KEY
         - METADATA_VALUE
-        - MINUTE
         - MONTH
-        - SOURCE_ADDRESS
         - SOURCE_ADDRESS_COUNTRY
         - STATUS
         - STATUS_CODE
