@@ -3199,7 +3199,7 @@ paths:
           description: Data cannot be found
         500:
           description: System Error
-      deprecated: true
+      deprecated: false
   /v1/reporting/links/detail:
     get:
       security:
@@ -3268,7 +3268,7 @@ paths:
           description: Data cannot be found
         500:
           description: System Error
-      deprecated: true
+      deprecated: false
   /v1/webhooks/messages:
     get:
       security:
