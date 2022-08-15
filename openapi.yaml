@@ -10,7 +10,7 @@ info:
     name: Apache 2.0
     url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
   x-logo:
-    url: 'https://developers.messagemedia.com/wp-content/themes/devportal/dist/images/MM-logo-New.png)'
+    url: 'https://theme.zdassets.com/theme_assets/11469326/eeda46f8e36425a85721c90df7aeb86541f19d9e.png'
   description: |
     # Introduction
     The MessageMedia APIs provide powerful business messaging capabilities across sending, receiving, and processing SMS, MMS, and rich messaging. 
@@ -3772,7 +3772,7 @@ paths:
           description: Data cannot be found
         '500':
           description: System Error
-      deprecated: true
+      deprecated: false
       x-code-samples:
         - lang: 'C#'
           source: ''
@@ -3854,7 +3854,7 @@ paths:
           description: Data cannot be found
         '500':
           description: System Error
-      deprecated: true
+      deprecated: false
       x-code-samples:
         - lang: 'C#'
           source: ''
