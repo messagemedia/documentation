@@ -450,7 +450,7 @@ tags:
       Any numbers that do not meet the criteria for Gold or Silver are classified as Bronze.
 
       For pricing on dedicated numbers please refer to the Numbers page in our Hub web portal, or speak with your MessageMedia Account Manager.   
-  - name: Messaging Reports
+  - name: LEGACY V1 Reports
     description: >-
       The MessageMedia Reports API provides a number of endpoints for running reports of messages sent and received using Messages API. 
       Reports can be detailed, a list of all messages and details of each message, or summary reports, which can be aggregated on a number of dimensions.
@@ -2229,7 +2229,7 @@ paths:
         - basic_auth: []
         - hmac_auth: []
       tags:
-      - Messaging Reports
+      - LEGACY V1 Reports
       summary: Get metadata keys
       description: Returns a list of metadata keys
       operationId: GetMetadataKeys
@@ -2305,7 +2305,7 @@ paths:
         - basic_auth: []
         - hmac_auth: []
       tags:
-      - Messaging Reports
+      - LEGACY V1 Reports
       summary: Get async reports
       description: Lists asynchronous reports.
       operationId: GetAsyncReports
@@ -2346,7 +2346,7 @@ paths:
         - basic_auth: []
         - hmac_auth: []
       tags:
-      - Messaging Reports
+      - LEGACY V1 Reports
       summary: Get async report by Id
       description: Gets a single asynchronous report.
       operationId: GetAsyncReportById
@@ -2380,7 +2380,7 @@ paths:
         - basic_auth: []
         - hmac_auth: []
       tags:
-      - Messaging Reports
+      - LEGACY V1 Reports
       summary: Get async report data by Id
       description: Gets the data of an asynchronous report.
       operationId: GetAsyncReportDataById
@@ -2413,7 +2413,7 @@ paths:
         - basic_auth: []
         - hmac_auth: []
       tags:
-      - Messaging Reports
+      - LEGACY V1 Reports
       summary: Submit received messages detail
       description: Submits a request to generate an async detail report
       operationId: SubmitReceivedMessagesDetail
@@ -2454,7 +2454,7 @@ paths:
         - basic_auth: []
         - hmac_auth: []
       tags:
-      - Messaging Reports
+      - LEGACY V1 Reports
       summary: Get received messages detail
       description: Returns a list message received
       operationId: GetReceivedMessagesDetail
@@ -2594,7 +2594,7 @@ paths:
         - basic_auth: []
         - hmac_auth: []
       tags:
-      - Messaging Reports
+      - LEGACY V1 Reports
       summary: Submit sent messages detail
       description: Submits a request to generate an async detail report
       operationId: SubmitSentMessagesDetail
@@ -2637,7 +2637,7 @@ paths:
         - basic_auth: []
         - hmac_auth: []
       tags:
-      - Messaging Reports
+      - LEGACY V1 Reports
       summary: Get sent messages detail
       description: Returns a list of message sent
       operationId: GetSentMessagesDetail
@@ -2792,7 +2792,7 @@ paths:
         - basic_auth: []
         - hmac_auth: []
       tags:
-      - Messaging Reports
+      - LEGACY V1 Reports
       summary: Submit received messages summary
       description: Submits a summarised report of received messages
       operationId: SubmitReceivedMessagesSummary
@@ -2837,7 +2837,7 @@ paths:
         - basic_auth: []
         - hmac_auth: []
       tags:
-      - Messaging Reports
+      - LEGACY V1 Reports
       summary: Get received messages summary
       description: Returns a summarised report of messages received
       operationId: GetReceivedMessagesSummary
@@ -2952,7 +2952,7 @@ paths:
         - basic_auth: []
         - hmac_auth: []
       tags:
-      - Messaging Reports
+      - LEGACY V1 Reports
       summary: Submit sent messages summary
       description: Submits a summarised report of sent messages
       operationId: SubmitSentMessagesSummary
@@ -2997,7 +2997,7 @@ paths:
         - basic_auth: []
         - hmac_auth: []
       tags:
-      - Messaging Reports
+      - LEGACY V1 Reports
       summary: Get sent messages summary
       description: Returns a summarised report of messages sent
       operationId: GetSentMessagesSummary
