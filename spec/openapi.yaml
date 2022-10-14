@@ -8104,13 +8104,15 @@ components:
         created_timestamp: 2019-11-03T11:49:02.807Z
         modified_timestamp: 2019-11-04T11:49:02.807Z
     format:
-      title: format
-      enum:
-      - MMS
-      - SMS
-      - TTS
-      - RCS
-      type: string
+      title: MessageType
+      type: array
+      items:
+        type: string
+        enum:
+          - MMS
+          - SMS
+          - TTS
+          - RCS
       description: Format of message, SMS or TTS (Text To Speech)
     group_by:
       title: group_by
