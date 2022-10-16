@@ -693,7 +693,7 @@ paths:
             example: 2019-12-14T00:00:00.000+11:00
         - name: direction
           in: query
-          description: Start date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.
+          description: The type of messages to include in the report. Accepted values are `inbound`, `outbound`, and `all` (inbound and outbound)
           style: form
           explode: true
           schema:
