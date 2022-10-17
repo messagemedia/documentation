@@ -741,7 +741,7 @@ paths:
             example: ABC
         - name: metadata_values
           in: query
-          description: Specify a list of metadata values to filter for messages including a filtered metadata value. If this parameter is provided, the metadata_key parameter must also be provided.
+          description:  Specifies a list of metadata values to filter the report by. If this parameter is provided, the metadata_key parameter must also be provided.
           style: form
           explode: true
           schema:
