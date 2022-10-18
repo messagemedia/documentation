@@ -733,7 +733,7 @@ paths:
             example: broadcastId
         - name: metadata_value
           in: query
-          description: Filter results for messages that include a metadata key containing this value. If this parameter is provided, the metadata_key parameter must also be provided.
+          description: Filter results to only include messages that have a certain value against one of their metadata tags. If this parameter is included in the report, then the metadata_key parameter must also be included to filter the report by the appropriate key for the specified value.
           style: form
           explode: true
           schema:
@@ -741,7 +741,7 @@ paths:
             example: ABC
         - name: metadata_values
           in: query
-          description:  Specifies a list of metadata values to filter the report by. If this parameter is provided, the metadata_key parameter must also be provided.
+          description: Specifies a list of metadata values to filter the report by. If this parameter is included in the report, then the metadata_key parameter must also be included to filter the report by the appropriate key for the specified value.
           style: form
           explode: true
           schema:
@@ -818,26 +818,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ReceivedMessages'
-              example:
-                data:
-                  - account: MyAccount001
-                    action: MyAccount001
-                    content: Hello back
-                    destination_address: +61491570156
-                    destination_address_country: AU
-                    format: AU
-                    source_address: +61491570156
-                    source_address_country: AU
-                    timestamp: 2017-02-12T13:30:00
-                pagination: { }
-                properties:
-                  end_date: 2017-02-10T13:30:00
-                  start_date: 2017-02-12T13:30:00
-                  sorting: { }
-                  filters:
-                    accounts: [ ]
-                  timezone: The timezone that this report is presented in, this may be passed in as a parameter to the report, or taken from account settings
+                $ref: '#/components/schemas/detailresponse'
         400:
           description: Bad Request. Check the json response for more details on what went wrong.
       deprecated: false
@@ -4969,6 +4950,16 @@ paths:
 # An object to hold reusable parts that can be used across the spec
 components:
   schemas:
+    detailresponse:
+      title: detailresponse
+      type: object
+      properties:
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/Message'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
     Confirmdeliveryreportsasreceivedrequest:
       title: Confirmeliveryreportsasreceivedrequest
       required:
@@ -8113,6 +8104,7 @@ components:
           - SMS
           - TTS
           - RCS
+          - CHANNEL
       description: Format of message, SMS or TTS (Text To Speech)
     group_by:
       title: group_by
