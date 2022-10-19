@@ -662,7 +662,7 @@ servers:
 # Holds the relative paths to the individual endpoints. The path is appended to the
 # basePath in order to construct the full URL. 
 paths:
-  /v2/reporting/messages/summary:
+  /v2-preview/reporting/messages/summary:
     post:
       security:
         - basic_auth: [ ]
@@ -812,7 +812,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/summaryresponse'
       deprecated: false
-  /v2/reporting/messages/insight:
+  /v2-preview/reporting/messages/insight:
     post:
       security:
         - basic_auth: [ ]
