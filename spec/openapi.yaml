@@ -454,6 +454,12 @@ tags:
     description: >-
       The MessageMedia Reports API provides a number of endpoints for running reports of messages sent and received using Messages API. 
       Reports can be detailed, a list of all messages and details of each message, or summary reports, which can be aggregated on a number of dimensions.
+  - name: Messaging Reports
+    description: |
+      The MessageMedia Reports API provides a number of endpoints for running reports of messages sent and received through
+      a MessageMedia Account. The API allows two kinds of reports, _Detailed Reports_ and _Summary Reports_.
+      
+      Detailed reports list all messages and the details of each message sent or received in a specified time period. Summary reports allow inbound and outbound message data to be aggregated on a number of dimensions.
   - name: Short Trackable Links Reports
     description: |
       Short Trackable Links is a feature available to [Messaging API](https://developers.messagemedia.com/code/messages-api-documentation/) users whereby it automatically and seamlessly shortens any URL to just 22 characters. Every shortened URL is unique to each recipient.
@@ -656,6 +662,166 @@ servers:
 # Holds the relative paths to the individual endpoints. The path is appended to the
 # basePath in order to construct the full URL. 
 paths:
+  /v2-preview/reporting/messages/detail:
+    post:
+      security:
+        - basic_auth: [ ]
+        - hmac_auth: [ ]
+      tags:
+        - Messaging Reports
+      summary: Post detail report
+      description: Generates a report listing all sent and/or received messages within a specified time period.
+      operationId: PostDetailReport
+      parameters:
+        - name: start_date
+          in: query
+          description: Start date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: 2019-12-12T00:00:00.000+11:00
+        - name: end_date
+          in: query
+          description: End date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: 2019-12-14T00:00:00.000+11:00
+        - name: direction
+          in: query
+          description: The type of messages to include in the report. Accepted values are `inbound`, `outbound`, and `all` (inbound and outbound)
+          style: form
+          explode: true
+          schema:
+            type: object
+        - name: source
+          in: query
+          description: Filter results by source address.
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: +61555555555
+        - name: destination
+          in: query
+          description: Filter results by destination address.
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: +61555555555
+        - name: destinations
+          in: query
+          description: Specify a list of destination numbers to filter the report by
+          style: form
+          explode: true
+          schema:
+            type: array
+            items:
+              type: string
+        - name: metadata_key
+          in: query
+          description: Filter results for messages that include a metadata key. If this parameter is included in the query, then either the metadata_value or metadata_values parameter must also be included to filter the report by the appropriate key for the specified value.
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: broadcastId
+        - name: metadata_value
+          in: query
+          description: Filter results to only include messages that have a certain value against one of their metadata tags. If this parameter is included in the query, then the metadata_key parameter must also be included to filter the report by the appropriate key for the specified value.
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: ABC
+        - name: metadata_values
+          in: query
+          description: Specifies a list of metadata values to filter the report by. If this parameter is included in the query, then the metadata_key parameter must also be included to filter the report by the appropriate key for the specified value.
+          style: form
+          explode: true
+          schema:
+            type: array
+            items:
+              type: string
+        - name: accounts
+          in: query
+          description: >-
+            Filter results by a specific account. By default results
+            will be returned for the account associated with the authentication
+            credentials and all sub accounts.
+          style: form
+          explode: true
+          schema:
+            type: array
+            items:
+              type: string
+        - name: status
+          in: query
+          description: >-
+            An array of message statuses
+          style: form
+          explode: true
+          schema:
+            type: array
+            items:
+              type: object
+        - name: opt_out
+          in: query
+          description: Filter results by message format.
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: true
+        - name: mms_media
+          in: query
+          description: Set to true to include mms media
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: true
+        - name: message_format
+          in: query
+          description: Filter results by message format, using enumerable MessageType.
+          style: form
+          explode: true
+          schema:
+            $ref: '#/components/schemas/format'
+        - name: page
+          in: query
+          description: Page number for paging through paginated result sets.
+          style: form
+          explode: true
+          schema:
+            type: number
+            format: double
+            example: 0
+        - name: page_size
+          in: query
+          description: Number of results to return in a page for paginated result sets.
+          style: form
+          explode: true
+          schema:
+            type: number
+            format: double
+            example: 20
+      responses:
+        200:
+          description: A list of all messages received in the specified time window
+          headers: { }
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/detailresponse'
+        400:
+          description: Bad Request. Check the json response for more details on what went wrong.
+      deprecated: false
   '/v1/messages/{messageId}':
     get:
       security:
@@ -4784,6 +4950,16 @@ paths:
 # An object to hold reusable parts that can be used across the spec
 components:
   schemas:
+    detailresponse:
+      title: detailresponse
+      type: object
+      properties:
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/Message'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
     Confirmdeliveryreportsasreceivedrequest:
       title: Confirmeliveryreportsasreceivedrequest
       required:
@@ -7919,14 +8095,17 @@ components:
         created_timestamp: 2019-11-03T11:49:02.807Z
         modified_timestamp: 2019-11-04T11:49:02.807Z
     format:
-      title: format
-      enum:
-      - MMS
-      - SMS
-      - TTS
-      type: string
+      title: MessageType
+      type: array
+      items:
+        type: string
+        enum:
+          - MMS
+          - SMS
+          - TTS
+          - RCS
+          - CHANNEL
       description: Format of message, SMS or TTS (Text To Speech)
-      example: AU
     group_by:
       title: group_by
       enum:
