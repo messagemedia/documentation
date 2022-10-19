@@ -662,7 +662,7 @@ servers:
 # Holds the relative paths to the individual endpoints. The path is appended to the
 # basePath in order to construct the full URL. 
 paths:
-  /v2_preview/reporting/messages/detail:
+  /v2-preview/reporting/messages/detail:
     post:
       security:
         - basic_auth: [ ]
