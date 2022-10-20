@@ -449,11 +449,7 @@ tags:
 
       Any numbers that do not meet the criteria for Gold or Silver are classified as Bronze.
 
-      For pricing on dedicated numbers please refer to the Numbers page in our Hub web portal, or speak with your MessageMedia Account Manager.   
-  - name: LEGACY V1 Reports
-    description: >-
-      The MessageMedia Reports API provides a number of endpoints for running reports of messages sent and received using Messages API. 
-      Reports can be detailed, a list of all messages and details of each message, or summary reports, which can be aggregated on a number of dimensions.
+      For pricing on dedicated numbers please refer to the Numbers page in our Hub web portal, or speak with your MessageMedia Account Manager.
   - name: Messaging Reports
     description: |
       The MessageMedia Reports API provides a number of endpoints for running reports of messages sent and received through
@@ -655,7 +651,10 @@ tags:
       | ![](Https://developers.messagemedia.com/wp-content/templates/Template1.png) | 7614456e-844f-4d83-bdfe-20c17ce0f97c |
       | ![](Https://developers.messagemedia.com/wp-content/templates/Template2.png) | f56b5806-f732-4693-b87a-90b66a7d7bfc |
       |![](Https://developers.messagemedia.com/wp-content/templates/template3.png) | c9d7ce1d-20c4-4228-9ba1-6da2a3b4e5e0 |
-
+  - name: LEGACY V1 Reports
+    description: >-
+      The MessageMedia Reports API provides a number of endpoints for running reports of messages sent and received using Messages API. 
+      Reports can be detailed, a list of all messages and details of each message, or summary reports, which can be aggregated on a number of dimensions.
 servers:
   - url: 'https://api.messagemedia.com/'
 
@@ -830,7 +829,7 @@ paths:
       tags:
         - Messaging Reports
       summary: Post async detail report
-      description: Generates a report listing all sent and/or received messages within a specified time period.
+      description: Generates an asynchronous report listing all sent and/or received messages within a specified time period.
       operationId: PostAsyncDetailReport
       parameters:
         - name: start_date
@@ -882,15 +881,6 @@ paths:
           schema:
             type: string
             example: +61555555555
-        - name: destinations
-          in: query
-          description: Specify a list of destination numbers to filter the report by
-          style: form
-          explode: true
-          schema:
-            type: array
-            items:
-              type: string
         - name: metadata_key
           in: query
           description: Filter results for messages that include a metadata key.
@@ -953,6 +943,181 @@ paths:
             type: array
             items:
               $ref: '#/components/schemas/asyncfieldsrequest'
+        - name: delivery_options
+          in: query
+          description: A list of options to configure the delivery of the report.
+          style: form
+          explode: true
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/deliveryOptionsBody'
+      responses:
+        202:
+          description: A list of all messages received in the specified time window
+          headers: { }
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/asyncreportresponse'
+        400:
+          description: Bad Request. Check the json response for more details on what went wrong.
+      deprecated: false
+  /v2-preview/reporting/messages/async/summary:
+    post:
+      security:
+        - basic_auth: [ ]
+        - hmac_auth: [ ]
+      tags:
+        - Messaging Reports
+      summary: Post async summary report
+      description: Creates an asynchronous report summary containing total number of sent, received and billing units.
+      operationId: PostAsyncSummaryReport
+      parameters:
+        - name: start_date
+          in: query
+          description: Start date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: 2019-12-12T00:00:00.000+11:00
+        - name: end_date
+          in: query
+          description: End date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: 2019-12-14T00:00:00.000+11:00
+        - name: timezone
+          in: query
+          description: The timezone of the messages to include, using the name of the region.
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: Australia/Sydney
+        - name: direction
+          in: query
+          description: The type of messages to include in the report. Accepted values are `inbound`, `outbound`, and `all` (inbound and outbound)
+          style: form
+          explode: true
+          schema:
+            type: object
+        - name: source
+          in: query
+          description: Filter results by source address.
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: +61555555555
+        - name: destination
+          in: query
+          description: Filter results by destination address.
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: +61555555555
+        - name: metadata_key
+          in: query
+          description: Filter results for messages that include a metadata key.
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: broadcastId
+        - name: metadata_value
+          in: query
+          description: Filter results for messages that include a metadata key containing this value. If this parameter is provided, the metadata_key parameter must also be provided.
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: ABC
+        - name: accounts
+          in: query
+          description: >-
+            Filter results by a specific account. By default results
+            will be returned for the account associated with the authentication
+            credentials and all sub accounts.
+          style: form
+          explode: true
+          schema:
+            type: array
+            items:
+              type: string
+        - name: status
+          in: query
+          description: >-
+            An array of message statuses
+          style: form
+          explode: true
+          schema:
+            type: array
+            items:
+              type: object
+        - name: opt_out
+          in: query
+          description: Filter results by message format.
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: true
+        - name: group_by
+          in: query
+          description: Group results by a list of values, from the enumerable table above.
+          style: form
+          explode: true
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/group_by'
+        - name: delivery_options
+          in: query
+          description: A list of options to configure the delivery of the report.
+          style: form
+          explode: true
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/deliveryOptionsBody'
+      responses:
+        202:
+          description: A list of all messages received in the specified time window
+          headers: { }
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/detailresponse'
+        400:
+          description: Bad Request. Check the json response for more details on what went wrong.
+      deprecated: false
+  /v2-preview/reporting/messages/async/status:
+    get:
+      security:
+        - basic_auth: [ ]
+        - hmac_auth: [ ]
+      tags:
+        - Messaging Reports
+      summary: Get async detail report status
+      description: Retrieves the status of a detail report.
+      operationId: GetAsyncDetailStatus
+      parameters:
+        - name: report_id
+          in: query
+          description: The ID of the detail report to retrieve.
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: abc
       responses:
         200:
           description: A list of all messages received in the specified time window
@@ -960,26 +1125,76 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ReceivedMessages'
-              example:
-                data:
-                  - account: MyAccount001
-                    action: MyAccount001
-                    content: Hello back
-                    destination_address: +61491570156
-                    destination_address_country: AU
-                    format: AU
-                    source_address: +61491570156
-                    source_address_country: AU
-                    timestamp: 2017-02-12T13:30:00
-                pagination: { }
-                properties:
-                  end_date: 2017-02-10T13:30:00
-                  start_date: 2017-02-12T13:30:00
-                  sorting: { }
-                  filters:
-                    accounts: [ ]
-                  timezone: The timezone that this report is presented in, this may be passed in as a parameter to the report, or taken from account settings
+                $ref: '#/components/schemas/reportstatusresponse'
+        400:
+          description: Bad Request. Check the json response for more details on what went wrong.
+      deprecated: false
+  /v2-preview/reporting/messages/async/detail/fields:
+    get:
+      security:
+        - basic_auth: [ ]
+        - hmac_auth: [ ]
+      tags:
+        - Messaging Reports
+      summary: Get async detail fields
+      description: Can be used for async detail report to select the fields to export csv files
+      operationId: GetAsyncDetailFields
+      parameters:
+        - name: page
+          in: query
+          style: form
+          explode: true
+          example: 1
+          schema:
+            type: number
+        - name: page_size
+          in: query
+          style: form
+          explode: true
+          example: 50
+          schema:
+            type: number
+        - name: start_date
+          in: query
+          style: form
+          explode: true
+          required: true
+          example: 2020-05-28T10:27:46.259Z
+          schema:
+            type: string
+        - name: end_date
+          in: query
+          style: form
+          explode: true
+          required: true
+          example: 2020-06-28T10:27:46.259Z
+          schema:
+            type: string
+        - name: direction
+          in: query
+          style: form
+          explode: true
+          schema:
+            type: string
+            enum:
+              - inbound
+              - outbound
+              - all
+        - name: accounts
+          in: query
+          example: account1
+          schema:
+            type: array
+            items:
+              type: string
+      responses:
+        200:
+          description: A list of all messages received in the specified time window
+          headers: { }
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/fieldsresponse'
         400:
           description: Bad Request. Check the json response for more details on what went wrong.
       deprecated: false
@@ -5123,6 +5338,36 @@ components:
           type: string
           required: true
           example: id
+    asyncreportresponse:
+      title: asyncreportresponse
+      type: object
+      properties:
+        report_id:
+          type: string
+          required: true
+          example: 51f0097f-90b2-4a59-ad88-a0fd93abaa82
+    reportstatusresponse:
+      title: reportstatusresponse
+      type: object
+      properties:
+        report_status:
+          type: string
+          enum:
+            - REQUESTED
+            - RUNNING
+            - FAILED
+            - CANCELLED
+            - DONE
+          example: DONE
+    fieldsresponse:
+      title: fieldsresponse
+      type: object
+      properties:
+        fields:
+          type: array
+          items:
+            type: string
+            example: id, content, meta1
     detailresponse:
       title: detailresponse
       type: object
