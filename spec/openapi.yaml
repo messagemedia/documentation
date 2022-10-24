@@ -871,120 +871,21 @@ paths:
       summary: Post async summary report
       description: Creates an asynchronous report summary containing total number of sent, received and billing units.
       operationId: PostAsyncSummaryReport
-      parameters:
-        - name: start_date
-          in: query
-          description: Start date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: 2019-12-12T00:00:00.000+11:00
-        - name: end_date
-          in: query
-          description: End date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: 2019-12-14T00:00:00.000+11:00
-        - name: timezone
-          in: query
-          description: The timezone of the messages to include, using the name of the region.
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: Australia/Sydney
-        - name: direction
-          in: query
-          description: The type of messages to include in the report. Accepted values are `inbound`, `outbound`, and `all` (inbound and outbound)
-          style: form
-          explode: true
-          schema:
-            type: object
-        - name: source
-          in: query
-          description: Filter results by source address.
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: +61555555555
-        - name: destination
-          in: query
-          description: Filter results by destination address.
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: +61555555555
-        - name: metadata_key
-          in: query
-          description: Filter results for messages that include a metadata key.
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: broadcastId
-        - name: metadata_value
-          in: query
-          description: Filter results for messages that include a metadata key containing this value. If this parameter is provided, the metadata_key parameter must also be provided.
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: ABC
-        - name: accounts
-          in: query
-          description: >-
-            Filter results by a specific account. By default results
-            will be returned for the account associated with the authentication
-            credentials and all sub accounts.
-          style: form
-          explode: true
-          schema:
-            type: array
-            items:
-              type: string
-        - name: status
-          in: query
-          description: >-
-            An array of message statuses
-          style: form
-          explode: true
-          schema:
-            type: array
-            items:
-              type: object
-        - name: opt_out
-          in: query
-          description: Filter results by message format.
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: true
-        - name: group_by
-          in: query
-          description: Group results by a list of values, from the enumerable table above.
-          style: form
-          explode: true
-          schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/group_by'
-        - name: delivery_options
-          in: query
-          description: A list of options to configure the delivery of the report.
-          style: form
-          explode: true
-          schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/deliveryOptionsBody'
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/asyncsummaryrequest'
+            example:
+              start_date: 2019-12-12T00:00:00.000+11:00
+              end_date: 2019-12-14T00:00:00.000+11:00
+              timezone: Australia/Sydney
+              source: +61555555555
+              metadata_key: broadcastId
+              metadata_value: ABC
+              opt_out: true
       responses:
         202:
           description: A list of all messages received in the specified time window
@@ -5285,6 +5186,64 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/asyncfieldsrequest'
+        delivery_options:
+          description: A list of options to configure the delivery of the report.
+          type: array
+          items:
+            $ref: '#/components/schemas/deliveryOptionsBody'
+    asyncsummaryrequest:
+      title: asyncsummaryrequest
+      required:
+        - start_date
+        - end_date
+      type: object
+      properties:
+        start_date:
+          description: Start date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.
+          type: string
+        end_date:
+          description: End date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.
+          type: string
+        timezone:
+          description: The timezone of the messages to include, using the name of the region.
+          type: string
+        direction:
+          description: The type of messages to include in the report. Accepted values are `inbound`, `outbound`, and `all` (inbound and outbound)
+          type: object
+        source:
+          description: Filter results by source address.
+          type: string
+        destination:
+          description: Filter results by destination address.
+          type: string
+        metadata_key:
+          description: Filter results for messages that include a metadata key.
+          type: string
+        metadata_value:
+          description: Filter results for messages that include a metadata key containing this value. If this parameter is provided, the metadata_key parameter must also be provided.
+          type: string
+        accounts:
+          description: >-
+            Filter results by a specific account. By default results
+            will be returned for the account associated with the authentication
+            credentials and all sub accounts.
+          type: array
+          items:
+            type: string
+        status:
+          description: >-
+            An array of message statuses
+          type: array
+          items:
+            type: object
+        opt_out:
+          description: Filter results by message format.
+          type: string
+        group_by:
+          description: Group results by a list of values, from the enumerable table above.
+          type: array
+          items:
+            $ref: '#/components/schemas/group_by'
         delivery_options:
           description: A list of options to configure the delivery of the report.
           type: array
