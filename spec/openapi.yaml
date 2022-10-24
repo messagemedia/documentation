@@ -938,54 +938,19 @@ paths:
       summary: Get async detail fields
       description: Can be used for async detail report to select the fields to export csv files
       operationId: GetAsyncDetailFields
-      parameters:
-        - name: page
-          in: query
-          style: form
-          explode: true
-          example: 1
-          schema:
-            type: number
-        - name: page_size
-          in: query
-          style: form
-          explode: true
-          example: 50
-          schema:
-            type: number
-        - name: start_date
-          in: query
-          style: form
-          explode: true
-          required: true
-          example: 2020-05-28T10:27:46.259Z
-          schema:
-            type: string
-        - name: end_date
-          in: query
-          style: form
-          explode: true
-          required: true
-          example: 2020-06-28T10:27:46.259Z
-          schema:
-            type: string
-        - name: direction
-          in: query
-          style: form
-          explode: true
-          schema:
-            type: string
-            enum:
-              - inbound
-              - outbound
-              - all
-        - name: accounts
-          in: query
-          example: account1
-          schema:
-            type: array
-            items:
-              type: string
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/metakeyrequest'
+            example:
+              page: 1
+              page_size: 50
+              start_date: 2020-05-28T10:27:46.259Z
+              end_date: 2020-06-28T10:27:46.259Z
+
       responses:
         200:
           description: A list of selected fields to export csv files.
@@ -5261,6 +5226,31 @@ components:
           type: string
           required: true
           example: id
+    metakeyrequest:
+      title: metakeyrequest
+      type: object
+      required:
+        - start_date
+        - end_date
+      properties:
+        page:
+          type: number
+        page_size:
+          type: number
+        start_date:
+          type: string
+        end_date:
+          type: string
+        direction:
+          type: string
+          enum:
+            - inbound
+            - outbound
+            - all
+        accounts:
+          type: array
+          items:
+            type: string
     asyncreportresponse:
       title: asyncreportresponse
       type: object
