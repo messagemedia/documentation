@@ -1156,6 +1156,108 @@ paths:
               schema:
                 $ref: '#/components/schemas/scheduledreportresponse'
       deprecated: false
+  /v2-preview/reporting/detail/scheduled/{scheduled_id}:
+    put:
+      security:
+        - basic_auth: []
+        - hmac_auth: []
+      tags:
+        - Messaging Reports
+      summary: Update a scheduled detail report
+      description: >-
+        Updates a selected scheduled report in detail, which contains a total number of sent, received and billing units.
+      operationId: updatedetailscheduledreport
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/scheduleddetailreport'
+            example:
+              label:
+              schedule:
+                timezone: Australia/Sydney
+                cron_expression: 0 0 * * * ? *
+                type: cron
+              report:
+        required: true
+      responses:
+        '200':
+          description: The updated scheduled detail report.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scheduleddetailreport'
+      deprecated: false
+  /v2-preview/reporting/summary/scheduled:
+    post:
+      security:
+        - basic_auth: []
+        - hmac_auth: []
+      tags:
+        - Messaging Reports
+      summary: Scheduled summary report
+      description: >-
+        Create scheduled report summary containing total number of sent, received and billing units.
+      operationId: summaryscheduledreport
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/scheduledsummaryreport'
+            example:
+              label:
+              schedule:
+                timezone: Australia/Sydney
+                cron_expression: 0 0 * * * ? *
+                type: cron
+              report:
+        required: true
+      responses:
+        '201':
+          description: A scheduled summary report received using the specified parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scheduledreportresponse'
+      deprecated: false
+  /v2-preview/reporting/summary/scheduled/{scheduled_id}:
+    put:
+      security:
+        - basic_auth: []
+        - hmac_auth: []
+      tags:
+        - Messaging Reports
+      summary: Update a scheduled summary report
+      description: >-
+        Updates a selected scheduled report summary, which contains a total number of sent, received and billing units.
+      operationId: updatesummaryscheduledreport
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/scheduledsummaryreport'
+            example:
+              label:
+              schedule:
+                timezone: Australia/Sydney
+                cron_expression: 0 0 * * * ? *
+                type: cron
+              report:
+        required: true
+      responses:
+        '200':
+          description: The updated scheduled summary report.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scheduledsummaryreport'
+      deprecated: false
   '/v1/messages/{messageId}':
     get:
       security:
@@ -5294,7 +5396,7 @@ components:
         label:
           type: string
         schedule:
-          $ref: '#/componenets/schemas/schedule'
+          $ref: '#/components/schemas/schedule'
         report:
           $ref: '#/components/schemas/scheduleddetailrequest'
     scheduleddetailrequest:
@@ -5326,7 +5428,11 @@ components:
         accounts:
           type: array
           items:
-            $ref: '/#/componenets/schemas/MessageStatus'
+            type: string
+        status:
+          type: array
+          items:
+            $ref: '#/components/schemas/MessageStatus'
         opt_out:
           type: string
           example: true
@@ -5376,6 +5482,65 @@ components:
         scheduled_report_id:
           type: string
           example: 51f0097f-90b2-4a59-ad88-a0fd93abaa82
+    scheduledsummaryreport:
+      title: scheduledsummaryreport
+      type: object
+      required:
+        - label
+        - schedule
+      properties:
+        label:
+          type: string
+        schedule:
+          $ref: '#/components/schemas/schedule'
+        report:
+          $ref: '#/components/schemas/scheduledsummaryrequest'
+    scheduledsummaryrequest:
+      title: scheduledsummaryrequest
+      type: object
+      required:
+        - period
+        - timezone
+      properties:
+        period:
+          $ref: '#/components/schemas/ReportPeriod'
+        timezone:
+          type: string
+          example: Australia/Sydney
+          description: The standard timezone name
+        direction:
+          $ref: '#/components/schemas/MessageDirection'
+        source:
+          type: string
+          example: +61555555555
+        destination:
+          type: string
+          example: +61555555555
+        metadata_key:
+          type: string
+          example: broadcastId
+        metadata_value:
+          type: string
+          example: ABC
+        accounts:
+          type: array
+          items:
+            type: string
+        status:
+          type: array
+          items:
+            $ref: '#/components/schemas/MessageStatus'
+        opt_out:
+          type: string
+          example: true
+        group_by:
+          type: array
+          items:
+            $ref: '#/components/schemas/group_by'
+        delivery_options:
+          type: array
+          items:
+            $ref: '#/components/schemas/deliveryOptionsBody'
     detailresponse:
       title: detailresponse
       type: object
@@ -8620,7 +8785,31 @@ components:
       - RECEIVED_MESSAGES
       type: string
       example: SENT_MESSAGES
-
+    MessageDirection:
+      title: MessageDirection
+      enum:
+        - inbound
+        - outbound
+        - all
+      example: all
+    MessageStatus:
+      title: MessageStatus
+      enum:
+        - UNDEFINED
+        - QUEUED
+        - PROCESSING
+        - PROCESSED
+        - FAILED
+        - SCHEDULED
+        - CANCELLED
+        - DELIVERED
+        - EXPIRED
+        - ENROUTE
+        - HELD
+        - SUBMITTED
+        - REJECTED
+        - READ
+      example: DELIVERED
   headers:
     ExpiresAfter:
       description: date in UTC when token expires
