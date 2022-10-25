@@ -929,7 +929,7 @@ paths:
           description: Bad Request. Check the json response for more details on what went wrong.
       deprecated: false
   /v2-preview/reporting/messages/async/detail/fields:
-    get:
+    post:
       security:
         - basic_auth: [ ]
         - hmac_auth: [ ]
@@ -5217,14 +5217,15 @@ components:
     asyncfieldsrequest:
       title: asyncfieldsrequest
       type: object
+      required:
+        - name
+        - display_name
       properties:
         name:
           type: string
-          required: true
           example: id
         display_name:
           type: string
-          required: true
           example: id
     metakeyrequest:
       title: metakeyrequest
@@ -5254,10 +5255,11 @@ components:
     asyncreportresponse:
       title: asyncreportresponse
       type: object
+      required:
+        - report_id
       properties:
         report_id:
           type: string
-          required: true
           example: 51f0097f-90b2-4a59-ad88-a0fd93abaa82
     reportstatusresponse:
       title: reportstatusresponse
