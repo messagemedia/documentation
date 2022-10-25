@@ -312,6 +312,408 @@
         "deprecated": false
       }
     },
+    "/v2-preview/reporting/messages/summary": {
+      "post": {
+        "security": [
+          {
+            "basic_auth": []
+          },
+          {
+            "hmac_auth": []
+          }
+        ],
+        "tags": [
+          "Messaging Reports"
+        ],
+        "summary": "Post summary report",
+        "description": "Create daily report summary containing total number of sent, received and billing units.",
+        "operationId": "PostSummaryReport",
+        "parameters": [
+          {
+            "name": "start_date",
+            "in": "query",
+            "description": "Start date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "example": "2019-12-11T13:00:00.000Z"
+            }
+          },
+          {
+            "name": "end_date",
+            "in": "query",
+            "description": "End date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "example": "2019-12-13T13:00:00.000Z"
+            }
+          },
+          {
+            "name": "timezone",
+            "in": "query",
+            "description": "The timezone of the messages to include, using the name of the region.",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "example": "Australia/Sydney"
+            }
+          },
+          {
+            "name": "direction",
+            "in": "query",
+            "description": "The type of messages to include in the report. Accepted values are `inbound`, `outbound`, and `all` (inbound and outbound)",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "object"
+            }
+          },
+          {
+            "name": "source",
+            "in": "query",
+            "description": "Filter results by source address.",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "example": 61555555555
+            }
+          },
+          {
+            "name": "destination",
+            "in": "query",
+            "description": "Filter results by destination address.",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "example": 61555555555
+            }
+          },
+          {
+            "name": "metadata_key",
+            "in": "query",
+            "description": "Filter results for messages that include a metadata key. If this parameter is included in the query, then the metadata_value parameter must also be included to filter the report by the appropriate key for the specified value or metadata_value must be set as the group_by parameter.",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "example": "broadcastId"
+            }
+          },
+          {
+            "name": "metadata_value",
+            "in": "query",
+            "description": "Filter results to only include messages that have a certain value against one of their metadata tags. If this parameter is included in the query, then the metadata_key parameter must also be included to filter the report by the appropriate key for the specified value.",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "example": "ABC"
+            }
+          },
+          {
+            "name": "accounts",
+            "in": "query",
+            "description": "Filter results by a specific account. By default results will be returned for the account associated with the authentication credentials and all sub accounts.",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "An array of message statuses to filter the report by.",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "enum": [
+                  "UNDEFINED",
+                  "QUEUED",
+                  "PROCESSING",
+                  "PROCESSED",
+                  "FAILED",
+                  "SCHEDULED",
+                  "CANCELLED",
+                  "DELIVERED",
+                  "EXPIRED",
+                  "ENROUTE",
+                  "HELD",
+                  "SUBMITTED",
+                  "REJECTED",
+                  "READ"
+                ]
+              }
+            }
+          },
+          {
+            "name": "opt_out",
+            "in": "query",
+            "description": "Filter the report to only include messages that triggered an opt out.",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "example": true
+            }
+          },
+          {
+            "name": "group_by",
+            "in": "query",
+            "description": "Filter results by a list of Message Statuses. The format for the WEEK enum is `YYYY#WeekNumber`.",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "enum": [
+                  "ACCOUNT",
+                  "DAY",
+                  "WEEK",
+                  "MONTH",
+                  "YEAR",
+                  "METADATA_KEY",
+                  "METADATA_VALUE",
+                  "STATUS",
+                  "COUNTRY"
+                ]
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of all messages received in the specified time window",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/summaryresponse"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/v2-preview/reporting/messages/insight": {
+      "post": {
+        "security": [
+          {
+            "basic_auth": []
+          },
+          {
+            "hmac_auth": []
+          }
+        ],
+        "tags": [
+          "Messaging Reports"
+        ],
+        "summary": "Post insight report",
+        "description": "Create report summary containing total number of sent, received and billing units, using pre-calculated data to improve performance.",
+        "operationId": "PostInsightReport",
+        "parameters": [
+          {
+            "name": "start_date",
+            "in": "query",
+            "description": "Start date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "example": "2019-12-11T13:00:00.000Z"
+            }
+          },
+          {
+            "name": "end_date",
+            "in": "query",
+            "description": "End date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "example": "2019-12-13T13:00:00.000Z"
+            }
+          },
+          {
+            "name": "timezone",
+            "in": "query",
+            "description": "The timezone of the messages to include, using the name of the region.",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "example": "Australia/Sydney"
+            }
+          },
+          {
+            "name": "direction",
+            "in": "query",
+            "description": "The type of messages to include in the report. Accepted values are `inbound`, `outbound`, and `all` (inbound and outbound)",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "object"
+            }
+          },
+          {
+            "name": "source",
+            "in": "query",
+            "description": "Filter results by source address.",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "example": 61555555555
+            }
+          },
+          {
+            "name": "destination",
+            "in": "query",
+            "description": "Filter results by destination address.",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "example": 61555555555
+            }
+          },
+          {
+            "name": "metadata_key",
+            "in": "query",
+            "description": "Filter results for messages that include a metadata key. If this parameter is included in the query, then the metadata_value parameter must also be included to filter the report by the appropriate key for the specified value or metadata_value must be set as the group_by parameter.",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "example": "broadcastId"
+            }
+          },
+          {
+            "name": "metadata_value",
+            "in": "query",
+            "description": "Filter results to only include messages that have a certain value against one of their metadata tags. If this parameter is included in the query, then the metadata_key parameter must also be included to filter the report by the appropriate key for the specified value.",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "example": "ABC"
+            }
+          },
+          {
+            "name": "accounts",
+            "in": "query",
+            "description": "Filter results by a specific account. By default results will be returned for the account associated with the authentication credentials and all sub accounts.",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "An array of message statuses to filter the report by.",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "enum": [
+                  "UNDEFINED",
+                  "QUEUED",
+                  "PROCESSING",
+                  "PROCESSED",
+                  "FAILED",
+                  "SCHEDULED",
+                  "CANCELLED",
+                  "DELIVERED",
+                  "EXPIRED",
+                  "ENROUTE",
+                  "HELD",
+                  "SUBMITTED",
+                  "REJECTED",
+                  "READ"
+                ]
+              }
+            }
+          },
+          {
+            "name": "opt_out",
+            "in": "query",
+            "description": "Filter the report to only include messages that triggered an opt out.",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "example": true
+            }
+          },
+          {
+            "name": "group_by",
+            "in": "query",
+            "description": "Filter results by a list of Message Statuses. The format for the WEEK enum is `YYYY#WeekNumber`.",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "enum": [
+                  "ACCOUNT",
+                  "DAY",
+                  "WEEK",
+                  "MONTH",
+                  "YEAR",
+                  "METADATA_KEY",
+                  "METADATA_VALUE",
+                  "STATUS",
+                  "COUNTRY"
+                ]
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of all messages received in the specified time window",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/summaryresponse"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
     "/v1/messages/{messageId}": {
       "get": {
         "security": [
@@ -6331,6 +6733,80 @@
           },
           "pagination": {
             "$ref": "#/components/schemas/Pagination"
+          }
+        }
+      },
+      "summaryresponse": {
+        "title": "summaryresponse",
+        "type": "object",
+        "properties": {
+          "summaries": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/summaryitemresponse"
+            }
+          },
+          "total_sent": {
+            "type": "number"
+          },
+          "total_received": {
+            "type": "number"
+          },
+          "total_billing_units": {
+            "type": "number"
+          },
+          "total_optout": {
+            "type": "number"
+          }
+        }
+      },
+      "summaryitemresponse": {
+        "title": "summaryitemresponse",
+        "type": "object",
+        "properties": {
+          "group": {
+            "type": "string",
+            "example": "Account1"
+          },
+          "total_sent": {
+            "type": "number"
+          },
+          "total_received": {
+            "type": "number"
+          },
+          "total_billing_units": {
+            "type": "number"
+          },
+          "total_optout": {
+            "type": "number"
+          },
+          "sub_group": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/summarysubitemresponse"
+            }
+          }
+        }
+      },
+      "summarysubitemresponse": {
+        "title": "summarysubitemresponse",
+        "type": "object",
+        "properties": {
+          "group": {
+            "type": "string",
+            "example": "2020-11-01T00:00:00.000Z"
+          },
+          "total_sent": {
+            "type": "number"
+          },
+          "total_received": {
+            "type": "number"
+          },
+          "total_billing_units": {
+            "type": "number"
+          },
+          "total_optout": {
+            "type": "number"
           }
         }
       },
