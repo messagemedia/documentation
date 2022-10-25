@@ -692,7 +692,7 @@ paths:
             example: 2019-12-14T00:00:00.000+11:00
         - name: direction
           in: query
-          description: The type of messages to include in the report. Accepted values are `inbound`, `outbound`, and `all` (inbound and outbound)
+          description: The type of messages to include in the report. Accepted values are `inbound`, `outbound`, and `all` (both inbound and outbound)
           style: form
           explode: true
           schema:
@@ -5108,7 +5108,7 @@ components:
           type: string
           example: Australia/Sydney
         direction:
-          description: The type of messages to include in the report. Accepted values are `inbound`, `outbound`, and `all` (inbound and outbound)
+          description: The type of messages to include in the report. Accepted values are `inbound`, `outbound`, and `all` (both inbound and outbound)
           type: object
         source:
           description: Filter results by source address.
@@ -5147,7 +5147,7 @@ components:
         message_format:
           $ref: '#/components/schemas/format'
         fields:
-          description: Number of results to return in a page for paginated result sets.
+          description: Can be used for async detail report to select the fields to export csv files
           type: array
           items:
             $ref: '#/components/schemas/asyncfieldsrequest'
@@ -5173,7 +5173,7 @@ components:
           description: The timezone of the messages to include, using the name of the region.
           type: string
         direction:
-          description: The type of messages to include in the report. Accepted values are `inbound`, `outbound`, and `all` (inbound and outbound)
+          description: The type of messages to include in the report. Accepted values are `inbound`, `outbound`, and `all` (both inbound and outbound)
           type: object
         source:
           description: Filter results by source address.
@@ -5236,22 +5236,28 @@ components:
       properties:
         page:
           type: number
+          description: Page number for paging through paginated result sets.
         page_size:
           type: number
+          description: Number of results to return in a page for paginated result sets.
         start_date:
           type: string
+          description: Start date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.
         end_date:
           type: string
+          description: End date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.
         direction:
           type: string
           enum:
             - inbound
             - outbound
             - all
+          description: The type of messages to include in the report. Accepted values are `inbound`, `outbound`, and `all` (both inbound and outbound)
         accounts:
           type: array
           items:
             type: string
+          description: Filter results by a specific account. By default results will be returned for the account associated with the authentication credentials and all sub accounts.
     asyncreportresponse:
       title: asyncreportresponse
       type: object
