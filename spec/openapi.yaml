@@ -1122,6 +1122,40 @@ paths:
               schema:
                 $ref: '#/components/schemas/summaryresponse'
       deprecated: false
+  /v2-preview/reporting/detail/scheduled:
+    post:
+      security:
+        - basic_auth: []
+        - hmac_auth: []
+      tags:
+        - Messaging Reports
+      summary: Scheduled detail report
+      description: >-
+        Create scheduled report in detail containing total number of sent, received and billing units.
+      operationId: detailscheduledreport
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/scheduleddetailreport'
+            example:
+              label:
+              schedule:
+                timezone: Australia/Sydney
+                cron_expression: 0 0 * * * ? *
+                type: cron
+              report:
+        required: true
+      responses:
+        '201':
+          description: A scheduled detail report received using the specified parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scheduledreportresponse'
+      deprecated: false
   '/v1/messages/{messageId}':
     get:
       security:
@@ -5250,6 +5284,98 @@ paths:
 # An object to hold reusable parts that can be used across the spec
 components:
   schemas:
+    scheduleddetailreport:
+      title: scheduleddetailreport
+      type: object
+      required:
+        - label
+        - schedule
+      properties:
+        label:
+          type: string
+        schedule:
+          $ref: '#/componenets/schemas/schedule'
+        report:
+          $ref: '#/components/schemas/scheduleddetailrequest'
+    scheduleddetailrequest:
+      title: scheduleddetailrequest
+      type: object
+      required:
+        - period
+      properties:
+        period:
+          $ref: '#/components/schemas/ReportPeriod'
+        timezone:
+          type: string
+          example: Australia/Sydney
+          description: The standard timezone name
+        direction:
+          $ref: '#/components/schemas/MessageDirection'
+        source:
+          type: string
+          example: +61555555555
+        destination:
+          type: string
+          example: +61555555555
+        metadata_key:
+          type: string
+          example: broadcastId
+        metadata_value:
+          type: string
+          example: ABC
+        accounts:
+          type: array
+          items:
+            $ref: '/#/componenets/schemas/MessageStatus'
+        opt_out:
+          type: string
+          example: true
+        delivery_options:
+          type: array
+          items:
+            $ref: '#/components/schemas/deliveryOptionsBody'
+    schedule:
+      title: schedule
+      type: object
+      required:
+        - timezone
+        - cron_expression
+        - type
+      properties:
+        timezone:
+          type: string
+          example: UTC
+        cron_expression:
+          type: string
+          example: 0 0 * * * ? *
+        type:
+          type: string
+          example: cron
+    ReportPeriod:
+      title: ReportPeriod
+      enum:
+        - TODAY
+        - YESTERDAY
+        - THIS_WEEK
+        - LAST_WEEK
+        - THIS_MONTH
+        - LAST_MONTH
+        - LAST_30_DAYS
+        - LAST_7_DAYS
+        - THIS_WEEKDAYS
+        - LAST_WEEKDAYS
+      type: string
+      description: Automatically set a date range based on the period value. Can't be combined with start_date and end_date.
+      example: THIS_WEEK
+    scheduledreportresponse:
+      title: scheduledreportresponse
+      type: object
+      required:
+        - scheduled_report_id
+      properties:
+        scheduled_report_id:
+          type: string
+          example: 51f0097f-90b2-4a59-ad88-a0fd93abaa82
     detailresponse:
       title: detailresponse
       type: object
