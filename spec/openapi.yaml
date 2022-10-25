@@ -981,7 +981,7 @@ paths:
         - Messaging Reports
       summary: Post insight report
       description: Create report summary containing total number of sent, received and billing units, using pre-calculated data to improve performance.
-      operationId: PostSummaryReport
+      operationId: PostInsightReport
       parameters:
         - name: start_date
           in: query
