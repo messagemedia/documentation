@@ -1167,7 +1167,13 @@ paths:
       description: >-
         Updates a selected scheduled report in detail, which contains a total number of sent, received and billing units.
       operationId: updatedetailscheduledreport
-      parameters: []
+      parameters:
+        - name: scheduled_id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: The ID of the scheduled report to delete.
       requestBody:
         description: ''
         content:
@@ -1235,7 +1241,13 @@ paths:
       description: >-
         Updates a selected scheduled report summary, which contains a total number of sent, received and billing units.
       operationId: updatesummaryscheduledreport
-      parameters: []
+      parameters:
+        - name: scheduled_id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: The ID of the scheduled report to delete.
       requestBody:
         description: ''
         content:
@@ -1257,6 +1269,93 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/scheduledsummaryreport'
+      deprecated: false
+  /v2-preview/reporting/scheduled:
+    get:
+      security:
+        - basic_auth: [ ]
+        - hmac_auth: [ ]
+      tags:
+        - Messaging Reports
+      summary: Get active reports
+      description: Retrieves all ACTIVE scheduled reports of a provided account.
+      operationId: GetActiveReport
+      parameters:
+        - name: page_size
+          in: query
+          description: Number of results to return in a page for paginated result sets.
+          style: form
+          explode: true
+          schema:
+            type: number
+            example: 1
+            minimum: 1
+            maximum: 100
+        - name: page_token
+          in: query
+          description: Returned by Chronos service
+          schema:
+            type: string
+      responses:
+        200:
+          description: A list of all messages received in the specified time window
+          headers: { }
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/chronosscheduleresponse'
+        404:
+          description: Scheduled report not found.
+      deprecated: false
+  /v2-preview/reporting/scheduled/{scheduled_id}:
+    get:
+      security:
+        - basic_auth: [ ]
+        - hmac_auth: [ ]
+      tags:
+        - Messaging Reports
+      summary: Get scheduled report by id
+      description: Retrieves a scheduled report by providing its id.
+      operationId: GetScheduledReport
+      parameters:
+        - name: scheduled_id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: The ID of the scheduled report to delete.
+      responses:
+        200:
+          description: The scheduled report matching the provided ID.
+          headers: { }
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scheduledreport'
+        404:
+          description: Scheduled report not found.
+      deprecated: false
+    delete:
+      security:
+        - basic_auth: [ ]
+        - hmac_auth: [ ]
+      tags:
+        - Messaging Reports
+      summary: Delete scheduled report by id
+      description: Deletes a scheduled report by providing its id.
+      operationId: DeleteScheduledReport
+      parameters:
+        - name: scheduled_id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: The ID of the scheduled report to delete.
+      responses:
+        200:
+          description: An empty response indicating the report has been deleted.
+        404:
+          description: Scheduled report not found.
       deprecated: false
   '/v1/messages/{messageId}':
     get:
@@ -5386,6 +5485,19 @@ paths:
 # An object to hold reusable parts that can be used across the spec
 components:
   schemas:
+    chronosscheduleresponse:
+      title: chronosscheduleresponse
+      type: object
+      required:
+        - page_token
+        - page_size
+      properties:
+        page_token:
+          type: string
+          example: abc123
+        page_size:
+          type: number
+          example: 20
     scheduleddetailreport:
       title: scheduleddetailreport
       type: object
@@ -5473,6 +5585,25 @@ components:
       type: string
       description: Automatically set a date range based on the period value. Can't be combined with start_date and end_date.
       example: THIS_WEEK
+    scheduledreport:
+      title: scheduledreport
+      type: object
+      required:
+        - label
+        - schedule
+        - report
+      properties:
+        label:
+          type: string
+        schedule:
+          $ref: '#/components/schemas/schedule'
+        scheduled_report_id:
+          type: string
+          example: 43928f76-c381-4943-8619-f10460005898
+        message_type:
+          $ref: '#/components/schemas/MessageDirection'
+        report_type:
+          type: string
     scheduledreportresponse:
       title: scheduledreportresponse
       type: object
@@ -5536,7 +5667,7 @@ components:
         group_by:
           type: array
           items:
-            $ref: '#/components/schemas/group_by'
+            $ref: '#/components/schemas/GroupByField'
         delivery_options:
           type: array
           items:
@@ -8810,6 +8941,20 @@ components:
         - REJECTED
         - READ
       example: DELIVERED
+    GroupByField:
+      title: GroupByField
+      enum:
+        - ACCOUNT
+        - DAY
+        - WEEK
+        - MONTH
+        - YEAR
+        - METADATA_KEY
+        - METADATA_VALUE
+        - STATUS
+        - COUNTRY
+      type: string
+      example: DAY
   headers:
     ExpiresAfter:
       description: date in UTC when token expires
