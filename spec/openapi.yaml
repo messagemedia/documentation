@@ -5322,15 +5322,6 @@ components:
             $ref: '#/components/schemas/Message'
         pagination:
           $ref: '#/components/schemas/Pagination'
-    
-    # example:
-            #   start_date: 2019-12-12T00:00:00.000+11:00
-            #   end_date: 2019-12-14T00:00:00.000+11:00
-            #   timezone: Australia/Sydney
-            #   source: +61555555555
-            #   metadata_key: broadcastId
-            #   metadata_value: ABC
-            #   opt_out: true
     summaryrequest:
       title: summaryrequest
       required:
