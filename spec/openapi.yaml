@@ -1140,13 +1140,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/scheduleddetailreport'
-            example:
-              label:
-              schedule:
-                timezone: Australia/Sydney
-                cron_expression: 0 0 * * * ? *
-                type: cron
-              report:
         required: true
       responses:
         '201':
@@ -1180,13 +1173,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/scheduleddetailreport'
-            example:
-              label:
-              schedule:
-                timezone: Australia/Sydney
-                cron_expression: 0 0 * * * ? *
-                type: cron
-              report:
         required: true
       responses:
         '200':
@@ -1214,13 +1200,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/scheduledsummaryreport'
-            example:
-              label:
-              schedule:
-                timezone: Australia/Sydney
-                cron_expression: 0 0 * * * ? *
-                type: cron
-              report:
         required: true
       responses:
         '201':
@@ -1254,13 +1233,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/scheduledsummaryreport'
-            example:
-              label:
-              schedule:
-                timezone: Australia/Sydney
-                cron_expression: 0 0 * * * ? *
-                type: cron
-              report:
         required: true
       responses:
         '200':
@@ -1323,7 +1295,7 @@ paths:
           required: true
           schema:
             type: integer
-          description: The ID of the scheduled report to delete.
+          description: The ID of the scheduled report to retrieve.
       responses:
         200:
           description: The scheduled report matching the provided ID.
@@ -5507,6 +5479,8 @@ components:
       properties:
         label:
           type: string
+          example: Weekly Report
+          description: The label of the report schedule
         schedule:
           $ref: '#/components/schemas/schedule'
         report:
@@ -5514,6 +5488,7 @@ components:
     scheduleddetailrequest:
       title: scheduleddetailrequest
       type: object
+      description: A scheduled detail report request
       required:
         - period
       properties:
@@ -5527,10 +5502,10 @@ components:
           $ref: '#/components/schemas/MessageDirection'
         source:
           type: string
-          example: +61555555555
+          example: "+61555555555"
         destination:
           type: string
-          example: +61555555555
+          example: "+61555555555"
         metadata_key:
           type: string
           example: broadcastId
@@ -5541,13 +5516,16 @@ components:
           type: array
           items:
             type: string
+          example:
+            - Account1
+            - Account2
         status:
           type: array
           items:
             $ref: '#/components/schemas/MessageStatus'
         opt_out:
           type: string
-          example: true
+          example: "true"
         delivery_options:
           type: array
           items:
@@ -5555,6 +5533,7 @@ components:
     schedule:
       title: schedule
       type: object
+      description: The time schedule of a scheduled report
       required:
         - timezone
         - cron_expression
@@ -5565,7 +5544,7 @@ components:
           example: UTC
         cron_expression:
           type: string
-          example: 0 0 * * * ? *
+          example: "0 0 * * * ? *"
         type:
           type: string
           example: cron
@@ -5595,15 +5574,18 @@ components:
       properties:
         label:
           type: string
+          example: Weekly Report
+          description: The label of the report schedule
         schedule:
           $ref: '#/components/schemas/schedule'
         scheduled_report_id:
           type: string
-          example: 43928f76-c381-4943-8619-f10460005898
+          example: "43928f76-c381-4943-8619-f10460005898"
         message_type:
           $ref: '#/components/schemas/MessageDirection'
         report_type:
           type: string
+          example: detail
     scheduledreportresponse:
       title: scheduledreportresponse
       type: object
@@ -5612,7 +5594,7 @@ components:
       properties:
         scheduled_report_id:
           type: string
-          example: 51f0097f-90b2-4a59-ad88-a0fd93abaa82
+          example: "51f0097f-90b2-4a59-ad88-a0fd93abaa82"
     scheduledsummaryreport:
       title: scheduledsummaryreport
       type: object
@@ -5622,6 +5604,8 @@ components:
       properties:
         label:
           type: string
+          example: Weekly Report
+          description: The label of the report schedule
         schedule:
           $ref: '#/components/schemas/schedule'
         report:
@@ -5629,6 +5613,7 @@ components:
     scheduledsummaryrequest:
       title: scheduledsummaryrequest
       type: object
+      description: A scheduled summary report request
       required:
         - period
         - timezone
@@ -5643,10 +5628,10 @@ components:
           $ref: '#/components/schemas/MessageDirection'
         source:
           type: string
-          example: +61555555555
+          example: "+61555555555"
         destination:
           type: string
-          example: +61555555555
+          example: "+61555555555"
         metadata_key:
           type: string
           example: broadcastId
@@ -5657,13 +5642,16 @@ components:
           type: array
           items:
             type: string
+          example:
+            - Account1
+            - Account2
         status:
           type: array
           items:
             $ref: '#/components/schemas/MessageStatus'
         opt_out:
           type: string
-          example: true
+          example: "true"
         group_by:
           type: array
           items:
@@ -5723,7 +5711,7 @@ components:
       properties:
         group:
           type: string
-          example: 2020-11-01
+          example: "2020-11-01"
         total_sent:
           type: number
         total_received:
@@ -6346,6 +6334,9 @@ components:
           type: array
           items:
             type: string
+          example:
+            - Account1
+            - Account2
           description: List of accounts that were considered when fetching the metadata keys.
     deliveryOptionsBody:
       title: deliveryOptionsBody
@@ -6359,6 +6350,9 @@ components:
           type: array
           items:
             type: string
+          example:
+          - "email@example.com"
+          - "test@example.com"
           description: A list of email addresses to use as the recipient of the email. Only works for EMAIL delivery type
         delivery_format:
           type: string
