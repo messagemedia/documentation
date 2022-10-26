@@ -861,7 +861,7 @@ paths:
         400:
           description: Bad Request. Check the json response for more details on what went wrong.
       deprecated: false
-  /v2-preview/reporting/messages/async/summary
+  /v2-preview/reporting/messages/async/summary:
     post:
       security:
         - basic_auth: [ ]
@@ -960,8 +960,6 @@ paths:
                 $ref: '#/components/schemas/fieldsresponse'
         400:
           description: Bad Request. Check the json response for more details on what went wrong.
-
-
   /v2-preview/reporting/messages/summary:
     post:
       security:
@@ -1121,7 +1119,7 @@ paths:
         - Messaging Reports
       summary: Post insight report
       description: Create report summary containing total number of sent, received and billing units, using pre-calculated data to improve performance.
-      operationId: PostSummaryReport
+      operationId: PostInsightReport
       parameters:
         - name: start_date
           in: query
