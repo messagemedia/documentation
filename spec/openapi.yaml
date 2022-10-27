@@ -661,6 +661,33 @@ servers:
 # Holds the relative paths to the individual endpoints. The path is appended to the
 # basePath in order to construct the full URL. 
 paths:
+  /v2-preview/reporting/messages/metakeys:
+    post:
+      security:
+        - basic_auth: [ ]
+        - hmac_auth: [ ]
+      tags:
+        - Messaging Reports
+      summary: Metadata Keys
+      description: Returns a list of metadata keys.
+      operationId: PostMetadataKeys
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/metakeyrequest'
+      responses:
+        200:
+          description: A list of metadata keys.
+          headers: { }
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/metakeyresponse'
+        400:
+          description: Bad Request. Check the json response for more details on what went wrong.
   /v2-preview/reporting/messages/detail:
     post:
       security:
@@ -1084,33 +1111,6 @@ paths:
         404:
           description: Scheduled report not found.
       deprecated: false
-  /v2-preview/reporting/messages/metakeys:
-    post:
-      security:
-        - basic_auth: [ ]
-        - hmac_auth: [ ]
-      tags:
-        - Messaging Reports
-      summary: Metadata Keys
-      description: Returns a list of metadata keys.
-      operationId: PostMetadataKeys
-      parameters: []
-      requestBody:
-        description: ''
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/metakeyrequest'
-      responses:
-        200:
-          description: A list of metadata keys.
-          headers: { }
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/metakeyresponse'
-        400:
-          description: Bad Request. Check the json response for more details on what went wrong.
   '/v1/messages/{messageId}':
     get:
       security:
