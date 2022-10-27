@@ -4976,33 +4976,114 @@ paths:
 # An object to hold reusable parts that can be used across the spec
 components:
   schemas:
-    MessageDirection:
-      title: MessageDirection
-      enum:
-        - inbound
-        - outbound
-        - all
-      example: all
-    MessageStatus:
-      title: MessageStatus
-      type: string
-      enum:
-        - UNDEFINED
-        - QUEUED
-        - PROCESSING
-        - PROCESSED
-        - FAILED
-        - SCHEDULED
-        - CANCELLED
-        - DELIVERED
-        - EXPIRED
-        - ENROUTE
-        - HELD
-        - SUBMITTED
-        - REJECTED
-        - READ
-      example: DELIVERED
-      description: An enumerable list of potential message statuses.
+    detailrequest:
+      title: detailrequest
+      required:
+        - start_date
+        - end_date
+      type: object
+      properties:
+        start_date:
+          description: >-
+            Start date time for report window. By default, the timezone for this parameter 
+            will be taken from the account settings for the account associated with the 
+            credentials used to make the request, or the account included in the Account parameter. 
+            This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.
+          type: string
+          example: "2022-12-12T00:00:00.000z"
+        end_date:
+          description: >-
+            End date time for report window. By default, the timezone for this parameter 
+            will be taken from the account settings for the account associated with the 
+            credentials used to make the request, or the account included in the Account parameter. 
+            This can be overridden using the timezone parameter per request. The date must be in ISO8601 format, and after the requested start_date.
+          type: string
+          example: "2022-12-14T00:00:00.000z"
+        direction:
+          description: The type of messages to include in the report. Accepted values are `inbound`, `outbound`, and `all` (both inbound and outbound).  Default value is 'all'.
+          example: all
+          enum:
+            - inbound
+            - outbound
+            - all
+          type: string
+        timezone:
+          description: The timezone of the messages to include, using the name of the region.
+          type: string
+          example: Australia/Sydney
+        source:
+          description: Filter results by source address.
+          type: string
+          example: "+61555555555"
+        destination:
+          description: Filter results by destination address.
+          type: string
+          example: "+61555555555"
+        destinations:
+          description: Filter results by multiple destination addresses.
+          type: array
+          items:
+            type: string
+          example:
+            - "+61555555555"
+            - "+614987654321"
+        metadata_key:
+          description: Filter results for messages that include a metadata key.
+          type: string
+          example: broadcastId
+        metadata_value:
+          description: Filter results for messages that include a metadata key containing this value. If this parameter is provided, the metadata_key parameter must also be provided.
+          type: string
+          example: ABC
+        accounts:
+          description: >-
+            Filter results by a specific account. By default results
+            will be returned for the account associated with the authentication
+            credentials and all sub accounts.
+          type: array
+          items:
+            type: string
+          example:
+            - account1
+            - account2
+        status:
+          description: >-
+            An array of message statuses
+          type: array
+          items:
+            enum:
+              - ENROUTE
+              - SUBMITTED
+              - DELIVERED
+              - EXPIRED
+              - REJECTED
+              - UNDELIVERABLE
+              - QUEUED
+              - PROCESSED
+              - CANCELLED
+              - SCHEDULED
+              - FAILED
+        opt_out:
+          description: Filter results by message format.
+          type: string
+          example: "true"
+        message_format:
+          description: Filter results by message format, using enumerable MessageType.
+          type: array
+          items:
+            type: string
+          example:
+            - SMS
+            - MMS
+            - CHANNEL
+        page:
+          description: Page number for paging through paginated result sets.
+          type: number
+          example: 0
+        page_size:
+          description: Number of results to return in a page for paginated result sets.
+          type: number
+          example: 20
     asyncsentmessagesdetailrequest:
       title: asyncsentmessagesdetailrequest
       required:
@@ -5071,114 +5152,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/deliveryOptionsBody'
-    detailrequest:
-      title: detailrequest
-      required:
-        - start_date
-        - end_date
-      type: object
-      properties:
-        start_date:
-          description: >-
-            Start date time for report window. By default, the timezone for this parameter 
-            will be taken from the account settings for the account associated with the 
-            credentials used to make the request, or the account included in the Account parameter. 
-            This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.
-          type: string
-          example: "2022-12-12T00:00:00.000z"
-        end_date:
-          description: >-
-            End date time for report window. By default, the timezone for this parameter 
-            will be taken from the account settings for the account associated with the 
-            credentials used to make the request, or the account included in the Account parameter. 
-            This can be overridden using the timezone parameter per request. The date must be in ISO8601 format, and after the requested start_date.
-          type: string
-          example: "2022-12-14T00:00:00.000z"
-        direction:
-          description: The type of messages to include in the report. Accepted values are `inbound`, `outbound`, and `all` (both inbound and outbound).  Default value is 'all'.
-          example: all
-          enum:
-            - inbound
-            - outbound
-            - all
-          type: string
-        timezone:
-          description: The timezone of the messages to include, using the name of the region.
-          type: string
-          example: Australia/Sydney
-        source:
-          description: Filter results by source address.
-          type: string
-          example: "+61555555555"
-        destination:
-          description: Filter results by destination address.
-          type: string
-          example: "+61555555555"
-        destinations:
-          description: Filter results by multiple destination addresses.
-          type: array
-          items:
-            type: string
-          example: 
-            - "+61555555555"
-            - "+614987654321"
-        metadata_key:
-          description: Filter results for messages that include a metadata key.
-          type: string
-          example: broadcastId
-        metadata_value:
-          description: Filter results for messages that include a metadata key containing this value. If this parameter is provided, the metadata_key parameter must also be provided.
-          type: string
-          example: ABC
-        accounts:
-          description: >-
-            Filter results by a specific account. By default results
-            will be returned for the account associated with the authentication
-            credentials and all sub accounts.
-          type: array
-          items:
-            type: string
-          example: 
-            - account1
-            - account2
-        status:
-          description: >-
-            An array of message statuses
-          type: array
-          items:
-            enum:
-              - ENROUTE
-              - SUBMITTED
-              - DELIVERED
-              - EXPIRED
-              - REJECTED
-              - UNDELIVERABLE
-              - QUEUED
-              - PROCESSED
-              - CANCELLED
-              - SCHEDULED
-              - FAILED
-        opt_out:
-          description: Filter results by message format.
-          type: string
-          example: "true"
-        message_format:
-          description: Filter results by message format, using enumerable MessageType.
-          type: array
-          items:
-            type: string
-          example: 
-            - SMS
-            - MMS
-            - CHANNEL
-        page:
-          description: Page number for paging through paginated result sets.
-          type: number
-          example: 0
-        page_size:
-          description: Number of results to return in a page for paginated result sets.
-          type: number
-          example: 20
     asyncsummaryrequest:
       title: asyncsummaryrequest
       required:
@@ -5199,9 +5172,7 @@ components:
           type: string
           example: Australia/Sydney
         direction:
-          description: The type of messages to include in the report. Accepted values are `inbound`, `outbound`, and `all` (both inbound and outbound)
-          type: object
-          example: inbound
+          $ref: '#/components/schemas/MessageDirection'
         source:
           description: Filter results by source address.
           type: string
@@ -5230,14 +5201,7 @@ components:
             - Account1
             - Account2
         status:
-          description: >-
-            An array of message statuses
-          type: array
-          items:
-            type: object
-          example:
-            - FAILED
-            - DELIVERED
+          $ref: '#/components/schemas/MessageStatus'
         opt_out:
           description: Filter results by message format.
           type: string
@@ -5247,7 +5211,9 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/group_by'
-          example: STATUS
+          example:
+            - STATUS
+            - COUNTRY
         delivery_options:
           description: A list of options to configure the delivery of the report.
           type: array
@@ -5266,6 +5232,97 @@ components:
         display_name:
           type: string
           example: id
+    summaryrequest:
+      title: summaryrequest
+      required:
+        - start_date
+        - end_date
+      type: object
+      properties:
+        start_date:
+          description: Start date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.
+          type: string
+          example: "2022-12-12T00:00:00.000z"
+        end_date:
+          description:  End date time for report window. By default, the timezone for this parameter
+            will be taken from the account settings for the account associated with the
+            credentials used to make the request, or the account included in the Account parameter.
+            This can be overridden using the timezone parameter per request. The date must be in ISO8601 format, and after the requested start_date.
+          type: string
+          example: "2022-12-14T00:00:00.000z"
+        timezone:
+          description: The timezone of the messages to include, using the name of the region.
+          type: string
+          example: Australia/Sydney
+        direction:
+          enum:
+            - inbound
+            - outbound
+            - all
+          type: string
+          description: The type of messages to include in the report. Accepted values are `inbound`, `outbound`, and `all` (both inbound and outbound)
+          example: outbound
+        source:
+          description: Filter results by source address.
+          type: string
+          example: "+61555555555"
+        destination:
+          description: Filter results by destination address.
+          type: string
+          example: "+61555555555"
+        metadata_key:
+          description: Filter results for messages that include a metadata key.
+          type: string
+          example: broadcastId
+        metadata_value:
+          description: Filter results for messages that include a metadata key containing this value. If this parameter is provided, the metadata_key parameter must also be provided.
+          type: string
+          example: ABC
+        accounts:
+          description: >-
+            Filter results by a specific account. By default results
+            will be returned for the account associated with the authentication
+            credentials and all sub accounts.
+          type: array
+          items:
+            type: string
+          example:
+            - account1
+            - account2
+        status:
+          description: >-
+            An array of message statuses
+          type: array
+          items:
+            enum:
+              - ENROUTE
+              - SUBMITTED
+              - DELIVERED
+              - EXPIRED
+              - REJECTED
+              - UNDELIVERABLE
+              - QUEUED
+              - PROCESSED
+              - CANCELLED
+              - SCHEDULED
+              - FAILED
+          example:
+            - DELIVERED
+            - FAILED
+            - ENROUTE
+            - SCHEDULED
+        opt_out:
+          description: Filter results by message format.
+          type: string
+          example: "true"
+        group_by:
+          description: Group results by a list of values, from the enumerable table above.
+          type: array
+          items:
+            $ref: '#/components/schemas/group_by'
+          example:
+            - WEEK
+            - ACCOUNT
     metakeyrequest:
       title: metakeyrequest
       type: object
@@ -5337,98 +5394,7 @@ components:
           items:
             $ref: '#/components/schemas/Message'
         pagination:
-          $ref: '#/components/schemas/Pagination'
-    summaryrequest:
-      title: summaryrequest
-      required:
-        - start_date
-        - end_date
-      type: object
-      properties:
-        start_date:
-          description: Start date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.
-          type: string
-          example: "2022-12-12T00:00:00.000z"
-        end_date:
-          description:  End date time for report window. By default, the timezone for this parameter 
-            will be taken from the account settings for the account associated with the 
-            credentials used to make the request, or the account included in the Account parameter. 
-            This can be overridden using the timezone parameter per request. The date must be in ISO8601 format, and after the requested start_date.
-          type: string
-          example: "2022-12-14T00:00:00.000z"
-        timezone:
-          description: The timezone of the messages to include, using the name of the region.
-          type: string
-          example: Australia/Sydney
-        direction:
-          enum:
-            - inbound
-            - outbound
-            - all
-          type: string
-          description: The type of messages to include in the report. Accepted values are `inbound`, `outbound`, and `all` (both inbound and outbound)
-          example: outbound
-        source:
-          description: Filter results by source address.
-          type: string
-          example: "+61555555555"
-        destination:
-          description: Filter results by destination address.
-          type: string
-          example: "+61555555555"
-        metadata_key:
-          description: Filter results for messages that include a metadata key.
-          type: string
-          example: broadcastId
-        metadata_value:
-          description: Filter results for messages that include a metadata key containing this value. If this parameter is provided, the metadata_key parameter must also be provided.
-          type: string
-          example: ABC
-        accounts:
-          description: >-
-            Filter results by a specific account. By default results
-            will be returned for the account associated with the authentication
-            credentials and all sub accounts.
-          type: array
-          items:
-            type: string
-          example: 
-          - account1
-          - account2
-        status:
-          description: >-
-            An array of message statuses
-          type: array
-          items:
-            enum:
-              - ENROUTE
-              - SUBMITTED
-              - DELIVERED
-              - EXPIRED
-              - REJECTED
-              - UNDELIVERABLE
-              - QUEUED
-              - PROCESSED
-              - CANCELLED
-              - SCHEDULED
-              - FAILED
-          example: 
-            - DELIVERED
-            - FAILED
-            - ENROUTE
-            - SCHEDULED
-        opt_out:
-          description: Filter results by message format.
-          type: string
-          example: "true"
-        group_by:
-          description: Group results by a list of values, from the enumerable table above.
-          type: array
-          items:
-            $ref: '#/components/schemas/group_by'
-          example: 
-          - WEEK
-          - ACCOUNT
+          $ref: '#/components/schemas/Paginate'
     summaryresponse:
       title: summaryresponse
       type: object
@@ -5491,6 +5457,47 @@ components:
         total_optout:
           type: number
           example: 0
+    MessageDirection:
+      title: MessageDirection
+      enum:
+        - inbound
+        - outbound
+        - all
+      example: all
+      description: The type of messages to include in the report.
+    MessageStatus:
+      title: MessageStatus
+      type: string
+      enum:
+        - UNDEFINED
+        - QUEUED
+        - PROCESSING
+        - PROCESSED
+        - FAILED
+        - SCHEDULED
+        - CANCELLED
+        - DELIVERED
+        - EXPIRED
+        - ENROUTE
+        - HELD
+        - SUBMITTED
+        - REJECTED
+        - READ
+      example: DELIVERED
+      description: An enumerable list of potential message statuses.
+    Paginate:
+      title: Pagination
+      type: object
+      properties:
+        page:
+          type: number
+          example: 0
+        page_size:
+          type: number
+          example: 20
+        has_next:
+          type: boolean
+          example: false
     Confirmdeliveryreportsasreceivedrequest:
       title: Confirmeliveryreportsasreceivedrequest
       required:
