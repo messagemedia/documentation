@@ -764,6 +764,209 @@ paths:
                 $ref: '#/components/schemas/fieldsresponse'
         '400':
           description: Bad Request. Check the json response for more details on what went wrong.
+  /v2-preview/reporting/detail/scheduled:
+    post:
+      security:
+        - basic_auth: []
+        - hmac_auth: []
+      tags:
+        - Messaging Reports
+      summary: Scheduled detail report
+      description: 'Create scheduled report in detail containing total number of sent, received and billing units.'
+      operationId: detailscheduledreport
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/scheduleddetailreport'
+        required: true
+      responses:
+        '201':
+          description: A scheduled detail report received using the specified parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scheduledreportresponse'
+      deprecated: false
+  '/v2-preview/reporting/detail/scheduled/{scheduled_id}':
+    put:
+      security:
+        - basic_auth: []
+        - hmac_auth: []
+      tags:
+        - Messaging Reports
+      summary: Update a scheduled detail report
+      description: 'Updates a selected scheduled report in detail, which contains a total number of sent, received and billing units.'
+      operationId: updatedetailscheduledreport
+      parameters:
+        - name: scheduled_id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: The ID of the scheduled report to delete.
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/scheduleddetailreport'
+        required: true
+      responses:
+        '200':
+          description: The updated scheduled detail report.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scheduleddetailreport'
+      deprecated: false
+  /v2-preview/reporting/summary/scheduled:
+    post:
+      security:
+        - basic_auth: []
+        - hmac_auth: []
+      tags:
+        - Messaging Reports
+      summary: Scheduled summary report
+      description: 'Create scheduled report summary containing total number of sent, received and billing units.'
+      operationId: summaryscheduledreport
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/scheduledsummaryreport'
+        required: true
+      responses:
+        '201':
+          description: A scheduled summary report received using the specified parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scheduledreportresponse'
+      deprecated: false
+  '/v2-preview/reporting/summary/scheduled/{scheduled_id}':
+    put:
+      security:
+        - basic_auth: []
+        - hmac_auth: []
+      tags:
+        - Messaging Reports
+      summary: Update a scheduled summary report
+      description: 'Updates a selected scheduled report summary, which contains a total number of sent, received and billing units.'
+      operationId: updatesummaryscheduledreport
+      parameters:
+        - name: scheduled_id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: The ID of the scheduled report to delete.
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/scheduledsummaryreport'
+        required: true
+      responses:
+        '200':
+          description: The updated scheduled summary report.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scheduledsummaryreport'
+      deprecated: false
+  /v2-preview/reporting/scheduled:
+    get:
+      security:
+        - basic_auth: []
+        - hmac_auth: []
+      tags:
+        - Messaging Reports
+      summary: Get active reports
+      description: Retrieves all ACTIVE scheduled reports of a provided account.
+      operationId: GetActiveReport
+      parameters:
+        - name: page_size
+          in: query
+          description: Number of results to return in a page for paginated result sets.
+          style: form
+          explode: true
+          schema:
+            type: number
+            example: 1
+            minimum: 1
+            maximum: 100
+        - name: page_token
+          in: query
+          description: Returned by Chronos service
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A list of all messages received in the specified time window
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/chronosscheduleresponse'
+        '404':
+          description: Scheduled report not found.
+      deprecated: false
+  '/v2-preview/reporting/scheduled/{scheduled_id}':
+    get:
+      security:
+        - basic_auth: []
+        - hmac_auth: []
+      tags:
+        - Messaging Reports
+      summary: Get scheduled report by id
+      description: Retrieves a scheduled report by providing its id.
+      operationId: GetScheduledReport
+      parameters:
+        - name: scheduled_id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: The ID of the scheduled report to retrieve.
+      responses:
+        '200':
+          description: The scheduled report matching the provided ID.
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scheduledreport'
+        '404':
+          description: Scheduled report not found.
+      deprecated: false
+    delete:
+      security:
+        - basic_auth: []
+        - hmac_auth: []
+      tags:
+        - Messaging Reports
+      summary: Delete scheduled report by id
+      description: Deletes a scheduled report by providing its id.
+      operationId: DeleteScheduledReport
+      parameters:
+        - name: scheduled_id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: The ID of the scheduled report to delete.
+      responses:
+        '200':
+          description: An empty response indicating the report has been deleted.
+        '404':
+          description: Scheduled report not found.
+      deprecated: false
   '/v1/messages/{messageId}':
     get:
       security:
@@ -839,57 +1042,17 @@ paths:
       deprecated: false
       x-code-samples:
         - lang: 'C#'
-          source: |-
-            string messageId = "messageId2";
-
-            try 
-            {
-                GetMessageStatusResponse result = messages.GetMessageStatusAsync(messageId).Result;
-            }
-            catch (APIException e){};
+          source: "string messageId = \"messageId2\";\r\n\r\ntry \r\n{\r\n    GetMessageStatusResponse result = messages.GetMessageStatusAsync(messageId).Result;\r\n}\r\ncatch (APIException e){};"
         - lang: Java
-          source: |-
-            String messageId = "messageId2";
-
-            messagesController.getMessageStatusAsync(messageId, new APICallBack<GetMessageStatusResponse>() {
-                public void onSuccess(HttpContext context, GetMessageStatusResponse response) {
-                    // TODO success callback handler
-                }
-                public void onFailure(HttpContext context, Throwable error) {
-                    // TODO failure callback handler
-                }
-            });
+          source: "String messageId = \"messageId2\";\r\n\r\nmessagesController.getMessageStatusAsync(messageId, new APICallBack<GetMessageStatusResponse>() {\r\n    public void onSuccess(HttpContext context, GetMessageStatusResponse response) {\r\n        // TODO success callback handler\r\n    }\r\n    public void onFailure(HttpContext context, Throwable error) {\r\n        // TODO failure callback handler\r\n    }\r\n});"
         - lang: JavaScript
-          source: |-
-            let messageId = 'messageId2';
-
-            const promise = controller.getMessageStatus(messageId);
-            promise.then((response) => {
-                // this block will be executed on successful endpoint call
-                // `response` will be of type 'GetMessageStatusResponse'
-            }, (err) => {
-                // this block will be executed on endpoint call failure
-                // `err` is an 'object' containing more information about the error
-            });
+          source: "let messageId = 'messageId2';\r\n\r\nconst promise = controller.getMessageStatus(messageId);\r\npromise.then((response) => {\r\n    // this block will be executed on successful endpoint call\r\n    // `response` will be of type 'GetMessageStatusResponse'\r\n}, (err) => {\r\n    // this block will be executed on endpoint call failure\r\n    // `err` is an 'object' containing more information about the error\r\n});"
         - lang: PHP
-          source: |-
-            $messageId = 'messageId2';
-
-            $result = $messagesController->getMessageStatus($messageId);
+          source: "$messageId = 'messageId2';\r\n\r\n$result = $messagesController->getMessageStatus($messageId);"
         - lang: Python
-          source: |-
-            message_id = 'messageId2'
-
-            result = messages_controller.get_message_status(message_id)
+          source: "message_id = 'messageId2'\r\n\r\nresult = messages_controller.get_message_status(message_id)"
         - lang: Ruby
-          source: |-
-            string messageId = "messageId2";
-
-            try 
-            {
-                GetMessageStatusResponse result = messages.GetMessageStatusAsync(messageId).Result;
-            }
-            catch (APIException e){};
+          source: "string messageId = \"messageId2\";\r\n\r\ntry \r\n{\r\n    GetMessageStatusResponse result = messages.GetMessageStatusAsync(messageId).Result;\r\n}\r\ncatch (APIException e){};"
     put:
       security:
         - basic_auth: []
@@ -958,69 +1121,17 @@ paths:
       deprecated: false
       x-code-samples:
         - lang: 'C#'
-          source: |-
-            string messageId = "messageId2";
-            CancelScheduledMessageRequest body = new CancelScheduledMessageRequest();
-            body.Status = "cancelled";
-
-            try 
-            {
-                dynamic result = messages.CancelScheduledMessageAsync(messageId, body).Result;
-            }
-            catch (APIException e){};
+          source: "string messageId = \"messageId2\";\r\nCancelScheduledMessageRequest body = new CancelScheduledMessageRequest();\r\nbody.Status = \"cancelled\";\r\n\r\ntry \r\n{\r\n    dynamic result = messages.CancelScheduledMessageAsync(messageId, body).Result;\r\n}\r\ncatch (APIException e){};"
         - lang: Java
-          source: |-
-            String messageId = "messageId2";
-            CancelScheduledMessageRequest body = new CancelScheduledMessageRequest();
-            body.setStatus("cancelled");
-
-            messagesController.cancelScheduledMessageAsync(messageId, body, new APICallBack<DynamicResponse>() {
-                public void onSuccess(HttpContext context, DynamicResponse response) {
-                    // TODO success callback handler
-                }
-                public void onFailure(HttpContext context, Throwable error) {
-                    // TODO failure callback handler
-                }
-            });
+          source: "String messageId = \"messageId2\";\r\nCancelScheduledMessageRequest body = new CancelScheduledMessageRequest();\r\nbody.setStatus(\"cancelled\");\r\n\r\nmessagesController.cancelScheduledMessageAsync(messageId, body, new APICallBack<DynamicResponse>() {\r\n    public void onSuccess(HttpContext context, DynamicResponse response) {\r\n        // TODO success callback handler\r\n    }\r\n    public void onFailure(HttpContext context, Throwable error) {\r\n        // TODO failure callback handler\r\n    }\r\n});"
         - lang: JavaScript
-          source: |-
-            let messageId = 'messageId2';
-            let body = new lib.CancelScheduledMessageRequest();
-            body.status = 'cancelled';
-
-            const promise = controller.cancelScheduledMessage(messageId, body);
-            promise.then((response) => {
-                // this block will be executed on successful endpoint call
-                // `response` will be of type 'mixed'
-            }, (err) => {
-                // this block will be executed on endpoint call failure
-                // `err` is an 'object' containing more information about the error
-            });
+          source: "let messageId = 'messageId2';\r\nlet body = new lib.CancelScheduledMessageRequest();\r\nbody.status = 'cancelled';\r\n\r\nconst promise = controller.cancelScheduledMessage(messageId, body);\r\npromise.then((response) => {\r\n    // this block will be executed on successful endpoint call\r\n    // `response` will be of type 'mixed'\r\n}, (err) => {\r\n    // this block will be executed on endpoint call failure\r\n    // `err` is an 'object' containing more information about the error\r\n});"
         - lang: PHP
-          source: |-
-            $messageId = 'messageId2';
-            $body = new Models\CancelScheduledMessageRequest;
-            $body->status = 'cancelled';
-
-            $result = $messagesController->cancelScheduledMessage($messageId, $body);
+          source: "$messageId = 'messageId2';\r\n$body = new Models\\CancelScheduledMessageRequest;\r\n$body->status = 'cancelled';\r\n\r\n$result = $messagesController->cancelScheduledMessage($messageId, $body);"
         - lang: Python
-          source: |-
-            message_id = 'messageId2'
-            body = CancelScheduledMessageRequest()
-            body.status = 'cancelled'
-
-            result = messages_controller.cancel_scheduled_message(message_id, body)
+          source: "message_id = 'messageId2'\r\nbody = CancelScheduledMessageRequest()\r\nbody.status = 'cancelled'\r\n\r\nresult = messages_controller.cancel_scheduled_message(message_id, body)"
         - lang: Ruby
-          source: |-
-            string messageId = "messageId2";
-            CancelScheduledMessageRequest body = new CancelScheduledMessageRequest();
-            body.Status = "cancelled";
-
-            try 
-            {
-                dynamic result = messages.CancelScheduledMessageAsync(messageId, body).Result;
-            }
-            catch (APIException e){};
+          source: "string messageId = \"messageId2\";\r\nCancelScheduledMessageRequest body = new CancelScheduledMessageRequest();\r\nbody.Status = \"cancelled\";\r\n\r\ntry \r\n{\r\n    dynamic result = messages.CancelScheduledMessageAsync(messageId, body).Result;\r\n}\r\ncatch (APIException e){};"
   /v1/messages:
     post:
       security:
@@ -1187,234 +1298,17 @@ paths:
       deprecated: false
       x-code-samples:
         - lang: 'C#'
-          source: |-
-            SendMessagesRequest body = new SendMessagesRequest();
-            body.Messages = new List<Message>();
-
-            Message body_messages_0 = new Message();
-            body_messages_0.CallbackUrl = "https://my.callback.url.com";
-            body_messages_0.Content = "My first message";
-            body_messages_0.DestinationNumber = "+61491570156";
-            body_messages_0.DeliveryReport = true;
-            body_messages_0.Format = Format.SMS;
-            body_messages_0.MessageExpiryTimestamp = DateTime.Parse("2016-11-03T11:49:02.807Z");
-            body_messages_0.Metadata = APIHelper.JsonDeserialize<Object>("{\"key1\":\"value1\",\"key2\":\"value2\"}");
-            body_messages_0.Scheduled = DateTime.Parse("2016-11-03T11:49:02.807Z");
-            body_messages_0.SourceNumber = "+61491570157";
-            body_messages_0.SourceNumberType = SourceNumberType.INTERNATIONAL;
-            body.Messages.Add(body_messages_0);
-
-            Message body_messages_1 = new Message();
-            body_messages_1.CallbackUrl = "https://my.callback.url.com";
-            body_messages_1.Content = "My second message";
-            body_messages_1.DestinationNumber = "+61491570158";
-            body_messages_1.DeliveryReport = true;
-            body_messages_1.Format = Format.MMS;
-            body_messages_1.MessageExpiryTimestamp = DateTime.Parse("2016-11-03T11:49:02.807Z");
-            body_messages_1.Metadata = APIHelper.JsonDeserialize<Object>("{\"key1\":\"value1\",\"key2\":\"value2\"}");
-            body_messages_1.Scheduled = DateTime.Parse("2016-11-03T11:49:02.807Z");
-            body_messages_1.SourceNumber = "+61491570159";
-            body_messages_1.SourceNumberType = SourceNumberType.INTERNATIONAL;
-            body_messages_1.Media = new List<string>();
-            body_messages_1.Media.Add("https://images.pexels.com/photos/1018350/pexels-photo-1018350.jpeg?cs=srgb&dl=architecture-buildings-city-1018350.jpg");
-            body_messages_1.Subject = "This is an MMS message";
-            body.Messages.Add(body_messages_1);
-
-
-            try 
-            {
-                SendMessagesResponse result = messages.SendMessagesAsync(body).Result;
-            }
-            catch (APIException e){};
+          source: "SendMessagesRequest body = new SendMessagesRequest();\r\nbody.Messages = new List<Message>();\r\n\r\nMessage body_messages_0 = new Message();\r\nbody_messages_0.CallbackUrl = \"https://my.callback.url.com\";\r\nbody_messages_0.Content = \"My first message\";\r\nbody_messages_0.DestinationNumber = \"+61491570156\";\r\nbody_messages_0.DeliveryReport = true;\r\nbody_messages_0.Format = Format.SMS;\r\nbody_messages_0.MessageExpiryTimestamp = DateTime.Parse(\"2016-11-03T11:49:02.807Z\");\r\nbody_messages_0.Metadata = APIHelper.JsonDeserialize<Object>(\"{\\\"key1\\\":\\\"value1\\\",\\\"key2\\\":\\\"value2\\\"}\");\r\nbody_messages_0.Scheduled = DateTime.Parse(\"2016-11-03T11:49:02.807Z\");\r\nbody_messages_0.SourceNumber = \"+61491570157\";\r\nbody_messages_0.SourceNumberType = SourceNumberType.INTERNATIONAL;\r\nbody.Messages.Add(body_messages_0);\r\n\r\nMessage body_messages_1 = new Message();\r\nbody_messages_1.CallbackUrl = \"https://my.callback.url.com\";\r\nbody_messages_1.Content = \"My second message\";\r\nbody_messages_1.DestinationNumber = \"+61491570158\";\r\nbody_messages_1.DeliveryReport = true;\r\nbody_messages_1.Format = Format.MMS;\r\nbody_messages_1.MessageExpiryTimestamp = DateTime.Parse(\"2016-11-03T11:49:02.807Z\");\r\nbody_messages_1.Metadata = APIHelper.JsonDeserialize<Object>(\"{\\\"key1\\\":\\\"value1\\\",\\\"key2\\\":\\\"value2\\\"}\");\r\nbody_messages_1.Scheduled = DateTime.Parse(\"2016-11-03T11:49:02.807Z\");\r\nbody_messages_1.SourceNumber = \"+61491570159\";\r\nbody_messages_1.SourceNumberType = SourceNumberType.INTERNATIONAL;\r\nbody_messages_1.Media = new List<string>();\r\nbody_messages_1.Media.Add(\"https://images.pexels.com/photos/1018350/pexels-photo-1018350.jpeg?cs=srgb&dl=architecture-buildings-city-1018350.jpg\");\r\nbody_messages_1.Subject = \"This is an MMS message\";\r\nbody.Messages.Add(body_messages_1);\r\n\r\n\r\ntry \r\n{\r\n    SendMessagesResponse result = messages.SendMessagesAsync(body).Result;\r\n}\r\ncatch (APIException e){};"
         - lang: Java
-          source: |
-            SendMessagesRequest body = new SendMessagesRequest();
-            body.setMessages(new LinkedList<Message>());
-
-            Message body_messages_0 = new Message();
-            body_messages_0.setCallbackUrl("https://my.callback.url.com");
-            body_messages_0.setContent("My first message");
-            body_messages_0.setDestinationNumber("+61491570156");
-            body_messages_0.setDeliveryReport(true);
-            body_messages_0.setFormat(FormatEnum.SMS);
-            body_messages_0.setMessageExpiryTimestamp(new DateTime("2016-11-03T11:49:02.807Z", DateTimeZone.UTC));
-            body_messages_0.setMetadata(com.messagemedia.messages.APIHelper.deserialize("{\"key1\":\"value1\",\"key2\":\"value2\"}"));
-            body_messages_0.setScheduled(new DateTime("2016-11-03T11:49:02.807Z", DateTimeZone.UTC));
-            body_messages_0.setSourceNumber("+61491570157");
-            body_messages_0.setSourceNumberType(SourceNumberTypeEnum.INTERNATIONAL);
-            body.getMessages().add(body_messages_0);
-
-            Message body_messages_1 = new Message();
-            body_messages_1.setCallbackUrl("https://my.callback.url.com");
-            body_messages_1.setContent("My second message");
-            body_messages_1.setDestinationNumber("+61491570158");
-            body_messages_1.setDeliveryReport(true);
-            body_messages_1.setFormat(FormatEnum.MMS);
-            body_messages_1.setMessageExpiryTimestamp(new DateTime("2016-11-03T11:49:02.807Z", DateTimeZone.UTC));
-            body_messages_1.setMetadata(com.messagemedia.messages.APIHelper.deserialize("{\"key1\":\"value1\",\"key2\":\"value2\"}"));
-            body_messages_1.setScheduled(new DateTime("2016-11-03T11:49:02.807Z", DateTimeZone.UTC));
-            body_messages_1.setSourceNumber("+61491570159");
-            body_messages_1.setSourceNumberType(SourceNumberTypeEnum.INTERNATIONAL);
-            body_messages_1.setMedia(new LinkedList<String>());
-            body_messages_1.getMedia().add("https://images.pexels.com/photos/1018350/pexels-photo-1018350.jpeg?cs=srgb&dl=architecture-buildings-city-1018350.jpg");
-            body_messages_1.setSubject("This is an MMS message");
-            body.getMessages().add(body_messages_1);
-
-
-            messagesController.sendMessagesAsync(body, new APICallBack<SendMessagesResponse>() {
-                public void onSuccess(HttpContext context, SendMessagesResponse response) {
-                    // TODO success callback handler
-                }
-                public void onFailure(HttpContext context, Throwable error) {
-                    // TODO failure callback handler
-                }
-            });
+          source: "SendMessagesRequest body = new SendMessagesRequest();\r\nbody.setMessages(new LinkedList<Message>());\r\n\r\nMessage body_messages_0 = new Message();\r\nbody_messages_0.setCallbackUrl(\"https://my.callback.url.com\");\r\nbody_messages_0.setContent(\"My first message\");\r\nbody_messages_0.setDestinationNumber(\"+61491570156\");\r\nbody_messages_0.setDeliveryReport(true);\r\nbody_messages_0.setFormat(FormatEnum.SMS);\r\nbody_messages_0.setMessageExpiryTimestamp(new DateTime(\"2016-11-03T11:49:02.807Z\", DateTimeZone.UTC));\r\nbody_messages_0.setMetadata(com.messagemedia.messages.APIHelper.deserialize(\"{\\\"key1\\\":\\\"value1\\\",\\\"key2\\\":\\\"value2\\\"}\"));\r\nbody_messages_0.setScheduled(new DateTime(\"2016-11-03T11:49:02.807Z\", DateTimeZone.UTC));\r\nbody_messages_0.setSourceNumber(\"+61491570157\");\r\nbody_messages_0.setSourceNumberType(SourceNumberTypeEnum.INTERNATIONAL);\r\nbody.getMessages().add(body_messages_0);\r\n\r\nMessage body_messages_1 = new Message();\r\nbody_messages_1.setCallbackUrl(\"https://my.callback.url.com\");\r\nbody_messages_1.setContent(\"My second message\");\r\nbody_messages_1.setDestinationNumber(\"+61491570158\");\r\nbody_messages_1.setDeliveryReport(true);\r\nbody_messages_1.setFormat(FormatEnum.MMS);\r\nbody_messages_1.setMessageExpiryTimestamp(new DateTime(\"2016-11-03T11:49:02.807Z\", DateTimeZone.UTC));\r\nbody_messages_1.setMetadata(com.messagemedia.messages.APIHelper.deserialize(\"{\\\"key1\\\":\\\"value1\\\",\\\"key2\\\":\\\"value2\\\"}\"));\r\nbody_messages_1.setScheduled(new DateTime(\"2016-11-03T11:49:02.807Z\", DateTimeZone.UTC));\r\nbody_messages_1.setSourceNumber(\"+61491570159\");\r\nbody_messages_1.setSourceNumberType(SourceNumberTypeEnum.INTERNATIONAL);\r\nbody_messages_1.setMedia(new LinkedList<String>());\r\nbody_messages_1.getMedia().add(\"https://images.pexels.com/photos/1018350/pexels-photo-1018350.jpeg?cs=srgb&dl=architecture-buildings-city-1018350.jpg\");\r\nbody_messages_1.setSubject(\"This is an MMS message\");\r\nbody.getMessages().add(body_messages_1);\r\n\r\n\r\nmessagesController.sendMessagesAsync(body, new APICallBack<SendMessagesResponse>() {\r\n    public void onSuccess(HttpContext context, SendMessagesResponse response) {\r\n        // TODO success callback handler\r\n    }\r\n    public void onFailure(HttpContext context, Throwable error) {\r\n        // TODO failure callback handler\r\n    }\r\n});\r\n"
         - lang: JavaScript
-          source: |-
-            let body = new lib.SendMessagesRequest();
-            body.messages = [];
-
-            body.messages[0] = new lib.Message();
-            body.messages[0].callbackUrl = 'https://my.callback.url.com';
-            body.messages[0].content = 'My first message';
-            body.messages[0].destinationNumber = '+61491570156';
-            body.messages[0].deliveryReport = true;
-            body.messages[0].format = lib.FormatEnum.SMS;
-            body.messages[0].messageExpiryTimestamp = moment('2016-11-03T11:49:02.807Z').parseZone('2016-11-03T11:49:02.807Z');
-            body.messages[0].metadata = JSON.parse('{"key1":"value1","key2":"value2"}');
-            body.messages[0].scheduled = moment('2016-11-03T11:49:02.807Z').parseZone('2016-11-03T11:49:02.807Z');
-            body.messages[0].sourceNumber = '+61491570157';
-            body.messages[0].sourceNumberType = lib.SourceNumberTypeEnum.INTERNATIONAL;
-
-            body.messages[1] = new lib.Message();
-            body.messages[1].callbackUrl = 'https://my.callback.url.com';
-            body.messages[1].content = 'My second message';
-            body.messages[1].destinationNumber = '+61491570158';
-            body.messages[1].deliveryReport = true;
-            body.messages[1].format = lib.FormatEnum.MMS;
-            body.messages[1].messageExpiryTimestamp = moment('2016-11-03T11:49:02.807Z').parseZone('2016-11-03T11:49:02.807Z');
-            body.messages[1].metadata = JSON.parse('{"key1":"value1","key2":"value2"}');
-            body.messages[1].scheduled = moment('2016-11-03T11:49:02.807Z').parseZone('2016-11-03T11:49:02.807Z');
-            body.messages[1].sourceNumber = '+61491570159';
-            body.messages[1].sourceNumberType = lib.SourceNumberTypeEnum.INTERNATIONAL;
-            body.messages[1].media = ['https://images.pexels.com/photos/1018350/pexels-photo-1018350.jpeg?cs=srgb&dl=architecture-buildings-city-1018350.jpg'];
-            body.messages[1].subject = 'This is an MMS message';
-
-
-            const promise = controller.sendMessages(body);
-            promise.then((response) => {
-                // this block will be executed on successful endpoint call
-                // `response` will be of type 'SendMessagesResponse'
-            }, (err) => {
-                // this block will be executed on endpoint call failure
-                // `err` is an 'object' containing more information about the error
-            });
+          source: "let body = new lib.SendMessagesRequest();\r\nbody.messages = [];\r\n\r\nbody.messages[0] = new lib.Message();\r\nbody.messages[0].callbackUrl = 'https://my.callback.url.com';\r\nbody.messages[0].content = 'My first message';\r\nbody.messages[0].destinationNumber = '+61491570156';\r\nbody.messages[0].deliveryReport = true;\r\nbody.messages[0].format = lib.FormatEnum.SMS;\r\nbody.messages[0].messageExpiryTimestamp = moment('2016-11-03T11:49:02.807Z').parseZone('2016-11-03T11:49:02.807Z');\r\nbody.messages[0].metadata = JSON.parse('{\"key1\":\"value1\",\"key2\":\"value2\"}');\r\nbody.messages[0].scheduled = moment('2016-11-03T11:49:02.807Z').parseZone('2016-11-03T11:49:02.807Z');\r\nbody.messages[0].sourceNumber = '+61491570157';\r\nbody.messages[0].sourceNumberType = lib.SourceNumberTypeEnum.INTERNATIONAL;\r\n\r\nbody.messages[1] = new lib.Message();\r\nbody.messages[1].callbackUrl = 'https://my.callback.url.com';\r\nbody.messages[1].content = 'My second message';\r\nbody.messages[1].destinationNumber = '+61491570158';\r\nbody.messages[1].deliveryReport = true;\r\nbody.messages[1].format = lib.FormatEnum.MMS;\r\nbody.messages[1].messageExpiryTimestamp = moment('2016-11-03T11:49:02.807Z').parseZone('2016-11-03T11:49:02.807Z');\r\nbody.messages[1].metadata = JSON.parse('{\"key1\":\"value1\",\"key2\":\"value2\"}');\r\nbody.messages[1].scheduled = moment('2016-11-03T11:49:02.807Z').parseZone('2016-11-03T11:49:02.807Z');\r\nbody.messages[1].sourceNumber = '+61491570159';\r\nbody.messages[1].sourceNumberType = lib.SourceNumberTypeEnum.INTERNATIONAL;\r\nbody.messages[1].media = ['https://images.pexels.com/photos/1018350/pexels-photo-1018350.jpeg?cs=srgb&dl=architecture-buildings-city-1018350.jpg'];\r\nbody.messages[1].subject = 'This is an MMS message';\r\n\r\n\r\nconst promise = controller.sendMessages(body);\r\npromise.then((response) => {\r\n    // this block will be executed on successful endpoint call\r\n    // `response` will be of type 'SendMessagesResponse'\r\n}, (err) => {\r\n    // this block will be executed on endpoint call failure\r\n    // `err` is an 'object' containing more information about the error\r\n});"
         - lang: PHP
-          source: |-
-            $body = new Models\SendMessagesRequest;
-            $body->messages = array();
-
-            $body->messages[0] = new Models\Message;
-            $body->messages[0]->callbackUrl = 'https://my.callback.url.com';
-            $body->messages[0]->content = 'My first message';
-            $body->messages[0]->destinationNumber = '+61491570156';
-            $body->messages[0]->deliveryReport = true;
-            $body->messages[0]->format = Models\FormatEnum::SMS;
-            $body->messages[0]->messageExpiryTimestamp = DateTimeHelper::fromRfc3339DateTime('2016-11-03T11:49:02.807Z');
-            $body->messages[0]->metadata = MessageMediaMessagesLib\APIHelper::deserialize('{"key1":"value1","key2":"value2"}');
-            $body->messages[0]->scheduled = DateTimeHelper::fromRfc3339DateTime('2016-11-03T11:49:02.807Z');
-            $body->messages[0]->sourceNumber = '+61491570157';
-            $body->messages[0]->sourceNumberType = Models\SourceNumberTypeEnum::INTERNATIONAL;
-
-            $body->messages[1] = new Models\Message;
-            $body->messages[1]->callbackUrl = 'https://my.callback.url.com';
-            $body->messages[1]->content = 'My second message';
-            $body->messages[1]->destinationNumber = '+61491570158';
-            $body->messages[1]->deliveryReport = true;
-            $body->messages[1]->format = Models\FormatEnum::MMS;
-            $body->messages[1]->messageExpiryTimestamp = DateTimeHelper::fromRfc3339DateTime('2016-11-03T11:49:02.807Z');
-            $body->messages[1]->metadata = MessageMediaMessagesLib\APIHelper::deserialize('{"key1":"value1","key2":"value2"}');
-            $body->messages[1]->scheduled = DateTimeHelper::fromRfc3339DateTime('2016-11-03T11:49:02.807Z');
-            $body->messages[1]->sourceNumber = '+61491570159';
-            $body->messages[1]->sourceNumberType = Models\SourceNumberTypeEnum::INTERNATIONAL;
-            $body->messages[1]->media = array('https://images.pexels.com/photos/1018350/pexels-photo-1018350.jpeg?cs=srgb&dl=architecture-buildings-city-1018350.jpg');
-            $body->messages[1]->subject = 'This is an MMS message';
-
-
-            $result = $messagesController->sendMessages($body);
+          source: "$body = new Models\\SendMessagesRequest;\r\n$body->messages = array();\r\n\r\n$body->messages[0] = new Models\\Message;\r\n$body->messages[0]->callbackUrl = 'https://my.callback.url.com';\r\n$body->messages[0]->content = 'My first message';\r\n$body->messages[0]->destinationNumber = '+61491570156';\r\n$body->messages[0]->deliveryReport = true;\r\n$body->messages[0]->format = Models\\FormatEnum::SMS;\r\n$body->messages[0]->messageExpiryTimestamp = DateTimeHelper::fromRfc3339DateTime('2016-11-03T11:49:02.807Z');\r\n$body->messages[0]->metadata = MessageMediaMessagesLib\\APIHelper::deserialize('{\"key1\":\"value1\",\"key2\":\"value2\"}');\r\n$body->messages[0]->scheduled = DateTimeHelper::fromRfc3339DateTime('2016-11-03T11:49:02.807Z');\r\n$body->messages[0]->sourceNumber = '+61491570157';\r\n$body->messages[0]->sourceNumberType = Models\\SourceNumberTypeEnum::INTERNATIONAL;\r\n\r\n$body->messages[1] = new Models\\Message;\r\n$body->messages[1]->callbackUrl = 'https://my.callback.url.com';\r\n$body->messages[1]->content = 'My second message';\r\n$body->messages[1]->destinationNumber = '+61491570158';\r\n$body->messages[1]->deliveryReport = true;\r\n$body->messages[1]->format = Models\\FormatEnum::MMS;\r\n$body->messages[1]->messageExpiryTimestamp = DateTimeHelper::fromRfc3339DateTime('2016-11-03T11:49:02.807Z');\r\n$body->messages[1]->metadata = MessageMediaMessagesLib\\APIHelper::deserialize('{\"key1\":\"value1\",\"key2\":\"value2\"}');\r\n$body->messages[1]->scheduled = DateTimeHelper::fromRfc3339DateTime('2016-11-03T11:49:02.807Z');\r\n$body->messages[1]->sourceNumber = '+61491570159';\r\n$body->messages[1]->sourceNumberType = Models\\SourceNumberTypeEnum::INTERNATIONAL;\r\n$body->messages[1]->media = array('https://images.pexels.com/photos/1018350/pexels-photo-1018350.jpeg?cs=srgb&dl=architecture-buildings-city-1018350.jpg');\r\n$body->messages[1]->subject = 'This is an MMS message';\r\n\r\n\r\n$result = $messagesController->sendMessages($body);"
         - lang: Python
-          source: |-
-            body = SendMessagesRequest()
-            body.messages = []
-
-            body.messages.append(Message())
-            body.messages[0].callback_url = 'https://my.callback.url.com'
-            body.messages[0].content = 'My first message'
-            body.messages[0].destination_number = '+61491570156'
-            body.messages[0].delivery_report = True
-            body.messages[0].format = FormatEnum.SMS
-            body.messages[0].message_expiry_timestamp = dateutil.parser.parse('2016-11-03T11:49:02.807Z')
-            body.messages[0].metadata = jsonpickle.decode('{"key1":"value1","key2":"value2"}')
-            body.messages[0].scheduled = dateutil.parser.parse('2016-11-03T11:49:02.807Z')
-            body.messages[0].source_number = '+61491570157'
-            body.messages[0].source_number_type = SourceNumberTypeEnum.INTERNATIONAL
-
-            body.messages.append(Message())
-            body.messages[1].callback_url = 'https://my.callback.url.com'
-            body.messages[1].content = 'My second message'
-            body.messages[1].destination_number = '+61491570158'
-            body.messages[1].delivery_report = True
-            body.messages[1].format = FormatEnum.MMS
-            body.messages[1].message_expiry_timestamp = dateutil.parser.parse('2016-11-03T11:49:02.807Z')
-            body.messages[1].metadata = jsonpickle.decode('{"key1":"value1","key2":"value2"}')
-            body.messages[1].scheduled = dateutil.parser.parse('2016-11-03T11:49:02.807Z')
-            body.messages[1].source_number = '+61491570159'
-            body.messages[1].source_number_type = SourceNumberTypeEnum.INTERNATIONAL
-            body.messages[1].media = ['https://images.pexels.com/photos/1018350/pexels-photo-1018350.jpeg?cs=srgb&dl=architecture-buildings-city-1018350.jpg']
-            body.messages[1].subject = 'This is an MMS message'
-
-
-            result = messages_controller.send_messages(body)
+          source: "body = SendMessagesRequest()\r\nbody.messages = []\r\n\r\nbody.messages.append(Message())\r\nbody.messages[0].callback_url = 'https://my.callback.url.com'\r\nbody.messages[0].content = 'My first message'\r\nbody.messages[0].destination_number = '+61491570156'\r\nbody.messages[0].delivery_report = True\r\nbody.messages[0].format = FormatEnum.SMS\r\nbody.messages[0].message_expiry_timestamp = dateutil.parser.parse('2016-11-03T11:49:02.807Z')\r\nbody.messages[0].metadata = jsonpickle.decode('{\"key1\":\"value1\",\"key2\":\"value2\"}')\r\nbody.messages[0].scheduled = dateutil.parser.parse('2016-11-03T11:49:02.807Z')\r\nbody.messages[0].source_number = '+61491570157'\r\nbody.messages[0].source_number_type = SourceNumberTypeEnum.INTERNATIONAL\r\n\r\nbody.messages.append(Message())\r\nbody.messages[1].callback_url = 'https://my.callback.url.com'\r\nbody.messages[1].content = 'My second message'\r\nbody.messages[1].destination_number = '+61491570158'\r\nbody.messages[1].delivery_report = True\r\nbody.messages[1].format = FormatEnum.MMS\r\nbody.messages[1].message_expiry_timestamp = dateutil.parser.parse('2016-11-03T11:49:02.807Z')\r\nbody.messages[1].metadata = jsonpickle.decode('{\"key1\":\"value1\",\"key2\":\"value2\"}')\r\nbody.messages[1].scheduled = dateutil.parser.parse('2016-11-03T11:49:02.807Z')\r\nbody.messages[1].source_number = '+61491570159'\r\nbody.messages[1].source_number_type = SourceNumberTypeEnum.INTERNATIONAL\r\nbody.messages[1].media = ['https://images.pexels.com/photos/1018350/pexels-photo-1018350.jpeg?cs=srgb&dl=architecture-buildings-city-1018350.jpg']\r\nbody.messages[1].subject = 'This is an MMS message'\r\n\r\n\r\nresult = messages_controller.send_messages(body)"
         - lang: Ruby
-          source: |-
-            SendMessagesRequest body = new SendMessagesRequest();
-            body.Messages = new List<Message>();
-
-            Message body_messages_0 = new Message();
-            body_messages_0.CallbackUrl = "https://my.callback.url.com";
-            body_messages_0.Content = "My first message";
-            body_messages_0.DestinationNumber = "+61491570156";
-            body_messages_0.DeliveryReport = true;
-            body_messages_0.Format = Format.SMS;
-            body_messages_0.MessageExpiryTimestamp = DateTime.Parse("2016-11-03T11:49:02.807Z");
-            body_messages_0.Metadata = APIHelper.JsonDeserialize<Object>("{\"key1\":\"value1\",\"key2\":\"value2\"}");
-            body_messages_0.Scheduled = DateTime.Parse("2016-11-03T11:49:02.807Z");
-            body_messages_0.SourceNumber = "+61491570157";
-            body_messages_0.SourceNumberType = SourceNumberType.INTERNATIONAL;
-            body.Messages.Add(body_messages_0);
-
-            Message body_messages_1 = new Message();
-            body_messages_1.CallbackUrl = "https://my.callback.url.com";
-            body_messages_1.Content = "My second message";
-            body_messages_1.DestinationNumber = "+61491570158";
-            body_messages_1.DeliveryReport = true;
-            body_messages_1.Format = Format.MMS;
-            body_messages_1.MessageExpiryTimestamp = DateTime.Parse("2016-11-03T11:49:02.807Z");
-            body_messages_1.Metadata = APIHelper.JsonDeserialize<Object>("{\"key1\":\"value1\",\"key2\":\"value2\"}");
-            body_messages_1.Scheduled = DateTime.Parse("2016-11-03T11:49:02.807Z");
-            body_messages_1.SourceNumber = "+61491570159";
-            body_messages_1.SourceNumberType = SourceNumberType.INTERNATIONAL;
-            body_messages_1.Media = new List<string>();
-            body_messages_1.Media.Add("https://images.pexels.com/photos/1018350/pexels-photo-1018350.jpeg?cs=srgb&dl=architecture-buildings-city-1018350.jpg");
-            body_messages_1.Subject = "This is an MMS message";
-            body.Messages.Add(body_messages_1);
-
-
-            try 
-            {
-                SendMessagesResponse result = messages.SendMessagesAsync(body).Result;
-            }
-            catch (APIException e){};
+          source: "SendMessagesRequest body = new SendMessagesRequest();\r\nbody.Messages = new List<Message>();\r\n\r\nMessage body_messages_0 = new Message();\r\nbody_messages_0.CallbackUrl = \"https://my.callback.url.com\";\r\nbody_messages_0.Content = \"My first message\";\r\nbody_messages_0.DestinationNumber = \"+61491570156\";\r\nbody_messages_0.DeliveryReport = true;\r\nbody_messages_0.Format = Format.SMS;\r\nbody_messages_0.MessageExpiryTimestamp = DateTime.Parse(\"2016-11-03T11:49:02.807Z\");\r\nbody_messages_0.Metadata = APIHelper.JsonDeserialize<Object>(\"{\\\"key1\\\":\\\"value1\\\",\\\"key2\\\":\\\"value2\\\"}\");\r\nbody_messages_0.Scheduled = DateTime.Parse(\"2016-11-03T11:49:02.807Z\");\r\nbody_messages_0.SourceNumber = \"+61491570157\";\r\nbody_messages_0.SourceNumberType = SourceNumberType.INTERNATIONAL;\r\nbody.Messages.Add(body_messages_0);\r\n\r\nMessage body_messages_1 = new Message();\r\nbody_messages_1.CallbackUrl = \"https://my.callback.url.com\";\r\nbody_messages_1.Content = \"My second message\";\r\nbody_messages_1.DestinationNumber = \"+61491570158\";\r\nbody_messages_1.DeliveryReport = true;\r\nbody_messages_1.Format = Format.MMS;\r\nbody_messages_1.MessageExpiryTimestamp = DateTime.Parse(\"2016-11-03T11:49:02.807Z\");\r\nbody_messages_1.Metadata = APIHelper.JsonDeserialize<Object>(\"{\\\"key1\\\":\\\"value1\\\",\\\"key2\\\":\\\"value2\\\"}\");\r\nbody_messages_1.Scheduled = DateTime.Parse(\"2016-11-03T11:49:02.807Z\");\r\nbody_messages_1.SourceNumber = \"+61491570159\";\r\nbody_messages_1.SourceNumberType = SourceNumberType.INTERNATIONAL;\r\nbody_messages_1.Media = new List<string>();\r\nbody_messages_1.Media.Add(\"https://images.pexels.com/photos/1018350/pexels-photo-1018350.jpeg?cs=srgb&dl=architecture-buildings-city-1018350.jpg\");\r\nbody_messages_1.Subject = \"This is an MMS message\";\r\nbody.Messages.Add(body_messages_1);\r\n\r\n\r\ntry \r\n{\r\n    SendMessagesResponse result = messages.SendMessagesAsync(body).Result;\r\n}\r\ncatch (APIException e){};"
   /v1/delivery_reports:
     get:
       security:
@@ -1547,30 +1441,13 @@ paths:
         - lang: 'C#'
           source: ''
         - lang: Java
-          source: |-
-            deliveryReportsController.checkDeliveryReportsAsync(new APICallBack<CheckDeliveryReportsResponse>() {
-                public void onSuccess(HttpContext context, CheckDeliveryReportsResponse response) {
-                    // TODO success callback handler
-                }
-                public void onFailure(HttpContext context, Throwable error) {
-                    // TODO failure callback handler
-                }
-            });
+          source: "deliveryReportsController.checkDeliveryReportsAsync(new APICallBack<CheckDeliveryReportsResponse>() {\r\n    public void onSuccess(HttpContext context, CheckDeliveryReportsResponse response) {\r\n        // TODO success callback handler\r\n    }\r\n    public void onFailure(HttpContext context, Throwable error) {\r\n        // TODO failure callback handler\r\n    }\r\n});"
         - lang: JavaScript
-          source: |-
-            const promise = controller.checkDeliveryReports();
-            promise.then((response) => {
-                // this block will be executed on successful endpoint call
-                // `response` will be of type 'CheckDeliveryReportsResponse'
-            }, (err) => {
-                // this block will be executed on endpoint call failure
-                // `err` is an 'object' containing more information about the error
-            });
+          source: "const promise = controller.checkDeliveryReports();\r\npromise.then((response) => {\r\n    // this block will be executed on successful endpoint call\r\n    // `response` will be of type 'CheckDeliveryReportsResponse'\r\n}, (err) => {\r\n    // this block will be executed on endpoint call failure\r\n    // `err` is an 'object' containing more information about the error\r\n});"
         - lang: PHP
           source: $result = $deliveryReportsController->checkDeliveryReports();
         - lang: Python
-          source: |
-            result = delivery_reports_controller.check_delivery_reports()
+          source: "result = delivery_reports_controller.check_delivery_reports()\r\n"
         - lang: Ruby
           source: ''
   /v1/delivery_reports/confirmed:
@@ -1644,46 +1521,13 @@ paths:
         - lang: 'C#'
           source: ''
         - lang: Java
-          source: |-
-            ConfirmDeliveryReportsAsReceivedRequest body = new ConfirmDeliveryReportsAsReceivedRequest();
-            body.setDeliveryReportIds(new LinkedList<String>());
-            body.getDeliveryReportIds().add("011dcead-6988-4ad6-a1c7-6b6c68ea628d");
-            body.getDeliveryReportIds().add("3487b3fa-6586-4979-a233-2d1b095c7718");
-            body.getDeliveryReportIds().add("ba28e94b-c83d-4759-98e7-ff9c7edb87a1");
-
-            deliveryReportsController.confirmDeliveryReportsAsReceivedAsync(body, new APICallBack<DynamicResponse>() {
-                public void onSuccess(HttpContext context, DynamicResponse response) {
-                    // TODO success callback handler
-                }
-                public void onFailure(HttpContext context, Throwable error) {
-                    // TODO failure callback handler
-                }
-            });
+          source: "ConfirmDeliveryReportsAsReceivedRequest body = new ConfirmDeliveryReportsAsReceivedRequest();\r\nbody.setDeliveryReportIds(new LinkedList<String>());\r\nbody.getDeliveryReportIds().add(\"011dcead-6988-4ad6-a1c7-6b6c68ea628d\");\r\nbody.getDeliveryReportIds().add(\"3487b3fa-6586-4979-a233-2d1b095c7718\");\r\nbody.getDeliveryReportIds().add(\"ba28e94b-c83d-4759-98e7-ff9c7edb87a1\");\r\n\r\ndeliveryReportsController.confirmDeliveryReportsAsReceivedAsync(body, new APICallBack<DynamicResponse>() {\r\n    public void onSuccess(HttpContext context, DynamicResponse response) {\r\n        // TODO success callback handler\r\n    }\r\n    public void onFailure(HttpContext context, Throwable error) {\r\n        // TODO failure callback handler\r\n    }\r\n});"
         - lang: JavaScript
-          source: |-
-            let body = new lib.ConfirmDeliveryReportsAsReceivedRequest();
-            body.deliveryReportIds = ['011dcead-6988-4ad6-a1c7-6b6c68ea628d', '3487b3fa-6586-4979-a233-2d1b095c7718', 'ba28e94b-c83d-4759-98e7-ff9c7edb87a1'];
-
-            const promise = controller.confirmDeliveryReportsAsReceived(body);
-            promise.then((response) => {
-                // this block will be executed on successful endpoint call
-                // `response` will be of type 'mixed'
-            }, (err) => {
-                // this block will be executed on endpoint call failure
-                // `err` is an 'object' containing more information about the error
-            });
+          source: "let body = new lib.ConfirmDeliveryReportsAsReceivedRequest();\r\nbody.deliveryReportIds = ['011dcead-6988-4ad6-a1c7-6b6c68ea628d', '3487b3fa-6586-4979-a233-2d1b095c7718', 'ba28e94b-c83d-4759-98e7-ff9c7edb87a1'];\r\n\r\nconst promise = controller.confirmDeliveryReportsAsReceived(body);\r\npromise.then((response) => {\r\n    // this block will be executed on successful endpoint call\r\n    // `response` will be of type 'mixed'\r\n}, (err) => {\r\n    // this block will be executed on endpoint call failure\r\n    // `err` is an 'object' containing more information about the error\r\n});"
         - lang: PHP
-          source: |-
-            $body = new Models\ConfirmDeliveryReportsAsReceivedRequest;
-            $body->deliveryReportIds = array('011dcead-6988-4ad6-a1c7-6b6c68ea628d', '3487b3fa-6586-4979-a233-2d1b095c7718', 'ba28e94b-c83d-4759-98e7-ff9c7edb87a1');
-
-            $result = $deliveryReportsController->confirmDeliveryReportsAsReceived($body);
+          source: "$body = new Models\\ConfirmDeliveryReportsAsReceivedRequest;\r\n$body->deliveryReportIds = array('011dcead-6988-4ad6-a1c7-6b6c68ea628d', '3487b3fa-6586-4979-a233-2d1b095c7718', 'ba28e94b-c83d-4759-98e7-ff9c7edb87a1');\r\n\r\n$result = $deliveryReportsController->confirmDeliveryReportsAsReceived($body);"
         - lang: Python
-          source: |-
-            body = ConfirmDeliveryReportsAsReceivedRequest()
-            body.delivery_report_ids = ['011dcead-6988-4ad6-a1c7-6b6c68ea628d', '3487b3fa-6586-4979-a233-2d1b095c7718', 'ba28e94b-c83d-4759-98e7-ff9c7edb87a1']
-
-            result = delivery_reports_controller.confirm_delivery_reports_as_received(body)
+          source: "body = ConfirmDeliveryReportsAsReceivedRequest()\r\nbody.delivery_report_ids = ['011dcead-6988-4ad6-a1c7-6b6c68ea628d', '3487b3fa-6586-4979-a233-2d1b095c7718', 'ba28e94b-c83d-4759-98e7-ff9c7edb87a1']\r\n\r\nresult = delivery_reports_controller.confirm_delivery_reports_as_received(body)"
         - lang: Ruby
           source: ''
   /v1/replies:
@@ -1815,25 +1659,9 @@ paths:
         - lang: 'C#'
           source: ''
         - lang: Java
-          source: |-
-            repliesController.checkRepliesAsync(new APICallBack<CheckRepliesResponse>() {
-                public void onSuccess(HttpContext context, CheckRepliesResponse response) {
-                    // TODO success callback handler
-                }
-                public void onFailure(HttpContext context, Throwable error) {
-                    // TODO failure callback handler
-                }
-            });
+          source: "repliesController.checkRepliesAsync(new APICallBack<CheckRepliesResponse>() {\r\n    public void onSuccess(HttpContext context, CheckRepliesResponse response) {\r\n        // TODO success callback handler\r\n    }\r\n    public void onFailure(HttpContext context, Throwable error) {\r\n        // TODO failure callback handler\r\n    }\r\n});"
         - lang: JavaScript
-          source: |-
-            const promise = controller.checkReplies();
-            promise.then((response) => {
-                // this block will be executed on successful endpoint call
-                // `response` will be of type 'CheckRepliesResponse'
-            }, (err) => {
-                // this block will be executed on endpoint call failure
-                // `err` is an 'object' containing more information about the error
-            });
+          source: "const promise = controller.checkReplies();\r\npromise.then((response) => {\r\n    // this block will be executed on successful endpoint call\r\n    // `response` will be of type 'CheckRepliesResponse'\r\n}, (err) => {\r\n    // this block will be executed on endpoint call failure\r\n    // `err` is an 'object' containing more information about the error\r\n});"
         - lang: PHP
           source: $result = $repliesController->checkReplies();
         - lang: Python
@@ -1911,40 +1739,11 @@ paths:
         - lang: 'C#'
           source: ''
         - lang: Java
-          source: |-
-            ConfirmRepliesAsReceivedRequest body = new ConfirmRepliesAsReceivedRequest();
-            body.setReplyIds(new LinkedList<String>());
-            body.getReplyIds().add("011dcead-6988-4ad6-a1c7-6b6c68ea628d");
-            body.getReplyIds().add("3487b3fa-6586-4979-a233-2d1b095c7718");
-            body.getReplyIds().add("ba28e94b-c83d-4759-98e7-ff9c7edb87a1");
-
-            repliesController.confirmRepliesAsReceivedAsync(body, new APICallBack<DynamicResponse>() {
-                public void onSuccess(HttpContext context, DynamicResponse response) {
-                    // TODO success callback handler
-                }
-                public void onFailure(HttpContext context, Throwable error) {
-                    // TODO failure callback handler
-                }
-            });
+          source: "ConfirmRepliesAsReceivedRequest body = new ConfirmRepliesAsReceivedRequest();\r\nbody.setReplyIds(new LinkedList<String>());\r\nbody.getReplyIds().add(\"011dcead-6988-4ad6-a1c7-6b6c68ea628d\");\r\nbody.getReplyIds().add(\"3487b3fa-6586-4979-a233-2d1b095c7718\");\r\nbody.getReplyIds().add(\"ba28e94b-c83d-4759-98e7-ff9c7edb87a1\");\r\n\r\nrepliesController.confirmRepliesAsReceivedAsync(body, new APICallBack<DynamicResponse>() {\r\n    public void onSuccess(HttpContext context, DynamicResponse response) {\r\n        // TODO success callback handler\r\n    }\r\n    public void onFailure(HttpContext context, Throwable error) {\r\n        // TODO failure callback handler\r\n    }\r\n});"
         - lang: JavaScript
-          source: |-
-            let body = new lib.ConfirmRepliesAsReceivedRequest();
-            body.replyIds = ['011dcead-6988-4ad6-a1c7-6b6c68ea628d', '3487b3fa-6586-4979-a233-2d1b095c7718', 'ba28e94b-c83d-4759-98e7-ff9c7edb87a1'];
-
-            const promise = controller.confirmRepliesAsReceived(body);
-            promise.then((response) => {
-                // this block will be executed on successful endpoint call
-                // `response` will be of type 'mixed'
-            }, (err) => {
-                // this block will be executed on endpoint call failure
-                // `err` is an 'object' containing more information about the error
-            });
+          source: "let body = new lib.ConfirmRepliesAsReceivedRequest();\r\nbody.replyIds = ['011dcead-6988-4ad6-a1c7-6b6c68ea628d', '3487b3fa-6586-4979-a233-2d1b095c7718', 'ba28e94b-c83d-4759-98e7-ff9c7edb87a1'];\r\n\r\nconst promise = controller.confirmRepliesAsReceived(body);\r\npromise.then((response) => {\r\n    // this block will be executed on successful endpoint call\r\n    // `response` will be of type 'mixed'\r\n}, (err) => {\r\n    // this block will be executed on endpoint call failure\r\n    // `err` is an 'object' containing more information about the error\r\n});"
         - lang: PHP
-          source: |-
-            $body = new Models\ConfirmRepliesAsReceivedRequest;
-            $body->replyIds = array('011dcead-6988-4ad6-a1c7-6b6c68ea628d', '3487b3fa-6586-4979-a233-2d1b095c7718', 'ba28e94b-c83d-4759-98e7-ff9c7edb87a1');
-
-            $result = $repliesController->confirmRepliesAsReceived($body);
+          source: "$body = new Models\\ConfirmRepliesAsReceivedRequest;\r\n$body->replyIds = array('011dcead-6988-4ad6-a1c7-6b6c68ea628d', '3487b3fa-6586-4979-a233-2d1b095c7718', 'ba28e94b-c83d-4759-98e7-ff9c7edb87a1');\r\n\r\n$result = $repliesController->confirmRepliesAsReceived($body);"
         - lang: Python
           source: ''
         - lang: Ruby
@@ -5648,6 +5447,209 @@ paths:
       deprecated: false
 components:
   schemas:
+    chronosscheduleresponse:
+      title: chronosscheduleresponse
+      type: object
+      required:
+        - page_token
+        - page_size
+      properties:
+        page_token:
+          type: string
+          example: abc123
+        page_size:
+          type: number
+          example: 20
+    scheduleddetailreport:
+      title: scheduleddetailreport
+      type: object
+      required:
+        - label
+        - schedule
+      properties:
+        label:
+          type: string
+          example: Weekly Report
+          description: The label of the report schedule
+        schedule:
+          $ref: '#/components/schemas/schedule'
+        report:
+          $ref: '#/components/schemas/scheduleddetailrequest'
+    scheduleddetailrequest:
+      title: scheduleddetailrequest
+      type: object
+      description: A scheduled detail report request
+      required:
+        - period
+      properties:
+        period:
+          $ref: '#/components/schemas/ReportPeriod'
+        timezone:
+          type: string
+          example: Australia/Sydney
+          description: The standard timezone name
+        direction:
+          $ref: '#/components/schemas/MessageDirection'
+        source:
+          type: string
+          example: '+61555555555'
+        destination:
+          type: string
+          example: '+61555555555'
+        metadata_key:
+          type: string
+          example: broadcastId
+        metadata_value:
+          type: string
+          example: ABC
+        accounts:
+          type: array
+          items:
+            type: string
+          example:
+            - Account1
+            - Account2
+        status:
+          type: array
+          items:
+            $ref: '#/components/schemas/MessageStatus'
+        opt_out:
+          type: string
+          example: 'true'
+        delivery_options:
+          type: array
+          items:
+            $ref: '#/components/schemas/deliveryOptionsBody'
+    schedule:
+      title: schedule
+      type: object
+      description: The time schedule of a scheduled report
+      required:
+        - timezone
+        - cron_expression
+        - type
+      properties:
+        timezone:
+          type: string
+          example: UTC
+        cron_expression:
+          type: string
+          example: 0 0 * * * ? *
+        type:
+          type: string
+          example: cron
+    ReportPeriod:
+      title: ReportPeriod
+      enum:
+        - TODAY
+        - YESTERDAY
+        - THIS_WEEK
+        - LAST_WEEK
+        - THIS_MONTH
+        - LAST_MONTH
+        - LAST_30_DAYS
+        - LAST_7_DAYS
+        - THIS_WEEKDAYS
+        - LAST_WEEKDAYS
+      type: string
+      description: Automatically set a date range based on the period value. Can't be combined with start_date and end_date.
+      example: THIS_WEEK
+    scheduledreport:
+      title: scheduledreport
+      type: object
+      required:
+        - label
+        - schedule
+        - report
+      properties:
+        label:
+          type: string
+          example: Weekly Report
+          description: The label of the report schedule
+        schedule:
+          $ref: '#/components/schemas/schedule'
+        scheduled_report_id:
+          type: string
+          example: 43928f76-c381-4943-8619-f10460005898
+        message_type:
+          $ref: '#/components/schemas/MessageDirection'
+        report_type:
+          type: string
+          example: detail
+    scheduledreportresponse:
+      title: scheduledreportresponse
+      type: object
+      required:
+        - scheduled_report_id
+      properties:
+        scheduled_report_id:
+          type: string
+          example: 51f0097f-90b2-4a59-ad88-a0fd93abaa82
+    scheduledsummaryreport:
+      title: scheduledsummaryreport
+      type: object
+      required:
+        - label
+        - schedule
+      properties:
+        label:
+          type: string
+          example: Weekly Report
+          description: The label of the report schedule
+        schedule:
+          $ref: '#/components/schemas/schedule'
+        report:
+          $ref: '#/components/schemas/scheduledsummaryrequest'
+    scheduledsummaryrequest:
+      title: scheduledsummaryrequest
+      type: object
+      description: A scheduled summary report request
+      required:
+        - period
+        - timezone
+      properties:
+        period:
+          $ref: '#/components/schemas/ReportPeriod'
+        timezone:
+          type: string
+          example: Australia/Sydney
+          description: The standard timezone name
+        direction:
+          $ref: '#/components/schemas/MessageDirection'
+        source:
+          type: string
+          example: '+61555555555'
+        destination:
+          type: string
+          example: '+61555555555'
+        metadata_key:
+          type: string
+          example: broadcastId
+        metadata_value:
+          type: string
+          example: ABC
+        accounts:
+          type: array
+          items:
+            type: string
+          example:
+            - Account1
+            - Account2
+        status:
+          type: array
+          items:
+            $ref: '#/components/schemas/MessageStatus'
+        opt_out:
+          type: string
+          example: 'true'
+        group_by:
+          type: array
+          items:
+            $ref: '#/components/schemas/GroupByField'
+        delivery_options:
+          type: array
+          items:
+            $ref: '#/components/schemas/deliveryOptionsBody'
     asyncsentmessagesdetailrequest:
       title: asyncsentmessagesdetailrequest
       required:
@@ -6070,7 +6072,7 @@ components:
       properties:
         group:
           type: string
-          example: 2020-11-01T00:00:00.000Z
+          example: '2020-11-01'
         total_sent:
           type: number
         total_received:
@@ -6664,6 +6666,9 @@ components:
           type: array
           items:
             type: string
+          example:
+            - Account1
+            - Account2
           description: List of accounts that were considered when fetching the metadata keys.
     deliveryOptionsBody:
       title: deliveryOptionsBody
@@ -6677,6 +6682,9 @@ components:
           type: array
           items:
             type: string
+          example:
+            - email@example.com
+            - test@example.com
           description: A list of email addresses to use as the recipient of the email. Only works for EMAIL delivery type
         delivery_format:
           type: string
@@ -9225,6 +9233,45 @@ components:
         - RECEIVED_MESSAGES
       type: string
       example: SENT_MESSAGES
+    MessageDirection:
+      title: MessageDirection
+      enum:
+        - inbound
+        - outbound
+        - all
+      example: all
+    MessageStatus:
+      title: MessageStatus
+      enum:
+        - UNDEFINED
+        - QUEUED
+        - PROCESSING
+        - PROCESSED
+        - FAILED
+        - SCHEDULED
+        - CANCELLED
+        - DELIVERED
+        - EXPIRED
+        - ENROUTE
+        - HELD
+        - SUBMITTED
+        - REJECTED
+        - READ
+      example: DELIVERED
+    GroupByField:
+      title: GroupByField
+      enum:
+        - ACCOUNT
+        - DAY
+        - WEEK
+        - MONTH
+        - YEAR
+        - METADATA_KEY
+        - METADATA_VALUE
+        - STATUS
+        - COUNTRY
+      type: string
+      example: DAY
   headers:
     ExpiresAfter:
       description: date in UTC when token expires
