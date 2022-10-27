@@ -4985,6 +4985,7 @@ components:
       example: all
     MessageStatus:
       title: MessageStatus
+      type: string
       enum:
         - UNDEFINED
         - QUEUED
@@ -5001,6 +5002,7 @@ components:
         - REJECTED
         - READ
       example: DELIVERED
+      description: An enumerable list of potential message statuses.
     asyncsentmessagesdetailrequest:
       title: asyncsentmessagesdetailrequest
       required:
@@ -5050,7 +5052,9 @@ components:
             - Account1
             - Account2
         status:
-          $ref: '#/components/schemas/MessageStatus'
+          type: array
+          items:
+            $ref: '#/components/schemas/MessageStatus'
         opt_out:
           description: Filter results by message format.
           type: string
