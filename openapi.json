@@ -89,6 +89,51 @@
     }
   ],
   "paths": {
+    "/v2-preview/reporting/messages/metakeys": {
+      "post": {
+        "security": [
+          {
+            "basic_auth": []
+          },
+          {
+            "hmac_auth": []
+          }
+        ],
+        "tags": [
+          "Messaging Reports"
+        ],
+        "summary": "Metadata Keys",
+        "description": "Returns a list of metadata keys.",
+        "operationId": "PostMetadataKeys",
+        "parameters": [],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/metakeyrequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "A list of metadata keys.",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/metakeyresponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request. Check the json response for more details on what went wrong."
+          }
+        }
+      }
+    },
     "/v2-preview/reporting/messages/detail": {
       "post": {
         "security": [
@@ -6775,6 +6820,25 @@
   },
   "components": {
     "schemas": {
+      "metakeyresponse": {
+        "title": "metakeyresponse",
+        "required": [
+          "keys"
+        ],
+        "properties": {
+          "keys": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": [
+              "meta1",
+              "meta2",
+              "meta3"
+            ]
+          }
+        }
+      },
       "chronosscheduleresponse": {
         "title": "chronosscheduleresponse",
         "type": "object",
