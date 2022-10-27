@@ -755,17 +755,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/asyncsentmessagesdetailrequest'
-            example:
-              start_date: 2019-12-12T00:00:00.000+11:00
-              end_date: 2019-12-14T00:00:00.000+11:00
-              timezone: Australia/Melbourne
-              accounts: [ ]
-              status:
-                - CANCELLED
-              delivery_options:
-                - delivery_type: EMAIL
-                  delivery_addresses: [ ]
-                  delivery_format: CSV
         required: true
       responses:
         202:
@@ -795,14 +784,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/asyncsummaryrequest'
-            example:
-              start_date: 2019-12-12T00:00:00.000+11:00
-              end_date: 2019-12-14T00:00:00.000+11:00
-              timezone: Australia/Sydney
-              source: +61555555555
-              metadata_key: broadcastId
-              metadata_value: ABC
-              opt_out: true
       responses:
         202:
           description: A list of all messages received in the specified time window
@@ -5005,6 +4986,31 @@ paths:
 # An object to hold reusable parts that can be used across the spec
 components:
   schemas:
+    MessageDirection:
+      title: MessageDirection
+      enum:
+        - inbound
+        - outbound
+        - all
+      example: all
+    MessageStatus:
+      title: MessageStatus
+      enum:
+        - UNDEFINED
+        - QUEUED
+        - PROCESSING
+        - PROCESSED
+        - FAILED
+        - SCHEDULED
+        - CANCELLED
+        - DELIVERED
+        - EXPIRED
+        - ENROUTE
+        - HELD
+        - SUBMITTED
+        - REJECTED
+        - READ
+      example: DELIVERED
     asyncsentmessagesdetailrequest:
       title: asyncsentmessagesdetailrequest
       required:
@@ -5015,6 +5021,7 @@ components:
         start_date:
           description: Start date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.
           type: string
+          example: 2022-12-12T00:00:00.000z
         end_date:
           description: End date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.
           type: string
@@ -5023,16 +5030,15 @@ components:
           type: string
           example: Australia/Sydney
         direction:
-          description: The type of messages to include in the report. Accepted values are `inbound`, `outbound`, and `all` (both inbound and outbound)
-          type: object
+          $ref: '#/components/schemas/MessageDirection'
         source:
           description: Filter results by source address.
           type: string
-          example: +61555555555
+          example: "+61555555555"
         destination:
           description: Filter results by destination address.
           type: string
-          example: +61555555555
+          example: "+61555555555"
         metadata_key:
           description: Filter results for messages that include a metadata key.
           type: string
@@ -5049,16 +5055,15 @@ components:
           type: array
           items:
             type: string
+          example:
+            - Account1
+            - Account2
         status:
-          description: >-
-            An array of message statuses
-          type: array
-          items:
-            type: object
+          $ref: '#/components/schemas/MessageStatus'
         opt_out:
           description: Filter results by message format.
           type: string
-          example: true
+          example: "true"
         message_format:
           $ref: '#/components/schemas/format'
         fields:
@@ -5423,12 +5428,16 @@ components:
             $ref: '#/components/schemas/summaryitemresponse'
         total_sent:
           type: number
+          example: 100
         total_received:
           type: number
+          example: 50
         total_billing_units:
           type: number
+          example: 150
         total_optout:
           type: number
+          example: 10
     summaryitemresponse:
       title: summaryitemresponse
       type: object
@@ -5438,12 +5447,16 @@ components:
           example: Account1
         total_sent:
           type: number
+          example: 60
         total_received:
           type: number
+          example: 30
         total_billing_units:
           type: number
+          example: 90
         total_optout:
           type: number
+          example: 7
         sub_group:
           type: array
           items:
@@ -5457,12 +5470,16 @@ components:
           example: 2020-11-01
         total_sent:
           type: number
+          example: 20
         total_received:
           type: number
+          example: 0
         total_billing_units:
           type: number
+          example: 20
         total_optout:
           type: number
+          example: 0
     Confirmdeliveryreportsasreceivedrequest:
       title: Confirmeliveryreportsasreceivedrequest
       required:
@@ -5933,6 +5950,9 @@ components:
             }
 
             ```
+          example:
+            - "myKey": "myValue"
+            - "anotherKey": "anotherValue"
         scheduled:
           type: string
           description: Scheduled delivery date time of the message
@@ -5964,6 +5984,7 @@ components:
           description: >-
             The subject field is used to denote subject of the MMS message and
             has a maximum size of 64 characters long
+          example: New Products
     Sendmessagesresponse:
       title: Sendmessagesresponse
       type: object
@@ -6091,6 +6112,9 @@ components:
           items:
             type: string
           description: A list of email addresses to use as the recipient of the email. Only works for EMAIL delivery type
+          example:
+            - example@email.com
+            - test@email.com
         delivery_format:
           type: string
           description: Format of the report.
@@ -6115,21 +6139,27 @@ components:
         page:
           type: number
           description: The current page of results
+          example: 3
         page_size:
           type: number
           description: The amount of results returned per page
+          example: 50
         total_count:
           type: number
           description: The total number of results in the results set
+          example: 80
         page_count:
           type: number
           description: The total number of pages in the results set
+          example: 5
         next_uri:
           type: string
           description: Link to the next page of results
+          example: example.url
         previous_uri:
           type: string
           description: Link to the previous page of results
+          example: example.url
     ReportingDetailProperties:
       title: ReportingDetailProperties
       required:
