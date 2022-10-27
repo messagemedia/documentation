@@ -671,145 +671,12 @@ paths:
       summary: Post detail report
       description: Generates a report listing all sent and/or received messages within a specified time period.
       operationId: PostDetailReport
-      parameters:
-        - name: start_date
-          in: query
-          description: Start date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: 2019-12-12T00:00:00.000+11:00
-        - name: end_date
-          in: query
-          description: End date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: 2019-12-14T00:00:00.000+11:00
-        - name: direction
-          in: query
-          description: The type of messages to include in the report. Accepted values are `inbound`, `outbound`, and `all` (both inbound and outbound)
-          style: form
-          explode: true
-          schema:
-            type: object
-        - name: source
-          in: query
-          description: Filter results by source address.
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: +61555555555
-        - name: destination
-          in: query
-          description: Filter results by destination address.
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: +61555555555
-        - name: destinations
-          in: query
-          description: Specify a list of destination numbers to filter the report by
-          style: form
-          explode: true
-          schema:
-            type: array
-            items:
-              type: string
-        - name: metadata_key
-          in: query
-          description: Filter results for messages that include a metadata key. If this parameter is included in the query, then either the metadata_value or metadata_values parameter must also be included to filter the report by the appropriate key for the specified value.
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: broadcastId
-        - name: metadata_value
-          in: query
-          description: Filter results to only include messages that have a certain value against one of their metadata tags. If this parameter is included in the query, then the metadata_key parameter must also be included to filter the report by the appropriate key for the specified value.
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: ABC
-        - name: metadata_values
-          in: query
-          description: Specifies a list of metadata values to filter the report by. If this parameter is included in the query, then the metadata_key parameter must also be included to filter the report by the appropriate key for the specified value.
-          style: form
-          explode: true
-          schema:
-            type: array
-            items:
-              type: string
-        - name: accounts
-          in: query
-          description: >-
-            Filter results by a specific account. By default results
-            will be returned for the account associated with the authentication
-            credentials and all sub accounts.
-          style: form
-          explode: true
-          schema:
-            type: array
-            items:
-              type: string
-        - name: status
-          in: query
-          description: >-
-            An array of message statuses
-          style: form
-          explode: true
-          schema:
-            type: array
-            items:
-              type: object
-        - name: opt_out
-          in: query
-          description: Filter results by message format.
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: true
-        - name: mms_media
-          in: query
-          description: Set to true to include mms media
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: true
-        - name: message_format
-          in: query
-          description: Filter results by message format, using enumerable MessageType.
-          style: form
-          explode: true
-          schema:
-            $ref: '#/components/schemas/format'
-        - name: page
-          in: query
-          description: Page number for paging through paginated result sets.
-          style: form
-          explode: true
-          schema:
-            type: number
-            format: double
-            example: 0
-        - name: page_size
-          in: query
-          description: Number of results to return in a page for paginated result sets.
-          style: form
-          explode: true
-          schema:
-            type: number
-            format: double
-            example: 20
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/detailrequest'
       responses:
         200:
           description: A list of all messages received in the specified time window
@@ -820,6 +687,56 @@ paths:
                 $ref: '#/components/schemas/detailresponse'
         400:
           description: Bad Request. Check the json response for more details on what went wrong.
+      deprecated: false
+  /v2-preview/reporting/messages/summary:
+    post:
+      security:
+        - basic_auth: [ ]
+        - hmac_auth: [ ]
+      tags:
+        - Messaging Reports
+      summary: Post summary report
+      description: Create daily report summary containing total number of sent, received and billing units.
+      operationId: PostSummaryReport
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/summaryrequest'
+      responses:
+        200:
+          description: A list of all messages received in the specified time window
+          headers: { }
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/summaryresponse'
+      deprecated: false
+  /v2-preview/reporting/messages/insight:
+    post:
+      security:
+        - basic_auth: [ ]
+        - hmac_auth: [ ]
+      tags:
+        - Messaging Reports
+      summary: Post insight report
+      description: Create report summary containing total number of sent, received and billing units, using pre-calculated data to improve performance.
+      operationId: PostInsightReport
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/summaryrequest'
+      responses:
+        200:
+          description: A list of all messages received in the specified time window
+          headers: { }
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/summaryresponse'
       deprecated: false
   /v2-preview/reporting/messages/async/detail:
     post:
@@ -960,297 +877,152 @@ paths:
                 $ref: '#/components/schemas/fieldsresponse'
         400:
           description: Bad Request. Check the json response for more details on what went wrong.
-  /v2-preview/reporting/messages/summary:
+  /v2-preview/reporting/detail/scheduled:
     post:
       security:
-        - basic_auth: [ ]
-        - hmac_auth: [ ]
+        - basic_auth: []
+        - hmac_auth: []
       tags:
         - Messaging Reports
-      summary: Post summary report
-      description: Create daily report summary containing total number of sent, received and billing units.
-      operationId: PostSummaryReport
-      parameters:
-        - name: start_date
-          in: query
-          description: Start date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: 2019-12-12T00:00:00.000+11:00
-        - name: end_date
-          in: query
-          description: End date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: 2019-12-14T00:00:00.000+11:00
-        - name: timezone
-          in: query
-          description: The timezone of the messages to include, using the name of the region.
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: Australia/Sydney
-        - name: direction
-          in: query
-          description: The type of messages to include in the report. Accepted values are `inbound`, `outbound`, and `all` (inbound and outbound)
-          style: form
-          explode: true
-          schema:
-            type: object
-        - name: source
-          in: query
-          description: Filter results by source address.
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: +61555555555
-        - name: destination
-          in: query
-          description: Filter results by destination address.
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: +61555555555
-        - name: metadata_key
-          in: query
-          description: Filter results for messages that include a metadata key. If this parameter is included in the query, then the metadata_value parameter must also be included to filter the report by the appropriate key for the specified value or metadata_value must be set as the group_by parameter.
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: broadcastId
-        - name: metadata_value
-          in: query
-          description: Filter results to only include messages that have a certain value against one of their metadata tags. If this parameter is included in the query, then the metadata_key parameter must also be included to filter the report by the appropriate key for the specified value.
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: ABC
-        - name: accounts
-          in: query
-          description: >-
-            Filter results by a specific account. By default results
-            will be returned for the account associated with the authentication
-            credentials and all sub accounts.
-          style: form
-          explode: true
-          schema:
-            type: array
-            items:
-              type: string
-        - name: status
-          in: query
-          description: >-
-            An array of message statuses to filter the report by.
-          style: form
-          explode: true
-          schema:
-            type: array
-            items:
-              type: object
-              enum:
-                - UNDEFINED
-                - QUEUED
-                - PROCESSING
-                - PROCESSED
-                - FAILED
-                - SCHEDULED
-                - CANCELLED
-                - DELIVERED
-                - EXPIRED
-                - ENROUTE
-                - HELD
-                - SUBMITTED
-                - REJECTED
-                - READ
-        - name: opt_out
-          in: query
-          description: Filter the report to only include messages that triggered an opt out.
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: true
-        - name: group_by
-          in: query
-          description: Filter results by a list of Message Statuses. The format for the WEEK enum is `YYYY#WeekNumber`.
-          style: form
-          explode: true
-          schema:
-            type: array
-            items:
-              type: object
-              enum:
-                - ACCOUNT
-                - DAY
-                - WEEK
-                - MONTH
-                - YEAR
-                - METADATA_KEY
-                - METADATA_VALUE
-                - STATUS
-                - COUNTRY
+      summary: Scheduled detail report
+      description: >-
+        Create scheduled report in detail containing total number of sent, received and billing units.
+      operationId: detailscheduledreport
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/scheduleddetailreport'
+        required: true
       responses:
-        200:
-          description: A list of all messages received in the specified time window
-          headers: { }
+        '201':
+          description: A scheduled detail report received using the specified parameters.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/summaryresponse'
+                $ref: '#/components/schemas/scheduledreportresponse'
       deprecated: false
-  /v2-preview/reporting/messages/insight:
+  /v2-preview/reporting/detail/scheduled/{scheduled_id}:
+    put:
+      security:
+        - basic_auth: []
+        - hmac_auth: []
+      tags:
+        - Messaging Reports
+      summary: Update a scheduled detail report
+      description: >-
+        Updates a selected scheduled report in detail, which contains a total number of sent, received and billing units.
+      operationId: updatedetailscheduledreport
+      parameters:
+        - name: scheduled_id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: The ID of the scheduled report to delete.
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/scheduleddetailreport'
+        required: true
+      responses:
+        '200':
+          description: The updated scheduled detail report.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scheduleddetailreport'
+      deprecated: false
+  /v2-preview/reporting/summary/scheduled:
     post:
+      security:
+        - basic_auth: []
+        - hmac_auth: []
+      tags:
+        - Messaging Reports
+      summary: Scheduled summary report
+      description: >-
+        Create scheduled report summary containing total number of sent, received and billing units.
+      operationId: summaryscheduledreport
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/scheduledsummaryreport'
+        required: true
+      responses:
+        '201':
+          description: A scheduled summary report received using the specified parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scheduledreportresponse'
+      deprecated: false
+  /v2-preview/reporting/summary/scheduled/{scheduled_id}:
+    put:
+      security:
+        - basic_auth: []
+        - hmac_auth: []
+      tags:
+        - Messaging Reports
+      summary: Update a scheduled summary report
+      description: >-
+        Updates a selected scheduled report summary, which contains a total number of sent, received and billing units.
+      operationId: updatesummaryscheduledreport
+      parameters:
+        - name: scheduled_id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: The ID of the scheduled report to delete.
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/scheduledsummaryreport'
+        required: true
+      responses:
+        '200':
+          description: The updated scheduled summary report.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scheduledsummaryreport'
+      deprecated: false
+  /v2-preview/reporting/scheduled:
+    get:
       security:
         - basic_auth: [ ]
         - hmac_auth: [ ]
       tags:
         - Messaging Reports
-      summary: Post insight report
-      description: Create report summary containing total number of sent, received and billing units, using pre-calculated data to improve performance.
-      operationId: PostInsightReport
+      summary: Get active reports
+      description: Retrieves all ACTIVE scheduled reports of a provided account.
+      operationId: GetActiveReport
       parameters:
-        - name: start_date
+        - name: page_size
           in: query
-          description: Start date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.
-          required: true
+          description: Number of results to return in a page for paginated result sets.
           style: form
           explode: true
+          schema:
+            type: number
+            example: 1
+            minimum: 1
+            maximum: 100
+        - name: page_token
+          in: query
+          description: Returned by Chronos service
           schema:
             type: string
-            example: 2019-12-12T00:00:00.000+11:00
-        - name: end_date
-          in: query
-          description: End date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: 2019-12-14T00:00:00.000+11:00
-        - name: timezone
-          in: query
-          description: The timezone of the messages to include, using the name of the region.
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: Australia/Sydney
-        - name: direction
-          in: query
-          description: The type of messages to include in the report. Accepted values are `inbound`, `outbound`, and `all` (inbound and outbound)
-          style: form
-          explode: true
-          schema:
-            type: object
-        - name: source
-          in: query
-          description: Filter results by source address.
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: +61555555555
-        - name: destination
-          in: query
-          description: Filter results by destination address.
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: +61555555555
-        - name: metadata_key
-          in: query
-          description: Filter results for messages that include a metadata key. If this parameter is included in the query, then the metadata_value parameter must also be included to filter the report by the appropriate key for the specified value or metadata_value must be set as the group_by parameter.
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: broadcastId
-        - name: metadata_value
-          in: query
-          description: Filter results to only include messages that have a certain value against one of their metadata tags. If this parameter is included in the query, then the metadata_key parameter must also be included to filter the report by the appropriate key for the specified value.
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: ABC
-        - name: accounts
-          in: query
-          description: >-
-            Filter results by a specific account. By default results
-            will be returned for the account associated with the authentication
-            credentials and all sub accounts.
-          style: form
-          explode: true
-          schema:
-            type: array
-            items:
-              type: string
-        - name: status
-          in: query
-          description: >-
-            An array of message statuses to filter the report by.
-          style: form
-          explode: true
-          schema:
-            type: array
-            items:
-              type: object
-              enum:
-                - UNDEFINED
-                - QUEUED
-                - PROCESSING
-                - PROCESSED
-                - FAILED
-                - SCHEDULED
-                - CANCELLED
-                - DELIVERED
-                - EXPIRED
-                - ENROUTE
-                - HELD
-                - SUBMITTED
-                - REJECTED
-                - READ
-        - name: opt_out
-          in: query
-          description: Filter the report to only include messages that triggered an opt out.
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: true
-        - name: group_by
-          in: query
-          description: Filter results by a list of Message Statuses. The format for the WEEK enum is `YYYY#WeekNumber`.
-          style: form
-          explode: true
-          schema:
-            type: array
-            items:
-              type: object
-              enum:
-                - ACCOUNT
-                - DAY
-                - WEEK
-                - MONTH
-                - YEAR
-                - METADATA_KEY
-                - METADATA_VALUE
-                - STATUS
-                - COUNTRY
       responses:
         200:
           description: A list of all messages received in the specified time window
@@ -1258,7 +1030,59 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/summaryresponse'
+                $ref: '#/components/schemas/chronosscheduleresponse'
+        404:
+          description: Scheduled report not found.
+      deprecated: false
+  /v2-preview/reporting/scheduled/{scheduled_id}:
+    get:
+      security:
+        - basic_auth: [ ]
+        - hmac_auth: [ ]
+      tags:
+        - Messaging Reports
+      summary: Get scheduled report by id
+      description: Retrieves a scheduled report by providing its id.
+      operationId: GetScheduledReport
+      parameters:
+        - name: scheduled_id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: The ID of the scheduled report to retrieve.
+      responses:
+        200:
+          description: The scheduled report matching the provided ID.
+          headers: { }
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scheduledreport'
+        404:
+          description: Scheduled report not found.
+      deprecated: false
+    delete:
+      security:
+        - basic_auth: [ ]
+        - hmac_auth: [ ]
+      tags:
+        - Messaging Reports
+      summary: Delete scheduled report by id
+      description: Deletes a scheduled report by providing its id.
+      operationId: DeleteScheduledReport
+      parameters:
+        - name: scheduled_id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: The ID of the scheduled report to delete.
+      responses:
+        200:
+          description: An empty response indicating the report has been deleted.
+        404:
+          description: Scheduled report not found.
       deprecated: false
   /v2-preview/reporting/messages/metakeys:
     post:
@@ -5428,6 +5252,210 @@ components:
             - meta1
             - meta2
             - meta3
+    chronosscheduleresponse:
+      title: chronosscheduleresponse
+      type: object
+      required:
+        - page_token
+        - page_size
+      properties:
+        page_token:
+          type: string
+          example: abc123
+        page_size:
+          type: number
+          example: 20
+    scheduleddetailreport:
+      title: scheduleddetailreport
+      type: object
+      required:
+        - label
+        - schedule
+      properties:
+        label:
+          type: string
+          example: Weekly Report
+          description: The label of the report schedule
+        schedule:
+          $ref: '#/components/schemas/schedule'
+        report:
+          $ref: '#/components/schemas/scheduleddetailrequest'
+    scheduleddetailrequest:
+      title: scheduleddetailrequest
+      type: object
+      description: A scheduled detail report request
+      required:
+        - period
+      properties:
+        period:
+          $ref: '#/components/schemas/ReportPeriod'
+        timezone:
+          type: string
+          example: Australia/Sydney
+          description: The standard timezone name
+        direction:
+          $ref: '#/components/schemas/MessageDirection'
+        source:
+          type: string
+          example: "+61555555555"
+        destination:
+          type: string
+          example: "+61555555555"
+        metadata_key:
+          type: string
+          example: broadcastId
+        metadata_value:
+          type: string
+          example: ABC
+        accounts:
+          type: array
+          items:
+            type: string
+          example:
+            - Account1
+            - Account2
+        status:
+          type: array
+          items:
+            $ref: '#/components/schemas/MessageStatus'
+        opt_out:
+          type: string
+          example: "true"
+        delivery_options:
+          type: array
+          items:
+            $ref: '#/components/schemas/deliveryOptionsBody'
+    schedule:
+      title: schedule
+      type: object
+      description: The time schedule of a scheduled report
+      required:
+        - timezone
+        - cron_expression
+        - type
+      properties:
+        timezone:
+          type: string
+          example: UTC
+        cron_expression:
+          type: string
+          example: "0 0 * * * ? *"
+        type:
+          type: string
+          example: cron
+    ReportPeriod:
+      title: ReportPeriod
+      enum:
+        - TODAY
+        - YESTERDAY
+        - THIS_WEEK
+        - LAST_WEEK
+        - THIS_MONTH
+        - LAST_MONTH
+        - LAST_30_DAYS
+        - LAST_7_DAYS
+        - THIS_WEEKDAYS
+        - LAST_WEEKDAYS
+      type: string
+      description: Automatically set a date range based on the period value. Can't be combined with start_date and end_date.
+      example: THIS_WEEK
+    scheduledreport:
+      title: scheduledreport
+      type: object
+      required:
+        - label
+        - schedule
+        - report
+      properties:
+        label:
+          type: string
+          example: Weekly Report
+          description: The label of the report schedule
+        schedule:
+          $ref: '#/components/schemas/schedule'
+        scheduled_report_id:
+          type: string
+          example: "43928f76-c381-4943-8619-f10460005898"
+        message_type:
+          $ref: '#/components/schemas/MessageDirection'
+        report_type:
+          type: string
+          example: detail
+    scheduledreportresponse:
+      title: scheduledreportresponse
+      type: object
+      required:
+        - scheduled_report_id
+      properties:
+        scheduled_report_id:
+          type: string
+          example: "51f0097f-90b2-4a59-ad88-a0fd93abaa82"
+    scheduledsummaryreport:
+      title: scheduledsummaryreport
+      type: object
+      required:
+        - label
+        - schedule
+      properties:
+        label:
+          type: string
+          example: Weekly Report
+          description: The label of the report schedule
+        schedule:
+          $ref: '#/components/schemas/schedule'
+        report:
+          $ref: '#/components/schemas/scheduledsummaryrequest'
+    scheduledsummaryrequest:
+      title: scheduledsummaryrequest
+      type: object
+      description: A scheduled summary report request
+      required:
+        - period
+        - timezone
+      properties:
+        period:
+          $ref: '#/components/schemas/ReportPeriod'
+        timezone:
+          type: string
+          example: Australia/Sydney
+          description: The standard timezone name
+        direction:
+          $ref: '#/components/schemas/MessageDirection'
+        source:
+          type: string
+          example: "+61555555555"
+        destination:
+          type: string
+          example: "+61555555555"
+        metadata_key:
+          type: string
+          example: broadcastId
+        metadata_value:
+          type: string
+          example: ABC
+        accounts:
+
+          type: array
+          items:
+            type: string
+          example:
+            - Account1
+            - Account2
+        status:
+          type: array
+          items:
+            $ref: '#/components/schemas/MessageStatus'
+        opt_out:
+          type: string
+          example: "true"
+        group_by:
+          type: array
+          items:
+            $ref: '#/components/schemas/GroupByField'
+        delivery_options:
+          type: array
+          items:
+            $ref: '#/components/schemas/deliveryOptionsBody'
     asyncsentmessagesdetailrequest:
       title: asyncsentmessagesdetailrequest
       required:
@@ -5494,6 +5522,114 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/deliveryOptionsBody'
+    detailrequest:
+      title: detailrequest
+      required:
+        - start_date
+        - end_date
+      type: object
+      properties:
+        start_date:
+          description: >-
+            Start date time for report window. By default, the timezone for this parameter 
+            will be taken from the account settings for the account associated with the 
+            credentials used to make the request, or the account included in the Account parameter. 
+            This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.
+          type: string
+          example: "2022-12-12T00:00:00.000z"
+        end_date:
+          description: >-
+            End date time for report window. By default, the timezone for this parameter 
+            will be taken from the account settings for the account associated with the 
+            credentials used to make the request, or the account included in the Account parameter. 
+            This can be overridden using the timezone parameter per request. The date must be in ISO8601 format, and after the requested start_date.
+          type: string
+          example: "2022-12-14T00:00:00.000z"
+        direction:
+          description: The type of messages to include in the report. Accepted values are `inbound`, `outbound`, and `all` (both inbound and outbound).  Default value is 'all'.
+          example: all
+          enum:
+            - inbound
+            - outbound
+            - all
+          type: string
+        timezone:
+          description: The timezone of the messages to include, using the name of the region.
+          type: string
+          example: Australia/Sydney
+        source:
+          description: Filter results by source address.
+          type: string
+          example: "+61555555555"
+        destination:
+          description: Filter results by destination address.
+          type: string
+          example: "+61555555555"
+        destinations:
+          description: Filter results by multiple destination addresses.
+          type: array
+          items:
+            type: string
+          example: 
+            - "+61555555555"
+            - "+614987654321"
+        metadata_key:
+          description: Filter results for messages that include a metadata key.
+          type: string
+          example: broadcastId
+        metadata_value:
+          description: Filter results for messages that include a metadata key containing this value. If this parameter is provided, the metadata_key parameter must also be provided.
+          type: string
+          example: ABC
+        accounts:
+          description: >-
+            Filter results by a specific account. By default results
+            will be returned for the account associated with the authentication
+            credentials and all sub accounts.
+          type: array
+          items:
+            type: string
+          example: 
+            - account1
+            - account2
+        status:
+          description: >-
+            An array of message statuses
+          type: array
+          items:
+            enum:
+              - ENROUTE
+              - SUBMITTED
+              - DELIVERED
+              - EXPIRED
+              - REJECTED
+              - UNDELIVERABLE
+              - QUEUED
+              - PROCESSED
+              - CANCELLED
+              - SCHEDULED
+              - FAILED
+        opt_out:
+          description: Filter results by message format.
+          type: string
+          example: "true"
+        message_format:
+          description: Filter results by message format, using enumerable MessageType.
+          type: array
+          items:
+            type: string
+          example: 
+            - SMS
+            - MMS
+            - CHANNEL
+        page:
+          description: Page number for paging through paginated result sets.
+          type: number
+          example: 0
+        page_size:
+          description: Number of results to return in a page for paginated result sets.
+          type: number
+          example: 20
     asyncsummaryrequest:
       title: asyncsummaryrequest
       required:
@@ -5637,6 +5773,97 @@ components:
             $ref: '#/components/schemas/Message'
         pagination:
           $ref: '#/components/schemas/Pagination'
+    summaryrequest:
+      title: summaryrequest
+      required:
+        - start_date
+        - end_date
+      type: object
+      properties:
+        start_date:
+          description: Start date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.
+          type: string
+          example: "2022-12-12T00:00:00.000z"
+        end_date:
+          description:  End date time for report window. By default, the timezone for this parameter 
+            will be taken from the account settings for the account associated with the 
+            credentials used to make the request, or the account included in the Account parameter. 
+            This can be overridden using the timezone parameter per request. The date must be in ISO8601 format, and after the requested start_date.
+          type: string
+          example: "2022-12-14T00:00:00.000z"
+        timezone:
+          description: The timezone of the messages to include, using the name of the region.
+          type: string
+          example: Australia/Sydney
+        direction:
+          enum:
+            - inbound
+            - outbound
+            - all
+          type: string
+          description: The type of messages to include in the report. Accepted values are `inbound`, `outbound`, and `all` (both inbound and outbound)
+          example: outbound
+        source:
+          description: Filter results by source address.
+          type: string
+          example: "+61555555555"
+        destination:
+          description: Filter results by destination address.
+          type: string
+          example: "+61555555555"
+        metadata_key:
+          description: Filter results for messages that include a metadata key.
+          type: string
+          example: broadcastId
+        metadata_value:
+          description: Filter results for messages that include a metadata key containing this value. If this parameter is provided, the metadata_key parameter must also be provided.
+          type: string
+          example: ABC
+        accounts:
+          description: >-
+            Filter results by a specific account. By default results
+            will be returned for the account associated with the authentication
+            credentials and all sub accounts.
+          type: array
+          items:
+            type: string
+          example: 
+          - account1
+          - account2
+        status:
+          description: >-
+            An array of message statuses
+          type: array
+          items:
+            enum:
+              - ENROUTE
+              - SUBMITTED
+              - DELIVERED
+              - EXPIRED
+              - REJECTED
+              - UNDELIVERABLE
+              - QUEUED
+              - PROCESSED
+              - CANCELLED
+              - SCHEDULED
+              - FAILED
+          example: 
+            - DELIVERED
+            - FAILED
+            - ENROUTE
+            - SCHEDULED
+        opt_out:
+          description: Filter results by message format.
+          type: string
+          example: "true"
+        group_by:
+          description: Group results by a list of values, from the enumerable table above.
+          type: array
+          items:
+            $ref: '#/components/schemas/group_by'
+          example: 
+          - WEEK
+          - ACCOUNT
     summaryresponse:
       title: summaryresponse
       type: object
@@ -5678,7 +5905,7 @@ components:
       properties:
         group:
           type: string
-          example: 2020-11-01
+          example: "2020-11-01"
         total_sent:
           type: number
         total_received:
@@ -6301,6 +6528,9 @@ components:
           type: array
           items:
             type: string
+          example:
+            - Account1
+            - Account2
           description: List of accounts that were considered when fetching the metadata keys.
     deliveryOptionsBody:
       title: deliveryOptionsBody
@@ -6314,6 +6544,9 @@ components:
           type: array
           items:
             type: string
+          example:
+          - "email@example.com"
+          - "test@example.com"
           description: A list of email addresses to use as the recipient of the email. Only works for EMAIL delivery type
         delivery_format:
           type: string
@@ -8871,7 +9104,45 @@ components:
       - RECEIVED_MESSAGES
       type: string
       example: SENT_MESSAGES
-
+    MessageDirection:
+      title: MessageDirection
+      enum:
+        - inbound
+        - outbound
+        - all
+      example: all
+    MessageStatus:
+      title: MessageStatus
+      enum:
+        - UNDEFINED
+        - QUEUED
+        - PROCESSING
+        - PROCESSED
+        - FAILED
+        - SCHEDULED
+        - CANCELLED
+        - DELIVERED
+        - EXPIRED
+        - ENROUTE
+        - HELD
+        - SUBMITTED
+        - REJECTED
+        - READ
+      example: DELIVERED
+    GroupByField:
+      title: GroupByField
+      enum:
+        - ACCOUNT
+        - DAY
+        - WEEK
+        - MONTH
+        - YEAR
+        - METADATA_KEY
+        - METADATA_VALUE
+        - STATUS
+        - COUNTRY
+      type: string
+      example: DAY
   headers:
     ExpiresAfter:
       description: date in UTC when token expires
