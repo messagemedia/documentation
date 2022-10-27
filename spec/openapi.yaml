@@ -877,6 +877,213 @@ paths:
                 $ref: '#/components/schemas/fieldsresponse'
         400:
           description: Bad Request. Check the json response for more details on what went wrong.
+  /v2-preview/reporting/detail/scheduled:
+    post:
+      security:
+        - basic_auth: []
+        - hmac_auth: []
+      tags:
+        - Messaging Reports
+      summary: Scheduled detail report
+      description: >-
+        Create scheduled report in detail containing total number of sent, received and billing units.
+      operationId: detailscheduledreport
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/scheduleddetailreport'
+        required: true
+      responses:
+        '201':
+          description: A scheduled detail report received using the specified parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scheduledreportresponse'
+      deprecated: false
+  /v2-preview/reporting/detail/scheduled/{scheduled_id}:
+    put:
+      security:
+        - basic_auth: []
+        - hmac_auth: []
+      tags:
+        - Messaging Reports
+      summary: Update a scheduled detail report
+      description: >-
+        Updates a selected scheduled report in detail, which contains a total number of sent, received and billing units.
+      operationId: updatedetailscheduledreport
+      parameters:
+        - name: scheduled_id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: The ID of the scheduled report to delete.
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/scheduleddetailreport'
+        required: true
+      responses:
+        '200':
+          description: The updated scheduled detail report.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scheduleddetailreport'
+      deprecated: false
+  /v2-preview/reporting/summary/scheduled:
+    post:
+      security:
+        - basic_auth: []
+        - hmac_auth: []
+      tags:
+        - Messaging Reports
+      summary: Scheduled summary report
+      description: >-
+        Create scheduled report summary containing total number of sent, received and billing units.
+      operationId: summaryscheduledreport
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/scheduledsummaryreport'
+        required: true
+      responses:
+        '201':
+          description: A scheduled summary report received using the specified parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scheduledreportresponse'
+      deprecated: false
+  /v2-preview/reporting/summary/scheduled/{scheduled_id}:
+    put:
+      security:
+        - basic_auth: []
+        - hmac_auth: []
+      tags:
+        - Messaging Reports
+      summary: Update a scheduled summary report
+      description: >-
+        Updates a selected scheduled report summary, which contains a total number of sent, received and billing units.
+      operationId: updatesummaryscheduledreport
+      parameters:
+        - name: scheduled_id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: The ID of the scheduled report to delete.
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/scheduledsummaryreport'
+        required: true
+      responses:
+        '200':
+          description: The updated scheduled summary report.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scheduledsummaryreport'
+      deprecated: false
+  /v2-preview/reporting/scheduled:
+    get:
+      security:
+        - basic_auth: [ ]
+        - hmac_auth: [ ]
+      tags:
+        - Messaging Reports
+      summary: Get active reports
+      description: Retrieves all ACTIVE scheduled reports of a provided account.
+      operationId: GetActiveReport
+      parameters:
+        - name: page_size
+          in: query
+          description: Number of results to return in a page for paginated result sets.
+          style: form
+          explode: true
+          schema:
+            type: number
+            example: 1
+            minimum: 1
+            maximum: 100
+        - name: page_token
+          in: query
+          description: Returned by Chronos service
+          schema:
+            type: string
+      responses:
+        200:
+          description: A list of all messages received in the specified time window
+          headers: { }
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/chronosscheduleresponse'
+        404:
+          description: Scheduled report not found.
+      deprecated: false
+  /v2-preview/reporting/scheduled/{scheduled_id}:
+    get:
+      security:
+        - basic_auth: [ ]
+        - hmac_auth: [ ]
+      tags:
+        - Messaging Reports
+      summary: Get scheduled report by id
+      description: Retrieves a scheduled report by providing its id.
+      operationId: GetScheduledReport
+      parameters:
+        - name: scheduled_id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: The ID of the scheduled report to retrieve.
+      responses:
+        200:
+          description: The scheduled report matching the provided ID.
+          headers: { }
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scheduledreport'
+        404:
+          description: Scheduled report not found.
+      deprecated: false
+    delete:
+      security:
+        - basic_auth: [ ]
+        - hmac_auth: [ ]
+      tags:
+        - Messaging Reports
+      summary: Delete scheduled report by id
+      description: Deletes a scheduled report by providing its id.
+      operationId: DeleteScheduledReport
+      parameters:
+        - name: scheduled_id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: The ID of the scheduled report to delete.
+      responses:
+        200:
+          description: An empty response indicating the report has been deleted.
+        404:
+          description: Scheduled report not found.
+      deprecated: false
   '/v1/messages/{messageId}':
     get:
       security:
@@ -5005,6 +5212,209 @@ paths:
 # An object to hold reusable parts that can be used across the spec
 components:
   schemas:
+    chronosscheduleresponse:
+      title: chronosscheduleresponse
+      type: object
+      required:
+        - page_token
+        - page_size
+      properties:
+        page_token:
+          type: string
+          example: abc123
+        page_size:
+          type: number
+          example: 20
+    scheduleddetailreport:
+      title: scheduleddetailreport
+      type: object
+      required:
+        - label
+        - schedule
+      properties:
+        label:
+          type: string
+          example: Weekly Report
+          description: The label of the report schedule
+        schedule:
+          $ref: '#/components/schemas/schedule'
+        report:
+          $ref: '#/components/schemas/scheduleddetailrequest'
+    scheduleddetailrequest:
+      title: scheduleddetailrequest
+      type: object
+      description: A scheduled detail report request
+      required:
+        - period
+      properties:
+        period:
+          $ref: '#/components/schemas/ReportPeriod'
+        timezone:
+          type: string
+          example: Australia/Sydney
+          description: The standard timezone name
+        direction:
+          $ref: '#/components/schemas/MessageDirection'
+        source:
+          type: string
+          example: "+61555555555"
+        destination:
+          type: string
+          example: "+61555555555"
+        metadata_key:
+          type: string
+          example: broadcastId
+        metadata_value:
+          type: string
+          example: ABC
+        accounts:
+          type: array
+          items:
+            type: string
+          example:
+            - Account1
+            - Account2
+        status:
+          type: array
+          items:
+            $ref: '#/components/schemas/MessageStatus'
+        opt_out:
+          type: string
+          example: "true"
+        delivery_options:
+          type: array
+          items:
+            $ref: '#/components/schemas/deliveryOptionsBody'
+    schedule:
+      title: schedule
+      type: object
+      description: The time schedule of a scheduled report
+      required:
+        - timezone
+        - cron_expression
+        - type
+      properties:
+        timezone:
+          type: string
+          example: UTC
+        cron_expression:
+          type: string
+          example: "0 0 * * * ? *"
+        type:
+          type: string
+          example: cron
+    ReportPeriod:
+      title: ReportPeriod
+      enum:
+        - TODAY
+        - YESTERDAY
+        - THIS_WEEK
+        - LAST_WEEK
+        - THIS_MONTH
+        - LAST_MONTH
+        - LAST_30_DAYS
+        - LAST_7_DAYS
+        - THIS_WEEKDAYS
+        - LAST_WEEKDAYS
+      type: string
+      description: Automatically set a date range based on the period value. Can't be combined with start_date and end_date.
+      example: THIS_WEEK
+    scheduledreport:
+      title: scheduledreport
+      type: object
+      required:
+        - label
+        - schedule
+        - report
+      properties:
+        label:
+          type: string
+          example: Weekly Report
+          description: The label of the report schedule
+        schedule:
+          $ref: '#/components/schemas/schedule'
+        scheduled_report_id:
+          type: string
+          example: "43928f76-c381-4943-8619-f10460005898"
+        message_type:
+          $ref: '#/components/schemas/MessageDirection'
+        report_type:
+          type: string
+          example: detail
+    scheduledreportresponse:
+      title: scheduledreportresponse
+      type: object
+      required:
+        - scheduled_report_id
+      properties:
+        scheduled_report_id:
+          type: string
+          example: "51f0097f-90b2-4a59-ad88-a0fd93abaa82"
+    scheduledsummaryreport:
+      title: scheduledsummaryreport
+      type: object
+      required:
+        - label
+        - schedule
+      properties:
+        label:
+          type: string
+          example: Weekly Report
+          description: The label of the report schedule
+        schedule:
+          $ref: '#/components/schemas/schedule'
+        report:
+          $ref: '#/components/schemas/scheduledsummaryrequest'
+    scheduledsummaryrequest:
+      title: scheduledsummaryrequest
+      type: object
+      description: A scheduled summary report request
+      required:
+        - period
+        - timezone
+      properties:
+        period:
+          $ref: '#/components/schemas/ReportPeriod'
+        timezone:
+          type: string
+          example: Australia/Sydney
+          description: The standard timezone name
+        direction:
+          $ref: '#/components/schemas/MessageDirection'
+        source:
+          type: string
+          example: "+61555555555"
+        destination:
+          type: string
+          example: "+61555555555"
+        metadata_key:
+          type: string
+          example: broadcastId
+        metadata_value:
+          type: string
+          example: ABC
+        accounts:
+          type: array
+          items:
+            type: string
+          example:
+            - Account1
+            - Account2
+        status:
+          type: array
+          items:
+            $ref: '#/components/schemas/MessageStatus'
+        opt_out:
+          type: string
+          example: "true"
+        group_by:
+          type: array
+          items:
+            $ref: '#/components/schemas/GroupByField'
+        delivery_options:
+          type: array
+          items:
+            $ref: '#/components/schemas/deliveryOptionsBody'
     asyncsentmessagesdetailrequest:
       title: asyncsentmessagesdetailrequest
       required:
@@ -5454,7 +5864,7 @@ components:
       properties:
         group:
           type: string
-          example: 2020-11-01
+          example: "2020-11-01"
         total_sent:
           type: number
         total_received:
@@ -6077,6 +6487,9 @@ components:
           type: array
           items:
             type: string
+          example:
+            - Account1
+            - Account2
           description: List of accounts that were considered when fetching the metadata keys.
     deliveryOptionsBody:
       title: deliveryOptionsBody
@@ -6090,6 +6503,9 @@ components:
           type: array
           items:
             type: string
+          example:
+          - "email@example.com"
+          - "test@example.com"
           description: A list of email addresses to use as the recipient of the email. Only works for EMAIL delivery type
         delivery_format:
           type: string
@@ -8647,7 +9063,45 @@ components:
       - RECEIVED_MESSAGES
       type: string
       example: SENT_MESSAGES
-
+    MessageDirection:
+      title: MessageDirection
+      enum:
+        - inbound
+        - outbound
+        - all
+      example: all
+    MessageStatus:
+      title: MessageStatus
+      enum:
+        - UNDEFINED
+        - QUEUED
+        - PROCESSING
+        - PROCESSED
+        - FAILED
+        - SCHEDULED
+        - CANCELLED
+        - DELIVERED
+        - EXPIRED
+        - ENROUTE
+        - HELD
+        - SUBMITTED
+        - REJECTED
+        - READ
+      example: DELIVERED
+    GroupByField:
+      title: GroupByField
+      enum:
+        - ACCOUNT
+        - DAY
+        - WEEK
+        - MONTH
+        - YEAR
+        - METADATA_KEY
+        - METADATA_VALUE
+        - STATUS
+        - COUNTRY
+      type: string
+      example: DAY
   headers:
     ExpiresAfter:
       description: date in UTC when token expires
