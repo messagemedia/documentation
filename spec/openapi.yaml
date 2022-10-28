@@ -5201,7 +5201,10 @@ components:
             - Account1
             - Account2
         status:
-          $ref: '#/components/schemas/MessageStatus'
+          type: array
+          items:
+            $ref: '#/components/schemas/MessageStatus'
+          description: A list of message statuses to filter the report by.
         opt_out:
           description: Filter results by message format.
           type: string
