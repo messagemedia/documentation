@@ -171,9 +171,6 @@
                 }
               }
             }
-          },
-          "400": {
-            "description": "Bad Request. Check the json response for more details on what went wrong."
           }
         },
         "deprecated": false
@@ -286,22 +283,6 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/asyncsentmessagesdetailrequest"
-              },
-              "example": {
-                "start_date": "2019-12-11T13:00:00.000Z",
-                "end_date": "2019-12-13T13:00:00.000Z",
-                "timezone": "Australia/Melbourne",
-                "accounts": [],
-                "status": [
-                  "CANCELLED"
-                ],
-                "delivery_options": [
-                  {
-                    "delivery_type": "EMAIL",
-                    "delivery_addresses": [],
-                    "delivery_format": "CSV"
-                  }
-                ]
               }
             }
           },
@@ -318,9 +299,6 @@
                 }
               }
             }
-          },
-          "400": {
-            "description": "Bad Request. Check the json response for more details on what went wrong."
           }
         },
         "deprecated": false
@@ -349,15 +327,6 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/asyncsummaryrequest"
-              },
-              "example": {
-                "start_date": "2019-12-11T13:00:00.000Z",
-                "end_date": "2019-12-13T13:00:00.000Z",
-                "timezone": "Australia/Sydney",
-                "source": 61555555555,
-                "metadata_key": "broadcastId",
-                "metadata_value": "ABC",
-                "opt_out": true
               }
             }
           }
@@ -369,13 +338,10 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/detailresponse"
+                  "$ref": "#/components/schemas/asyncreportresponse"
                 }
               }
             }
-          },
-          "400": {
-            "description": "Bad Request. Check the json response for more details on what went wrong."
           }
         },
         "deprecated": false
@@ -422,9 +388,6 @@
                 }
               }
             }
-          },
-          "400": {
-            "description": "Bad Request. Check the json response for more details on what went wrong."
           }
         },
         "deprecated": false
@@ -474,9 +437,6 @@
                 }
               }
             }
-          },
-          "400": {
-            "description": "Bad Request. Check the json response for more details on what went wrong."
           }
         }
       }
@@ -7117,89 +7077,6 @@
           }
         }
       },
-      "asyncsentmessagesdetailrequest": {
-        "title": "asyncsentmessagesdetailrequest",
-        "required": [
-          "end_date",
-          "start_date"
-        ],
-        "type": "object",
-        "properties": {
-          "start_date": {
-            "description": "Start date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.",
-            "type": "string"
-          },
-          "end_date": {
-            "description": "End date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.",
-            "type": "string"
-          },
-          "timezone": {
-            "description": "The timezone of the messages to include, using the name of the region.",
-            "type": "string",
-            "example": "Australia/Sydney"
-          },
-          "direction": {
-            "description": "The type of messages to include in the report. Accepted values are `inbound`, `outbound`, and `all` (both inbound and outbound)",
-            "type": "object"
-          },
-          "source": {
-            "description": "Filter results by source address.",
-            "type": "string",
-            "example": 61555555555
-          },
-          "destination": {
-            "description": "Filter results by destination address.",
-            "type": "string",
-            "example": 61555555555
-          },
-          "metadata_key": {
-            "description": "Filter results for messages that include a metadata key.",
-            "type": "string",
-            "example": "broadcastId"
-          },
-          "metadata_value": {
-            "description": "Filter results for messages that include a metadata key containing this value. If this parameter is provided, the metadata_key parameter must also be provided.",
-            "type": "string",
-            "example": "ABC"
-          },
-          "accounts": {
-            "description": "Filter results by a specific account. By default results will be returned for the account associated with the authentication credentials and all sub accounts.",
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "status": {
-            "description": "An array of message statuses",
-            "type": "array",
-            "items": {
-              "type": "object"
-            }
-          },
-          "opt_out": {
-            "description": "Filter results by message format.",
-            "type": "string",
-            "example": true
-          },
-          "message_format": {
-            "$ref": "#/components/schemas/format"
-          },
-          "fields": {
-            "description": "Can be used for async detail report to select the fields to export csv files",
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/asyncfieldsrequest"
-            }
-          },
-          "delivery_options": {
-            "description": "A list of options to configure the delivery of the report.",
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/deliveryOptionsBody"
-            }
-          }
-        }
-      },
       "detailrequest": {
         "title": "detailrequest",
         "required": [
@@ -7323,6 +7200,93 @@
           }
         }
       },
+      "asyncsentmessagesdetailrequest": {
+        "title": "asyncsentmessagesdetailrequest",
+        "required": [
+          "end_date",
+          "start_date"
+        ],
+        "type": "object",
+        "properties": {
+          "start_date": {
+            "description": "Start date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.",
+            "type": "string",
+            "example": "2022-12-12T00:00:00.000z"
+          },
+          "end_date": {
+            "description": "End date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.",
+            "type": "string",
+            "example": "2022-12-14T00:00:00.000z"
+          },
+          "timezone": {
+            "description": "The timezone of the messages to include, using the name of the region.",
+            "type": "string",
+            "example": "Australia/Sydney"
+          },
+          "direction": {
+            "$ref": "#/components/schemas/MessageDirection"
+          },
+          "source": {
+            "description": "Filter results by source address.",
+            "type": "string",
+            "example": "+61555555555"
+          },
+          "destination": {
+            "description": "Filter results by destination address.",
+            "type": "string",
+            "example": "+61555555555"
+          },
+          "metadata_key": {
+            "description": "Filter results for messages that include a metadata key.",
+            "type": "string",
+            "example": "broadcastId"
+          },
+          "metadata_value": {
+            "description": "Filter results for messages that include a metadata key containing this value. If this parameter is provided, the metadata_key parameter must also be provided.",
+            "type": "string",
+            "example": "ABC"
+          },
+          "accounts": {
+            "description": "Filter results by a specific account. By default results will be returned for the account associated with the authentication credentials and all sub accounts.",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": [
+              "Account1",
+              "Account2"
+            ]
+          },
+          "status": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MessageStatus"
+            }
+          },
+          "opt_out": {
+            "description": "Filter results by message format.",
+            "type": "string",
+            "example": "true"
+          },
+          "message_format": {
+            "$ref": "#/components/schemas/format"
+          },
+          "fields": {
+            "description": "Can be used for async detail report to select the fields to export csv files",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/asyncfieldsrequest"
+            }
+          },
+          "delivery_options": {
+            "description": "A list of options to configure the delivery of the report.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/deliveryOptionsBody"
+            }
+          }
+        }
+      },
       "asyncsummaryrequest": {
         "title": "asyncsummaryrequest",
         "required": [
@@ -7333,60 +7297,75 @@
         "properties": {
           "start_date": {
             "description": "Start date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.",
-            "type": "string"
+            "type": "string",
+            "example": "2022-12-12T00:00:00.000z"
           },
           "end_date": {
             "description": "End date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.",
-            "type": "string"
+            "type": "string",
+            "example": "2022-12-14T00:00:00.000z"
           },
           "timezone": {
             "description": "The timezone of the messages to include, using the name of the region.",
-            "type": "string"
+            "type": "string",
+            "example": "Australia/Sydney"
           },
           "direction": {
-            "description": "The type of messages to include in the report. Accepted values are `inbound`, `outbound`, and `all` (both inbound and outbound)",
-            "type": "object"
+            "$ref": "#/components/schemas/MessageDirection"
           },
           "source": {
             "description": "Filter results by source address.",
-            "type": "string"
+            "type": "string",
+            "example": "+61555555555"
           },
           "destination": {
             "description": "Filter results by destination address.",
-            "type": "string"
+            "type": "string",
+            "example": "+61555555555"
           },
           "metadata_key": {
             "description": "Filter results for messages that include a metadata key.",
-            "type": "string"
+            "type": "string",
+            "example": "broadcastId"
           },
           "metadata_value": {
             "description": "Filter results for messages that include a metadata key containing this value. If this parameter is provided, the metadata_key parameter must also be provided.",
-            "type": "string"
+            "type": "string",
+            "example": "ABC"
           },
           "accounts": {
             "description": "Filter results by a specific account. By default results will be returned for the account associated with the authentication credentials and all sub accounts.",
             "type": "array",
             "items": {
               "type": "string"
-            }
+            },
+            "example": [
+              "Account1",
+              "Account2"
+            ]
           },
           "status": {
-            "description": "An array of message statuses",
             "type": "array",
             "items": {
-              "type": "object"
-            }
+              "$ref": "#/components/schemas/MessageStatus"
+            },
+            "description": "A list of message statuses to filter the report by."
           },
           "opt_out": {
             "description": "Filter results by message format.",
-            "type": "string"
+            "type": "string",
+            "example": "false"
           },
           "group_by": {
             "description": "Group results by a list of values, from the enumerable table above.",
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/group_by"
-            }
+            },
+            "example": [
+              "STATUS",
+              "COUNTRY"
+            ]
           },
           "delivery_options": {
             "description": "A list of options to configure the delivery of the report.",
@@ -7412,106 +7391,6 @@
           "display_name": {
             "type": "string",
             "example": "id"
-          }
-        }
-      },
-      "metakeyrequest": {
-        "title": "metakeyrequest",
-        "type": "object",
-        "required": [
-          "start_date",
-          "end_date"
-        ],
-        "properties": {
-          "page": {
-            "type": "number",
-            "description": "Page number for paging through paginated result sets."
-          },
-          "page_size": {
-            "type": "number",
-            "description": "Number of results to return in a page for paginated result sets."
-          },
-          "start_date": {
-            "type": "string",
-            "description": "Start date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format."
-          },
-          "end_date": {
-            "type": "string",
-            "description": "End date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format."
-          },
-          "direction": {
-            "type": "string",
-            "enum": [
-              "inbound",
-              "outbound",
-              "all"
-            ],
-            "description": "The type of messages to include in the report. Accepted values are `inbound`, `outbound`, and `all` (both inbound and outbound)"
-          },
-          "accounts": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "description": "Filter results by a specific account. By default results will be returned for the account associated with the authentication credentials and all sub accounts."
-          }
-        }
-      },
-      "asyncreportresponse": {
-        "title": "asyncreportresponse",
-        "type": "object",
-        "required": [
-          "report_id"
-        ],
-        "properties": {
-          "report_id": {
-            "type": "string",
-            "example": "51f0097f-90b2-4a59-ad88-a0fd93abaa82"
-          }
-        }
-      },
-      "reportstatusresponse": {
-        "title": "reportstatusresponse",
-        "type": "object",
-        "properties": {
-          "report_status": {
-            "type": "string",
-            "enum": [
-              "REQUESTED",
-              "RUNNING",
-              "FAILED",
-              "CANCELLED",
-              "DONE"
-            ],
-            "example": "DONE"
-          }
-        }
-      },
-      "fieldsresponse": {
-        "title": "fieldsresponse",
-        "type": "object",
-        "properties": {
-          "fields": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "example": "id, content, meta1"
-            }
-          }
-        }
-      },
-      "detailresponse": {
-        "title": "detailresponse",
-        "type": "object",
-        "properties": {
-          "messages": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Message"
-            }
-          },
-          "pagination": {
-            "$ref": "#/components/schemas/Pagination"
           }
         }
       },
@@ -7622,6 +7501,108 @@
           }
         }
       },
+      "metakeyrequest": {
+        "title": "metakeyrequest",
+        "type": "object",
+        "required": [
+          "start_date",
+          "end_date"
+        ],
+        "properties": {
+          "page": {
+            "type": "number",
+            "description": "Page number for paging through paginated result sets.",
+            "example": 2
+          },
+          "page_size": {
+            "type": "number",
+            "description": "Number of results to return in a page for paginated result sets.",
+            "example": 15
+          },
+          "start_date": {
+            "type": "string",
+            "description": "Start date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.",
+            "example": "2022-12-12T00:00:00.000z"
+          },
+          "end_date": {
+            "type": "string",
+            "description": "End date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.",
+            "example": "2022-12-14T00:00:00.000z"
+          },
+          "direction": {
+            "$ref": "#/components/schemas/MessageDirection"
+          },
+          "accounts": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Filter results by a specific account. By default results will be returned for the account associated with the authentication credentials and all sub accounts.",
+            "example": [
+              "Account1",
+              "Account2"
+            ]
+          }
+        }
+      },
+      "asyncreportresponse": {
+        "title": "asyncreportresponse",
+        "type": "object",
+        "required": [
+          "report_id"
+        ],
+        "properties": {
+          "report_id": {
+            "type": "string",
+            "example": "51f0097f-90b2-4a59-ad88-a0fd93abaa82"
+          }
+        }
+      },
+      "reportstatusresponse": {
+        "title": "reportstatusresponse",
+        "type": "object",
+        "properties": {
+          "report_status": {
+            "type": "string",
+            "enum": [
+              "REQUESTED",
+              "RUNNING",
+              "FAILED",
+              "CANCELLED",
+              "DONE"
+            ],
+            "example": "DONE"
+          }
+        }
+      },
+      "fieldsresponse": {
+        "title": "fieldsresponse",
+        "type": "object",
+        "properties": {
+          "fields": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "example": "id, content, meta1"
+            }
+          }
+        }
+      },
+      "detailresponse": {
+        "title": "detailresponse",
+        "type": "object",
+        "properties": {
+          "messages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Message"
+            }
+          },
+          "pagination": {
+            "$ref": "#/components/schemas/Paginate"
+          }
+        }
+      },
       "summaryresponse": {
         "title": "summaryresponse",
         "type": "object",
@@ -7633,16 +7614,20 @@
             }
           },
           "total_sent": {
-            "type": "number"
+            "type": "number",
+            "example": 100
           },
           "total_received": {
-            "type": "number"
+            "type": "number",
+            "example": 50
           },
           "total_billing_units": {
-            "type": "number"
+            "type": "number",
+            "example": 150
           },
           "total_optout": {
-            "type": "number"
+            "type": "number",
+            "example": 10
           }
         }
       },
@@ -7655,16 +7640,20 @@
             "example": "Account1"
           },
           "total_sent": {
-            "type": "number"
+            "type": "number",
+            "example": 60
           },
           "total_received": {
-            "type": "number"
+            "type": "number",
+            "example": 30
           },
           "total_billing_units": {
-            "type": "number"
+            "type": "number",
+            "example": 90
           },
           "total_optout": {
-            "type": "number"
+            "type": "number",
+            "example": 7
           },
           "sub_group": {
             "type": "array",
@@ -7683,16 +7672,70 @@
             "example": "2020-11-01"
           },
           "total_sent": {
-            "type": "number"
+            "type": "number",
+            "example": 20
           },
           "total_received": {
-            "type": "number"
+            "type": "number",
+            "example": 0
           },
           "total_billing_units": {
-            "type": "number"
+            "type": "number",
+            "example": 20
           },
           "total_optout": {
-            "type": "number"
+            "type": "number",
+            "example": 0
+          }
+        }
+      },
+      "MessageDirection": {
+        "title": "MessageDirection",
+        "enum": [
+          "inbound",
+          "outbound",
+          "all"
+        ],
+        "example": "all",
+        "description": "The type of messages to include in the report."
+      },
+      "MessageStatus": {
+        "title": "MessageStatus",
+        "type": "string",
+        "enum": [
+          "UNDEFINED",
+          "QUEUED",
+          "PROCESSING",
+          "PROCESSED",
+          "FAILED",
+          "SCHEDULED",
+          "CANCELLED",
+          "DELIVERED",
+          "EXPIRED",
+          "ENROUTE",
+          "HELD",
+          "SUBMITTED",
+          "REJECTED",
+          "READ"
+        ],
+        "example": "DELIVERED",
+        "description": "An enumerable list of potential message statuses."
+      },
+      "Paginate": {
+        "title": "Pagination",
+        "type": "object",
+        "properties": {
+          "page": {
+            "type": "number",
+            "example": 0
+          },
+          "page_size": {
+            "type": "number",
+            "example": 20
+          },
+          "has_next": {
+            "type": "boolean",
+            "example": false
           }
         }
       },
@@ -8261,7 +8304,15 @@
           },
           "metadata": {
             "type": "object",
-            "description": "Metadata for the message specified as a set of key value pairs, each key can be up to 100 characters long and each value can be up to 256 characters long\n```\n{\n   \"myKey\": \"myValue\",\n   \"anotherKey\": \"anotherValue\"\n}\n```"
+            "description": "Metadata for the message specified as a set of key value pairs, each key can be up to 100 characters long and each value can be up to 256 characters long\n```\n{\n   \"myKey\": \"myValue\",\n   \"anotherKey\": \"anotherValue\"\n}\n```",
+            "example": [
+              {
+                "myKey": "myValue"
+              },
+              {
+                "anotherKey": "anotherValue"
+              }
+            ]
           },
           "scheduled": {
             "type": "string",
@@ -8296,7 +8347,8 @@
           },
           "subject": {
             "type": "string",
-            "description": "The subject field is used to denote subject of the MMS message and has a maximum size of 64 characters long"
+            "description": "The subject field is used to denote subject of the MMS message and has a maximum size of 64 characters long",
+            "example": "New Products"
           }
         }
       },
@@ -8509,27 +8561,33 @@
         "properties": {
           "page": {
             "type": "number",
-            "description": "The current page of results"
+            "description": "The current page of results",
+            "example": 3
           },
           "page_size": {
             "type": "number",
-            "description": "The amount of results returned per page"
+            "description": "The amount of results returned per page",
+            "example": 50
           },
           "total_count": {
             "type": "number",
-            "description": "The total number of results in the results set"
+            "description": "The total number of results in the results set",
+            "example": 80
           },
           "page_count": {
             "type": "number",
-            "description": "The total number of pages in the results set"
+            "description": "The total number of pages in the results set",
+            "example": 5
           },
           "next_uri": {
             "type": "string",
-            "description": "Link to the next page of results"
+            "description": "Link to the next page of results",
+            "example": "example.url"
           },
           "previous_uri": {
             "type": "string",
-            "description": "Link to the previous page of results"
+            "description": "Link to the previous page of results",
+            "example": "example.url"
           }
         }
       },
@@ -11999,35 +12057,6 @@
         ],
         "type": "string",
         "example": "SENT_MESSAGES"
-      },
-      "MessageDirection": {
-        "title": "MessageDirection",
-        "enum": [
-          "inbound",
-          "outbound",
-          "all"
-        ],
-        "example": "all"
-      },
-      "MessageStatus": {
-        "title": "MessageStatus",
-        "enum": [
-          "UNDEFINED",
-          "QUEUED",
-          "PROCESSING",
-          "PROCESSED",
-          "FAILED",
-          "SCHEDULED",
-          "CANCELLED",
-          "DELIVERED",
-          "EXPIRED",
-          "ENROUTE",
-          "HELD",
-          "SUBMITTED",
-          "REJECTED",
-          "READ"
-        ],
-        "example": "DELIVERED"
       },
       "GroupByField": {
         "title": "GroupByField",
