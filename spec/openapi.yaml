@@ -5405,7 +5405,6 @@ components:
           type: string
           example: ABC
         accounts:
-
           type: array
           items:
             type: string
@@ -5416,6 +5415,9 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/MessageStatus'
+          example:
+            - DELIVERED
+            - ENROUTE
         opt_out:
           type: string
           example: "true"
@@ -5423,6 +5425,9 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/GroupByField'
+          example:
+            - DAY
+            - WEEK
         delivery_options:
           type: array
           items:
@@ -5451,13 +5456,7 @@ components:
           type: string
           example: "2022-12-14T00:00:00.000z"
         direction:
-          description: The type of messages to include in the report. Accepted values are `inbound`, `outbound`, and `all` (both inbound and outbound).  Default value is 'all'.
-          example: all
-          enum:
-            - inbound
-            - outbound
-            - all
-          type: string
+          $ref: '#/components/schemas/MessageDirection'
         timezone:
           description: The timezone of the messages to include, using the name of the region.
           type: string
@@ -5664,7 +5663,7 @@ components:
           description: Group results by a list of values, from the enumerable table above.
           type: array
           items:
-            $ref: '#/components/schemas/group_by'
+            $ref: '#/components/schemas/GroupByField'
           example:
             - STATUS
             - COUNTRY
@@ -5709,13 +5708,7 @@ components:
           type: string
           example: Australia/Sydney
         direction:
-          enum:
-            - inbound
-            - outbound
-            - all
-          type: string
-          description: The type of messages to include in the report. Accepted values are `inbound`, `outbound`, and `all` (both inbound and outbound)
-          example: outbound
+          $ref: '#/components/schemas/MessageDirection'
         source:
           description: Filter results by source address.
           type: string
@@ -5773,7 +5766,7 @@ components:
           description: Group results by a list of values, from the enumerable table above.
           type: array
           items:
-            $ref: '#/components/schemas/group_by'
+            $ref: '#/components/schemas/GroupByField'
           example:
             - WEEK
             - ACCOUNT
@@ -7095,7 +7088,7 @@ components:
         group_by:
           type: array
           items:
-            $ref: '#/components/schemas/group_by'
+            $ref: '#/components/schemas/GroupByField'
           description: List of fields to group results set by
         period:
           $ref: '#/components/schemas/period'
@@ -7167,7 +7160,7 @@ components:
         group_by:
           type: array
           items:
-            $ref: '#/components/schemas/group_by'
+            $ref: '#/components/schemas/GroupByField'
           description: List of fields to group results set by
         period:
           $ref: '#/components/schemas/period'
