@@ -339,7 +339,7 @@ tags:
       _NOTE: The `hlr` value CANNOT be used in conjunction with the other values.
   - name: Number Authorisation
     description: |-
-      The number authorisation API allows you to manage your blacklists. MessageMedia automatically adds numbers to your blacklist if people send one of the opt out keywords in response to one of your messages.
+      The number authorisation API allows you to manage your blacklists. MessageMedia automatically adds numbers to your blacklist if people send one of the opt-out keywords in response to one of your messages.
       This is a legal requirement. If you decide to handle the legal compliance yourself, calls to this endpoint will not affect your messages.
   - name: Dedicated Numbers
     description: "The Numbers API allows your to purchase, provision and configure the dedicated numbers assigned to your MessageMedia account. \n\nTo learn more about the benefits of dedicated numbers, and their use cases,\_visit our [feature page](https://messagemedia.com/au/feature/dedicated-virtual-numbers/).\n\nThis is a paid feature and must be enabled on your account. Please contact [support@messagemedia.com](support@messagemedia.com) or your account manager.\n\n## Concepts\n\nThis API allows you to purchase and assign to your account a number from a pool of dedicated numbers. Dedicated numbers are priced differently according to their classification.\n\nThe following is the system by which we classify dedicated numbers. \n\n| Pattern Type | Gold|  Silver |\n|---|---|---|\n| Same Number  |  Six of same (e.g. 999999) | Five of same (e.g. 999991 or 199999)  | \n| Sequence  |  Six in sequence (e.g. 234567, or 765432) | Five in sequence (e.g. 245678, 456782, or 287654)  |\n|  Triplets |  Two identical (e.g. 123123) or two double (e.g. 444666) | Identical pairs within triplets (e.g. 004008, or 400800), one identical and one in sequence (e.g. 444789, or 345777), or mirror image (e.g. 468864)| \n|Pair|Three identical (e.g. 454545)|Three non-identical (e.g. 447700) or three in sequence (e.g. 232425, or 090807)|\n\nAny numbers that do not meet the criteria for Gold or Silver are classified as Bronze.\n\nFor pricing on dedicated numbers please refer to the Numbers page in our Hub web portal, or speak with your MessageMedia Account Manager.\n"
@@ -803,8 +803,9 @@ paths:
           in: path
           required: true
           schema:
-            type: integer
-          description: The ID of the scheduled report to delete.
+            type: string
+          description: The ID of the scheduled report to update.
+          example: e6fb8282-c7c3-4367-8590-6c77ddb11c3e
       requestBody:
         description: ''
         content:
@@ -861,8 +862,9 @@ paths:
           in: path
           required: true
           schema:
-            type: integer
-          description: The ID of the scheduled report to delete.
+            type: string
+          description: The ID of the scheduled report to update.
+          example: e6fb8282-c7c3-4367-8590-6c77ddb11c3e
       requestBody:
         description: ''
         content:
@@ -930,8 +932,9 @@ paths:
           in: path
           required: true
           schema:
-            type: integer
+            type: string
           description: The ID of the scheduled report to retrieve.
+          example: e6fb8282-c7c3-4367-8590-6c77ddb11c3e
       responses:
         '200':
           description: The scheduled report matching the provided ID.
@@ -957,8 +960,9 @@ paths:
           in: path
           required: true
           schema:
-            type: integer
+            type: string
           description: The ID of the scheduled report to delete.
+          example: e6fb8282-c7c3-4367-8590-6c77ddb11c3e
       responses:
         '200':
           description: An empty response indicating the report has been deleted.
@@ -2695,7 +2699,7 @@ paths:
           explode: true
           schema:
             type: string
-            example: 2017-02-10T13:30:00.000Z
+            example: '2017-02-10T13:30:00'
         - name: end_date
           in: query
           description: 'End date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format'
@@ -2704,7 +2708,7 @@ paths:
           explode: true
           schema:
             type: string
-            example: 2017-02-12T13:30:00.000Z
+            example: '2017-02-12T13:30:00'
         - name: accounts
           in: query
           description: |-
@@ -2712,7 +2716,7 @@ paths:
 
             will be returned for the account associated with the authentication
 
-            credentials and all sub accounts.
+            credentials and all sub-accounts.
           style: form
           explode: true
           schema:
@@ -2737,8 +2741,8 @@ paths:
               example:
                 data: []
                 properties:
-                  end_date: 2017-02-10T13:30:00.000Z
-                  start_date: 2017-02-12T13:30:00.000Z
+                  end_date: '2017-02-10T13:30:00'
+                  start_date: '2017-02-12T13:30:00'
                   accounts: []
         '400':
           description: Bad Request. Check the json response for more details on what went wrong.
@@ -2793,8 +2797,8 @@ paths:
                 $ref: '#/components/schemas/getAsyncReportsResponse'
               example:
                 data:
-                  - created_datetime: 2017-02-12T13:30:00.000Z
-                    last_modified_datetime: 2017-02-12T13:30:00.000Z
+                  - created_datetime: '2017-02-12T13:30:00'
+                    last_modified_datetime: '2017-02-12T13:30:00'
                 pagination: {}
       deprecated: true
       x-code-samples:
@@ -2921,8 +2925,8 @@ paths:
             schema:
               $ref: '#/components/schemas/asyncreceivedmessagesdetailrequest'
             example:
-              end_date: 2017-02-10T13:30:00.000Z
-              start_date: 2017-02-12T13:30:00.000Z
+              end_date: '2017-02-10T13:30:00'
+              start_date: '2017-02-12T13:30:00'
               period: TODAY
               timezone: Australia/Melbourne
               accounts: []
@@ -2976,7 +2980,7 @@ paths:
           explode: true
           schema:
             type: string
-            example: 2017-02-10T13:30:00.000Z
+            example: '2017-02-10T13:30:00'
         - name: start_date
           in: query
           description: 'Start date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.'
@@ -2985,7 +2989,7 @@ paths:
           explode: true
           schema:
             type: string
-            example: 2017-02-12T13:30:00.000Z
+            example: '2017-02-12T13:30:00'
         - name: accounts
           in: query
           description: |-
@@ -2993,7 +2997,7 @@ paths:
 
             will be returned for the account associated with the authentication
 
-            credentials and all sub accounts.
+            credentials and all sub-accounts.
           style: form
           explode: true
           schema:
@@ -3083,11 +3087,11 @@ paths:
                     format: AU
                     source_address: 61491570156
                     source_address_country: AU
-                    timestamp: 2017-02-12T13:30:00.000Z
+                    timestamp: '2017-02-12T13:30:00'
                 pagination: {}
                 properties:
-                  end_date: 2017-02-10T13:30:00.000Z
-                  start_date: 2017-02-12T13:30:00.000Z
+                  end_date: '2017-02-10T13:30:00'
+                  start_date: '2017-02-12T13:30:00'
                   sorting: {}
                   filters:
                     accounts: []
@@ -3126,8 +3130,8 @@ paths:
             schema:
               $ref: '#/components/schemas/asyncsentmessagesdetailrequestv1'
             example:
-              end_date: 2017-02-10T13:30:00.000Z
-              start_date: 2017-02-12T13:30:00.000Z
+              end_date: '2017-02-10T13:30:00'
+              start_date: '2017-02-12T13:30:00'
               period: TODAY
               timezone: Australia/Melbourne
               accounts: []
@@ -3183,7 +3187,7 @@ paths:
           explode: true
           schema:
             type: string
-            example: 2017-02-10T13:30:00.000Z
+            example: '2017-02-10T13:30:00'
         - name: start_date
           in: query
           description: 'Start date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.'
@@ -3192,7 +3196,7 @@ paths:
           explode: true
           schema:
             type: string
-            example: 2017-02-12T13:30:00.000Z
+            example: '2017-02-12T13:30:00'
         - name: accounts
           in: query
           description: |-
@@ -3200,7 +3204,7 @@ paths:
 
             will be returned for the account associated with the authentication
 
-            credentials and all sub accounts.
+            credentials and all sub-accounts.
           style: form
           explode: true
           schema:
@@ -3298,18 +3302,18 @@ paths:
                 data:
                   - account: MyAccount001
                     content: Hello world!
-                    delivered_timestamp: 2017-02-12T13:30:00.000Z
+                    delivered_timestamp: '2017-02-12T13:30:00'
                     destination_address: 61491570156
                     destination_address_country: AU
                     format: AU
                     source_address: 61491570156
                     source_address_country: AU
                     units: 2
-                    timestamp: 2017-02-12T13:30:00.000Z
+                    timestamp: '2017-02-12T13:30:00'
                 pagination: {}
                 properties:
-                  end_date: 2017-02-10T13:30:00.000Z
-                  start_date: 2017-02-12T13:30:00.000Z
+                  end_date: '2017-02-10T13:30:00'
+                  start_date: '2017-02-12T13:30:00'
                   sorting: {}
                   filters:
                     accounts: []
@@ -3348,8 +3352,8 @@ paths:
             schema:
               $ref: '#/components/schemas/asyncreceivedmessagessummaryrequest'
             example:
-              end_date: 2017-02-10T13:30:00.000Z
-              start_date: 2017-02-12T13:30:00.000Z
+              end_date: '2017-02-10T13:30:00'
+              start_date: '2017-02-12T13:30:00'
               group_by:
                 - DAY
               period: THIS_WEEK
@@ -3407,7 +3411,7 @@ paths:
           explode: true
           schema:
             type: string
-            example: 2017-02-10T13:30:00.000Z
+            example: '2017-02-10T13:30:00'
         - name: start_date
           in: query
           description: 'Start date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.'
@@ -3416,7 +3420,7 @@ paths:
           explode: true
           schema:
             type: string
-            example: 2017-02-12T13:30:00.000Z
+            example: '2017-02-12T13:30:00'
         - name: group_by
           in: query
           description: 'List of fields to group results set by{array}'
@@ -3432,7 +3436,7 @@ paths:
 
             will be returned for the account associated with the authentication
 
-            credentials and all sub accounts.
+            credentials and all sub-accounts.
           style: form
           explode: true
           schema:
@@ -3491,8 +3495,8 @@ paths:
                 $ref: '#/components/schemas/SummaryReport'
               example:
                 properties:
-                  end_date: 2017-02-10T13:30:00.000Z
-                  start_date: 2017-02-12T13:30:00.000Z
+                  end_date: '2017-02-10T13:30:00'
+                  start_date: '2017-02-12T13:30:00'
                   timezone: 'The timezone that this report is presented in, this may be passed in as a parameter to the report, or taken from account settings'
                 data:
                   - {}
@@ -3532,8 +3536,8 @@ paths:
             schema:
               $ref: '#/components/schemas/asyncsentmessagesrequest'
             example:
-              end_date: 2017-02-10T13:30:00.000Z
-              start_date: 2017-02-12T13:30:00.000Z
+              end_date: '2017-02-10T13:30:00'
+              start_date: '2017-02-12T13:30:00'
               group_by:
                 - DAY
               period: YESTERDAY
@@ -3591,7 +3595,7 @@ paths:
           explode: true
           schema:
             type: string
-            example: 2017-02-10T13:30:00.000Z
+            example: '2017-02-10T13:30:00'
         - name: start_date
           in: query
           description: 'Start date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.'
@@ -3600,7 +3604,7 @@ paths:
           explode: true
           schema:
             type: string
-            example: 2017-02-12T13:30:00.000Z
+            example: '2017-02-12T13:30:00'
         - name: group_by
           in: query
           description: 'List of fields to group results set by{array}'
@@ -3616,7 +3620,7 @@ paths:
 
             will be returned for the account associated with the authentication
 
-            credentials and all sub accounts.
+            credentials and all sub-accounts.
           style: form
           explode: true
           schema:
@@ -3682,8 +3686,8 @@ paths:
                 $ref: '#/components/schemas/SummaryReport'
               example:
                 properties:
-                  end_date: 2017-02-10T13:30:00.000Z
-                  start_date: 2017-02-12T13:30:00.000Z
+                  end_date: '2017-02-10T13:30:00'
+                  start_date: '2017-02-12T13:30:00'
                   timezone: 'The timezone that this report is presented in, this may be passed in as a parameter to the report, or taken from account settings'
                 data:
                   - {}
@@ -5471,6 +5475,7 @@ components:
         page_size:
           type: number
           example: 20
+          description: Number of results to return in a page for paginated result sets.
     scheduleddetailreport:
       title: scheduleddetailreport
       type: object
@@ -5504,15 +5509,19 @@ components:
         source:
           type: string
           example: '+61555555555'
+          description: The source phone number.
         destination:
           type: string
           example: '+61555555555'
+          description: The destination phone number.
         metadata_key:
           type: string
           example: broadcastId
+          description: Filter results for messages that include a metadata key.
         metadata_value:
           type: string
           example: ABC
+          description: 'Filter results for messages that include a metadata key containing this value. If this parameter is provided, the metadata_key parameter must also be provided.'
         accounts:
           type: array
           items:
@@ -5520,17 +5529,21 @@ components:
           example:
             - Account1
             - Account2
+          description: Filter results by a specific account. By default results will be returned for the account associated with the authentication credentials and all sub-accounts.
         status:
           type: array
           items:
             $ref: '#/components/schemas/MessageStatus'
+          description: An array of message statuses.
         opt_out:
           type: string
           example: 'true'
+          description: Filter the report to only include messages that triggered an opt-out
         delivery_options:
           type: array
           items:
             $ref: '#/components/schemas/deliveryOptionsBody'
+          description: A list of options to configure the delivery of the report.
     schedule:
       title: schedule
       type: object
@@ -5543,9 +5556,11 @@ components:
         timezone:
           type: string
           example: UTC
+          description: The timezone of the report.
         cron_expression:
           type: string
           example: 0 0 * * * ? *
+          description: A string consisting of six or seven subexpressions that describe individual details of the schedule.
         type:
           type: string
           example: cron
@@ -5582,6 +5597,7 @@ components:
         scheduled_report_id:
           type: string
           example: 43928f76-c381-4943-8619-f10460005898
+          description: The ID of the scheduled report.
         message_type:
           $ref: '#/components/schemas/MessageDirection'
         report_type:
@@ -5596,6 +5612,7 @@ components:
         scheduled_report_id:
           type: string
           example: 51f0097f-90b2-4a59-ad88-a0fd93abaa82
+          description: The ID of the scheduled report.
     scheduledsummaryreport:
       title: scheduledsummaryreport
       type: object
@@ -5630,15 +5647,19 @@ components:
         source:
           type: string
           example: '+61555555555'
+          description: The source phone number.
         destination:
           type: string
           example: '+61555555555'
+          description: The destination phone number.
         metadata_key:
           type: string
           example: broadcastId
+          description: Filter results for messages that include a metadata key.
         metadata_value:
           type: string
           example: ABC
+          description: 'Filter results for messages that include a metadata key containing this value. If this parameter is provided, the metadata_key parameter must also be provided.'
         accounts:
           type: array
           items:
@@ -5646,21 +5667,32 @@ components:
           example:
             - Account1
             - Account2
+          description: Filter results by a specific account. By default results will be returned for the account associated with the authentication credentials and all sub-accounts.
         status:
           type: array
           items:
             $ref: '#/components/schemas/MessageStatus'
+          example:
+            - DELIVERED
+            - ENROUTE
+          description: An array of message statuses.
         opt_out:
           type: string
           example: 'true'
+          description: Filter the report to only include messages that triggered an opt-out.
         group_by:
           type: array
           items:
             $ref: '#/components/schemas/GroupByField'
+          example:
+            - DAY
+            - WEEK
+          description: 'Group results by a list of values, from the enumerable table above.'
         delivery_options:
           type: array
           items:
             $ref: '#/components/schemas/deliveryOptionsBody'
+          description: A list of options to configure the delivery of the report.
     detailrequest:
       title: detailrequest
       required:
@@ -5677,13 +5709,7 @@ components:
           type: string
           example: '2022-12-14T00:00:00.000z'
         direction:
-          description: 'The type of messages to include in the report. Accepted values are `inbound`, `outbound`, and `all` (both inbound and outbound).  Default value is ''all''.'
-          example: all
-          enum:
-            - inbound
-            - outbound
-            - all
-          type: string
+          $ref: '#/components/schemas/MessageDirection'
         timezone:
           description: 'The timezone of the messages to include, using the name of the region.'
           type: string
@@ -5697,7 +5723,7 @@ components:
           type: string
           example: '+61555555555'
         destinations:
-          description: Filter results by multiple destination addresses.
+          description: Filter results by multiple destination addresses. This property overrides the `destination` parameter.
           type: array
           items:
             type: string
@@ -5712,43 +5738,37 @@ components:
           description: 'Filter results for messages that include a metadata key containing this value. If this parameter is provided, the metadata_key parameter must also be provided.'
           type: string
           example: ABC
-        accounts:
-          description: Filter results by a specific account. By default results will be returned for the account associated with the authentication credentials and all sub accounts.
+        metadata_values:
+          description: 'Filter results for messages that include a metadata key containing these values. This parameter overrides the metadata_value property. If this parameter is provided, the metadata_key parameter must also be provided.'
           type: array
           items:
             type: string
           example:
-            - account1
-            - account2
+            - meta1
+            - meta2
+        accounts:
+          description: Filter results by a specific account. By default results will be returned for the account associated with the authentication credentials and all sub-accounts.
+          type: array
+          items:
+            type: string
+          example:
+            - Account1
+            - Account2
         status:
           description: An array of message statuses
           type: array
           items:
-            enum:
-              - ENROUTE
-              - SUBMITTED
-              - DELIVERED
-              - EXPIRED
-              - REJECTED
-              - UNDELIVERABLE
-              - QUEUED
-              - PROCESSED
-              - CANCELLED
-              - SCHEDULED
-              - FAILED
+            $ref: '#/components/schemas/MessageStatus'
         opt_out:
-          description: Filter results by message format.
+          description: Filter the report to only include messages that triggered an opt-out
+          type: string
+          example: 'true'
+        mms_media:
+          description: Filter results by mms media.
           type: string
           example: 'true'
         message_format:
-          description: 'Filter results by message format, using enumerable MessageType.'
-          type: array
-          items:
-            type: string
-          example:
-            - SMS
-            - MMS
-            - CHANNEL
+          $ref: '#/components/schemas/format'
         page:
           description: Page number for paging through paginated result sets.
           type: number
@@ -5795,7 +5815,7 @@ components:
           type: string
           example: ABC
         accounts:
-          description: Filter results by a specific account. By default results will be returned for the account associated with the authentication credentials and all sub accounts.
+          description: Filter results by a specific account. By default results will be returned for the account associated with the authentication credentials and all sub-accounts.
           type: array
           items:
             type: string
@@ -5807,7 +5827,7 @@ components:
           items:
             $ref: '#/components/schemas/MessageStatus'
         opt_out:
-          description: Filter results by message format.
+          description: Filter the report to only include messages that triggered an opt-out
           type: string
           example: 'true'
         message_format:
@@ -5860,7 +5880,7 @@ components:
           type: string
           example: ABC
         accounts:
-          description: Filter results by a specific account. By default results will be returned for the account associated with the authentication credentials and all sub accounts.
+          description: Filter results by a specific account. By default results will be returned for the account associated with the authentication credentials and all sub-accounts.
           type: array
           items:
             type: string
@@ -5873,14 +5893,14 @@ components:
             $ref: '#/components/schemas/MessageStatus'
           description: A list of message statuses to filter the report by.
         opt_out:
-          description: Filter results by message format.
+          description: Filter the report to only include messages that triggered an opt-out
           type: string
           example: 'false'
         group_by:
           description: 'Group results by a list of values, from the enumerable table above.'
           type: array
           items:
-            $ref: '#/components/schemas/group_by'
+            $ref: '#/components/schemas/GroupByField'
           example:
             - STATUS
             - COUNTRY
@@ -5899,14 +5919,17 @@ components:
         name:
           type: string
           example: id
+          description: The `async/detail/fields` value from API.
         display_name:
           type: string
           example: id
+          description: Any string that you want to see in the CSV file header.
     summaryrequest:
       title: summaryrequest
       required:
         - start_date
         - end_date
+        - timezone
       type: object
       properties:
         start_date:
@@ -5922,13 +5945,7 @@ components:
           type: string
           example: Australia/Sydney
         direction:
-          enum:
-            - inbound
-            - outbound
-            - all
-          type: string
-          description: 'The type of messages to include in the report. Accepted values are `inbound`, `outbound`, and `all` (both inbound and outbound)'
-          example: outbound
+          $ref: '#/components/schemas/MessageDirection'
         source:
           description: Filter results by source address.
           type: string
@@ -5946,7 +5963,7 @@ components:
           type: string
           example: ABC
         accounts:
-          description: Filter results by a specific account. By default results will be returned for the account associated with the authentication credentials and all sub accounts.
+          description: Filter results by a specific account. By default results will be returned for the account associated with the authentication credentials and all sub-accounts.
           type: array
           items:
             type: string
@@ -5954,35 +5971,22 @@ components:
             - account1
             - account2
         status:
-          description: An array of message statuses
+          description: An array of message statuses.
           type: array
           items:
-            enum:
-              - ENROUTE
-              - SUBMITTED
-              - DELIVERED
-              - EXPIRED
-              - REJECTED
-              - UNDELIVERABLE
-              - QUEUED
-              - PROCESSED
-              - CANCELLED
-              - SCHEDULED
-              - FAILED
+            $ref: '#/components/schemas/MessageStatus'
           example:
             - DELIVERED
-            - FAILED
             - ENROUTE
-            - SCHEDULED
         opt_out:
-          description: Filter results by message format.
+          description: Filter the report to only include messages that triggered an opt-out
           type: string
           example: 'true'
         group_by:
           description: 'Group results by a list of values, from the enumerable table above.'
           type: array
           items:
-            $ref: '#/components/schemas/group_by'
+            $ref: '#/components/schemas/GroupByField'
           example:
             - WEEK
             - ACCOUNT
@@ -6015,7 +6019,7 @@ components:
           type: array
           items:
             type: string
-          description: Filter results by a specific account. By default results will be returned for the account associated with the authentication credentials and all sub accounts.
+          description: Filter results by a specific account. By default results will be returned for the account associated with the authentication credentials and all sub-accounts.
           example:
             - Account1
             - Account2
@@ -6028,6 +6032,7 @@ components:
         report_id:
           type: string
           example: 51f0097f-90b2-4a59-ad88-a0fd93abaa82
+          description: The ID of the returned report.
     reportstatusresponse:
       title: reportstatusresponse
       type: object
@@ -6050,6 +6055,7 @@ components:
           items:
             type: string
             example: 'id, content, meta1'
+          description: An array of fields to be retrieved.
     detailresponse:
       title: detailresponse
       type: object
@@ -6124,6 +6130,7 @@ components:
           example: 0
     MessageDirection:
       title: MessageDirection
+      type: object
       enum:
         - inbound
         - outbound
@@ -6730,8 +6737,8 @@ components:
       example:
         data: []
         properties:
-          end_date: 2017-02-10T13:30:00.000Z
-          start_date: 2017-02-12T13:30:00.000Z
+          end_date: 2019-02-10T13:30:00.000Z
+          start_date: '2017-02-12T13:30:00'
           accounts: []
     Properties:
       title: Properties
@@ -6743,11 +6750,11 @@ components:
         end_date:
           type: string
           description: 'End date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.'
-          example: 2017-02-10T13:30:00.000Z
+          example: '2017-02-10T16:30:00'
         start_date:
           type: string
           description: 'Start date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.'
-          example: 2017-02-12T13:30:00.000Z
+          example: '2017-02-12T13:30:00'
         accounts:
           type: array
           items:
@@ -6827,11 +6834,11 @@ components:
         end_date:
           type: string
           description: 'End date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.'
-          example: 2017-02-10T13:30:00.000Z
+          example: '2017-02-10T13:30:00'
         start_date:
           type: string
           description: 'Start date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.'
-          example: 2017-02-12T13:30:00.000Z
+          example: '2017-02-12T13:30:00'
         filters:
           $ref: '#/components/schemas/Filters'
         timezone:
@@ -6932,7 +6939,7 @@ components:
         timestamp:
           type: string
           description: Date time at which this message was received
-          example: 2017-02-12T13:30:00.000Z
+          example: '2017-02-12T13:30:00'
       description: 'A message received for the account specified. This message may be in response to a sent message, or it may be an unsolicited message, matched to the account by the destination address.'
     ReceivedMessages:
       title: ReceivedMessages
@@ -6957,11 +6964,11 @@ components:
             format: AU
             source_address: 61491570156
             source_address_country: AU
-            timestamp: 2017-02-12T13:30:00.000Z
+            timestamp: '2017-02-12T13:30:00'
         pagination: {}
         properties:
-          end_date: 2017-02-10T13:30:00.000Z
-          start_date: 2017-02-12T13:30:00.000Z
+          end_date: '2017-02-10T13:30:00'
+          start_date: '2017-02-12T13:30:00'
           sorting: {}
           filters:
             accounts: []
@@ -7008,7 +7015,7 @@ components:
         timestamp:
           type: string
           description: 'Date time at which this message was submitted to the API, refer to the delivered timestamp for the time at which the message was delivered (or failed to be delivered) to the destination address.'
-          example: 2017-02-12T13:30:00.000Z
+          example: '2017-02-12T13:30:00'
     SentMessages:
       title: SentMessages
       type: object
@@ -7031,11 +7038,11 @@ components:
             format: AU
             source_address: 61491570156
             source_address_country: AU
-            timestamp: 2017-02-12T13:30:00.000Z
+            timestamp: '2017-02-12T13:30:00'
         pagination: {}
         properties:
-          end_date: 2017-02-10T13:30:00.000Z
-          start_date: 2017-02-12T13:30:00.000Z
+          end_date: '2017-02-10T13:30:00'
+          start_date: '2017-02-12T13:30:00'
           filters:
             accounts: []
           timezone: 'The timezone that this report is presented in, this may be passed in as a parameter to the report, or taken from account settings'
@@ -7062,8 +7069,8 @@ components:
           description: ''
       example:
         properties:
-          end_date: 2017-02-10T13:30:00.000Z
-          start_date: 2017-02-12T13:30:00.000Z
+          end_date: '2017-02-10T13:30:00'
+          start_date: '2017-02-12T13:30:00'
           timezone: 'The timezone that this report is presented in, this may be passed in as a parameter to the report, or taken from account settings'
         data:
           - {}
@@ -7077,11 +7084,11 @@ components:
         end_date:
           type: string
           description: 'End date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.'
-          example: 2017-02-10T13:30:00.000Z
+          example: '2017-02-10T13:30:00'
         start_date:
           type: string
           description: 'Start date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.'
-          example: 2017-02-12T13:30:00.000Z
+          example: '2017-02-12T13:30:00'
         filters:
           type: object
           description: Any filters provided as parameters for this report
@@ -7111,8 +7118,8 @@ components:
           $ref: '#/components/schemas/Pagination'
       example:
         data:
-          - created_datetime: 2017-02-12T13:30:00.000Z
-            last_modified_datetime: 2017-02-12T13:30:00.000Z
+          - created_datetime: '2017-02-12T13:30:00'
+            last_modified_datetime: '2017-02-12T13:30:00'
         pagination: {}
     asyncreceivedmessagesdetailrequest:
       title: asyncreceivedmessagesdetailrequest
@@ -7125,11 +7132,11 @@ components:
         end_date:
           type: string
           description: 'End date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.'
-          example: 2017-02-10T13:30:00.000Z
+          example: '2017-02-10T13:30:00'
         start_date:
           type: string
           description: 'Start date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.'
-          example: 2017-02-12T13:30:00.000Z
+          example: '2017-02-12T13:30:00'
         period:
           $ref: '#/components/schemas/period'
         timezone:
@@ -7145,7 +7152,7 @@ components:
 
             will be returned for the account associated with the authentication
 
-            credentials and all sub accounts.
+            credentials and all sub-accounts.
         destination_address:
           type: string
           description: Filter results by destination address.
@@ -7168,8 +7175,8 @@ components:
             $ref: '#/components/schemas/deliveryOptionsBody'
           description: Delivery options for this asynchronous report.
       example:
-        end_date: 2017-02-10T13:30:00.000Z
-        start_date: 2017-02-12T13:30:00.000Z
+        end_date: '2017-02-10T13:30:00'
+        start_date: '2017-02-12T13:30:00'
         period: TODAY
         sort_by: ACCOUNT
         sort_direction: ASCENDING
@@ -7190,11 +7197,11 @@ components:
         end_date:
           type: string
           description: 'End date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.'
-          example: 2017-02-10T13:30:00.000Z
+          example: '2017-02-10T13:30:00'
         start_date:
           type: string
           description: 'Start date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.'
-          example: 2017-02-12T13:30:00.000Z
+          example: '2017-02-12T13:30:00'
         period:
           $ref: '#/components/schemas/period'
         timezone:
@@ -7210,7 +7217,7 @@ components:
 
             will be returned for the account associated with the authentication
 
-            credentials and all sub accounts.
+            credentials and all sub-accounts.
         destination_address:
           type: string
           description: Filter results by destination address.
@@ -7241,8 +7248,8 @@ components:
             $ref: '#/components/schemas/deliveryOptionsBody'
           description: Delivery options for this asynchronous report.
       example:
-        end_date: 2017-02-10T13:30:00.000Z
-        start_date: 2017-02-12T13:30:00.000Z
+        end_date: '2017-02-10T13:30:00'
+        start_date: '2017-02-12T13:30:00'
         period: TODAY
         timezone: Australia/Melbourne
         accounts: []
@@ -7263,15 +7270,15 @@ components:
         end_date:
           type: string
           description: 'End date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.'
-          example: 2017-02-10T13:30:00.000Z
+          example: '2017-02-10T13:30:00'
         start_date:
           type: string
           description: 'Start date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.'
-          example: 2017-02-12T13:30:00.000Z
+          example: '2017-02-12T13:30:00'
         group_by:
           type: array
           items:
-            $ref: '#/components/schemas/group_by'
+            $ref: '#/components/schemas/GroupByField'
           description: List of fields to group results set by
         period:
           $ref: '#/components/schemas/period'
@@ -7288,7 +7295,7 @@ components:
 
             will be returned for the account associated with the authentication
 
-            credentials and all sub accounts.
+            credentials and all sub-accounts.
         destination_address:
           type: string
           description: Filter results by destination address.
@@ -7311,8 +7318,8 @@ components:
             $ref: '#/components/schemas/deliveryOptionsBody'
           description: Delivery options for this asynchronous report.
       example:
-        end_date: 2017-02-10T13:30:00.000Z
-        start_date: 2017-02-12T13:30:00.000Z
+        end_date: '2017-02-10T13:30:00'
+        start_date: '2017-02-12T13:30:00'
         group_by:
           - DAY
         period: THIS_WEEK
@@ -7333,15 +7340,15 @@ components:
         end_date:
           type: string
           description: 'End date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.'
-          example: 2017-02-10T13:30:00.000Z
+          example: '2017-02-10T13:30:00'
         start_date:
           type: string
           description: 'Start date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.'
-          example: 2017-02-12T13:30:00.000Z
+          example: '2017-02-12T13:30:00'
         group_by:
           type: array
           items:
-            $ref: '#/components/schemas/group_by'
+            $ref: '#/components/schemas/GroupByField'
           description: List of fields to group results set by
         period:
           $ref: '#/components/schemas/period'
@@ -7358,7 +7365,7 @@ components:
 
             will be returned for the account associated with the authentication
 
-            credentials and all sub accounts.
+            credentials and all sub-accounts.
         destination_address:
           type: string
           description: Filter results by destination address.
@@ -7382,8 +7389,8 @@ components:
             $ref: '#/components/schemas/deliveryOptionsBody'
           description: Delivery options for this asynchronous report.
       example:
-        end_date: 2017-02-10T13:30:00.000Z
-        start_date: 2017-02-12T13:30:00.000Z
+        end_date: '2017-02-10T13:30:00'
+        start_date: '2017-02-12T13:30:00'
         group_by:
           - DAY
         period: YESTERDAY
@@ -9286,7 +9293,10 @@ components:
           - TTS
           - RCS
           - CHANNEL
-      description: 'Format of message, SMS or TTS (Text To Speech)'
+      description: Format of message type.
+      example:
+        - MMS
+        - TTS
     group_by:
       title: group_by
       enum:

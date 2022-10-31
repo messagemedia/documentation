@@ -48,7 +48,7 @@
     },
     {
       "name": "Number Authorisation",
-      "description": "The number authorisation API allows you to manage your blacklists. MessageMedia automatically adds numbers to your blacklist if people send one of the opt out keywords in response to one of your messages.\nThis is a legal requirement. If you decide to handle the legal compliance yourself, calls to this endpoint will not affect your messages."
+      "description": "The number authorisation API allows you to manage your blacklists. MessageMedia automatically adds numbers to your blacklist if people send one of the opt-out keywords in response to one of your messages.\nThis is a legal requirement. If you decide to handle the legal compliance yourself, calls to this endpoint will not affect your messages."
     },
     {
       "name": "Dedicated Numbers",
@@ -506,9 +506,10 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer"
+              "type": "string"
             },
-            "description": "The ID of the scheduled report to delete."
+            "description": "The ID of the scheduled report to update.",
+            "example": "e6fb8282-c7c3-4367-8590-6c77ddb11c3e"
           }
         ],
         "requestBody": {
@@ -602,9 +603,10 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer"
+              "type": "string"
             },
-            "description": "The ID of the scheduled report to delete."
+            "description": "The ID of the scheduled report to update.",
+            "example": "e6fb8282-c7c3-4367-8590-6c77ddb11c3e"
           }
         ],
         "requestBody": {
@@ -713,9 +715,10 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer"
+              "type": "string"
             },
-            "description": "The ID of the scheduled report to retrieve."
+            "description": "The ID of the scheduled report to retrieve.",
+            "example": "e6fb8282-c7c3-4367-8590-6c77ddb11c3e"
           }
         ],
         "responses": {
@@ -757,9 +760,10 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer"
+              "type": "string"
             },
-            "description": "The ID of the scheduled report to delete."
+            "description": "The ID of the scheduled report to delete.",
+            "example": "e6fb8282-c7c3-4367-8590-6c77ddb11c3e"
           }
         ],
         "responses": {
@@ -2969,7 +2973,7 @@
             "explode": true,
             "schema": {
               "type": "string",
-              "example": "2017-02-10T13:30:00.000Z"
+              "example": "2017-02-10T13:30:00"
             }
           },
           {
@@ -2981,13 +2985,13 @@
             "explode": true,
             "schema": {
               "type": "string",
-              "example": "2017-02-12T13:30:00.000Z"
+              "example": "2017-02-12T13:30:00"
             }
           },
           {
             "name": "accounts",
             "in": "query",
-            "description": "Filter results by a specific account. By default results\n\nwill be returned for the account associated with the authentication\n\ncredentials and all sub accounts.",
+            "description": "Filter results by a specific account. By default results\n\nwill be returned for the account associated with the authentication\n\ncredentials and all sub-accounts.",
             "style": "form",
             "explode": true,
             "schema": {
@@ -3020,8 +3024,8 @@
                 "example": {
                   "data": [],
                   "properties": {
-                    "end_date": "2017-02-10T13:30:00.000Z",
-                    "start_date": "2017-02-12T13:30:00.000Z",
+                    "end_date": "2017-02-10T13:30:00",
+                    "start_date": "2017-02-12T13:30:00",
                     "accounts": []
                   }
                 }
@@ -3113,8 +3117,8 @@
                 "example": {
                   "data": [
                     {
-                      "created_datetime": "2017-02-12T13:30:00.000Z",
-                      "last_modified_datetime": "2017-02-12T13:30:00.000Z"
+                      "created_datetime": "2017-02-12T13:30:00",
+                      "last_modified_datetime": "2017-02-12T13:30:00"
                     }
                   ],
                   "pagination": {}
@@ -3335,8 +3339,8 @@
                 "$ref": "#/components/schemas/asyncreceivedmessagesdetailrequest"
               },
               "example": {
-                "end_date": "2017-02-10T13:30:00.000Z",
-                "start_date": "2017-02-12T13:30:00.000Z",
+                "end_date": "2017-02-10T13:30:00",
+                "start_date": "2017-02-12T13:30:00",
                 "period": "TODAY",
                 "timezone": "Australia/Melbourne",
                 "accounts": [],
@@ -3426,7 +3430,7 @@
             "explode": true,
             "schema": {
               "type": "string",
-              "example": "2017-02-10T13:30:00.000Z"
+              "example": "2017-02-10T13:30:00"
             }
           },
           {
@@ -3438,13 +3442,13 @@
             "explode": true,
             "schema": {
               "type": "string",
-              "example": "2017-02-12T13:30:00.000Z"
+              "example": "2017-02-12T13:30:00"
             }
           },
           {
             "name": "accounts",
             "in": "query",
-            "description": "Filter results by a specific account. By default results\n\nwill be returned for the account associated with the authentication\n\ncredentials and all sub accounts.",
+            "description": "Filter results by a specific account. By default results\n\nwill be returned for the account associated with the authentication\n\ncredentials and all sub-accounts.",
             "style": "form",
             "explode": true,
             "schema": {
@@ -3567,13 +3571,13 @@
                       "format": "AU",
                       "source_address": 61491570156,
                       "source_address_country": "AU",
-                      "timestamp": "2017-02-12T13:30:00.000Z"
+                      "timestamp": "2017-02-12T13:30:00"
                     }
                   ],
                   "pagination": {},
                   "properties": {
-                    "end_date": "2017-02-10T13:30:00.000Z",
-                    "start_date": "2017-02-12T13:30:00.000Z",
+                    "end_date": "2017-02-10T13:30:00",
+                    "start_date": "2017-02-12T13:30:00",
                     "sorting": {},
                     "filters": {
                       "accounts": []
@@ -3642,8 +3646,8 @@
                 "$ref": "#/components/schemas/asyncsentmessagesdetailrequestv1"
               },
               "example": {
-                "end_date": "2017-02-10T13:30:00.000Z",
-                "start_date": "2017-02-12T13:30:00.000Z",
+                "end_date": "2017-02-10T13:30:00",
+                "start_date": "2017-02-12T13:30:00",
                 "period": "TODAY",
                 "timezone": "Australia/Melbourne",
                 "accounts": [],
@@ -3736,7 +3740,7 @@
             "explode": true,
             "schema": {
               "type": "string",
-              "example": "2017-02-10T13:30:00.000Z"
+              "example": "2017-02-10T13:30:00"
             }
           },
           {
@@ -3748,13 +3752,13 @@
             "explode": true,
             "schema": {
               "type": "string",
-              "example": "2017-02-12T13:30:00.000Z"
+              "example": "2017-02-12T13:30:00"
             }
           },
           {
             "name": "accounts",
             "in": "query",
-            "description": "Filter results by a specific account. By default results\n\nwill be returned for the account associated with the authentication\n\ncredentials and all sub accounts.",
+            "description": "Filter results by a specific account. By default results\n\nwill be returned for the account associated with the authentication\n\ncredentials and all sub-accounts.",
             "style": "form",
             "explode": true,
             "schema": {
@@ -3891,20 +3895,20 @@
                     {
                       "account": "MyAccount001",
                       "content": "Hello world!",
-                      "delivered_timestamp": "2017-02-12T13:30:00.000Z",
+                      "delivered_timestamp": "2017-02-12T13:30:00",
                       "destination_address": 61491570156,
                       "destination_address_country": "AU",
                       "format": "AU",
                       "source_address": 61491570156,
                       "source_address_country": "AU",
                       "units": 2,
-                      "timestamp": "2017-02-12T13:30:00.000Z"
+                      "timestamp": "2017-02-12T13:30:00"
                     }
                   ],
                   "pagination": {},
                   "properties": {
-                    "end_date": "2017-02-10T13:30:00.000Z",
-                    "start_date": "2017-02-12T13:30:00.000Z",
+                    "end_date": "2017-02-10T13:30:00",
+                    "start_date": "2017-02-12T13:30:00",
                     "sorting": {},
                     "filters": {
                       "accounts": []
@@ -3973,8 +3977,8 @@
                 "$ref": "#/components/schemas/asyncreceivedmessagessummaryrequest"
               },
               "example": {
-                "end_date": "2017-02-10T13:30:00.000Z",
-                "start_date": "2017-02-12T13:30:00.000Z",
+                "end_date": "2017-02-10T13:30:00",
+                "start_date": "2017-02-12T13:30:00",
                 "group_by": [
                   "DAY"
                 ],
@@ -4070,7 +4074,7 @@
             "explode": true,
             "schema": {
               "type": "string",
-              "example": "2017-02-10T13:30:00.000Z"
+              "example": "2017-02-10T13:30:00"
             }
           },
           {
@@ -4082,7 +4086,7 @@
             "explode": true,
             "schema": {
               "type": "string",
-              "example": "2017-02-12T13:30:00.000Z"
+              "example": "2017-02-12T13:30:00"
             }
           },
           {
@@ -4099,7 +4103,7 @@
           {
             "name": "accounts",
             "in": "query",
-            "description": "Filter results by a specific account. By default results\n\nwill be returned for the account associated with the authentication\n\ncredentials and all sub accounts.",
+            "description": "Filter results by a specific account. By default results\n\nwill be returned for the account associated with the authentication\n\ncredentials and all sub-accounts.",
             "style": "form",
             "explode": true,
             "schema": {
@@ -4181,8 +4185,8 @@
                 },
                 "example": {
                   "properties": {
-                    "end_date": "2017-02-10T13:30:00.000Z",
-                    "start_date": "2017-02-12T13:30:00.000Z",
+                    "end_date": "2017-02-10T13:30:00",
+                    "start_date": "2017-02-12T13:30:00",
                     "timezone": "The timezone that this report is presented in, this may be passed in as a parameter to the report, or taken from account settings"
                   },
                   "data": [
@@ -4253,8 +4257,8 @@
                 "$ref": "#/components/schemas/asyncsentmessagesrequest"
               },
               "example": {
-                "end_date": "2017-02-10T13:30:00.000Z",
-                "start_date": "2017-02-12T13:30:00.000Z",
+                "end_date": "2017-02-10T13:30:00",
+                "start_date": "2017-02-12T13:30:00",
                 "group_by": [
                   "DAY"
                 ],
@@ -4350,7 +4354,7 @@
             "explode": true,
             "schema": {
               "type": "string",
-              "example": "2017-02-10T13:30:00.000Z"
+              "example": "2017-02-10T13:30:00"
             }
           },
           {
@@ -4362,7 +4366,7 @@
             "explode": true,
             "schema": {
               "type": "string",
-              "example": "2017-02-12T13:30:00.000Z"
+              "example": "2017-02-12T13:30:00"
             }
           },
           {
@@ -4379,7 +4383,7 @@
           {
             "name": "accounts",
             "in": "query",
-            "description": "Filter results by a specific account. By default results\n\nwill be returned for the account associated with the authentication\n\ncredentials and all sub accounts.",
+            "description": "Filter results by a specific account. By default results\n\nwill be returned for the account associated with the authentication\n\ncredentials and all sub-accounts.",
             "style": "form",
             "explode": true,
             "schema": {
@@ -4471,8 +4475,8 @@
                 },
                 "example": {
                   "properties": {
-                    "end_date": "2017-02-10T13:30:00.000Z",
-                    "start_date": "2017-02-12T13:30:00.000Z",
+                    "end_date": "2017-02-10T13:30:00",
+                    "start_date": "2017-02-12T13:30:00",
                     "timezone": "The timezone that this report is presented in, this may be passed in as a parameter to the report, or taken from account settings"
                   },
                   "data": [
@@ -6813,7 +6817,8 @@
           },
           "page_size": {
             "type": "number",
-            "example": 20
+            "example": 20,
+            "description": "Number of results to return in a page for paginated result sets."
           }
         }
       },
@@ -6859,19 +6864,23 @@
           },
           "source": {
             "type": "string",
-            "example": "+61555555555"
+            "example": "+61555555555",
+            "description": "The source phone number."
           },
           "destination": {
             "type": "string",
-            "example": "+61555555555"
+            "example": "+61555555555",
+            "description": "The destination phone number."
           },
           "metadata_key": {
             "type": "string",
-            "example": "broadcastId"
+            "example": "broadcastId",
+            "description": "Filter results for messages that include a metadata key."
           },
           "metadata_value": {
             "type": "string",
-            "example": "ABC"
+            "example": "ABC",
+            "description": "Filter results for messages that include a metadata key containing this value. If this parameter is provided, the metadata_key parameter must also be provided."
           },
           "accounts": {
             "type": "array",
@@ -6881,23 +6890,27 @@
             "example": [
               "Account1",
               "Account2"
-            ]
+            ],
+            "description": "Filter results by a specific account. By default results will be returned for the account associated with the authentication credentials and all sub-accounts."
           },
           "status": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/MessageStatus"
-            }
+            },
+            "description": "An array of message statuses."
           },
           "opt_out": {
             "type": "string",
-            "example": "true"
+            "example": "true",
+            "description": "Filter the report to only include messages that triggered an opt-out"
           },
           "delivery_options": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/deliveryOptionsBody"
-            }
+            },
+            "description": "A list of options to configure the delivery of the report."
           }
         }
       },
@@ -6913,11 +6926,13 @@
         "properties": {
           "timezone": {
             "type": "string",
-            "example": "UTC"
+            "example": "UTC",
+            "description": "The timezone of the report."
           },
           "cron_expression": {
             "type": "string",
-            "example": "0 0 * * * ? *"
+            "example": "0 0 * * * ? *",
+            "description": "A string consisting of six or seven subexpressions that describe individual details of the schedule."
           },
           "type": {
             "type": "string",
@@ -6962,7 +6977,8 @@
           },
           "scheduled_report_id": {
             "type": "string",
-            "example": "43928f76-c381-4943-8619-f10460005898"
+            "example": "43928f76-c381-4943-8619-f10460005898",
+            "description": "The ID of the scheduled report."
           },
           "message_type": {
             "$ref": "#/components/schemas/MessageDirection"
@@ -6982,7 +6998,8 @@
         "properties": {
           "scheduled_report_id": {
             "type": "string",
-            "example": "51f0097f-90b2-4a59-ad88-a0fd93abaa82"
+            "example": "51f0097f-90b2-4a59-ad88-a0fd93abaa82",
+            "description": "The ID of the scheduled report."
           }
         }
       },
@@ -7029,19 +7046,23 @@
           },
           "source": {
             "type": "string",
-            "example": "+61555555555"
+            "example": "+61555555555",
+            "description": "The source phone number."
           },
           "destination": {
             "type": "string",
-            "example": "+61555555555"
+            "example": "+61555555555",
+            "description": "The destination phone number."
           },
           "metadata_key": {
             "type": "string",
-            "example": "broadcastId"
+            "example": "broadcastId",
+            "description": "Filter results for messages that include a metadata key."
           },
           "metadata_value": {
             "type": "string",
-            "example": "ABC"
+            "example": "ABC",
+            "description": "Filter results for messages that include a metadata key containing this value. If this parameter is provided, the metadata_key parameter must also be provided."
           },
           "accounts": {
             "type": "array",
@@ -7051,29 +7072,42 @@
             "example": [
               "Account1",
               "Account2"
-            ]
+            ],
+            "description": "Filter results by a specific account. By default results will be returned for the account associated with the authentication credentials and all sub-accounts."
           },
           "status": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/MessageStatus"
-            }
+            },
+            "example": [
+              "DELIVERED",
+              "ENROUTE"
+            ],
+            "description": "An array of message statuses."
           },
           "opt_out": {
             "type": "string",
-            "example": "true"
+            "example": "true",
+            "description": "Filter the report to only include messages that triggered an opt-out."
           },
           "group_by": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/GroupByField"
-            }
+            },
+            "example": [
+              "DAY",
+              "WEEK"
+            ],
+            "description": "Group results by a list of values, from the enumerable table above."
           },
           "delivery_options": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/deliveryOptionsBody"
-            }
+            },
+            "description": "A list of options to configure the delivery of the report."
           }
         }
       },
@@ -7096,14 +7130,7 @@
             "example": "2022-12-14T00:00:00.000z"
           },
           "direction": {
-            "description": "The type of messages to include in the report. Accepted values are `inbound`, `outbound`, and `all` (both inbound and outbound).  Default value is 'all'.",
-            "example": "all",
-            "enum": [
-              "inbound",
-              "outbound",
-              "all"
-            ],
-            "type": "string"
+            "$ref": "#/components/schemas/MessageDirection"
           },
           "timezone": {
             "description": "The timezone of the messages to include, using the name of the region.",
@@ -7121,7 +7148,7 @@
             "example": "+61555555555"
           },
           "destinations": {
-            "description": "Filter results by multiple destination addresses.",
+            "description": "Filter results by multiple destination addresses. This property overrides the `destination` parameter.",
             "type": "array",
             "items": {
               "type": "string"
@@ -7141,52 +7168,47 @@
             "type": "string",
             "example": "ABC"
           },
-          "accounts": {
-            "description": "Filter results by a specific account. By default results will be returned for the account associated with the authentication credentials and all sub accounts.",
+          "metadata_values": {
+            "description": "Filter results for messages that include a metadata key containing these values. This parameter overrides the metadata_value property. If this parameter is provided, the metadata_key parameter must also be provided.",
             "type": "array",
             "items": {
               "type": "string"
             },
             "example": [
-              "account1",
-              "account2"
+              "meta1",
+              "meta2"
+            ]
+          },
+          "accounts": {
+            "description": "Filter results by a specific account. By default results will be returned for the account associated with the authentication credentials and all sub-accounts.",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": [
+              "Account1",
+              "Account2"
             ]
           },
           "status": {
             "description": "An array of message statuses",
             "type": "array",
             "items": {
-              "enum": [
-                "ENROUTE",
-                "SUBMITTED",
-                "DELIVERED",
-                "EXPIRED",
-                "REJECTED",
-                "UNDELIVERABLE",
-                "QUEUED",
-                "PROCESSED",
-                "CANCELLED",
-                "SCHEDULED",
-                "FAILED"
-              ]
+              "$ref": "#/components/schemas/MessageStatus"
             }
           },
           "opt_out": {
-            "description": "Filter results by message format.",
+            "description": "Filter the report to only include messages that triggered an opt-out",
+            "type": "string",
+            "example": "true"
+          },
+          "mms_media": {
+            "description": "Filter results by mms media.",
             "type": "string",
             "example": "true"
           },
           "message_format": {
-            "description": "Filter results by message format, using enumerable MessageType.",
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "example": [
-              "SMS",
-              "MMS",
-              "CHANNEL"
-            ]
+            "$ref": "#/components/schemas/format"
           },
           "page": {
             "description": "Page number for paging through paginated result sets.",
@@ -7247,7 +7269,7 @@
             "example": "ABC"
           },
           "accounts": {
-            "description": "Filter results by a specific account. By default results will be returned for the account associated with the authentication credentials and all sub accounts.",
+            "description": "Filter results by a specific account. By default results will be returned for the account associated with the authentication credentials and all sub-accounts.",
             "type": "array",
             "items": {
               "type": "string"
@@ -7264,7 +7286,7 @@
             }
           },
           "opt_out": {
-            "description": "Filter results by message format.",
+            "description": "Filter the report to only include messages that triggered an opt-out",
             "type": "string",
             "example": "true"
           },
@@ -7334,7 +7356,7 @@
             "example": "ABC"
           },
           "accounts": {
-            "description": "Filter results by a specific account. By default results will be returned for the account associated with the authentication credentials and all sub accounts.",
+            "description": "Filter results by a specific account. By default results will be returned for the account associated with the authentication credentials and all sub-accounts.",
             "type": "array",
             "items": {
               "type": "string"
@@ -7352,7 +7374,7 @@
             "description": "A list of message statuses to filter the report by."
           },
           "opt_out": {
-            "description": "Filter results by message format.",
+            "description": "Filter the report to only include messages that triggered an opt-out",
             "type": "string",
             "example": "false"
           },
@@ -7360,7 +7382,7 @@
             "description": "Group results by a list of values, from the enumerable table above.",
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/group_by"
+              "$ref": "#/components/schemas/GroupByField"
             },
             "example": [
               "STATUS",
@@ -7386,11 +7408,13 @@
         "properties": {
           "name": {
             "type": "string",
-            "example": "id"
+            "example": "id",
+            "description": "The `async/detail/fields` value from API."
           },
           "display_name": {
             "type": "string",
-            "example": "id"
+            "example": "id",
+            "description": "Any string that you want to see in the CSV file header."
           }
         }
       },
@@ -7398,7 +7422,8 @@
         "title": "summaryrequest",
         "required": [
           "start_date",
-          "end_date"
+          "end_date",
+          "timezone"
         ],
         "type": "object",
         "properties": {
@@ -7418,14 +7443,7 @@
             "example": "Australia/Sydney"
           },
           "direction": {
-            "enum": [
-              "inbound",
-              "outbound",
-              "all"
-            ],
-            "type": "string",
-            "description": "The type of messages to include in the report. Accepted values are `inbound`, `outbound`, and `all` (both inbound and outbound)",
-            "example": "outbound"
+            "$ref": "#/components/schemas/MessageDirection"
           },
           "source": {
             "description": "Filter results by source address.",
@@ -7448,7 +7466,7 @@
             "example": "ABC"
           },
           "accounts": {
-            "description": "Filter results by a specific account. By default results will be returned for the account associated with the authentication credentials and all sub accounts.",
+            "description": "Filter results by a specific account. By default results will be returned for the account associated with the authentication credentials and all sub-accounts.",
             "type": "array",
             "items": {
               "type": "string"
@@ -7459,32 +7477,18 @@
             ]
           },
           "status": {
-            "description": "An array of message statuses",
+            "description": "An array of message statuses.",
             "type": "array",
             "items": {
-              "enum": [
-                "ENROUTE",
-                "SUBMITTED",
-                "DELIVERED",
-                "EXPIRED",
-                "REJECTED",
-                "UNDELIVERABLE",
-                "QUEUED",
-                "PROCESSED",
-                "CANCELLED",
-                "SCHEDULED",
-                "FAILED"
-              ]
+              "$ref": "#/components/schemas/MessageStatus"
             },
             "example": [
               "DELIVERED",
-              "FAILED",
-              "ENROUTE",
-              "SCHEDULED"
+              "ENROUTE"
             ]
           },
           "opt_out": {
-            "description": "Filter results by message format.",
+            "description": "Filter the report to only include messages that triggered an opt-out",
             "type": "string",
             "example": "true"
           },
@@ -7492,7 +7496,7 @@
             "description": "Group results by a list of values, from the enumerable table above.",
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/group_by"
+              "$ref": "#/components/schemas/GroupByField"
             },
             "example": [
               "WEEK",
@@ -7537,7 +7541,7 @@
             "items": {
               "type": "string"
             },
-            "description": "Filter results by a specific account. By default results will be returned for the account associated with the authentication credentials and all sub accounts.",
+            "description": "Filter results by a specific account. By default results will be returned for the account associated with the authentication credentials and all sub-accounts.",
             "example": [
               "Account1",
               "Account2"
@@ -7554,7 +7558,8 @@
         "properties": {
           "report_id": {
             "type": "string",
-            "example": "51f0097f-90b2-4a59-ad88-a0fd93abaa82"
+            "example": "51f0097f-90b2-4a59-ad88-a0fd93abaa82",
+            "description": "The ID of the returned report."
           }
         }
       },
@@ -7584,7 +7589,8 @@
             "items": {
               "type": "string",
               "example": "id, content, meta1"
-            }
+            },
+            "description": "An array of fields to be retrieved."
           }
         }
       },
@@ -7691,6 +7697,7 @@
       },
       "MessageDirection": {
         "title": "MessageDirection",
+        "type": "object",
         "enum": [
           "inbound",
           "outbound",
@@ -8474,8 +8481,8 @@
         "example": {
           "data": [],
           "properties": {
-            "end_date": "2017-02-10T13:30:00.000Z",
-            "start_date": "2017-02-12T13:30:00.000Z",
+            "end_date": "2019-02-10T13:30:00.000Z",
+            "start_date": "2017-02-12T13:30:00",
             "accounts": []
           }
         }
@@ -8491,12 +8498,12 @@
           "end_date": {
             "type": "string",
             "description": "End date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.",
-            "example": "2017-02-10T13:30:00.000Z"
+            "example": "2017-02-10T16:30:00"
           },
           "start_date": {
             "type": "string",
             "description": "Start date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.",
-            "example": "2017-02-12T13:30:00.000Z"
+            "example": "2017-02-12T13:30:00"
           },
           "accounts": {
             "type": "array",
@@ -8602,12 +8609,12 @@
           "end_date": {
             "type": "string",
             "description": "End date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.",
-            "example": "2017-02-10T13:30:00.000Z"
+            "example": "2017-02-10T13:30:00"
           },
           "start_date": {
             "type": "string",
             "description": "Start date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.",
-            "example": "2017-02-12T13:30:00.000Z"
+            "example": "2017-02-12T13:30:00"
           },
           "filters": {
             "$ref": "#/components/schemas/Filters"
@@ -8748,7 +8755,7 @@
           "timestamp": {
             "type": "string",
             "description": "Date time at which this message was received",
-            "example": "2017-02-12T13:30:00.000Z"
+            "example": "2017-02-12T13:30:00"
           }
         },
         "description": "A message received for the account specified. This message may be in response to a sent message, or it may be an unsolicited message, matched to the account by the destination address."
@@ -8782,13 +8789,13 @@
               "format": "AU",
               "source_address": 61491570156,
               "source_address_country": "AU",
-              "timestamp": "2017-02-12T13:30:00.000Z"
+              "timestamp": "2017-02-12T13:30:00"
             }
           ],
           "pagination": {},
           "properties": {
-            "end_date": "2017-02-10T13:30:00.000Z",
-            "start_date": "2017-02-12T13:30:00.000Z",
+            "end_date": "2017-02-10T13:30:00",
+            "start_date": "2017-02-12T13:30:00",
             "sorting": {},
             "filters": {
               "accounts": []
@@ -8849,7 +8856,7 @@
           "timestamp": {
             "type": "string",
             "description": "Date time at which this message was submitted to the API, refer to the delivered timestamp for the time at which the message was delivered (or failed to be delivered) to the destination address.",
-            "example": "2017-02-12T13:30:00.000Z"
+            "example": "2017-02-12T13:30:00"
           }
         }
       },
@@ -8881,13 +8888,13 @@
               "format": "AU",
               "source_address": 61491570156,
               "source_address_country": "AU",
-              "timestamp": "2017-02-12T13:30:00.000Z"
+              "timestamp": "2017-02-12T13:30:00"
             }
           ],
           "pagination": {},
           "properties": {
-            "end_date": "2017-02-10T13:30:00.000Z",
-            "start_date": "2017-02-12T13:30:00.000Z",
+            "end_date": "2017-02-10T13:30:00",
+            "start_date": "2017-02-12T13:30:00",
             "filters": {
               "accounts": []
             },
@@ -8926,8 +8933,8 @@
         },
         "example": {
           "properties": {
-            "end_date": "2017-02-10T13:30:00.000Z",
-            "start_date": "2017-02-12T13:30:00.000Z",
+            "end_date": "2017-02-10T13:30:00",
+            "start_date": "2017-02-12T13:30:00",
             "timezone": "The timezone that this report is presented in, this may be passed in as a parameter to the report, or taken from account settings"
           },
           "data": [
@@ -8946,12 +8953,12 @@
           "end_date": {
             "type": "string",
             "description": "End date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.",
-            "example": "2017-02-10T13:30:00.000Z"
+            "example": "2017-02-10T13:30:00"
           },
           "start_date": {
             "type": "string",
             "description": "Start date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.",
-            "example": "2017-02-12T13:30:00.000Z"
+            "example": "2017-02-12T13:30:00"
           },
           "filters": {
             "type": "object",
@@ -8996,8 +9003,8 @@
         "example": {
           "data": [
             {
-              "created_datetime": "2017-02-12T13:30:00.000Z",
-              "last_modified_datetime": "2017-02-12T13:30:00.000Z"
+              "created_datetime": "2017-02-12T13:30:00",
+              "last_modified_datetime": "2017-02-12T13:30:00"
             }
           ],
           "pagination": {}
@@ -9015,12 +9022,12 @@
           "end_date": {
             "type": "string",
             "description": "End date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.",
-            "example": "2017-02-10T13:30:00.000Z"
+            "example": "2017-02-10T13:30:00"
           },
           "start_date": {
             "type": "string",
             "description": "Start date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.",
-            "example": "2017-02-12T13:30:00.000Z"
+            "example": "2017-02-12T13:30:00"
           },
           "period": {
             "$ref": "#/components/schemas/period"
@@ -9035,7 +9042,7 @@
             "items": {
               "type": "string"
             },
-            "description": "Filter results by a specific account. By default results\n\nwill be returned for the account associated with the authentication\n\ncredentials and all sub accounts."
+            "description": "Filter results by a specific account. By default results\n\nwill be returned for the account associated with the authentication\n\ncredentials and all sub-accounts."
           },
           "destination_address": {
             "type": "string",
@@ -9068,8 +9075,8 @@
           }
         },
         "example": {
-          "end_date": "2017-02-10T13:30:00.000Z",
-          "start_date": "2017-02-12T13:30:00.000Z",
+          "end_date": "2017-02-10T13:30:00",
+          "start_date": "2017-02-12T13:30:00",
           "period": "TODAY",
           "sort_by": "ACCOUNT",
           "sort_direction": "ASCENDING",
@@ -9096,12 +9103,12 @@
           "end_date": {
             "type": "string",
             "description": "End date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.",
-            "example": "2017-02-10T13:30:00.000Z"
+            "example": "2017-02-10T13:30:00"
           },
           "start_date": {
             "type": "string",
             "description": "Start date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.",
-            "example": "2017-02-12T13:30:00.000Z"
+            "example": "2017-02-12T13:30:00"
           },
           "period": {
             "$ref": "#/components/schemas/period"
@@ -9116,7 +9123,7 @@
             "items": {
               "type": "string"
             },
-            "description": "Filter results by a specific account. By default results\n\nwill be returned for the account associated with the authentication\n\ncredentials and all sub accounts."
+            "description": "Filter results by a specific account. By default results\n\nwill be returned for the account associated with the authentication\n\ncredentials and all sub-accounts."
           },
           "destination_address": {
             "type": "string",
@@ -9160,8 +9167,8 @@
           }
         },
         "example": {
-          "end_date": "2017-02-10T13:30:00.000Z",
-          "start_date": "2017-02-12T13:30:00.000Z",
+          "end_date": "2017-02-10T13:30:00",
+          "start_date": "2017-02-12T13:30:00",
           "period": "TODAY",
           "timezone": "Australia/Melbourne",
           "accounts": [],
@@ -9189,17 +9196,17 @@
           "end_date": {
             "type": "string",
             "description": "End date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.",
-            "example": "2017-02-10T13:30:00.000Z"
+            "example": "2017-02-10T13:30:00"
           },
           "start_date": {
             "type": "string",
             "description": "Start date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.",
-            "example": "2017-02-12T13:30:00.000Z"
+            "example": "2017-02-12T13:30:00"
           },
           "group_by": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/group_by"
+              "$ref": "#/components/schemas/GroupByField"
             },
             "description": "List of fields to group results set by"
           },
@@ -9216,7 +9223,7 @@
             "items": {
               "type": "string"
             },
-            "description": "Filter results by a specific account. By default results\n\nwill be returned for the account associated with the authentication\n\ncredentials and all sub accounts."
+            "description": "Filter results by a specific account. By default results\n\nwill be returned for the account associated with the authentication\n\ncredentials and all sub-accounts."
           },
           "destination_address": {
             "type": "string",
@@ -9249,8 +9256,8 @@
           }
         },
         "example": {
-          "end_date": "2017-02-10T13:30:00.000Z",
-          "start_date": "2017-02-12T13:30:00.000Z",
+          "end_date": "2017-02-10T13:30:00",
+          "start_date": "2017-02-12T13:30:00",
           "group_by": [
             "DAY"
           ],
@@ -9278,17 +9285,17 @@
           "end_date": {
             "type": "string",
             "description": "End date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.",
-            "example": "2017-02-10T13:30:00.000Z"
+            "example": "2017-02-10T13:30:00"
           },
           "start_date": {
             "type": "string",
             "description": "Start date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.",
-            "example": "2017-02-12T13:30:00.000Z"
+            "example": "2017-02-12T13:30:00"
           },
           "group_by": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/group_by"
+              "$ref": "#/components/schemas/GroupByField"
             },
             "description": "List of fields to group results set by"
           },
@@ -9305,7 +9312,7 @@
             "items": {
               "type": "string"
             },
-            "description": "Filter results by a specific account. By default results\n\nwill be returned for the account associated with the authentication\n\ncredentials and all sub accounts."
+            "description": "Filter results by a specific account. By default results\n\nwill be returned for the account associated with the authentication\n\ncredentials and all sub-accounts."
           },
           "destination_address": {
             "type": "string",
@@ -9339,8 +9346,8 @@
           }
         },
         "example": {
-          "end_date": "2017-02-10T13:30:00.000Z",
-          "start_date": "2017-02-12T13:30:00.000Z",
+          "end_date": "2017-02-10T13:30:00",
+          "start_date": "2017-02-12T13:30:00",
           "group_by": [
             "DAY"
           ],
@@ -12012,7 +12019,11 @@
             "CHANNEL"
           ]
         },
-        "description": "Format of message, SMS or TTS (Text To Speech)"
+        "description": "Format of message type.",
+        "example": [
+          "MMS",
+          "TTS"
+        ]
       },
       "group_by": {
         "title": "group_by",
