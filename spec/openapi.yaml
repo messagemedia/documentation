@@ -2679,7 +2679,7 @@ paths:
         explode: true
         schema:
           type: string
-          example: 2017-02-10T13:30:00
+          example: "2017-02-10T13:30:00"
       - name: end_date
         in: query
         description: End date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format
@@ -2688,7 +2688,7 @@ paths:
         explode: true
         schema:
           type: string
-          example: 2017-02-12T13:30:00
+          example: "2017-02-12T13:30:00"
       - name: accounts
         in: query
         description: >-
@@ -2723,8 +2723,8 @@ paths:
               example:
                 data: []
                 properties:
-                  end_date: 2017-02-10T13:30:00
-                  start_date: 2017-02-12T13:30:00
+                  end_date: "2017-02-10T13:30:00"
+                  start_date: "2017-02-12T13:30:00"
                   accounts: []
         400:
           description: Bad Request. Check the json response for more details on what went wrong.
@@ -2766,8 +2766,8 @@ paths:
                 $ref: '#/components/schemas/getAsyncReportsResponse'
               example:
                 data:
-                - created_datetime: 2017-02-12T13:30:00
-                  last_modified_datetime: 2017-02-12T13:30:00
+                - created_datetime: "2017-02-12T13:30:00"
+                  last_modified_datetime: "2017-02-12T13:30:00"
                 pagination: {}
       deprecated: true
   '/v1/reporting/async_reports/{report_id}':
@@ -2855,8 +2855,8 @@ paths:
             schema:
               $ref: '#/components/schemas/asyncreceivedmessagesdetailrequest'
             example:
-              end_date: 2017-02-10T13:30:00
-              start_date: 2017-02-12T13:30:00
+              end_date: "2017-02-10T13:30:00"
+              start_date: "2017-02-12T13:30:00"
               period: TODAY
               timezone: Australia/Melbourne
               accounts: []
@@ -2897,7 +2897,7 @@ paths:
         explode: true
         schema:
           type: string
-          example: 2017-02-10T13:30:00
+          example: "2017-02-10T13:30:00"
       - name: start_date
         in: query
         description: Start date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.
@@ -2906,7 +2906,7 @@ paths:
         explode: true
         schema:
           type: string
-          example: 2017-02-12T13:30:00
+          example: "2017-02-12T13:30:00"
       - name: accounts
         in: query
         description: >-
@@ -3006,11 +3006,11 @@ paths:
                   format: AU
                   source_address: +61491570156
                   source_address_country: AU
-                  timestamp: 2017-02-12T13:30:00
+                  timestamp: "2017-02-12T13:30:00"
                 pagination: {}
                 properties:
-                  end_date: 2017-02-10T13:30:00
-                  start_date: 2017-02-12T13:30:00
+                  end_date: "2017-02-10T13:30:00"
+                  start_date: "2017-02-12T13:30:00"
                   sorting: {}
                   filters:
                     accounts: []
@@ -3036,8 +3036,8 @@ paths:
             schema:
               $ref: '#/components/schemas/asyncsentmessagesdetailrequestv1'
             example:
-              end_date: 2017-02-10T13:30:00
-              start_date: 2017-02-12T13:30:00
+              end_date: "2017-02-10T13:30:00"
+              start_date: "2017-02-12T13:30:00"
               period: TODAY
               timezone: Australia/Melbourne
               accounts: []
@@ -3080,7 +3080,7 @@ paths:
         explode: true
         schema:
           type: string
-          example: 2017-02-10T13:30:00
+          example: "2017-02-10T13:30:00"
       - name: start_date
         in: query
         description: Start date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.
@@ -3089,7 +3089,7 @@ paths:
         explode: true
         schema:
           type: string
-          example: 2017-02-12T13:30:00
+          example: "2017-02-12T13:30:00"
       - name: accounts
         in: query
         description: >-
@@ -3197,18 +3197,18 @@ paths:
                 data:
                 - account: MyAccount001
                   content: Hello world!
-                  delivered_timestamp: 2017-02-12T13:30:00
+                  delivered_timestamp: "2017-02-12T13:30:00"
                   destination_address: +61491570156
                   destination_address_country: AU
                   format: AU
                   source_address: +61491570156
                   source_address_country: AU
                   units: 2
-                  timestamp: 2017-02-12T13:30:00
+                  timestamp: "2017-02-12T13:30:00"
                 pagination: {}
                 properties:
-                  end_date: 2017-02-10T13:30:00
-                  start_date: 2017-02-12T13:30:00
+                  end_date: "2017-02-10T13:30:00"
+                  start_date: "2017-02-12T13:30:00"
                   sorting: {}
                   filters:
                     accounts: []
@@ -3234,8 +3234,8 @@ paths:
             schema:
               $ref: '#/components/schemas/asyncreceivedmessagessummaryrequest'
             example:
-              end_date: 2017-02-10T13:30:00
-              start_date: 2017-02-12T13:30:00
+              end_date: "2017-02-10T13:30:00"
+              start_date: "2017-02-12T13:30:00"
               group_by:
               - DAY
               period: THIS_WEEK
@@ -3280,7 +3280,7 @@ paths:
         explode: true
         schema:
           type: string
-          example: 2017-02-10T13:30:00
+          example: "2017-02-10T13:30:00"
       - name: start_date
         in: query
         description: Start date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.
@@ -3289,7 +3289,7 @@ paths:
         explode: true
         schema:
           type: string
-          example: 2017-02-12T13:30:00
+          example: "2017-02-12T13:30:00"
       - name: group_by
         in: query
         description: List of fields to group results set by{array}
@@ -3366,8 +3366,8 @@ paths:
                 $ref: '#/components/schemas/SummaryReport'
               example:
                 properties:
-                  end_date: 2017-02-10T13:30:00
-                  start_date: 2017-02-12T13:30:00
+                  end_date: "2017-02-10T13:30:00"
+                  start_date: "2017-02-12T13:30:00"
                   timezone: The timezone that this report is presented in, this may be passed in as a parameter to the report, or taken from account settings
                 data:
                 - {}
@@ -3394,8 +3394,8 @@ paths:
             schema:
               $ref: '#/components/schemas/asyncsentmessagesrequest'
             example:
-              end_date: 2017-02-10T13:30:00
-              start_date: 2017-02-12T13:30:00
+              end_date: "2017-02-10T13:30:00"
+              start_date: "2017-02-12T13:30:00"
               group_by:
               - DAY
               period: YESTERDAY
@@ -3440,7 +3440,7 @@ paths:
         explode: true
         schema:
           type: string
-          example: 2017-02-10T13:30:00
+          example: "2017-02-10T13:30:00"
       - name: start_date
         in: query
         description: Start date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.
@@ -3449,7 +3449,7 @@ paths:
         explode: true
         schema:
           type: string
-          example: 2017-02-12T13:30:00
+          example: "2017-02-12T13:30:00"
       - name: group_by
         in: query
         description: List of fields to group results set by{array}
@@ -3533,8 +3533,8 @@ paths:
                 $ref: '#/components/schemas/SummaryReport'
               example:
                 properties:
-                  end_date: 2017-02-10T13:30:00
-                  start_date: 2017-02-12T13:30:00
+                  end_date: "2017-02-10T13:30:00"
+                  start_date: "2017-02-12T13:30:00"
                   timezone: The timezone that this report is presented in, this may be passed in as a parameter to the report, or taken from account settings
                 data:
                 - {}
@@ -6559,8 +6559,8 @@ components:
       example:
         data: []
         properties:
-          end_date: 2017-02-10T13:30:00
-          start_date: 2017-02-12T13:30:00
+          end_date: 2019-02-10T13:30:00
+          start_date: "2017-02-12T13:30:00"
           accounts: []
     Properties:
       title: Properties
@@ -6572,11 +6572,11 @@ components:
         end_date:
           type: string
           description: End date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.
-          example: 2017-02-10T13:30:00
+          example: "2017-02-10T16:30:00"
         start_date:
           type: string
           description: Start date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.
-          example: 2017-02-12T13:30:00
+          example: "2017-02-12T13:30:00"
         accounts:
           type: array
           items:
@@ -6656,11 +6656,11 @@ components:
         end_date:
           type: string
           description: End date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.
-          example: 2017-02-10T13:30:00
+          example: "2017-02-10T13:30:00"
         start_date:
           type: string
           description: Start date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.
-          example: 2017-02-12T13:30:00
+          example: "2017-02-12T13:30:00"
         filters:
           $ref: '#/components/schemas/Filters'
         timezone:
@@ -6761,7 +6761,7 @@ components:
         timestamp:
           type: string
           description: Date time at which this message was received
-          example: 2017-02-12T13:30:00
+          example: "2017-02-12T13:30:00"
       description: A message received for the account specified. This message may be in response to a sent message, or it may be an unsolicited message, matched to the account by the destination address.
     ReceivedMessages:
       title: ReceivedMessages
@@ -6786,11 +6786,11 @@ components:
           format: AU
           source_address: +61491570156
           source_address_country: AU
-          timestamp: 2017-02-12T13:30:00
+          timestamp: "2017-02-12T13:30:00"
         pagination: {}
         properties:
-          end_date: 2017-02-10T13:30:00
-          start_date: 2017-02-12T13:30:00
+          end_date: "2017-02-10T13:30:00"
+          start_date: "2017-02-12T13:30:00"
           sorting: {}
           filters:
             accounts: []
@@ -6837,7 +6837,7 @@ components:
         timestamp:
           type: string
           description: Date time at which this message was submitted to the API, refer to the delivered timestamp for the time at which the message was delivered (or failed to be delivered) to the destination address.
-          example: 2017-02-12T13:30:00
+          example: "2017-02-12T13:30:00"
     SentMessages:
       title: SentMessages
       type: object
@@ -6860,11 +6860,11 @@ components:
           format: AU
           source_address: +61491570156
           source_address_country: AU
-          timestamp: 2017-02-12T13:30:00
+          timestamp: "2017-02-12T13:30:00"
         pagination: {}
         properties:
-          end_date: 2017-02-10T13:30:00
-          start_date: 2017-02-12T13:30:00
+          end_date: "2017-02-10T13:30:00"
+          start_date: "2017-02-12T13:30:00"
           filters:
             accounts: []
           timezone: The timezone that this report is presented in, this may be passed in as a parameter to the report, or taken from account settings
@@ -6891,8 +6891,8 @@ components:
           description: ''
       example:
         properties:
-          end_date: 2017-02-10T13:30:00
-          start_date: 2017-02-12T13:30:00
+          end_date: "2017-02-10T13:30:00"
+          start_date: "2017-02-12T13:30:00"
           timezone: The timezone that this report is presented in, this may be passed in as a parameter to the report, or taken from account settings
         data:
         - {}
@@ -6906,11 +6906,11 @@ components:
         end_date:
           type: string
           description: End date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.
-          example: 2017-02-10T13:30:00
+          example: "2017-02-10T13:30:00"
         start_date:
           type: string
           description: Start date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.
-          example: 2017-02-12T13:30:00
+          example: "2017-02-12T13:30:00"
         filters:
           type: object
           description: Any filters provided as parameters for this report
@@ -6940,8 +6940,8 @@ components:
           $ref: '#/components/schemas/Pagination'
       example:
         data:
-        - created_datetime: 2017-02-12T13:30:00
-          last_modified_datetime: 2017-02-12T13:30:00
+        - created_datetime: "2017-02-12T13:30:00"
+          last_modified_datetime: "2017-02-12T13:30:00"
         pagination: {}
     asyncreceivedmessagesdetailrequest:
       title: asyncreceivedmessagesdetailrequest
@@ -6954,11 +6954,11 @@ components:
         end_date:
           type: string
           description: End date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.
-          example: 2017-02-10T13:30:00
+          example: "2017-02-10T13:30:00"
         start_date:
           type: string
           description: Start date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.
-          example: 2017-02-12T13:30:00
+          example: "2017-02-12T13:30:00"
         period:
           $ref: '#/components/schemas/period'
         timezone:
@@ -6999,8 +6999,8 @@ components:
             $ref: '#/components/schemas/deliveryOptionsBody'
           description: Delivery options for this asynchronous report.
       example:
-        end_date: 2017-02-10T13:30:00
-        start_date: 2017-02-12T13:30:00
+        end_date: "2017-02-10T13:30:00"
+        start_date: "2017-02-12T13:30:00"
         period: TODAY
         sort_by: ACCOUNT
         sort_direction: ASCENDING
@@ -7021,11 +7021,11 @@ components:
         end_date:
           type: string
           description: End date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.
-          example: 2017-02-10T13:30:00
+          example: "2017-02-10T13:30:00"
         start_date:
           type: string
           description: Start date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.
-          example: 2017-02-12T13:30:00
+          example: "2017-02-12T13:30:00"
         period:
           $ref: '#/components/schemas/period'
         timezone:
@@ -7074,8 +7074,8 @@ components:
             $ref: '#/components/schemas/deliveryOptionsBody'
           description: Delivery options for this asynchronous report.
       example:
-        end_date: 2017-02-10T13:30:00
-        start_date: 2017-02-12T13:30:00
+        end_date: "2017-02-10T13:30:00"
+        start_date: "2017-02-12T13:30:00"
         period: TODAY
         timezone: Australia/Melbourne
         accounts: []
@@ -7096,11 +7096,11 @@ components:
         end_date:
           type: string
           description: End date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.
-          example: 2017-02-10T13:30:00
+          example: "2017-02-10T13:30:00"
         start_date:
           type: string
           description: Start date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.
-          example: 2017-02-12T13:30:00
+          example: "2017-02-12T13:30:00"
         group_by:
           type: array
           items:
@@ -7146,8 +7146,8 @@ components:
             $ref: '#/components/schemas/deliveryOptionsBody'
           description: Delivery options for this asynchronous report.
       example:
-        end_date: 2017-02-10T13:30:00
-        start_date: 2017-02-12T13:30:00
+        end_date: "2017-02-10T13:30:00"
+        start_date: "2017-02-12T13:30:00"
         group_by:
         - DAY
         period: THIS_WEEK
@@ -7168,11 +7168,11 @@ components:
         end_date:
           type: string
           description: End date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.
-          example: 2017-02-10T13:30:00
+          example: "2017-02-10T13:30:00"
         start_date:
           type: string
           description: Start date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.
-          example: 2017-02-12T13:30:00
+          example: "2017-02-12T13:30:00"
         group_by:
           type: array
           items:
@@ -7219,8 +7219,8 @@ components:
             $ref: '#/components/schemas/deliveryOptionsBody'
           description: Delivery options for this asynchronous report.
       example:
-        end_date: 2017-02-10T13:30:00
-        start_date: 2017-02-12T13:30:00
+        end_date: "2017-02-10T13:30:00"
+        start_date: "2017-02-12T13:30:00"
         group_by:
         - DAY
         period: YESTERDAY
