@@ -423,7 +423,7 @@ tags:
       _NOTE: The `hlr` value CANNOT be used in conjunction with the other values.
   - name: Number Authorisation
     description: >-
-      The number authorisation API allows you to manage your blacklists. MessageMedia automatically adds numbers to your blacklist if people send one of the opt out keywords in response to one of your messages.
+      The number authorisation API allows you to manage your blacklists. MessageMedia automatically adds numbers to your blacklist if people send one of the opt-out keywords in response to one of your messages.
       
       This is a legal requirement. If you decide to handle the legal compliance yourself, calls to this endpoint will not affect your messages.
   - name: Dedicated Numbers
@@ -2698,7 +2698,7 @@ paths:
           will be returned for the account associated with the authentication
 
 
-          credentials and all sub accounts.
+          credentials and all sub-accounts.
         style: form
         explode: true
         schema:
@@ -2916,7 +2916,7 @@ paths:
           will be returned for the account associated with the authentication
 
 
-          credentials and all sub accounts.
+          credentials and all sub-accounts.
         style: form
         explode: true
         schema:
@@ -3099,7 +3099,7 @@ paths:
           will be returned for the account associated with the authentication
 
 
-          credentials and all sub accounts.
+          credentials and all sub-accounts.
         style: form
         explode: true
         schema:
@@ -3307,7 +3307,7 @@ paths:
           will be returned for the account associated with the authentication
 
 
-          credentials and all sub accounts.
+          credentials and all sub-accounts.
         style: form
         explode: true
         schema:
@@ -3467,7 +3467,7 @@ paths:
           will be returned for the account associated with the authentication
 
 
-          credentials and all sub accounts.
+          credentials and all sub-accounts.
         style: form
         explode: true
         schema:
@@ -5237,7 +5237,6 @@ components:
         page_token:
           type: string
           example: abc123
-          description: Returned by Chronos service
         page_size:
           type: number
           example: 20
@@ -5298,7 +5297,7 @@ components:
           description: >-
             Filter results by a specific account. By default results
             will be returned for the account associated with the authentication
-            credentials and all sub accounts.
+            credentials and all sub-accounts.
         status:
           type: array
           items:
@@ -5307,7 +5306,7 @@ components:
         opt_out:
           type: string
           example: "true"
-          description: Filter the report to only include messages that triggered an opt out
+          description: Filter the report to only include messages that triggered an opt-out
         delivery_options:
           type: array
           items:
@@ -5436,7 +5435,7 @@ components:
           example:
             - Account1
             - Account2
-          description: Filter results by a specific account. By default results will be returned for the account associated with the authentication credentials and all sub accounts.
+          description: Filter results by a specific account. By default results will be returned for the account associated with the authentication credentials and all sub-accounts.
         status:
           type: array
           items:
@@ -5448,7 +5447,7 @@ components:
         opt_out:
           type: string
           example: "true"
-          description: Filter the report to only include messages that triggered an opt out.
+          description: Filter the report to only include messages that triggered an opt-out.
         group_by:
           type: array
           items:
@@ -5527,7 +5526,7 @@ components:
           description: >-
             Filter results by a specific account. By default results
             will be returned for the account associated with the authentication
-            credentials and all sub accounts.
+            credentials and all sub-accounts.
           type: array
           items:
             type: string
@@ -5541,7 +5540,7 @@ components:
           items:
             $ref: '#/components/schemas/MessageStatus'
         opt_out:
-          description: Filter the report to only include messages that triggered an opt out
+          description: Filter the report to only include messages that triggered an opt-out
           type: string
           example: "true"
         mms_media:
@@ -5599,7 +5598,7 @@ components:
           description: >-
             Filter results by a specific account. By default results
             will be returned for the account associated with the authentication
-            credentials and all sub accounts.
+            credentials and all sub-accounts.
           type: array
           items:
             type: string
@@ -5611,7 +5610,7 @@ components:
           items:
             $ref: '#/components/schemas/MessageStatus'
         opt_out:
-          description: Filter the report to only include messages that triggered an opt out
+          description: Filter the report to only include messages that triggered an opt-out
           type: string
           example: "true"
         message_format:
@@ -5667,7 +5666,7 @@ components:
           description: >-
             Filter results by a specific account. By default results
             will be returned for the account associated with the authentication
-            credentials and all sub accounts.
+            credentials and all sub-accounts.
           type: array
           items:
             type: string
@@ -5680,7 +5679,7 @@ components:
             $ref: '#/components/schemas/MessageStatus'
           description: A list of message statuses to filter the report by.
         opt_out:
-          description: Filter the report to only include messages that triggered an opt out
+          description: Filter the report to only include messages that triggered an opt-out
           type: string
           example: "false"
         group_by:
@@ -5756,7 +5755,7 @@ components:
           description: >-
             Filter results by a specific account. By default results
             will be returned for the account associated with the authentication
-            credentials and all sub accounts.
+            credentials and all sub-accounts.
           type: array
           items:
             type: string
@@ -5773,7 +5772,7 @@ components:
             - DELIVERED
             - ENROUTE
         opt_out:
-          description: Filter the report to only include messages that triggered an opt out
+          description: Filter the report to only include messages that triggered an opt-out
           type: string
           example: "true"
         group_by:
@@ -5813,7 +5812,7 @@ components:
           type: array
           items:
             type: string
-          description: Filter results by a specific account. By default results will be returned for the account associated with the authentication credentials and all sub accounts.
+          description: Filter results by a specific account. By default results will be returned for the account associated with the authentication credentials and all sub-accounts.
           example:
             - Account1
             - Account2
@@ -6977,7 +6976,7 @@ components:
             will be returned for the account associated with the authentication
 
 
-            credentials and all sub accounts.
+            credentials and all sub-accounts.
         destination_address:
           type: string
           description: Filter results by destination address.
@@ -7044,7 +7043,7 @@ components:
             will be returned for the account associated with the authentication
 
 
-            credentials and all sub accounts.
+            credentials and all sub-accounts.
         destination_address:
           type: string
           description: Filter results by destination address.
@@ -7124,7 +7123,7 @@ components:
             will be returned for the account associated with the authentication
 
 
-            credentials and all sub accounts.
+            credentials and all sub-accounts.
         destination_address:
           type: string
           description: Filter results by destination address.
@@ -7196,7 +7195,7 @@ components:
             will be returned for the account associated with the authentication
 
 
-            credentials and all sub accounts.
+            credentials and all sub-accounts.
         destination_address:
           type: string
           description: Filter results by destination address.
