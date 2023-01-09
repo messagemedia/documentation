@@ -1081,7 +1081,7 @@ paths:
           description: The ID of the scheduled report to delete.
           example: e6fb8282-c7c3-4367-8590-6c77ddb11c3e
       responses:
-        200:
+        202:
           description: An empty response indicating the report has been deleted.
         404:
           description: Scheduled report not found.
@@ -5241,6 +5241,10 @@ components:
           type: number
           example: 20
           description: Number of results to return in a page for paginated result sets.
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/scheduledreport'
     scheduleddetailreport:
       title: scheduleddetailreport
       type: object
@@ -5360,6 +5364,8 @@ components:
           type: string
           example: Weekly Report
           description: The label of the report schedule
+        report:
+          $ref: '#/components/schemas/scheduledsummaryrequest'
         schedule:
           $ref: '#/components/schemas/schedule'
         scheduled_report_id:
