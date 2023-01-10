@@ -5266,6 +5266,24 @@ components:
         report_type:
           type: string
           example: detail
+        metadata:
+          type: object
+          description: >-
+            Metadata for the message specified as a set of key value pairs, each
+            key can be up to 100 characters long and each value can be up to 256
+            characters long
+
+            ```
+
+            {
+               "myKey": "myValue",
+               "anotherKey": "anotherValue"
+            }
+
+            ```
+          example:
+            - "myKey": "myValue"
+            - "anotherKey": "anotherValue"
     scheduleddetailrequest:
       title: scheduleddetailrequest
       type: object
@@ -5416,6 +5434,24 @@ components:
         report_type:
           type: string
           example: detail
+        metadata:
+          type: object
+          description: >-
+            Metadata for the message specified as a set of key value pairs, each
+            key can be up to 100 characters long and each value can be up to 256
+            characters long
+
+            ```
+
+            {
+               "myKey": "myValue",
+               "anotherKey": "anotherValue"
+            }
+
+            ```
+          example:
+            - "myKey": "myValue"
+            - "anotherKey": "anotherValue"
     scheduledsummaryrequest:
       title: scheduledsummaryrequest
       type: object
