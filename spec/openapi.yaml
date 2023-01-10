@@ -5908,6 +5908,7 @@ components:
       properties:
         date:
           type: string
+          description: "One or more dates seperated by a comma, e.g. 2022-05-18,2022-05-19"
           example: "2020-11-01"
         group:
           type: string
