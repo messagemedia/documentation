@@ -6827,7 +6827,8 @@
         "type": "object",
         "required": [
           "label",
-          "schedule"
+          "schedule",
+          "report"
         ],
         "properties": {
           "label": {
@@ -6840,6 +6841,30 @@
           },
           "report": {
             "$ref": "#/components/schemas/scheduleddetailrequest"
+          },
+          "scheduled_report_id": {
+            "type": "string",
+            "example": "43928f76-c381-4943-8619-f10460005898",
+            "description": "The ID of the scheduled report."
+          },
+          "message_type": {
+            "$ref": "#/components/schemas/MessageDirection"
+          },
+          "report_type": {
+            "type": "string",
+            "example": "detail"
+          },
+          "metadata": {
+            "type": "object",
+            "description": "Metadata for the message specified as a set of key value pairs, each key can be up to 100 characters long and each value can be up to 256 characters long\n```\n{\n   \"myKey\": \"myValue\",\n   \"anotherKey\": \"anotherValue\"\n}\n```",
+            "example": [
+              {
+                "myKey": "myValue"
+              },
+              {
+                "anotherKey": "anotherValue"
+              }
+            ]
           }
         }
       },
@@ -7008,7 +7033,8 @@
         "type": "object",
         "required": [
           "label",
-          "schedule"
+          "schedule",
+          "report"
         ],
         "properties": {
           "label": {
@@ -7021,6 +7047,30 @@
           },
           "report": {
             "$ref": "#/components/schemas/scheduledsummaryrequest"
+          },
+          "scheduled_report_id": {
+            "type": "string",
+            "example": "43928f76-c381-4943-8619-f10460005898",
+            "description": "The ID of the scheduled report."
+          },
+          "message_type": {
+            "$ref": "#/components/schemas/MessageDirection"
+          },
+          "report_type": {
+            "type": "string",
+            "example": "detail"
+          },
+          "metadata": {
+            "type": "object",
+            "description": "Metadata for the message specified as a set of key value pairs, each key can be up to 100 characters long and each value can be up to 256 characters long\n```\n{\n   \"myKey\": \"myValue\",\n   \"anotherKey\": \"anotherValue\"\n}\n```",
+            "example": [
+              {
+                "myKey": "myValue"
+              },
+              {
+                "anotherKey": "anotherValue"
+              }
+            ]
           }
         }
       },
@@ -7588,7 +7638,11 @@
             "type": "array",
             "items": {
               "type": "string",
-              "example": "id, content, meta1"
+              "example": [
+                "id",
+                "content",
+                "meta1"
+              ]
             },
             "description": "An array of fields to be retrieved."
           }
@@ -7601,7 +7655,7 @@
           "messages": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/DetailReportMessageRecord"
+              "$ref": "#/components/schemas/Message"
             }
           },
           "pagination": {
@@ -8356,96 +8410,6 @@
             "type": "string",
             "description": "The subject field is used to denote subject of the MMS message and has a maximum size of 64 characters long",
             "example": "New Products"
-          }
-        }
-      },
-      "DetailReportMessageRecord": {
-        "title": "Message",
-        "type": "object",
-        "properties": {
-          "message_id": {
-            "type": "string",
-            "description": "Unique ID of this message",
-            "format": "uuid"
-          },
-          "format": {
-            "$ref": "#/components/schemas/Format"
-          },
-          "timestamp": {
-            "type": "string",
-            "description": "Timestamp of this message",
-            "example": "2017-02-10T16:30:00"
-          },
-          "delivered_timestamp": {
-            "type": "string",
-            "description": "Time that this message was delivered",
-            "example": "2017-02-10T16:30:00"
-          },
-          "last_status_update": {
-            "type": "string",
-            "description": "Last time this message's status was updated",
-            "example": "2017-02-10T16:30:00"
-          },
-          "direction": {
-            "$ref": "#/components/schemas/MessageDirection"
-          },
-          "status": {
-            "$ref": "#/components/schemas/Status"
-          },
-          "status_code": {
-            "type": "number",
-            "description": "The response code of the status",
-            "example": 220
-          },
-          "status_description": {
-            "type": "string",
-            "description": "The status of the message",
-            "example": "Message delivered"
-          },
-          "source_address": {
-            "type": "string",
-            "example": "+61490246135"
-          },
-          "destination_address": {
-            "maxLength": 15,
-            "minLength": 1,
-            "type": "string",
-            "description": "Destination number of the message",
-            "example": "+6149123654"
-          },
-          "destination_address_country": {
-            "type": "string",
-            "description": "Country of the destination address",
-            "example": "AU"
-          },
-          "content": {
-            "maxLength": 5000,
-            "minLength": 1,
-            "type": "string",
-            "description": "Content of the message",
-            "example": "Hello world!"
-          },
-          "account_id": {
-            "type": "string",
-            "description": "The ID of the account",
-            "example": "account_1"
-          },
-          "units": {
-            "type": "number",
-            "description": "The amount of messages received",
-            "example": 1
-          },
-          "metadata": {
-            "type": "object",
-            "description": "Metadata for the message specified as a set of key value pairs, each key can be up to 100 characters long and each value can be up to 256 characters long\n```\n{\n   \"myKey\": \"myValue\",\n   \"anotherKey\": \"anotherValue\"\n}\n```",
-            "example": [
-              {
-                "myKey": "myValue"
-              },
-              {
-                "anotherKey": "anotherValue"
-              }
-            ]
           }
         }
       },
