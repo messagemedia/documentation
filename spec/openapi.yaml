@@ -738,7 +738,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/summaryresponse'
       deprecated: false
-  /v2-preview/reporting/messages/insight:
+  /v2-preview/reporting/messages/insights:
     post:
       security:
         - basic_auth: [ ]
@@ -5938,7 +5938,7 @@ components:
         total_billing_units:
           type: number
           example: 150
-        total_optout:
+        total_opt_out:
           type: number
           example: 10
     summaryitemresponse:
@@ -5957,7 +5957,7 @@ components:
         total_billing_units:
           type: number
           example: 90
-        total_optout:
+        total_opt_out:
           type: number
           example: 7
         sub_group:
@@ -5968,6 +5968,10 @@ components:
       title: summarysubitemresponse
       type: object
       properties:
+        date:
+          type: string
+          description: "One or more dates seperated by a comma, e.g. 2022-05-18,2022-05-19"
+          example: "2020-11-01"
         group:
           type: string
           example: "2020-11-01"
@@ -5980,7 +5984,7 @@ components:
         total_billing_units:
           type: number
           example: 20
-        total_optout:
+        total_opt_out:
           type: number
           example: 0
     MessageDirection:
