@@ -6470,9 +6470,6 @@ components:
           example: New Products
     DetailReportMessageRecord:
       title: Message
-      required:
-        - content
-        - destination_number
       type: object
       properties:
         message_id:
