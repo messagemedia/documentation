@@ -767,7 +767,7 @@
           }
         ],
         "responses": {
-          "200": {
+          "202": {
             "description": "An empty response indicating the report has been deleted."
           },
           "404": {
@@ -6819,6 +6819,12 @@
             "type": "number",
             "example": 20,
             "description": "Number of results to return in a page for paginated result sets."
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/scheduledreport"
+            }
           }
         }
       },
@@ -6827,8 +6833,7 @@
         "type": "object",
         "required": [
           "label",
-          "schedule",
-          "report"
+          "schedule"
         ],
         "properties": {
           "label": {
@@ -6841,30 +6846,6 @@
           },
           "report": {
             "$ref": "#/components/schemas/scheduleddetailrequest"
-          },
-          "scheduled_report_id": {
-            "type": "string",
-            "example": "43928f76-c381-4943-8619-f10460005898",
-            "description": "The ID of the scheduled report."
-          },
-          "message_type": {
-            "$ref": "#/components/schemas/MessageDirection"
-          },
-          "report_type": {
-            "type": "string",
-            "example": "detail"
-          },
-          "metadata": {
-            "type": "object",
-            "description": "Metadata for the message specified as a set of key value pairs, each key can be up to 100 characters long and each value can be up to 256 characters long\n```\n{\n   \"myKey\": \"myValue\",\n   \"anotherKey\": \"anotherValue\"\n}\n```",
-            "example": [
-              {
-                "myKey": "myValue"
-              },
-              {
-                "anotherKey": "anotherValue"
-              }
-            ]
           }
         }
       },
@@ -6997,6 +6978,9 @@
             "example": "Weekly Report",
             "description": "The label of the report schedule"
           },
+          "report": {
+            "$ref": "#/components/schemas/scheduledsummaryrequest"
+          },
           "schedule": {
             "$ref": "#/components/schemas/schedule"
           },
@@ -7033,8 +7017,7 @@
         "type": "object",
         "required": [
           "label",
-          "schedule",
-          "report"
+          "schedule"
         ],
         "properties": {
           "label": {
@@ -7047,30 +7030,6 @@
           },
           "report": {
             "$ref": "#/components/schemas/scheduledsummaryrequest"
-          },
-          "scheduled_report_id": {
-            "type": "string",
-            "example": "43928f76-c381-4943-8619-f10460005898",
-            "description": "The ID of the scheduled report."
-          },
-          "message_type": {
-            "$ref": "#/components/schemas/MessageDirection"
-          },
-          "report_type": {
-            "type": "string",
-            "example": "detail"
-          },
-          "metadata": {
-            "type": "object",
-            "description": "Metadata for the message specified as a set of key value pairs, each key can be up to 100 characters long and each value can be up to 256 characters long\n```\n{\n   \"myKey\": \"myValue\",\n   \"anotherKey\": \"anotherValue\"\n}\n```",
-            "example": [
-              {
-                "myKey": "myValue"
-              },
-              {
-                "anotherKey": "anotherValue"
-              }
-            ]
           }
         }
       },
@@ -7638,11 +7597,7 @@
             "type": "array",
             "items": {
               "type": "string",
-              "example": [
-                "id",
-                "content",
-                "meta1"
-              ]
+              "example": "id, content, meta1"
             },
             "description": "An array of fields to be retrieved."
           }

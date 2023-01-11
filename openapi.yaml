@@ -964,7 +964,7 @@ paths:
           description: The ID of the scheduled report to delete.
           example: e6fb8282-c7c3-4367-8590-6c77ddb11c3e
       responses:
-        '200':
+        '202':
           description: An empty response indicating the report has been deleted.
         '404':
           description: Scheduled report not found.
@@ -5476,13 +5476,16 @@ components:
           type: number
           example: 20
           description: Number of results to return in a page for paginated result sets.
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/scheduledreport'
     scheduleddetailreport:
       title: scheduleddetailreport
       type: object
       required:
         - label
         - schedule
-        - report
       properties:
         label:
           type: string
@@ -5492,28 +5495,6 @@ components:
           $ref: '#/components/schemas/schedule'
         report:
           $ref: '#/components/schemas/scheduleddetailrequest'
-        scheduled_report_id:
-          type: string
-          example: 43928f76-c381-4943-8619-f10460005898
-          description: The ID of the scheduled report.
-        message_type:
-          $ref: '#/components/schemas/MessageDirection'
-        report_type:
-          type: string
-          example: detail
-        metadata:
-          type: object
-          description: |-
-            Metadata for the message specified as a set of key value pairs, each key can be up to 100 characters long and each value can be up to 256 characters long
-            ```
-            {
-               "myKey": "myValue",
-               "anotherKey": "anotherValue"
-            }
-            ```
-          example:
-            - myKey: myValue
-            - anotherKey: anotherValue
     scheduleddetailrequest:
       title: scheduleddetailrequest
       type: object
@@ -5615,6 +5596,8 @@ components:
           type: string
           example: Weekly Report
           description: The label of the report schedule
+        report:
+          $ref: '#/components/schemas/scheduledsummaryrequest'
         schedule:
           $ref: '#/components/schemas/schedule'
         scheduled_report_id:
@@ -5642,7 +5625,6 @@ components:
       required:
         - label
         - schedule
-        - report
       properties:
         label:
           type: string
@@ -5652,28 +5634,6 @@ components:
           $ref: '#/components/schemas/schedule'
         report:
           $ref: '#/components/schemas/scheduledsummaryrequest'
-        scheduled_report_id:
-          type: string
-          example: 43928f76-c381-4943-8619-f10460005898
-          description: The ID of the scheduled report.
-        message_type:
-          $ref: '#/components/schemas/MessageDirection'
-        report_type:
-          type: string
-          example: detail
-        metadata:
-          type: object
-          description: |-
-            Metadata for the message specified as a set of key value pairs, each key can be up to 100 characters long and each value can be up to 256 characters long
-            ```
-            {
-               "myKey": "myValue",
-               "anotherKey": "anotherValue"
-            }
-            ```
-          example:
-            - myKey: myValue
-            - anotherKey: anotherValue
     scheduledsummaryrequest:
       title: scheduledsummaryrequest
       type: object
@@ -6100,10 +6060,7 @@ components:
           type: array
           items:
             type: string
-            example:
-              - id
-              - content
-              - meta1
+            example: 'id, content, meta1'
           description: An array of fields to be retrieved.
     detailresponse:
       title: detailresponse
