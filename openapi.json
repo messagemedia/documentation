@@ -218,7 +218,7 @@
         "deprecated": false
       }
     },
-    "/v2-preview/reporting/messages/insight": {
+    "/v2-preview/reporting/messages/insights": {
       "post": {
         "security": [
           {
@@ -767,7 +767,7 @@
           }
         ],
         "responses": {
-          "202": {
+          "200": {
             "description": "An empty response indicating the report has been deleted."
           },
           "404": {
@@ -6819,12 +6819,6 @@
             "type": "number",
             "example": 20,
             "description": "Number of results to return in a page for paginated result sets."
-          },
-          "data": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/scheduledreport"
-            }
           }
         }
       },
@@ -6977,9 +6971,6 @@
             "type": "string",
             "example": "Weekly Report",
             "description": "The label of the report schedule"
-          },
-          "report": {
-            "$ref": "#/components/schemas/scheduledsummaryrequest"
           },
           "schedule": {
             "$ref": "#/components/schemas/schedule"
@@ -7640,7 +7631,7 @@
             "type": "number",
             "example": 150
           },
-          "total_optout": {
+          "total_opt_out": {
             "type": "number",
             "example": 10
           }
@@ -7666,7 +7657,7 @@
             "type": "number",
             "example": 90
           },
-          "total_optout": {
+          "total_opt_out": {
             "type": "number",
             "example": 7
           },
@@ -7682,6 +7673,11 @@
         "title": "summarysubitemresponse",
         "type": "object",
         "properties": {
+          "date": {
+            "type": "string",
+            "description": "One or more dates seperated by a comma, e.g. 2022-05-18,2022-05-19",
+            "example": "2020-11-01"
+          },
           "group": {
             "type": "string",
             "example": "2020-11-01"
@@ -7698,7 +7694,7 @@
             "type": "number",
             "example": 20
           },
-          "total_optout": {
+          "total_opt_out": {
             "type": "number",
             "example": 0
           }
