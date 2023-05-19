@@ -5676,7 +5676,7 @@ components:
           type: string
           example: "true"
         is_contact_name_visible:
-          description: Flag is true then Contact Name column will be visible in the response
+          description: When the flag is 'true' the 'Contact Name' column will be visible in the delivered report
           type: string
           example: "true"
         message_format:
