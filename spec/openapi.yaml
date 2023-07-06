@@ -1326,6 +1326,31 @@ paths:
         time which will always be ```queued```. See the Delivery Reports section of this documentation for
         more information on message statues.
 
+        ### Sending from sub-accounts
+
+        Using API keys at the parent account level, you can send messages on behalf of a sub-account. To do this
+        include a header key ```Account``` with the sub-account ID as the value. For example:
+        ```Account: mySubAccount```
+
+        **Example request with Sending from sub-accounts**
+      
+        ```plain
+        POST /v1/messages HTTP/1.1
+        Host: api.messagemedia.com
+        Accept: application/json
+        Content-Type: application/json
+        Authorization: Basic dGhpc2lzYWtleTp0aGlzaXNhc2VjcmV0Zm9ybW1iYXNpY2F1dGhyZXN0YXBp
+        Account: SubAccount
+        {
+          "messages": [
+            {
+              "content": "Hello World",
+              "destination_number": "+61491570156",
+              “delivery_report”: true
+            }
+          ]
+        } 
+        ```
         *Note: when sending multiple messages in a request, all messages must be valid for the request 
         to be successful. If any messages in the request are invalid, no messages will be sent.*
       operationId: SendMessages
