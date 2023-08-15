@@ -1280,7 +1280,7 @@ paths:
         - ```source_number``` A source number may be specified for the message,
         this will be the number that
           the message appears from on the handset. By default this feature is _not_ available and will be ignored
-          in the request. Please contact <support@messagemedia.com> for more information. Specifying a source
+          in the request. Please click <a href="https://messagemedia.com/au/feature/alpha-tag" target="_blank">here</a> for more information. Specifying a source
           number is optional and a by default a source number will be assigned to the message.
 
         - ```media``` The media is used to specify a list of URLs of the media file(s) that you are trying to send. 
