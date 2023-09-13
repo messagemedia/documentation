@@ -1582,12 +1582,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/403response'
-        '404':
-          description: Resource not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/404response'
   /v1/delivery_reports:
     get:
       security:
