@@ -249,6 +249,9 @@ tags:
       * Replies - Messages sent from a handset to an application. These messages are typically a reply to a previously sent message.
       
       ![Message Flow](https://i.imgur.com/jJeHwf5.png)
+  - name: Source Address
+    description: |
+      The Sender Address API provides a number of endpoints for you to request a Sender ID and gain real-time access to its approval status.
   - name: Delivery Reports
     description: |
       If a callback URL is specified in the submit message request, then changes to the message status, 
@@ -1418,7 +1421,7 @@ paths:
   /v1/messaging/numbers/sender_address/requests:
     post:
       tags:
-        - Messages
+        - Source Address
       summary: Request a sender address
       description: |
         The most basic request has the following structure:
@@ -1463,7 +1466,7 @@ paths:
   /v1/messaging/numbers/sender_address/requests/{id}:
     get:
       tags:
-        - Messages
+        - Source Address
       summary: Get status of a sender address request
       description: |
         Retrieve the current status of a sender address request using the request ID returned in the sender address request end point.
@@ -1517,7 +1520,7 @@ paths:
   /v1/messaging/numbers/sender_address/addresses/?sender_address_type=ALPHANUMERIC:
     get:
       tags:
-        - Messages
+        - Source Address
       summary: Get all approved sender address
       operationId: GetAllApprovedSenderAddress
       description: |
