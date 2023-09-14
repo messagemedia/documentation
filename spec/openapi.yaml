@@ -1473,7 +1473,7 @@ paths:
         A successful request to the get message status endpoint will return a response body as follows:
         ```json
         {
-            "id": "id",
+            "id": "365dd65f-7101-46cd-8e79-e49c5620eb15",
             "sender_address": "sample",
             "sender_address_type": "ALPHANUMERIC",
             "usage_type": "ALPHANUMERIC",
@@ -1525,7 +1525,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/404response'
-  /v1/messaging/numbers/sender_address/addresses/?sender_address_type=ALPHANUMERIC:
+  /v1/messaging/numbers/sender_address/addresses/:
     get:
       tags:
         - Source Address
@@ -1534,7 +1534,14 @@ paths:
       description: |
         Get a list of approved sender addresses for your account. 
         ```sender_address_type: ALPHANUMERIC``` only
-      parameters: []
+      parameters:
+        - name: sender_address_type
+          in: query
+          required: true
+          schema:
+            type: string
+          description: type of sender address
+          example: ALPHANUMERIC
       responses:
         '200':
           description: A list of approved sender addresses for your account only
@@ -6527,6 +6534,7 @@ components:
           type: string
           example: "label"
     SenderAddressRequestItem:
+      title: SenderAddressRequestItem
       type: object
       properties:
         id:
@@ -6576,10 +6584,50 @@ components:
         last_modified_date:
           type: string
           format: date-time
-      title: SenderAddressRequestItem
     GetAllApprovedSenderAddress:
       title: GetAllApprovedSenderAddress
-      type:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Primary ID of the record
+          example: "6f79a12e-14f1-4776-adc0-5c5e48a999b7"
+        sender_address:
+          type: string
+          description: The Sender Address to be requested
+          example: "EXAMPLE"
+        sender_address_type:
+          type: string
+          description: The Sender Address Type
+          enum:
+            - ALPHANUMERIC
+        usage_type:
+          type: string
+          description: The Sender Address Usage Type
+          enum:
+            - ALPHANUMERIC
+        destination_countries:
+          type: array
+          description: list of 2-character ISO country codes this sender address applies to
+          items:
+            type: string
+          example: ["AU"]
+        reason:
+          type: string
+          example: "This is my reason"
+        label:
+          type: string
+          example: "label"
+        created_date:
+          type: string
+          format: date-time
+        last_modified_date:
+          type: string
+          format: date-time
+        page_size:
+          type: number
+          example: 20
     DeliveryReport:
       title: DeliveryReport
       type: object
