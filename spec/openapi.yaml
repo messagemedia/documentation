@@ -4058,7 +4058,7 @@ paths:
           {
             "key_id": "7ca628a8-08b0-4e42-aeb8-960b37049c31",
             "cipher": "RSA",
-            "digest": "SHA256",
+            "digest": "SHA224",
             "created": "2018-01-18T10:16:12.364Z",
             "enabled": false
           }
@@ -4093,12 +4093,12 @@ paths:
               example:
               - key_id: 7ca628a8-08b0-4e42-aeb8-960b37049c31
                 cipher: RSA
-                digest: SHA256
+                digest: SHA224
                 created: 2018-01-18T10:16:12.364Z
                 enabled: true
               - key_id: 6a0108cf-3659-435e-800e-004beb910fd1
                 cipher: RSA
-                digest: SHA256
+                digest: SHA224
                 created: 2018-01-18T10:15:31.035Z
                 enabled: false
         400:
@@ -4143,7 +4143,7 @@ paths:
         ```json
 
         {
-            "digest": "SHA256",
+            "digest": "SHA224",
             "cipher": "RSA"
         }
 
@@ -4165,7 +4165,7 @@ paths:
             "key_id": "7ca628a8-08b0-4e42-aeb8-960b37049c31",
             "public_key": "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCTIxtRyT5CuOD74r7UCT+AKzWNxvaAP9myjAqR7+vBnJKEvoPnmbKTnm6uLlxutnMbjKrnCCWnQ9vtBVnnd+ElhwLDPADfMcJoOqwi7mTcxucckeEbBsfsgYRfdacxgSZL8hVD1hLViQr3xwjEIkJcx1w3x8npvwMuTY0uW8+PjwIDAQAB",
             "cipher": "RSA",
-            "digest": "SHA256",
+            "digest": "SHA224",
             "created": "2018-01-18T10:16:12.364Z",
             "enabled": false
         }
@@ -4209,7 +4209,7 @@ paths:
             schema:
               $ref: '#/components/schemas/Createsignaturekeyrequest'
             example:
-              digest: SHA256
+              digest: SHA224
               cipher: RSA
         required: true
       responses:
@@ -4224,7 +4224,7 @@ paths:
                 key_id: 7ca628a8-08b0-4e42-aeb8-960b37049c31
                 public_key: MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCTIxtRyT5CuOD74r7UCT+AKzWNxvaAP9myjAqR7+vBnJKEvoPnmbKTnm6uLlxutnMbjKrnCCWnQ9vtBVnnd+ElhwLDPADfMcJoOqwi7mTcxucckeEbBsfsgYRfdacxgSZL8hVD1hLViQr3xwjEIkJcx1w3x8npvwMuTY0uW8+PjwIDAQAB
                 cipher: RSA
-                digest: SHA256
+                digest: SHA224
                 created: 2018-01-18T10:16:12.364Z
                 enabled: false
         400:
@@ -4263,7 +4263,7 @@ paths:
         {
             "key_id": "7ca628a8-08b0-4e42-aeb8-960b37049c31",
             "cipher": "RSA",
-            "digest": "SHA256",
+            "digest": "SHA224",
             "created": "2018-01-18T10:16:12.364Z",
             "enabled": false
         }
@@ -4292,7 +4292,7 @@ paths:
               example:
                 key_id: 7ca628a8-08b0-4e42-aeb8-960b37049c31
                 cipher: RSA
-                digest: SHA256
+                digest: SHA224
                 created: 2018-01-18T10:16:12.364Z
                 enabled: false
         400:
@@ -4395,7 +4395,7 @@ paths:
         {
             "key_id": "7ca628a8-08b0-4e42-aeb8-960b37049c31",
             "cipher": "RSA",
-            "digest": "SHA256",
+            "digest": "SHA224",
             "created": "2018-01-18T10:16:12.364Z",
             "enabled": true
         }
@@ -4434,7 +4434,7 @@ paths:
               example:
                 key_id: 7ca628a8-08b0-4e42-aeb8-960b37049c31
                 cipher: RSA
-                digest: SHA256
+                digest: SHA224
                 created: 2018-01-18T10:16:12.364Z
                 enabled: true
         400:
@@ -4480,7 +4480,7 @@ paths:
         {
             "key_id": "7ca628a8-08b0-4e42-aeb8-960b37049c31",
             "cipher": "RSA",
-            "digest": "SHA256",
+            "digest": "SHA224",
             "created": "2018-01-18T10:16:12.364Z",
             "enabled": true
         }
@@ -4501,7 +4501,7 @@ paths:
               example:
                 key_id: 7ca628a8-08b0-4e42-aeb8-960b37049c31
                 cipher: RSA
-                digest: SHA256
+                digest: SHA224
                 created: 2018-01-18T10:16:12.364Z
                 enabled: true
         403:
@@ -7788,7 +7788,7 @@ components:
         cipher:
           type: string
       example:
-        digest: SHA256
+        digest: SHA224
         cipher: RSA
     Createsignaturekeyresponse:
       title: Createsignaturekeyresponse
@@ -7817,7 +7817,7 @@ components:
         key_id: 7ca628a8-08b0-4e42-aeb8-960b37049c31
         public_key: MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCTIxtRyT5CuOD74r7UCT+AKzWNxvaAP9myjAqR7+vBnJKEvoPnmbKTnm6uLlxutnMbjKrnCCWnQ9vtBVnnd+ElhwLDPADfMcJoOqwi7mTcxucckeEbBsfsgYRfdacxgSZL8hVD1hLViQr3xwjEIkJcx1w3x8npvwMuTY0uW8+PjwIDAQAB
         cipher: RSA
-        digest: SHA256
+        digest: SHA224
         created: 2018-01-18T10:16:12.364Z
         enabled: false
     Getsignaturekeydetailresponse:
@@ -7832,7 +7832,7 @@ components:
           example: RSA
         digest:
           type: string
-          example: SHA256
+          example: SHA224
         created:
           type: string
           example: 2018-01-18T10:16:12.364Z
@@ -7842,7 +7842,7 @@ components:
       example:
         key_id: 7ca628a8-08b0-4e42-aeb8-960b37049c31
         cipher: RSA
-        digest: SHA256
+        digest: SHA224
         created: 2018-01-18T10:16:12.364Z
         enabled: false
     Getsignaturekeylistresponse:
@@ -7857,7 +7857,7 @@ components:
           example: RSA
         digest:
           type: string
-          example: SHA256
+          example: SHA224
         created:
           type: string
           example: 2018-01-18T10:16:12.364Z
@@ -7867,7 +7867,7 @@ components:
       example:
         key_id: 7ca628a8-08b0-4e42-aeb8-960b37049c31
         cipher: RSA
-        digest: SHA256
+        digest: SHA224
         created: 2018-01-18T10:16:12.364Z
         enabled: true
     Enablesignaturekeyrequest:
@@ -7892,7 +7892,7 @@ components:
           example: RSA
         digest:
           type: string
-          example: SHA256
+          example: SHA224
         created:
           type: string
           example: 2018-01-18T10:16:12.364Z
@@ -7902,7 +7902,7 @@ components:
       example:
         key_id: 7ca628a8-08b0-4e42-aeb8-960b37049c31
         cipher: RSA
-        digest: SHA256
+        digest: SHA224
         created: 2018-01-18T10:16:12.364Z
         enabled: true
     Enablesignaturekey400response:
@@ -7935,7 +7935,7 @@ components:
           example: RSA
         digest:
           type: string
-          example: SHA256
+          example: SHA224
         created:
           type: string
           example: 2018-01-18T10:16:12.364Z
@@ -7945,7 +7945,7 @@ components:
       example:
         key_id: 7ca628a8-08b0-4e42-aeb8-960b37049c31
         cipher: RSA
-        digest: SHA256
+        digest: SHA224
         created: 2018-01-18T10:16:12.364Z
         enabled: true
     Disablethecurrentenabledsignaturekey.403response:
