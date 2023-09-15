@@ -167,7 +167,7 @@ tags:
       ![Message Flow](https://i.imgur.com/jJeHwf5.png)
   - name: Source Address
     description: |
-      The Sender Address API provides a number of endpoints for you to request a Sender ID and gain real-time access to its approval status..
+      The Sender Address API provides a number of endpoints for you to request a Sender ID and gain real-time access to its approval status.
   - name: Delivery Reports
     description: |
       If a callback URL is specified in the submit message request, then changes to the message status, 
