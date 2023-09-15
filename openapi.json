@@ -1108,6 +1108,14 @@
     },
     "/v1/messaging/numbers/sender_address/requests": {
       "post": {
+        "security": [
+          {
+            "basic_auth": []
+          },
+          {
+            "hmac_auth": []
+          }
+        ],
         "tags": [
           "Source Address"
         ],
@@ -1165,6 +1173,14 @@
     },
     "/v1/messaging/numbers/sender_address/requests/{id}": {
       "get": {
+        "security": [
+          {
+            "basic_auth": []
+          },
+          {
+            "hmac_auth": []
+          }
+        ],
         "tags": [
           "Source Address"
         ],
@@ -1233,6 +1249,14 @@
     },
     "/v1/messaging/numbers/sender_address/addresses/": {
       "get": {
+        "security": [
+          {
+            "basic_auth": []
+          },
+          {
+            "hmac_auth": []
+          }
+        ],
         "tags": [
           "Source Address"
         ],

@@ -1650,6 +1650,9 @@ paths:
             catch (APIException e){};
   /v1/messaging/numbers/sender_address/requests:
     post:
+      security:
+        - basic_auth: []
+        - hmac_auth: []
       tags:
         - Source Address
       summary: Request a sender address
@@ -1695,6 +1698,9 @@ paths:
           description: Conflict
   '/v1/messaging/numbers/sender_address/requests/{id}':
     get:
+      security:
+        - basic_auth: []
+        - hmac_auth: []
       tags:
         - Source Address
       summary: Get status of a sender address request
@@ -1757,6 +1763,9 @@ paths:
                 $ref: '#/components/schemas/404response'
   /v1/messaging/numbers/sender_address/addresses/:
     get:
+      security:
+        - basic_auth: []
+        - hmac_auth: []
       tags:
         - Source Address
       summary: Get all approved sender address
