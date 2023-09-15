@@ -20,3 +20,5 @@ Validates the spec.
 
 #### `npm run gh-pages`
 Deploys docs to GitHub Pages. You don't need to run it manually if you have Travis CI configured.
+Please see this page for publish progress
+https://github.com/messagemedia/documentation/actions
