@@ -249,6 +249,9 @@ tags:
       * Replies - Messages sent from a handset to an application. These messages are typically a reply to a previously sent message.
       
       ![Message Flow](https://i.imgur.com/jJeHwf5.png)
+  - name: Source Address
+    description: |
+      The Sender Address API provides a number of endpoints for you to request a Sender ID and gain real-time access to its approval status.
   - name: Delivery Reports
     description: |
       If a callback URL is specified in the submit message request, then changes to the message status, 
@@ -1415,6 +1418,205 @@ paths:
               schema:
                 $ref: '#/components/schemas/403response'
       deprecated: false
+  /v1/messaging/numbers/sender_address/requests:
+    post:
+      security:
+        - basic_auth: [ ]
+        - hmac_auth: [ ]
+      tags:
+        - Source Address
+      summary: Request a sender address
+      description: |
+        The most basic request has the following structure:
+          - ```sender_address``` is case insensitive. When one already exists for this account, you get a error message ```conflict```;
+          - ```destination_countries``` currently we only support ```AU``` and ```GB``` as the destination country;
+          - ```sender_address_type``` and ```usage_type``` must be ```ALPHANUMERIC```;
+          - ```reason``` for requesting a sender address is required;
+          - ```label``` name of the sender address.
+      operationId: requestSenderAddressUsingPOST
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestSenderAddress'
+            example:
+              sender_address: EXAMPLE
+              sender_address_type: ALPHANUMERIC
+              usage_type: ALPHANUMERIC
+              destination_countries:
+                - AU
+              reason: 'This is my reason'
+              label: label
+        required: true
+      responses:
+        '201':
+          description: Created
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SenderAddressRequestItem'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '409':
+          description: Conflict
+  /v1/messaging/numbers/sender_address/requests/{id}:
+    get:
+      security:
+        - basic_auth: [ ]
+        - hmac_auth: [ ]
+      tags:
+        - Source Address
+      summary: Get status of a sender address request
+      description: |
+        Retrieve the current status of a sender address request using the request ID returned in the sender address request end point.
+        A successful request to the get message status endpoint will return a response body as follows:
+        ```json
+        {
+            "id": "365dd65f-7101-46cd-8e79-e49c5620eb15",
+            "sender_address": "sample",
+            "sender_address_type": "ALPHANUMERIC",
+            "usage_type": "ALPHANUMERIC",
+            "destination_countries": [
+              "AU"
+            ],
+            "reason": "This is my approval reason",
+            "label": "label"
+            "status": "APPROVED",
+            "account_id": "sample",
+            "created_date": "2023-09-07T05:48:26.741Z",
+            "last_modified_date": "2023-09-07T05:49:20.888Z"
+        }
+        ```
+      operationId: GetStatusOfSenderAddressRequest
+      parameters:
+        - name: id
+          in: path
+          description: '36 character UUID.'
+          required: true
+          style: simple
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Get the status of Sender Address Request
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SenderAddressRequestItem'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400response'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403response'
+        '404':
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404response'
+  /v1/messaging/numbers/sender_address/addresses/:
+    get:
+      security:
+        - basic_auth: [ ]
+        - hmac_auth: [ ]
+      tags:
+        - Source Address
+      summary: Get all approved sender address
+      operationId: GetAllApprovedSenderAddress
+      description: |
+        Get a list of approved sender addresses for your account. 
+        ```sender_address_type: ALPHANUMERIC``` only
+      parameters:
+        - name: sender_address_type
+          in: query
+          required: true
+          schema:
+            type: string
+          description: type of sender address
+          example: ALPHANUMERIC
+        - name: token
+          in: query
+          description: In paginated data the original request will return with a "next_token" attribute. This token must be entered into subsequent call in the "token" query parameter to obtain the next set of records.
+          schema:
+            type: string
+            example: example
+      responses:
+        '200':
+          description: A list of approved sender addresses for your account only
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetAllApprovedSenderAddress'
+              example:
+                data:
+                  - id: 7927d9eb-4e74-4021-836e-6cae071f84e7
+                    sender_address: EXAMPLE1
+                    sender_address_type: ALPHANUMERIC
+                    usage_type: ALPHANUMERIC
+                    destination_countries:
+                      - AU
+                    reason: 'This is my reason 1'
+                    label: 'This is my label 1'
+                    account_id: my_account,
+                    created_date: 2023-08-04T04:21:55.958Z,
+                    last_modified_date: 2023-08-04T04:21:55.958Z
+                  - id: 365dd65f-7101-46cd-8e79-e49c5620eb15
+                    sender_address: EXAMPLE2
+                    sender_address_type: ALPHANUMERIC
+                    usage_type: ALPHANUMERIC
+                    destination_countries:
+                      - AU
+                    reason: 'This is my reason 2'
+                    label: 'This is my label 2'
+                    account_id: my_account,
+                    created_date: 2023-08-14T04:21:55.958Z,
+                    last_modified_date: 2023-08-14T04:21:55.958Z
+                  - id: 4a9cb0f4-f383-40b5-84dc-bbb6a3b210dd
+                    sender_address: EXAMPLE3
+                    sender_address_type: ALPHANUMERIC
+                    usage_type: ALPHANUMERIC
+                    destination_countries:
+                      - AU
+                    reason: 'This is my reason 3'
+                    label: 'This is my label 3'
+                    account_id: my_account,
+                    created_date: 2023-08-24T04:21:55.958Z,
+                    last_modified_date: 2023-08-24T04:21:55.958Z
+                pagination:
+                  page_size: 20
+                  next_token: 'UWFTeXNBZGRyMSN8JEAsdmVuZG9ySWRUZXN0MSN8JEAsYWNjb3VudElkVGVzdDI='
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400response'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403response'
   /v1/delivery_reports:
     get:
       security:
@@ -6313,6 +6515,140 @@ components:
           example: '+61491570156'
         vendor_account_id:
           $ref: '#/components/schemas/VendorAccountId'
+    RequestSenderAddress:
+      title: RequestSenderAddress
+      type: object
+      required:
+        - sender_address
+        - sender_address_type
+        - usage_type
+        - destination_countries
+        - reason
+      properties:
+        sender_address:
+          type: string
+          description: The Sender Address to be requested
+          example: "EXAMPLE"
+        sender_address_type:
+          type: string
+          enum:
+            - ALPHANUMERIC
+        usage_type:
+          type: string
+          enum:
+            - ALPHANUMERIC
+        destination_countries:
+          type: array
+          description: list of 2-character ISO country codes
+          items:
+            type: string
+          example: ["AU"]
+        reason:
+          type: string
+          example: "This is my reason"
+        label:
+          type: string
+          example: "label"
+    SenderAddressRequestItem:
+      title: SenderAddressRequestItem
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Primary ID of the record
+          example: "6f79a12e-14f1-4776-adc0-5c5e48a999b7"
+        sender_address:
+          type: string
+          description: The Sender Address to be requested
+          example: "EXAMPLE"
+        sender_address_type:
+          type: string
+          description: The Sender Address Type
+          enum:
+            - ALPHANUMERIC
+        usage_type:
+          type: string
+          description: The Sender Address Usage Type
+          enum:
+            - ALPHANUMERIC
+        destination_countries:
+          type: array
+          description: list of 2-character ISO country codes this sender address applies to
+          items:
+            type: string
+          example: ["AU"]
+        reason:
+          type: string
+          example: "This is my reason"
+        label:
+          type: string
+          example: "label"
+        status:
+          type: string
+          enum:
+            - OPEN
+            - PENDING
+            - REJECTED
+            - APPROVED
+        account_id:
+          type: string
+          example: "XYZ_ExampleAccount"
+        created_date:
+          type: string
+          format: date-time
+        last_modified_date:
+          type: string
+          format: date-time
+    GetAllApprovedSenderAddress:
+      title: GetAllApprovedSenderAddress
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                format: uuid
+                description: Primary ID of the record
+              sender_address:
+                type: string
+                description: The Sender Address to be requested
+              sender_address_type:
+                type: string
+                description: The Sender Address Type
+                enum:
+                  - ALPHANUMERIC
+              usage_type:
+                type: string
+                description: The Sender Address Usage Type
+                enum:
+                  - ALPHANUMERIC
+              destination_countries:
+                type: array
+                description: list of 2-character ISO country codes this sender address applies to
+                items:
+                  type: string
+              reason:
+                type: string
+              label:
+                type: string
+              created_date:
+                type: string
+                format: date-time
+              last_modified_date:
+                type: string
+                format: date-time
+        pagination:
+          type: object
+          properties:
+            page_size:
+              type: number
+            next_token:
+              type: string
+              description: The pagination token of the next set of results.
     DeliveryReport:
       title: DeliveryReport
       type: object
