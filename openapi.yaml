@@ -76,13 +76,13 @@ tags:
       Every request requires an `Authorization` header in the following formats:
       For a request with a request body:
       ```plain
-      Authorization: hmac username="<API KEY>", algorithm="hmac-sha1", headers  ="Date Content-MD5 request-line", signature="<SIGNATURE>"
+      Authorization: hmac username="<API KEY>", algorithm="hmac-sha256", headers  ="Date Content-MD5 request-line", signature="<SIGNATURE>"
       ```
 
       For a request _without_ a request body:
 
       ```plain
-      Authorization: hmac username="<API KEY>", algorithm="hmac-sha1", headers="Date request-line", signature="<SIGNATURE>"
+      Authorization: hmac username="<API KEY>", algorithm="hmac-sha256", headers="Date request-line", signature="<SIGNATURE>"
       ```
       ### To create this header
       #### Step 1
@@ -100,7 +100,7 @@ tags:
       Date: Sat, 30 Jul 2016 05:13:23 GMT\nGET /v1/messages/404b941b-2a29-469f-b114-9ea3e16bbe18 HTTP/1.1
       ```
       #### Step 4
-      Create a SHA1 HMAC hash using the signing string and the secret key (both converted to bytes using UTF-8) ```HMAC-SHA1(signing string, secret)```
+      Create a SHA256 HMAC hash using the signing string and the secret key (both converted to bytes using UTF-8) ```HMAC-SHA256(signing string, secret)```
       #### Step 5
       Base64 encode the HMAC hash and include it as the signature in the ```Authorization``` header
       ### Example request with body
@@ -110,7 +110,7 @@ tags:
       Accept: application/json
       Content-Type: application/json
       Date: Sat, 30 Jul 2016 05:18:52 GMT
-      Authorization: hmac username="uCXUdoogNfCsehEClbO2", algorithm="hmac-sha1", headers="Date Content-MD5 request-line", signature="Ia4G5lkhH/3NDYpix+8ZHUnp6bA="
+      Authorization: hmac username="uCXUdoogNfCsehEClbO2", algorithm="hmac-sha256", headers="Date Content-MD5 request-line", signature="Ia4G5lkhH/3NDYpix+8ZHUnp6bA="
       Content-MD5: 5407644fa83bec240dede971307e0cad
       Content-Length: 133
       {
@@ -130,7 +130,7 @@ tags:
       Host: api.messagemedia.com
       Accept: application/json
       Date: Sat, 30 Jul 2016 05:18:52 GMT
-      Authorization: hmac username="uCXUdoogNfCsehEClbO2", algorithm="hmac-sha1", headers="Date request-line", signature="NTUwMjUwNTVmZGYzZTIxODMyYjc1ZmM3M2EwZWQ1NzA3NzA4ZTZjNw==" ```
+      Authorization: hmac username="uCXUdoogNfCsehEClbO2", algorithm="hmac-sha256", headers="Date request-line", signature="NTUwMjUwNTVmZGYzZTIxODMyYjc1ZmM3M2EwZWQ1NzA3NzA4ZTZjNw==" ```
   - name: Development Tools
     description: |
       ## SDKs
