@@ -929,7 +929,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/scheduleddetailreport'
+              $ref: '#/components/schemas/updatescheduleddetailreport'
         required: true
       responses:
         '200':
@@ -937,7 +937,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/scheduleddetailreport'
+                $ref: '#/components/schemas/scheduleddetailreportresponse'
       deprecated: false
   /v2-preview/reporting/summary/scheduled:
     post:
@@ -990,7 +990,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/scheduledsummaryreport'
+              $ref: '#/components/schemas/updatescheduledsummaryreport'
         required: true
       responses:
         '200':
@@ -998,7 +998,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/scheduledsummaryreport'
+                $ref: '#/components/schemas/scheduledsummaryreportresposne'
       deprecated: false
   /v2-preview/reporting/scheduled:
     get:
@@ -5443,8 +5443,6 @@ components:
   schemas:
     metakeyresponse:
       title: metakeyresponse
-      required:
-        - keys
       properties:
         keys:
           type: array
@@ -5457,9 +5455,6 @@ components:
     chronosscheduleresponse:
       title: chronosscheduleresponse
       type: object
-      required:
-        - page_token
-        - page_size
       properties:
         page_token:
           type: string
@@ -5479,6 +5474,57 @@ components:
         - label
         - schedule
         - report
+      properties:
+        label:
+          type: string
+          example: Weekly Report
+          description: The label of the report schedule
+        schedule:
+          $ref: '#/components/schemas/schedule'
+        report:
+          $ref: '#/components/schemas/scheduleddetailrequest'
+        message_type:
+          $ref: '#/components/schemas/MessageDirection'
+        report_type:
+          type: string
+          example: detail
+        metadata:
+          type: object
+          description: >-
+            Metadata for the message specified as a set of key value pairs, each
+            key can be up to 100 characters long and each value can be up to 256
+            characters long
+
+            ```
+
+            {
+               "myKey": "myValue",
+               "anotherKey": "anotherValue"
+            }
+
+            ```
+          example:
+            - "myKey": "myValue"
+            - "anotherKey": "anotherValue"
+    updatescheduleddetailreport:
+      title: updatescheduleddetailreport
+      type: object
+      required:
+        - label
+        - schedule
+        - report
+      properties:
+        label:
+          type: string
+          example: Weekly Report
+          description: The label of the report schedule
+        schedule:
+          $ref: '#/components/schemas/schedule'
+        report:
+          $ref: '#/components/schemas/scheduleddetailrequest'
+    scheduleddetailreportresponse:
+      title: scheduleddetailreportresponse
+      type: object
       properties:
         label:
           type: string
@@ -5514,7 +5560,7 @@ components:
             ```
           example:
             - "myKey": "myValue"
-            - "anotherKey": "anotherValue"
+            - "anotherKey": "anotherValue"            
     scheduleddetailrequest:
       title: scheduleddetailrequest
       type: object
@@ -5610,10 +5656,6 @@ components:
     scheduledreport:
       title: scheduledreport
       type: object
-      required:
-        - label
-        - schedule
-        - report
       properties:
         label:
           type: string
@@ -5635,8 +5677,6 @@ components:
     scheduledreportresponse:
       title: scheduledreportresponse
       type: object
-      required:
-        - scheduled_report_id
       properties:
         scheduled_report_id:
           type: string
@@ -5649,6 +5689,41 @@ components:
         - label
         - schedule
         - report
+      properties:
+        label:
+          type: string
+          example: Weekly Report
+          description: The label of the report schedule
+        schedule:
+          $ref: '#/components/schemas/schedule'
+        report:
+          $ref: '#/components/schemas/scheduledsummaryrequest'
+        message_type:
+          $ref: '#/components/schemas/MessageDirection'
+        report_type:
+          type: string
+          example: detail
+        metadata:
+          type: object
+          description: >-
+            Metadata for the message specified as a set of key value pairs, each
+            key can be up to 100 characters long and each value can be up to 256
+            characters long
+
+            ```
+
+            {
+               "myKey": "myValue",
+               "anotherKey": "anotherValue"
+            }
+
+            ```
+          example:
+            - "myKey": "myValue"
+            - "anotherKey": "anotherValue"
+    scheduledsummaryreportresposne:
+      title: scheduledsummaryreportresposne
+      type: object
       properties:
         label:
           type: string
@@ -5685,6 +5760,23 @@ components:
           example:
             - "myKey": "myValue"
             - "anotherKey": "anotherValue"
+
+    updatescheduledsummaryreport:
+      title: updatescheduledsummaryreport
+      type: object
+      required:
+        - label
+        - schedule
+        - report
+      properties:
+        label:
+          type: string
+          example: Weekly Report
+          description: The label of the report schedule
+        schedule:
+          $ref: '#/components/schemas/schedule'
+        report:
+          $ref: '#/components/schemas/scheduledsummaryrequest'
     scheduledsummaryrequest:
       title: scheduledsummaryrequest
       type: object
@@ -6108,8 +6200,6 @@ components:
     asyncreportresponse:
       title: asyncreportresponse
       type: object
-      required:
-        - report_id
       properties:
         report_id:
           type: string
