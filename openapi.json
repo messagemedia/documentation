@@ -521,7 +521,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/scheduleddetailreport"
+                "$ref": "#/components/schemas/updatescheduleddetailreport"
               }
             }
           },
@@ -533,7 +533,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/scheduleddetailreport"
+                  "$ref": "#/components/schemas/scheduleddetailreportresponse"
                 }
               }
             }
@@ -618,7 +618,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/scheduledsummaryreport"
+                "$ref": "#/components/schemas/updatescheduledsummaryreport"
               }
             }
           },
@@ -630,7 +630,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/scheduledsummaryreport"
+                  "$ref": "#/components/schemas/scheduledsummaryreportresposne"
                 }
               }
             }
@@ -7056,9 +7056,6 @@
     "schemas": {
       "metakeyresponse": {
         "title": "metakeyresponse",
-        "required": [
-          "keys"
-        ],
         "properties": {
           "keys": {
             "type": "array",
@@ -7076,10 +7073,6 @@
       "chronosscheduleresponse": {
         "title": "chronosscheduleresponse",
         "type": "object",
-        "required": [
-          "page_token",
-          "page_size"
-        ],
         "properties": {
           "page_token": {
             "type": "string",
@@ -7106,6 +7099,64 @@
           "schedule",
           "report"
         ],
+        "properties": {
+          "label": {
+            "type": "string",
+            "example": "Weekly Report",
+            "description": "The label of the report schedule"
+          },
+          "schedule": {
+            "$ref": "#/components/schemas/schedule"
+          },
+          "report": {
+            "$ref": "#/components/schemas/scheduleddetailrequest"
+          },
+          "message_type": {
+            "$ref": "#/components/schemas/MessageDirection"
+          },
+          "report_type": {
+            "type": "string",
+            "example": "detail"
+          },
+          "metadata": {
+            "type": "object",
+            "description": "Metadata for the message specified as a set of key value pairs, each key can be up to 100 characters long and each value can be up to 256 characters long\n```\n{\n   \"myKey\": \"myValue\",\n   \"anotherKey\": \"anotherValue\"\n}\n```",
+            "example": [
+              {
+                "myKey": "myValue"
+              },
+              {
+                "anotherKey": "anotherValue"
+              }
+            ]
+          }
+        }
+      },
+      "updatescheduleddetailreport": {
+        "title": "updatescheduleddetailreport",
+        "type": "object",
+        "required": [
+          "label",
+          "schedule",
+          "report"
+        ],
+        "properties": {
+          "label": {
+            "type": "string",
+            "example": "Weekly Report",
+            "description": "The label of the report schedule"
+          },
+          "schedule": {
+            "$ref": "#/components/schemas/schedule"
+          },
+          "report": {
+            "$ref": "#/components/schemas/scheduleddetailrequest"
+          }
+        }
+      },
+      "scheduleddetailreportresponse": {
+        "title": "scheduleddetailreportresponse",
+        "type": "object",
         "properties": {
           "label": {
             "type": "string",
@@ -7262,11 +7313,6 @@
       "scheduledreport": {
         "title": "scheduledreport",
         "type": "object",
-        "required": [
-          "label",
-          "schedule",
-          "report"
-        ],
         "properties": {
           "label": {
             "type": "string",
@@ -7296,9 +7342,6 @@
       "scheduledreportresponse": {
         "title": "scheduledreportresponse",
         "type": "object",
-        "required": [
-          "scheduled_report_id"
-        ],
         "properties": {
           "scheduled_report_id": {
             "type": "string",
@@ -7315,6 +7358,42 @@
           "schedule",
           "report"
         ],
+        "properties": {
+          "label": {
+            "type": "string",
+            "example": "Weekly Report",
+            "description": "The label of the report schedule"
+          },
+          "schedule": {
+            "$ref": "#/components/schemas/schedule"
+          },
+          "report": {
+            "$ref": "#/components/schemas/scheduledsummaryrequest"
+          },
+          "message_type": {
+            "$ref": "#/components/schemas/MessageDirection"
+          },
+          "report_type": {
+            "type": "string",
+            "example": "detail"
+          },
+          "metadata": {
+            "type": "object",
+            "description": "Metadata for the message specified as a set of key value pairs, each key can be up to 100 characters long and each value can be up to 256 characters long\n```\n{\n   \"myKey\": \"myValue\",\n   \"anotherKey\": \"anotherValue\"\n}\n```",
+            "example": [
+              {
+                "myKey": "myValue"
+              },
+              {
+                "anotherKey": "anotherValue"
+              }
+            ]
+          }
+        }
+      },
+      "scheduledsummaryreportresposne": {
+        "title": "scheduledsummaryreportresposne",
+        "type": "object",
         "properties": {
           "label": {
             "type": "string",
@@ -7350,6 +7429,28 @@
                 "anotherKey": "anotherValue"
               }
             ]
+          }
+        }
+      },
+      "updatescheduledsummaryreport": {
+        "title": "updatescheduledsummaryreport",
+        "type": "object",
+        "required": [
+          "label",
+          "schedule",
+          "report"
+        ],
+        "properties": {
+          "label": {
+            "type": "string",
+            "example": "Weekly Report",
+            "description": "The label of the report schedule"
+          },
+          "schedule": {
+            "$ref": "#/components/schemas/schedule"
+          },
+          "report": {
+            "$ref": "#/components/schemas/scheduledsummaryrequest"
           }
         }
       },
@@ -7881,9 +7982,6 @@
       "asyncreportresponse": {
         "title": "asyncreportresponse",
         "type": "object",
-        "required": [
-          "report_id"
-        ],
         "properties": {
           "report_id": {
             "type": "string",
