@@ -654,10 +654,6 @@ tags:
       | ![](Https://developers.messagemedia.com/wp-content/templates/Template1.png) | 7614456e-844f-4d83-bdfe-20c17ce0f97c |
       | ![](Https://developers.messagemedia.com/wp-content/templates/Template2.png) | f56b5806-f732-4693-b87a-90b66a7d7bfc |
       |![](Https://developers.messagemedia.com/wp-content/templates/template3.png) | c9d7ce1d-20c4-4228-9ba1-6da2a3b4e5e0 |
-  - name: LEGACY V1 Reports
-    description: >-
-      The MessageMedia Reports API provides a number of endpoints for running reports of messages sent and received using Messages API. 
-      Reports can be detailed, a list of all messages and details of each message, or summary reports, which can be aggregated on a number of dimensions.
 servers:
   - url: 'https://api.messagemedia.com/'
 
