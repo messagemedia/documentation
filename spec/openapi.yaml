@@ -1287,6 +1287,11 @@ paths:
           source number type is only valid when the ```source_number``` parameter is specified and is optional.
           If a source number is specified and no source number type is specified, the source number type will be
           inferred from the source number, however this may be inaccurate.
+        
+        - ```source_number``` A source number can be specified for the message,
+        this will be the sender that appears on the handset.
+          Specifying a source number is optional and by default a source number will be assigned to the message. It’s strongly recommended to specify source_number if you have multiple 
+          numbers on your account, otherwise source address will be chosen randomly from your account’s number pool.
 
         - ```media``` The media is used to specify a list of URLs of the media file(s) that you are trying to send. 
         Supported file formats include png, jpeg and gif. ```format``` parameter must be set to ```MMS``` for this to
@@ -1295,11 +1300,6 @@ paths:
         - ```subject``` The subject field is used to denote subject of the MMS
         message and has a maximum size of 64 characters long. Specifying a
         subject is optional.
-        
-        - ```source_number``` A source number can be specified for the message,
-        this will be the sender that appears on the handset.
-          Specifying a source number is optional and by default a source number will be assigned to the message. It’s strongly recommended to specify source_number if you have multiple 
-          numbers on your account, otherwise source address will be chosen randomly from your account’s number pool.
 
         - ```scheduled``` A message can be scheduled for delivery in the future
         by setting the scheduled property.
