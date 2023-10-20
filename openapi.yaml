@@ -1044,7 +1044,7 @@ paths:
                 $ref: '#/components/schemas/404response'
       deprecated: false
       x-code-samples:
-        - lang: C#
+        - lang: 'C#'
           source: |-
             string messageId = "messageId2";
 
@@ -1163,7 +1163,7 @@ paths:
                 $ref: '#/components/schemas/404response'
       deprecated: false
       x-code-samples:
-        - lang: C#
+        - lang: 'C#'
           source: |-
             string messageId = "messageId2";
             CancelScheduledMessageRequest body = new CancelScheduledMessageRequest();
@@ -1279,11 +1279,18 @@ paths:
           or ```TTS``` (text to speech). With ```TTS``` format, we will call the destination number and read out the
           message using a computer generated voice. Specifying a format is optional, by default ```SMS``` will be used.
 
-        - ```source_number``` A source number may be specified for the message,
-        this will be the number that
-          the message appears from on the handset. By default this feature is _not_ available and will be ignored
-          in the request. Please click <a href="https://messagemedia.com/au/feature/alpha-tag" target="_blank">here</a> for more information. Specifying a source
-          number is optional and a by default a source number will be assigned to the message.
+        - ```source_number_type``` If a source number is specified, the type of
+        source number may also be
+          specified. This is recommended when using a source address type that is not an internationally
+          formatted number, available options are ```INTERNATIONAL```, ```ALPHANUMERIC``` or ```SHORTCODE```. Specifying a
+          source number type is only valid when the ```source_number``` parameter is specified and is optional.
+          If a source number is specified and no source number type is specified, the source number type will be
+          inferred from the source number, however this may be inaccurate.
+
+        - ```source_number``` A source number can be specified for the message,
+        this will be the sender that appears on the handset.
+          Specifying a source number is optional and by default a source number will be assigned to the message. It’s strongly recommended to specify source_number if you have multiple 
+          numbers on your account, otherwise source address will be chosen randomly from your account’s number pool.
 
         - ```media``` The media is used to specify a list of URLs of the media file(s) that you are trying to send. 
         Supported file formats include png, jpeg and gif. ```format``` parameter must be set to ```MMS``` for this to
@@ -1292,14 +1299,6 @@ paths:
         - ```subject``` The subject field is used to denote subject of the MMS
         message and has a maximum size of 64 characters long. Specifying a
         subject is optional.
-
-        - ```source_number_type``` If a source number is specified, the type of
-        source number may also be
-          specified. This is recommended when using a source address type that is not an internationally
-          formatted number, available options are ```INTERNATIONAL```, ```ALPHANUMERIC``` or ```SHORTCODE```. Specifying a
-          source number type is only valid when the ```source_number``` parameter is specified and is optional.
-          If a source number is specified and no source number type is specified, the source number type will be
-          inferred from the source number, however this may be inaccurate.
 
         - ```scheduled``` A message can be scheduled for delivery in the future
         by setting the scheduled property.
@@ -1417,7 +1416,7 @@ paths:
                 $ref: '#/components/schemas/403response'
       deprecated: false
       x-code-samples:
-        - lang: C#
+        - lang: 'C#'
           source: |-
             SendMessagesRequest body = new SendMessagesRequest();
             body.Messages = new List<Message>();
@@ -1974,7 +1973,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/404response'
       x-code-samples:
-        - lang: C#
+        - lang: 'C#'
           source: ''
         - lang: Java
           source: |-
@@ -2071,7 +2070,7 @@ paths:
                 $ref: '#/components/schemas/404response'
       deprecated: false
       x-code-samples:
-        - lang: C#
+        - lang: 'C#'
           source: ''
         - lang: Java
           source: |-
@@ -2242,7 +2241,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/404response'
       x-code-samples:
-        - lang: C#
+        - lang: 'C#'
           source: ''
         - lang: Java
           source: |-
@@ -2338,7 +2337,7 @@ paths:
                 $ref: '#/components/schemas/404response'
       deprecated: false
       x-code-samples:
-        - lang: C#
+        - lang: 'C#'
           source: ''
         - lang: Java
           source: |-
@@ -2490,7 +2489,7 @@ paths:
                 $ref: '#/components/schemas/Lookupaphonenumber404response'
       deprecated: false
       x-code-samples:
-        - lang: C#
+        - lang: 'C#'
           source: ''
         - lang: Java
           source: ''
@@ -2530,7 +2529,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/403response'
       x-code-samples:
-        - lang: C#
+        - lang: 'C#'
           source: ''
         - lang: Java
           source: ''
@@ -2580,7 +2579,7 @@ paths:
                   - 61491570157
       deprecated: false
       x-code-samples:
-        - lang: C#
+        - lang: 'C#'
           source: ''
         - lang: Java
           source: ''
@@ -2626,7 +2625,7 @@ paths:
           description: ''
       deprecated: false
       x-code-samples:
-        - lang: C#
+        - lang: 'C#'
           source: ''
         - lang: Java
           source: ''
@@ -2678,7 +2677,7 @@ paths:
                     authorised: false
       deprecated: false
       x-code-samples:
-        - lang: C#
+        - lang: 'C#'
           source: ''
         - lang: Java
           source: ''
@@ -2772,7 +2771,7 @@ paths:
                 message: Invalid authentication credentials
       deprecated: false
       x-code-samples:
-        - lang: C#
+        - lang: 'C#'
           source: ''
         - lang: Java
           source: ''
@@ -2848,7 +2847,7 @@ paths:
                 message: Not found
       deprecated: false
       x-code-samples:
-        - lang: C#
+        - lang: 'C#'
           source: ''
         - lang: Java
           source: ''
@@ -2919,7 +2918,7 @@ paths:
                 message: Not found
       deprecated: false
       x-code-samples:
-        - lang: C#
+        - lang: 'C#'
           source: ''
         - lang: Java
           source: ''
@@ -3006,7 +3005,7 @@ paths:
                 message: Not found
       deprecated: false
       x-code-samples:
-        - lang: C#
+        - lang: 'C#'
           source: ''
         - lang: Java
           source: ''
@@ -3064,7 +3063,7 @@ paths:
                 message: Invalid authentication credentials
       deprecated: false
       x-code-samples:
-        - lang: C#
+        - lang: 'C#'
           source: ''
         - lang: Java
           source: ''
@@ -3135,7 +3134,7 @@ paths:
                 message: Invalid authentication credentials
       deprecated: false
       x-code-samples:
-        - lang: C#
+        - lang: 'C#'
           source: ''
         - lang: Java
           source: ''
@@ -3290,7 +3289,7 @@ paths:
                 message: Invalid authentication credentials
       deprecated: false
       x-code-samples:
-        - lang: C#
+        - lang: 'C#'
           source: ''
         - lang: Java
           source: ''
@@ -3390,7 +3389,7 @@ paths:
           description: System Error
       deprecated: false
       x-code-samples:
-        - lang: C#
+        - lang: 'C#'
           source: ''
         - lang: Java
           source: ''
@@ -3472,7 +3471,7 @@ paths:
           description: System Error
       deprecated: false
       x-code-samples:
-        - lang: C#
+        - lang: 'C#'
           source: ''
         - lang: Java
           source: ''
@@ -3553,7 +3552,7 @@ paths:
                 message: Something went wrong. Please try again later.
       deprecated: false
       x-code-samples:
-        - lang: C#
+        - lang: 'C#'
           source: ''
         - lang: Java
           source: ''
@@ -3696,7 +3695,7 @@ paths:
                 message: A webhook with the given url and method already exists.
       deprecated: false
       x-code-samples:
-        - lang: C#
+        - lang: 'C#'
           source: ''
         - lang: Java
           source: ''
@@ -3742,7 +3741,7 @@ paths:
           description: ''
       deprecated: false
       x-code-samples:
-        - lang: C#
+        - lang: 'C#'
           source: ''
         - lang: Java
           source: ''
@@ -3827,7 +3826,7 @@ paths:
           description: ''
       deprecated: false
       x-code-samples:
-        - lang: C#
+        - lang: 'C#'
           source: ''
         - lang: Java
           source: ''
@@ -3916,7 +3915,7 @@ paths:
                 message: This feature has not been enabled in your account.
       deprecated: false
       x-code-samples:
-        - lang: C#
+        - lang: 'C#'
           source: ''
         - lang: Java
           source: ''
@@ -4035,7 +4034,7 @@ paths:
                 message: This feature has not been enabled in your account.
       deprecated: false
       x-code-samples:
-        - lang: C#
+        - lang: 'C#'
           source: ''
         - lang: Java
           source: ''
@@ -4119,7 +4118,7 @@ paths:
                 message: Entity not found
       deprecated: false
       x-code-samples:
-        - lang: C#
+        - lang: 'C#'
           source: ''
         - lang: Java
           source: ''
@@ -4172,7 +4171,7 @@ paths:
                 message: Entity not found
       deprecated: false
       x-code-samples:
-        - lang: C#
+        - lang: 'C#'
           source: ''
         - lang: Java
           source: ''
@@ -4275,7 +4274,7 @@ paths:
                 message: Entity not found
       deprecated: false
       x-code-samples:
-        - lang: C#
+        - lang: 'C#'
           source: ''
         - lang: Java
           source: ''
@@ -4340,7 +4339,7 @@ paths:
                 message: Currently no key is enabled
       deprecated: false
       x-code-samples:
-        - lang: C#
+        - lang: 'C#'
           source: ''
         - lang: Java
           source: ''
@@ -4377,7 +4376,7 @@ paths:
                 message: This feature has not been enabled in your account.
       deprecated: false
       x-code-samples:
-        - lang: C#
+        - lang: 'C#'
           source: ''
         - lang: Java
           source: ''
