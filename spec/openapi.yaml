@@ -1284,10 +1284,21 @@ paths:
           If a source number is specified and no source number type is specified, the source number type will be
           inferred from the source number, however this may be inaccurate.
         
-        - ```source_number``` A source number can be specified for the message,
-        this will be the sender that appears on the handset.
-          Specifying a source number is optional and by default a source number will be assigned to the message. It’s strongly recommended to specify source_number if you have multiple 
-          numbers on your account, otherwise source address will be chosen randomly from your account’s number pool.
+        - ```source_number```[optional]  Specify a source number to be used.  Refer to the section below for more information on source numbers.  
+        ⚠️ The number or sender ID must be registered to your account (from 1-Mar-2024).
+        
+          #### Source number (sender ID)
+          
+          There are several options for the number or sender ID that will show as the source of an outbound message. Some things to note:
+            - If you do not specify a source number, the message will be sent with the default number for your account.
+              - The default may be a number you have purchased from us - such as a dedicated number, a 10-digit longcode or toll-free number (US/CA), or a shortcode. Log into the web portal to manage your numbers.
+              - If your account has multiple numbers, you can specify which source number to use in the request.
+              - If your account does not have a number, your message may be sent using our shared number pool (in certain countries only)
+            - `Alpha tag:` In some countries (AU, GB, some others), you may be able to send using an alpha tag - text that represents your brand of business.  Before using an alpha tag, you must register it in the Numbers section of the web portal.
+            - `Other numbers:` You may use numbers that you own as the source number, but you must register them in the Numbers section of the web portal to confirm  you have a right to use the number.
+          If you need to register a large number of source numbers/sender IDs, consider using our [Source Address API](https://messagemedia.github.io/documentation/#tag/Source-Address)
+          
+          ⚠️ If you specify a source_number that is not registered to your account, the message may fail to send, or may be sent with an alternative number.
 
         - ```media``` The media is used to specify a list of URLs of the media file(s) that you are trying to send. 
         Supported file formats include png, jpeg and gif. ```format``` parameter must be set to ```MMS``` for this to
