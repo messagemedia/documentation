@@ -252,6 +252,14 @@ tags:
   - name: Source Address
     description: |
       The Sender Address API provides a number of endpoints for you to request a Sender ID and gain real-time access to its approval status.
+      
+      **What is Trusted Sender ID?**
+
+      With regulations surrounding SMS becoming much stricter all over the world in an effect to combat scam SMS messages, MessageMedia is working on “Trusted Sender ID” a concept that allows customers to request a Sender ID and have it verified.
+
+      A Trusted Sender ID means this is a Sender ID that belongs to you across the MessageMedia platform and cannot be claimed by any other organization.
+
+      *Note: Trusted Sender IDs support number types, such as **'Alpha Tags'** and **'My Own Number'**. It will likely be extended to support additional number types, such as TFN and 10DLC where additional registration, (external) verification, and overall account whitelist of numbers will be required.*
   - name: Delivery Reports
     description: |
       If a callback URL is specified in the submit message request, then changes to the message status, 
@@ -1433,11 +1441,89 @@ paths:
         - Source Address
       summary: Request a sender address
       description: |
-        The most basic request has the following structure:
+        ## Sender address is an alpha tag
+        ### What is an Alpha Tag?
+          Sending messages from your brand name is particularly ideal for SMS marketing and two-factor authentication, as it increases recognition and trust. There are, however, a few considerations to be aware of. 
+        
+          Alpha tags are made up of 3-11 letters and/or numbers. Alpha tags must be registered and approved before sending, and must have clear relevancy to your business and/or use case.
+        
+          Alpha Tags appear as the From number when you receive messages.
+        
+        ### What is a good Alpha Tag? 
+        
+        Valid use cases include:
+        * Business names
+        * Trademark names    
+        * Product or service name
+        * an acronym, initialism, or contraction of your entity
+        
+        ### In addition to the new requirements around clearly relating to the business, we typically advise the following for alpha tags to ensure maximum compatibility with the various carriers:
+        * 6-11 characters long
+        * Only contains characters from the following sets:
+        * A-Z
+        * a-z
+        * 0-9
+        * _ (underscore)
+        * \- (hyphen)
+        
+        ## Sender address is my own number
+        Before you can send messages using a your own number (i.e. a non-dedicated nor rotary number), you need to verify that you have a right to use that number. Ensuring you have a right to use a phone number is an important ACMA regulatory requirement, aiming to prevent scam, spam and misuse of messaging services.
+        
+        If you do not wish to verify a number from within the web portal, or need to verify a large quantity of numbers, you can verify a number programmatically - via API.
+        
+        ### The process to verify a number via the API is:
+        1. (If you don’t have existing credentials) - Create Basic or HMAC credentials for the API by going to https://hub.messagemedia.com/api-settings
+        2. Submit a verification request with the number and destination country (usually AU) as per below. **Note**: *the verification is for the account associated with the API credentials only.*
+        3. A unique verification code will be sent to the number
+        4. Submit an approval request containing the verification code for that number. A 200 OK response will indicate the number has been verified and is ready for use.
+
+        ⚠️ Own numbers need to be re-verified every 12 months. You will be notified by email that verification of your number is about to expire.
+        
+        ## The most basic request has the following structure:
           - ```sender_address``` is case insensitive. When one already exists for this account, you get a error message ```conflict```;
           - ```destination_countries``` currently we only support ```AU``` and ```GB``` as the destination country;
-          - ```sender_address_type``` and ```usage_type``` must be ```ALPHANUMERIC```;
+          - `sender_address_type` and `usage_type` parameters are set to the following value pairs:
+            | Description   | `sender_address_type` | `usage_type`   |
+            |---            |---                    |---             |
+            | Alpha tag     | `ALPHANUMERIC`        | `ALPHANUMERIC` |
+            | My own number | `INTERNATIONAL`       | `OWN_NUMBER`   |
           - ```reason``` for requesting a sender address is required;
+            - when requesting my own number: provide your reason to use this number in a sentence. e.g. “This is my personal number”.
+            - when requesting an alpha tag: Comprehensive reasons must be supplied when requesting an alpha tag, in accordance with ACMA's compliance requirements. Please adhere to the prescribed structure when formulating the `reason` field in your API request.
+            
+            - `useCase`: one of the following:
+              - `SOLE_TRADER_NAME`
+              - `COMPANY_NAME`
+              - `PARTNERSHIP_NAME`
+              - `REGISTERED_TRUST_NAME`
+              - `CO_OPERATIVE_NAME`
+              - `INDIGENOUS_CORPORATION_NAME`
+              - `REGISTERED_ORGANISATION_NAME`
+              - `PERSONAL_NAME`
+              - `AUSTRALIAN_TRADEMARK`
+              - `INTERNATIONAL_TRADEMARK`
+              - `AUSTRALIAN_GOVERNMENT_AGENCY_OR_ENTITY`
+              - `FOREIGN_GOVERNMENT_AGENCY_OR_ENTITY`
+              - `PRODUCT_OR_SERVICE_NAME`
+              - `ACRONYM_INITIALISM`
+              - `CONTRACTION_OF_NAME`
+              - `OTHER`
+
+            - `description`: Description for selecting OTHER as the use case. Limited to 200 characters.
+
+            - `email`: The preferred contact email for our approval team when additional details are required.
+
+            - `australianGovernmentAgencyOrEntityName`: The name of the entity.
+
+            - `abn`: Australian business number
+
+            - `statement`: Legal declaration.
+              - If applying on behalf of a third-party entity: 
+        
+                "We are authorized to use the Sender ID on behalf of [full entity name of sender] with a valid use case."
+              - If applying for your own business:
+        
+                "We are authorized to use the Sender ID with a valid use case."
           - ```label``` name of the sender address.
       operationId: requestSenderAddressUsingPOST
       parameters: []
@@ -1446,15 +1532,37 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/RequestSenderAddress'
-            example:
-              sender_address: EXAMPLE
-              sender_address_type: ALPHANUMERIC
-              usage_type: ALPHANUMERIC
-              destination_countries:
-                - AU
-              reason: 'This is my reason'
-              label: label
+              oneOf:
+               - $ref: '#/components/schemas/RequestAlphaTag'
+               - $ref: '#/components/schemas/RequestVerificationCode'
+            examples:
+              example1:
+                summary: Example for RequestAlphaTag
+                value:
+                  sender_address: EXAMPLE
+                  sender_address_type: ALPHANUMERIC
+                  usage_type: ALPHANUMERIC
+                  destination_countries:
+                    - AU
+                  reason: >
+                    {
+                      "useCase":"AUSTRALIAN_GOVERNMENT_AGENCY_OR_ENTITY",
+                      "description":"bal bla",
+                      "email":"xample@email.com",
+                      "australianGovernmentAgencyOrEntityName":"bla bla",
+                      "statement":"We are authorised to use the Sender ID on behalf of [full entity name of sender] with a valid use case."
+                    }
+                  label: label
+              example2:
+                summary: Example for RequestVerificationCode
+                value:
+                  sender_address: "+61401234567"
+                  sender_address_type: INTERNATIONAL
+                  usage_type: OWN_NUMBER
+                  destination_countries:
+                    - AU
+                  reason: 'my personal number'
+                  label: label
         required: true
       responses:
         '201':
@@ -1463,7 +1571,45 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SenderAddressRequestItem'
+                oneOf:
+                  - $ref: '#/components/schemas/AlphaTagRequestItem'
+                  - $ref: '#/components/schemas/VerificationCodeRequestItem'
+              examples:
+                example1:
+                  summary: Example for AlphaTagRequest
+                  value:
+                    id: "6f79a12e-14f1-4776-adc0-5c5e48a999b7"
+                    sender_address: "EXAMPLE"
+                    sender_address_type: "ALPHANUMERIC"
+                    usage_type: "ALPHANUMERIC"
+                    destination_countries: [ "AU" ]
+                    reason: >
+                      {
+                        "useCase":"AUSTRALIAN_GOVERNMENT_AGENCY_OR_ENTITY",
+                        "description":"bal bla",
+                        "email":"xample@email.com",
+                        "australianGovernmentAgencyOrEntityName":"bla bla",
+                        "statement":"We are authorised to use the Sender ID on behalf of [full entity name of sender] with a valid use case."
+                      }
+                    label: "label"
+                    status: "OPEN"
+                    account_id: "XYZ_ExampleAccount"
+                    created_date: "2023-10-25T14:15:22Z"
+                    last_modified_date: "2023-10-25T14:15:22Z"
+                example2:
+                  summary: Example for VerificationCodeRequest
+                  value:
+                    id: '6f79a12e-14f1-4776-adc0-5c5e48a999b8'
+                    sender_address: '+61401234567'
+                    sender_address_type: 'INTERNATIONAL'
+                    usage_type: 'OWN_NUMBER'
+                    destination_countries: ['AU']
+                    reason: 'my personal number'
+                    label: 'label'
+                    status: 'PENDING'
+                    account_id: 'XYZ_ExampleAccount'
+                    created_date: '2023-10-24T14:15:22Z'
+                    last_modified_date: '2023-10-24T14:15:22Z'
         '400':
           description: Bad Request
         '401':
@@ -1472,6 +1618,58 @@ paths:
           description: Forbidden
         '409':
           description: Conflict
+  /v1/messaging/numbers/sender_address/requests/{id}/verify:
+    post:
+      security:
+        - basic_auth: [ ]
+        - hmac_auth: [ ]
+      tags:
+        - Source Address
+      summary: Submitting a verification code
+      operationId: SubmittingVerificationCodePost
+      parameters:
+        - name: id
+          in: path
+          description: '36 character UUID.'
+          required: true
+          style: simple
+          schema:
+            type: string
+      requestBody:
+        description: 'Verification code to be verified'
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostVerificationCode'
+        required: true
+      responses:
+        '201':
+          description: Created
+          headers: { }
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VerificationCodeRequestItem'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400response'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403response'
+        '404':
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404response'
   /v1/messaging/numbers/sender_address/requests/{id}:
     get:
       security:
@@ -1516,7 +1714,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SenderAddressRequestItem'
+                $ref: '#/components/schemas/AlphaTagRequestItem'
         '400':
           description: Bad request
           content:
@@ -1547,16 +1745,42 @@ paths:
       summary: Get all approved sender address
       operationId: GetAllApprovedSenderAddress
       description: |
-        Get a list of approved sender addresses for your account. 
-        ```sender_address_type: ALPHANUMERIC``` only
+        Get a list of approved sender addresses for your account.
       parameters:
-        - name: sender_address_type
+        - name: sender_address
           in: query
-          required: true
           schema:
             type: string
+          example: 'EXAMPLE'
+        - name: sender_address_type
+          in: query
+          schema:
+            type: string
+            enum:
+              - ALPHANUMERIC
+              - INTERNATIONAL
           description: type of sender address
           example: ALPHANUMERIC
+        - name: usage_type
+          in: query
+          schema:
+            type: string
+            enum:
+              - ALPHANUMERIC
+              - OWN_NUMBER
+              - DEDICATED
+          description: type of sender address
+          example: ALPHANUMERIC
+        - name: include_related_accounts
+          in: query
+          schema:
+            type: boolean
+          example: true
+        - name: page_size
+          in: query
+          schema:
+            type: integer
+            default: 20
         - name: token
           in: query
           description: In paginated data the original request will return with a "next_token" attribute. This token must be entered into subsequent call in the "token" query parameter to obtain the next set of records.
@@ -5721,8 +5945,8 @@ components:
           example: '+61491570156'
         vendor_account_id:
           $ref: '#/components/schemas/VendorAccountId'
-    RequestSenderAddress:
-      title: RequestSenderAddress
+    RequestAlphaTag:
+      title: RequestAlphaTag
       type: object
       required:
         - sender_address
@@ -5734,7 +5958,6 @@ components:
         sender_address:
           type: string
           description: The Sender Address to be requested
-          example: "EXAMPLE"
         sender_address_type:
           type: string
           enum:
@@ -5748,15 +5971,42 @@ components:
           description: list of 2-character ISO country codes
           items:
             type: string
-          example: ["AU"]
         reason:
           type: string
-          example: "This is my reason"
         label:
           type: string
-          example: "label"
-    SenderAddressRequestItem:
-      title: SenderAddressRequestItem
+    RequestVerificationCode:
+      title: RequestVerificationCode
+      type: object
+      required:
+        - sender_address
+        - sender_address_type
+        - usage_type
+        - destination_countries
+        - reason
+      properties:
+        sender_address:
+          type: string
+          description: The Own Number to be verified
+        sender_address_type:
+          type: string
+          enum:
+            - INTERNATIONAL
+        usage_type:
+          type: string
+          enum:
+            - OWN_NUMBER
+        destination_countries:
+          type: array
+          description: list of 2-character ISO country codes
+          items:
+            type: string
+        reason:
+          type: string
+        label:
+          type: string
+    AlphaTagRequestItem:
+      title: AlphaTagRequestItem
       type: object
       properties:
         id:
@@ -5766,7 +6016,7 @@ components:
           example: "6f79a12e-14f1-4776-adc0-5c5e48a999b7"
         sender_address:
           type: string
-          description: The Sender Address to be requested
+          description: The Alpha tag to be requested
           example: "EXAMPLE"
         sender_address_type:
           type: string
@@ -5806,6 +6056,66 @@ components:
         last_modified_date:
           type: string
           format: date-time
+    VerificationCodeRequestItem:
+      title: VerificationCodeRequestItem
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Primary ID of the record
+          example: "6f79a12e-14f1-4776-adc0-5c5e48a999b8"
+        sender_address:
+          type: string
+          description: The Own Number to be requested
+          example: "+61401234567"
+        sender_address_type:
+          type: string
+          description: The Sender Address Type
+          enum:
+            - INTERNATIONAL
+        usage_type:
+          type: string
+          description: The Sender Address Usage Type
+          enum:
+            - OWN_NUMBER
+        destination_countries:
+          type: array
+          description: list of 2-character ISO country codes this sender address applies to
+          items:
+            type: string
+          example: [ "AU" ]
+        reason:
+          type: string
+          example: "my personal number"
+        label:
+          type: string
+          example: "label"
+        status:
+          type: string
+          enum:
+            - PENDING
+            - REJECTED
+            - APPROVED
+        account_id:
+          type: string
+          example: "XYZ_ExampleAccount"
+        created_date:
+          type: string
+          format: date-time
+        last_modified_date:
+          type: string
+          format: date-time
+    PostVerificationCode:
+      type: object
+      title: PostVerificationCode
+      required:
+        - verification_code
+      properties:
+        verification_code:
+          type: string
+          description: Verify Sender Address Request
+          example: "123456"
     GetAllApprovedSenderAddress:
       title: GetAllApprovedSenderAddress
       type: object
