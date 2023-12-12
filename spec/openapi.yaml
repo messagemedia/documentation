@@ -1482,8 +1482,7 @@ paths:
         ## The most basic request has the following structure:
           - ```sender_address``` is case insensitive. When one already exists for this account, you get a error message ```conflict```;
           - ```destination_countries``` currently we only support ```AU``` and ```GB``` as the destination country;
-          - Ensure that the `sender_address_type` parameter is set to `ALPHANUMERIC` for alpha tags and `INTERNATIONAL` for my own number; 
-          - The `usage_type` for an alpha tag should be set to `ALPHANUMERIC` and `OWN_NUMBER` when requesting a my own number;
+          - `sender_address_type` and `usage_type` parameters are set to the following value pairs:
             | Description   | `sender_address_type` | `usage_type`   |
             |---            |---                    |---             |
             | Alpha tag     | `ALPHANUMERIC`        | `ALPHANUMERIC` |
