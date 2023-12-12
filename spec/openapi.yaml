@@ -1441,7 +1441,7 @@ paths:
         - Source Address
       summary: Request a sender address
       description: |
-        ## Sender address is alpha tag
+        ## Sender address is an alpha tag
         ### What is an Alpha Tag?
           Sending messages from your brand name is particularly ideal for SMS marketing and two-factor authentication, as it increases recognition and trust. There are, however, a few considerations to be aware of. 
         
@@ -1467,7 +1467,7 @@ paths:
         * \- (hyphen)
         
         ## Sender address is my own number
-        Before you can send messages using a your own number (i.e. a non-dedicated or rotary number), you need to verify that you have a right to use that number. Ensuring you have a right to use a phone number is an important ACMA regulatory requirement, aiming to prevent scam, spam and misuse of messaging services.
+        Before you can send messages using a your own number (i.e. a non-dedicated nor rotary number), you need to verify that you have a right to use that number. Ensuring you have a right to use a phone number is an important ACMA regulatory requirement, aiming to prevent scam, spam and misuse of messaging services.
         
         If you do not wish to verify a number from within the web portal, or need to verify a large quantity of numbers, you can verify a number programmatically - via API.
         
@@ -1475,7 +1475,7 @@ paths:
         1. (If you don’t have existing credentials) - Create Basic or HMAC credentials for the API by going to https://hub.messagemedia.com/api-settings
         2. Submit a verification request with the number and destination country (usually AU) as per below. **Note**: *the verification is for the account associated with the API credentials only.*
         3. A unique verification code will be sent to the number
-        4. Submit an approval request containing the verification code form that number. A 200 OK response will indicate the number has been verified and is ready for use.
+        4. Submit an approval request containing the verification code for that number. A 200 OK response will indicate the number has been verified and is ready for use.
 
         ⚠️ Own numbers need to be re-verified every 12 months. You will be notified by email that verification of your number is about to expire.
         
@@ -1484,8 +1484,12 @@ paths:
           - ```destination_countries``` currently we only support ```AU``` and ```GB``` as the destination country;
           - Ensure that the `sender_address_type` parameter is set to `ALPHANUMERIC` for alpha tags and `INTERNATIONAL` for my own number; 
           - The `usage_type` for an alpha tag should be set to `ALPHANUMERIC` and `OWN_NUMBER` when requesting a my own number;
+            | Description   | `sender_address_type` | `usage_type`   |
+            |---            |---                    |---             |
+            | Alpha tag     | `ALPHANUMERIC`        | `ALPHANUMERIC` |
+            | My own number | `INTERNATIONAL`       | `OWN_NUMBER`   |
           - ```reason``` for requesting a sender address is required;
-            - when requesting my own number: provide your reason to use this number in a sentence.e.g. “This is my personal number”.
+            - when requesting my own number: provide your reason to use this number in a sentence. e.g. “This is my personal number”.
             - when requesting an alpha tag: Comprehensive reasons must be supplied when requesting an alpha tag, in accordance with ACMA's compliance requirements. Please adhere to the prescribed structure when formulating the `reason` field in your API request.
             
             - `useCase`: one of the following:
@@ -1499,7 +1503,7 @@ paths:
               - `PERSONAL_NAME`
               - `AUSTRALIAN_TRADEMARK`
               - `INTERNATIONAL_TRADEMARK`
-              - `ASUTRALIAN_GOVERNMENT_AGENCY_OR_ENTITY`
+              - `AUSTRALIAN_GOVERNMENT_AGENCY_OR_ENTITY`
               - `FOREIGN_GOVERNMENT_AGENCY_OR_ENTITY`
               - `PRODUCT_OR_SERVICE_NAME`
               - `ACRONYM_INITIALISM`
@@ -1512,7 +1516,7 @@ paths:
 
             - `australianGovernmentAgencyOrEntityName`: The name of the entity.
 
-            - `abn`: Australia business number
+            - `abn`: Australian business number
 
             - `statement`: Legal declaration.
               - If applying on behalf of a third-party entity: 
