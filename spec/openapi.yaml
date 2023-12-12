@@ -1484,7 +1484,8 @@ paths:
           - ```destination_countries``` currently we only support ```AU``` and ```GB``` as the destination country;
           - ```sender_address_type``` and ```usage_type``` must be ```ALPHANUMERIC```and ```ALPHANUMERIC``` for alpha tag, ```INTERNATIONAL```and ```OWN_NUMBER``` for my own number;
           - ```reason``` for requesting a sender address is required;
-            - Comprehensive reasons must be supplied when requesting an alpha tag, in accordance with ACMA's compliance requirements. Please adhere to the prescribed structure when formulating the `reason` field in your API request.
+            - when requesting my own number: provide your reason to use this number in a sentence.e.g. “This is my personal number”.
+            - when requesting an alpha tag: Comprehensive reasons must be supplied when requesting an alpha tag, in accordance with ACMA's compliance requirements. Please adhere to the prescribed structure when formulating the `reason` field in your API request.
             
             - `useCase`: one of the following:
               - `SOLE_TRADER_NAME`
