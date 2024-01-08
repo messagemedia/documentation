@@ -1481,7 +1481,7 @@ paths:
         
         ## The most basic request has the following structure:
           - ```sender_address``` is case insensitive. When one already exists for this account, you get a error message ```conflict```;
-          - ```destination_countries``` currently we only support ```AU``` and ```GB``` as the destination country;
+          - ```destination_countries``` currently we only support ```AU```, ```AT```, ```HR```, ```CY```, ```EE```, ```FI```, ```DE```, ```IE```, ```IT```, ```LV```, ```LT```, ```LU```, ```MT```, ```NL```, ```PT```, ```SI```, ```ES```, ```CH```, ```SE```, ```DK```, ```NO``` and ```GB``` as the destination country;
           - `sender_address_type` and `usage_type` parameters are set to the following value pairs:
             | Description   | `sender_address_type` | `usage_type`   |
             |---            |---                    |---             |
