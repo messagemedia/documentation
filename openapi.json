@@ -24,7 +24,7 @@
     },
     {
       "name": "HMAC Authentication",
-      "description": "\nEvery request requires an `Authorization` header in the following formats:\nFor a request with a request body:\n```plain\nAuthorization: hmac username=\"<API KEY>\", algorithm=\"hmac-sha256\", headers  =\"Date Content-MD5 request-line\", signature=\"<SIGNATURE>\"\n```\n\nFor a request _without_ a request body:\n\n```plain\nAuthorization: hmac username=\"<API KEY>\", algorithm=\"hmac-sha256\", headers=\"Date request-line\", signature=\"<SIGNATURE>\"\n```\n### To create this header\n#### Step 1\nAdd a `Date` header to the request using the current date time in [RFC7231 Section 7.1.1.2](http://tools.ietf.org/html/rfc7231#section-7.1.1.2) format\n#### Step 2\nIf the request has a body, add a header called `Content-MD5` where the value of this header is an MD5 hash of the request body, otherwise this header is not required\n#### Step 3\nCreate a signing string by concatenating the `Date` header, the\n`Content-MD5` header (if set) and the request line with line breaks:\n```plain\nDate: Sat, 30 Jul 2016 05:13:23 GMT\\nContent-MD5: 10fd4feab20d38432480c07301e49616\\nPOST /v1/messages HTTP/1.1\n```\nor\n```plain\nDate: Sat, 30 Jul 2016 05:13:23 GMT\\nGET /v1/messages/404b941b-2a29-469f-b114-9ea3e16bbe18 HTTP/1.1\n```\n#### Step 4\nCreate a SHA256 HMAC hash using the signing string and the secret key (both converted to bytes using UTF-8) ```HMAC-SHA256(signing string, secret)```\n#### Step 5\nBase64 encode the HMAC hash and include it as the signature in the ```Authorization``` header\n### Example request with body\n```plain\nPOST /v1/messages HTTP/1.1\nHost: api.messagemedia.com\nAccept: application/json\nContent-Type: application/json\nDate: Sat, 30 Jul 2016 05:18:52 GMT\nAuthorization: hmac username=\"uCXUdoogNfCsehEClbO2\", algorithm=\"hmac-sha256\", headers=\"Date Content-MD5 request-line\", signature=\"Ia4G5lkhH/3NDYpix+8ZHUnp6bA=\"\nContent-MD5: 5407644fa83bec240dede971307e0cad\nContent-Length: 133\n{\n  \"messages\": [\n    {\n      \"content\": \"Hello World\",\n      \"destination_number\": \"+61491570156\",\n    \"format\": \"SMS\"\n    }\n  ]\n}\n```\n_Note: spaces are used as indentation in the body of the above request._\n### Example request without body\n```plain\nGET /v1/messages/404b941b-2a29-469f-b114-9ea3e16bbe18 HTTP/1.1\nHost: api.messagemedia.com\nAccept: application/json\nDate: Sat, 30 Jul 2016 05:18:52 GMT\nAuthorization: hmac username=\"uCXUdoogNfCsehEClbO2\", algorithm=\"hmac-sha256\", headers=\"Date request-line\", signature=\"NTUwMjUwNTVmZGYzZTIxODMyYjc1ZmM3M2EwZWQ1NzA3NzA4ZTZjNw==\" ```"
+      "description": "\nEvery request requires an `Authorization` header in the following formats:\nFor a request with a request body:\n```plain\nAuthorization: hmac username=\"<API KEY>\", algorithm=\"hmac-sha1\", headers  =\"Date Content-MD5 request-line\", signature=\"<SIGNATURE>\"\n```\n\nFor a request _without_ a request body:\n\n```plain\nAuthorization: hmac username=\"<API KEY>\", algorithm=\"hmac-sha1\", headers=\"Date request-line\", signature=\"<SIGNATURE>\"\n```\n### To create this header\n#### Step 1\nAdd a `Date` header to the request using the current date time in [RFC7231 Section 7.1.1.2](http://tools.ietf.org/html/rfc7231#section-7.1.1.2) format\n#### Step 2\nIf the request has a body, add a header called `Content-MD5` where the value of this header is an MD5 hash of the request body, otherwise this header is not required\n#### Step 3\nCreate a signing string by concatenating the `Date` header, the\n`Content-MD5` header (if set) and the request line with line breaks:\n```plain\nDate: Sat, 30 Jul 2016 05:13:23 GMT\\nContent-MD5: 10fd4feab20d38432480c07301e49616\\nPOST /v1/messages HTTP/1.1\n```\nor\n```plain\nDate: Sat, 30 Jul 2016 05:13:23 GMT\\nGET /v1/messages/404b941b-2a29-469f-b114-9ea3e16bbe18 HTTP/1.1\n```\n#### Step 4\nCreate a SHA1 HMAC hash using the signing string and the secret key (both converted to bytes using UTF-8) ```HMAC-SHA1(signing string, secret)```\n#### Step 5\nBase64 encode the HMAC hash and include it as the signature in the ```Authorization``` header\n### Example request with body\n```plain\nPOST /v1/messages HTTP/1.1\nHost: api.messagemedia.com\nAccept: application/json\nContent-Type: application/json\nDate: Sat, 30 Jul 2016 05:18:52 GMT\nAuthorization: hmac username=\"uCXUdoogNfCsehEClbO2\", algorithm=\"hmac-sha1\", headers=\"Date Content-MD5 request-line\", signature=\"Ia4G5lkhH/3NDYpix+8ZHUnp6bA=\"\nContent-MD5: 5407644fa83bec240dede971307e0cad\nContent-Length: 133\n{\n  \"messages\": [\n    {\n      \"content\": \"Hello World\",\n      \"destination_number\": \"+61491570156\",\n    \"format\": \"SMS\"\n    }\n  ]\n}\n```\n_Note: spaces are used as indentation in the body of the above request._\n### Example request without body\n```plain\nGET /v1/messages/404b941b-2a29-469f-b114-9ea3e16bbe18 HTTP/1.1\nHost: api.messagemedia.com\nAccept: application/json\nDate: Sat, 30 Jul 2016 05:18:52 GMT\nAuthorization: hmac username=\"uCXUdoogNfCsehEClbO2\", algorithm=\"hmac-sha1\", headers=\"Date request-line\", signature=\"NTUwMjUwNTVmZGYzZTIxODMyYjc1ZmM3M2EwZWQ1NzA3NzA4ZTZjNw==\" ```"
     },
     {
       "name": "Development Tools",
@@ -36,7 +36,7 @@
     },
     {
       "name": "Source Address",
-      "description": "The Sender Address API provides a number of endpoints for you to request a Sender ID and gain real-time access to its approval status.\n\n**What is Trusted Sender ID?**\n\nWith regulations surrounding SMS becoming much stricter all over the world in an effect to combat scam SMS messages, MessageMedia is working on “Trusted Sender ID” a concept that allows customers to request a Sender ID and have it verified.\n\nA Trusted Sender ID means this is a Sender ID that belongs to you across the MessageMedia platform and cannot be claimed by any other organization.\n\n*Note: Trusted Sender IDs support number types, such as **'Alpha Tags'** and **'My Own Number'**. It will likely be extended to support additional number types, such as TFN and 10DLC where additional registration, (external) verification, and overall account whitelist of numbers will be required.*\n"
+      "description": "The Sender Address API provides a number of endpoints for you to request a Sender ID and gain real-time access to its approval status.\n"
     },
     {
       "name": "Delivery Reports",
@@ -81,6 +81,10 @@
     {
       "name": "Mobile Landing Pages (beta)",
       "description": "The mobile landing pages (MLP) API provides the facilities to create mobile landing pages and sends them to recipients. This API is currently in beta.\n\n## Concepts\n\nThe approach to creating mobile landing pages involves creating a _Campaign_ and sending them to one or more _Recipients_.  A campaign consists of the baseline configuration of a mobile landing page and message that will be generated and sent to each recipient.\n\n## Parameters\n\nCampaign and Recipients can contain parameters.  These parameters are used to customise the generated landing page and the message that is to be sent to each user.  Campaign and Recipient parameters are merged to form a complete set when processing a recipient.\n\nWhen resolving parameters sets, Recipient parameters override Campaign parameters with the same name.\n\nParameter names used within the template have an associated type, which will be validated when creating the Campaign or sending it to Recipients.  You are free to define additional parameters for your own uses, such as when specifying the message.\n\nThe SMS message that is to be sent to each user is defined at the Campaign level. \n\nThe message itself can consist of parameter references surrounded in `${...}`, for example:\n\n```Hello ${firstName} ${lastName}, this is your message.```\n\n## Sending Mobile Landing Pages \n\nFrom end to end, sending a Mobile Landing Pages involves the following steps: \n\n### Step 1: Create a campaign\n\nChoose a template from the template catalogue, and work out what you are going to specify for the required parameters for that template. You will then use the `Create new campaign` endpoint to create the campaign. The following example \nspecifies the desired parameters for the template_id and sets up a message template:\n\n```\n{\n    \"template_id\": \"ac895f01-3149-4bf8-a8fe-01d3b8a9ba97\",\n    \"parameters\": {\n      \"pageTitle\": \"The page title\",\n      \"pageText\": \"The body text\",\n      \"imageUrl\": \"https://example.com/image.jpg\",\n      \"secondaryImageUrl\": \"https://www.example.com/optional_secondary_image.jpg\",\n      \"buttonLink\": \"https://example.com/\",\n      \"buttonText\": \"Call to Action Button Text\",\n      \"secondaryButtonLink\": \"https://example.com/optional_secondary_button\",\n      \"secondaryButtonText\": \"Secondary Call to Action Button\"\n    },\n    \"message\": {\n      \"content\": \"Hello ${firstName} ${lastName}, this is the SMS message body\",\n      \"metadata\": {\n        \"key\": \"value\"\n      }\n    }\n}\n```\n\nInside the message content the `{}` curly braces indicate template placeholders. These are the names of the parameters you will need to specify for the message when you send to your recipients.\n\n### Step 2: Send to recipients\n\nUsing the `Send campaign to recipients` endpoint, you can specify the id of your campaign in the path and a array of recipients as the payload. Each recipient will include an E.164 formatted \n(international) phone number, an optional scheduled time, and values of any recipient scoped template parameters you may have created. In the following example the recipients have been scoped with the template parameters above: \n\n```\n{\n  \"recipients\": [\n    {\n      \"number\": \"+6140000000\",\n      \"parameters\": { \"firstName\":\"Joe\", \"lastName\",\"Bloe\" }\n    },\n    {\n      \"number\": \"+6141111111\",\n      \"parameters\": { \"firstName\":\"Jane\", \"lastName\",\"Doe\" }\n    }\n  ]\n}\n```\n\n## Landing Page Store\n\nThe Landing Page Store is used by the Hub portal to store landing page templates that have been configured using the visual interface. This means that you can \noptionally use this data store to programatically send landing pages that have been designed and configured in the hub.\n\nIf you have made a landing page in the hub, use the `Get landing pages` endpoint to find the landing pages you have made, along with the template and parameters that have been configured. \nYou will then need to copy those template and parameters into a campaign. \n\n## Template Parameters\n\nEach template will have different required parameters, shown in the Templates section. The following is a description of the requirements of each parameter when included in a template.\n\n| Parameter | Required | Tyep|Description |\n|------------------|-------------|-----------|-----------|\n| imageBackgroundUrl | Optional - depends on MLP template. |image| Width: 750 pixels, height: 1624 pixels, size: less than 300 kB, type: png, gif, or jpg|\n| barcodeValue | Optional - depends on MLP template. |text| Alphanumeric string. We will use CODE-128 format 1-D barcode. |\n| barcodeDisplayValue | Optional - defaults to true. Otherwise, use false |text| Indicates whether the barcode value is shown below the barcode image|\n| barcodeHeight| Optional| text||\n| barcodeMargin| Optional| text||\n| barcodeWidth| Optional| text||\n| barcodeLineColor|Optional - each template has it's own default value| text|  Indicate the color of bar code. Use a color name(eg. 'red', 'green'), or a hex value(eg. '#F0F8FF') |\n| pageText | |html| For personalisation, use the following format: “Hi ${firstName}, thanks for visiting…”|\n| pageTextColor|Optional - each template has it's own default value| text|  Indicate the color of page text. Use a color name(eg. 'red', 'green'), or a hex value(eg. '#F0F8FF') |\n| imageHeaderUrl | Optional - depends on MLP template |image| Width: 750 pixels, height: 375 pixels, size: less than 300 kB, type: png, gif, or jpg.|\n| headline | |text| For personalisation, use the following format: “Hi ${firstName}, thanks for visiting…”. Specifications: 60 characters or less recommended|\n| headlineColor|Optional - each template has it's own default value| text|  Indicate the color of headline. Use a color name(eg. 'red', 'green'), or a hex value(eg. '#F0F8FF') |\n| pageTitle | |text| HTML page title shown on browser tab. Specifications: 60 characters or less recommended.|\n| imageLogoUrl |Optional |image| Specifications: width: 300 pixels, height: 120 pixels, size: less than 300 kB, type: png, gif, or jpg|\n| logoLink | Optional|url| For personalisation, use the following format: “https://example.com/?cid=${customerId}”|\n| primaryButtonLink | |url| For personalisation, use the following format: “https://example.com/?cid=${customerId}”|\n| primaryButtonText | |text| For personalisation, use the following format: “${firstName}, shop now”. Specifications: 36 characters or less recommended |\n| primaryButtonTextColor|Optional - each template has it's own default value| text|  Indicate the color of primary button text. Use a color name(eg. 'red', 'green'), or a hex value(eg. '#F0F8FF') |\n| primaryButtonBackgroundColor|Optional - each template has it's own default value| text|  Indicate the background color of primary button. Use a color name(eg. 'red', 'green'), or a hex value(eg. '#F0F8FF') |\n| secondaryButtonLink | Optional - depends on MLP template |url| For personalisation, use the following format: “https://example.com/?cid=${customerId}”|\n| secondaryButtonText | Optional - depends on MLP template |text| For personalisation, use the following format: “Hi ${firstName}, thanks for visiting…”. Specifications: 36 characters or less recommended |\n| secondaryButtonTextColor|Optional - each template has it's own default value| text|  Indicate the color of the secondary button text. Use a color name(eg. 'red', 'green'), or a hex value(eg. '#F0F8FF') |\n| secondaryButtonBackgroundColor|Optional - each template has it's own default value| text|  Indicate the background color of secondary button. Use a color name(eg. 'red', 'green'), or a hex value(eg. '#F0F8FF') |\n| fontFamilyURL1 | Optional - each template has it's own default value|url| Indicate the url of font family, those font family can be used in other property(eg. `headlineFontFamily`)|\n| fontFamilyURL2 | Optional - each template has it's own default value|url| Indicate the url of font family, those font family can be used in other property(eg. `headlineFontFamily`)|\n| fontFamilyURL3 | Optional - each template has it's own default value|url| Indicate the url of font family, those font family can be used in other property(eg. `headlineFontFamily`)|\n| pageTextFontFamily | |text| Specify the font family of page text |\n| headlineFontFamily | |text| Specify the font family of headline text |\n| buttonFontFamily | |text| Specify the font family of button text |\n\n## Template Catalogue\n\n| Name and preview | Template ID |\n|-------------------|-------------|\n| ![](Https://developers.messagemedia.com/wp-content/templates/Template1.png) | 7614456e-844f-4d83-bdfe-20c17ce0f97c |\n| ![](Https://developers.messagemedia.com/wp-content/templates/Template2.png) | f56b5806-f732-4693-b87a-90b66a7d7bfc |\n|![](Https://developers.messagemedia.com/wp-content/templates/template3.png) | c9d7ce1d-20c4-4228-9ba1-6da2a3b4e5e0 |\n"
+    },
+    {
+      "name": "LEGACY V1 Reports",
+      "description": "The MessageMedia Reports API provides a number of endpoints for running reports of messages sent and received using Messages API.  Reports can be detailed, a list of all messages and details of each message, or summary reports, which can be aggregated on a number of dimensions."
     }
   ],
   "servers": [
@@ -517,7 +521,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/updatescheduleddetailreport"
+                "$ref": "#/components/schemas/scheduleddetailreport"
               }
             }
           },
@@ -529,7 +533,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/scheduleddetailreportresponse"
+                  "$ref": "#/components/schemas/scheduleddetailreport"
                 }
               }
             }
@@ -614,7 +618,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/updatescheduledsummaryreport"
+                "$ref": "#/components/schemas/scheduledsummaryreport"
               }
             }
           },
@@ -626,7 +630,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/scheduledsummaryreportresposne"
+                  "$ref": "#/components/schemas/scheduledsummaryreport"
                 }
               }
             }
@@ -842,27 +846,27 @@
         "x-code-samples": [
           {
             "lang": "C#",
-            "source": "string messageId = \"messageId2\";\n\ntry \n{\n    GetMessageStatusResponse result = messages.GetMessageStatusAsync(messageId).Result;\n}\ncatch (APIException e){};"
+            "source": "string messageId = \"messageId2\";\r\n\r\ntry \r\n{\r\n    GetMessageStatusResponse result = messages.GetMessageStatusAsync(messageId).Result;\r\n}\r\ncatch (APIException e){};"
           },
           {
             "lang": "Java",
-            "source": "String messageId = \"messageId2\";\n\nmessagesController.getMessageStatusAsync(messageId, new APICallBack<GetMessageStatusResponse>() {\n    public void onSuccess(HttpContext context, GetMessageStatusResponse response) {\n        // TODO success callback handler\n    }\n    public void onFailure(HttpContext context, Throwable error) {\n        // TODO failure callback handler\n    }\n});"
+            "source": "String messageId = \"messageId2\";\r\n\r\nmessagesController.getMessageStatusAsync(messageId, new APICallBack<GetMessageStatusResponse>() {\r\n    public void onSuccess(HttpContext context, GetMessageStatusResponse response) {\r\n        // TODO success callback handler\r\n    }\r\n    public void onFailure(HttpContext context, Throwable error) {\r\n        // TODO failure callback handler\r\n    }\r\n});"
           },
           {
             "lang": "JavaScript",
-            "source": "let messageId = 'messageId2';\n\nconst promise = controller.getMessageStatus(messageId);\npromise.then((response) => {\n    // this block will be executed on successful endpoint call\n    // `response` will be of type 'GetMessageStatusResponse'\n}, (err) => {\n    // this block will be executed on endpoint call failure\n    // `err` is an 'object' containing more information about the error\n});"
+            "source": "let messageId = 'messageId2';\r\n\r\nconst promise = controller.getMessageStatus(messageId);\r\npromise.then((response) => {\r\n    // this block will be executed on successful endpoint call\r\n    // `response` will be of type 'GetMessageStatusResponse'\r\n}, (err) => {\r\n    // this block will be executed on endpoint call failure\r\n    // `err` is an 'object' containing more information about the error\r\n});"
           },
           {
             "lang": "PHP",
-            "source": "$messageId = 'messageId2';\n\n$result = $messagesController->getMessageStatus($messageId);"
+            "source": "$messageId = 'messageId2';\r\n\r\n$result = $messagesController->getMessageStatus($messageId);"
           },
           {
             "lang": "Python",
-            "source": "message_id = 'messageId2'\n\nresult = messages_controller.get_message_status(message_id)"
+            "source": "message_id = 'messageId2'\r\n\r\nresult = messages_controller.get_message_status(message_id)"
           },
           {
             "lang": "Ruby",
-            "source": "string messageId = \"messageId2\";\n\ntry \n{\n    GetMessageStatusResponse result = messages.GetMessageStatusAsync(messageId).Result;\n}\ncatch (APIException e){};"
+            "source": "string messageId = \"messageId2\";\r\n\r\ntry \r\n{\r\n    GetMessageStatusResponse result = messages.GetMessageStatusAsync(messageId).Result;\r\n}\r\ncatch (APIException e){};"
           }
         ]
       },
@@ -946,27 +950,27 @@
         "x-code-samples": [
           {
             "lang": "C#",
-            "source": "string messageId = \"messageId2\";\nCancelScheduledMessageRequest body = new CancelScheduledMessageRequest();\nbody.Status = \"cancelled\";\n\ntry \n{\n    dynamic result = messages.CancelScheduledMessageAsync(messageId, body).Result;\n}\ncatch (APIException e){};"
+            "source": "string messageId = \"messageId2\";\r\nCancelScheduledMessageRequest body = new CancelScheduledMessageRequest();\r\nbody.Status = \"cancelled\";\r\n\r\ntry \r\n{\r\n    dynamic result = messages.CancelScheduledMessageAsync(messageId, body).Result;\r\n}\r\ncatch (APIException e){};"
           },
           {
             "lang": "Java",
-            "source": "String messageId = \"messageId2\";\nCancelScheduledMessageRequest body = new CancelScheduledMessageRequest();\nbody.setStatus(\"cancelled\");\n\nmessagesController.cancelScheduledMessageAsync(messageId, body, new APICallBack<DynamicResponse>() {\n    public void onSuccess(HttpContext context, DynamicResponse response) {\n        // TODO success callback handler\n    }\n    public void onFailure(HttpContext context, Throwable error) {\n        // TODO failure callback handler\n    }\n});"
+            "source": "String messageId = \"messageId2\";\r\nCancelScheduledMessageRequest body = new CancelScheduledMessageRequest();\r\nbody.setStatus(\"cancelled\");\r\n\r\nmessagesController.cancelScheduledMessageAsync(messageId, body, new APICallBack<DynamicResponse>() {\r\n    public void onSuccess(HttpContext context, DynamicResponse response) {\r\n        // TODO success callback handler\r\n    }\r\n    public void onFailure(HttpContext context, Throwable error) {\r\n        // TODO failure callback handler\r\n    }\r\n});"
           },
           {
             "lang": "JavaScript",
-            "source": "let messageId = 'messageId2';\nlet body = new lib.CancelScheduledMessageRequest();\nbody.status = 'cancelled';\n\nconst promise = controller.cancelScheduledMessage(messageId, body);\npromise.then((response) => {\n    // this block will be executed on successful endpoint call\n    // `response` will be of type 'mixed'\n}, (err) => {\n    // this block will be executed on endpoint call failure\n    // `err` is an 'object' containing more information about the error\n});"
+            "source": "let messageId = 'messageId2';\r\nlet body = new lib.CancelScheduledMessageRequest();\r\nbody.status = 'cancelled';\r\n\r\nconst promise = controller.cancelScheduledMessage(messageId, body);\r\npromise.then((response) => {\r\n    // this block will be executed on successful endpoint call\r\n    // `response` will be of type 'mixed'\r\n}, (err) => {\r\n    // this block will be executed on endpoint call failure\r\n    // `err` is an 'object' containing more information about the error\r\n});"
           },
           {
             "lang": "PHP",
-            "source": "$messageId = 'messageId2';\n$body = new Models\\CancelScheduledMessageRequest;\n$body->status = 'cancelled';\n\n$result = $messagesController->cancelScheduledMessage($messageId, $body);"
+            "source": "$messageId = 'messageId2';\r\n$body = new Models\\CancelScheduledMessageRequest;\r\n$body->status = 'cancelled';\r\n\r\n$result = $messagesController->cancelScheduledMessage($messageId, $body);"
           },
           {
             "lang": "Python",
-            "source": "message_id = 'messageId2'\nbody = CancelScheduledMessageRequest()\nbody.status = 'cancelled'\n\nresult = messages_controller.cancel_scheduled_message(message_id, body)"
+            "source": "message_id = 'messageId2'\r\nbody = CancelScheduledMessageRequest()\r\nbody.status = 'cancelled'\r\n\r\nresult = messages_controller.cancel_scheduled_message(message_id, body)"
           },
           {
             "lang": "Ruby",
-            "source": "string messageId = \"messageId2\";\nCancelScheduledMessageRequest body = new CancelScheduledMessageRequest();\nbody.Status = \"cancelled\";\n\ntry \n{\n    dynamic result = messages.CancelScheduledMessageAsync(messageId, body).Result;\n}\ncatch (APIException e){};"
+            "source": "string messageId = \"messageId2\";\r\nCancelScheduledMessageRequest body = new CancelScheduledMessageRequest();\r\nbody.Status = \"cancelled\";\r\n\r\ntry \r\n{\r\n    dynamic result = messages.CancelScheduledMessageAsync(messageId, body).Result;\r\n}\r\ncatch (APIException e){};"
           }
         ]
       }
@@ -985,7 +989,7 @@
           "Messages"
         ],
         "summary": "Send messages",
-        "description": "Submit one or more (up to 100 per request) SMS, MMS or text to voice\nmessages for delivery.\n\nThe most basic message has the following structure:\n\n```json\n\n{\n    \"messages\": [\n        {\n            \"content\": \"My first message!\",\n            \"destination_number\": \"+61491570156\"\n        }\n    ]\n}\n\n```\n\nMore advanced delivery features can be specified by setting the\nfollowing properties in a message:\n\n- ```callback_url``` A URL can be included with each message to which\nWebhooks will be pushed to via a HTTP POST request. Webhooks will be sent if and when the status of the message changes as it is processed (if the delivery report property of the request is set to ```true```) and when replies are received. Specifying a callback URL is optional.\n\n- ```content``` The content of the message. This can be a Unicode string, up to 5,000 characters long.\n  Message content is required.\n\n- ```delivery_report``` Delivery reports can be requested with each\nmessage. If delivery reports are requested, a webhook will be submitted to the ```callback_url``` property specified for the message (or to the webhooks)\n  specified for the account every time the status of the message changes as it is processed. The\n  current status of the message can also be retrieved via the Delivery Reports endpoint of the\n  Messages API. Delivery reports are optional and by default will not be requested.\n\n- ```destination_number``` The destination number the message should be\ndelivered to. This should be specified in E.164\n  international format. For information on E.164, please refer to http://en.wikipedia.org/wiki/E.164.\n  A destination number is required.\n\n- ```format``` The format specifies which format the message will be\nsent as, ```SMS``` (text message), ```MMS``` (multimedia message)\n  or ```TTS``` (text to speech). With ```TTS``` format, we will call the destination number and read out the\n  message using a computer generated voice. Specifying a format is optional, by default ```SMS``` will be used.\n\n- ```source_number_type``` If a source number is specified, the type of\nsource number may also be\n  specified. This is recommended when using a source address type that is not an internationally\n  formatted number, available options are ```INTERNATIONAL```, ```ALPHANUMERIC``` or ```SHORTCODE```. Specifying a\n  source number type is only valid when the ```source_number``` parameter is specified and is optional.\n  If a source number is specified and no source number type is specified, the source number type will be\n  inferred from the source number, however this may be inaccurate.\n\n- ```source_number```[optional]  Specify a source number to be used.  Refer to the section below for more information on source numbers.  \n⚠️ The number or sender ID must be registered to your account (from 1-Mar-2024).\n\n  #### Source number (sender ID)\n  \n  There are several options for the number or sender ID that will show as the source of an outbound message. Some things to note:\n    - If you do not specify a source number, the message will be sent with the default number for your account.\n      - The default may be a number you have purchased from us - such as a dedicated number, a 10-digit longcode or toll-free number (US/CA), or a shortcode. Log into the web portal to manage your numbers.\n      - If your account has multiple numbers, you can specify which source number to use in the request.\n      - If your account does not have a number, your message may be sent using our shared number pool (in certain countries only)\n    - `Alpha tag:` In some countries (AU, GB, some others), you may be able to send using an alpha tag - text that represents your brand of business.  Before using an alpha tag, you must register it in the Numbers section of the web portal.\n    - `Other numbers:` You may use numbers that you own as the source number, but you must register them in the Numbers section of the web portal to confirm  you have a right to use the number.\n  If you need to register a large number of source numbers/sender IDs, consider using our [Source Address API](https://messagemedia.github.io/documentation/#tag/Source-Address)\n  \n  ⚠️ If you specify a source_number that is not registered to your account, the message may fail to send, or may be sent with an alternative number.\n\n- ```media``` The media is used to specify a list of URLs of the media file(s) that you are trying to send. \nSupported file formats include png, jpeg and gif. ```format``` parameter must be set to ```MMS``` for this to\nwork.\n\n- ```subject``` The subject field is used to denote subject of the MMS\nmessage and has a maximum size of 64 characters long. Specifying a\nsubject is optional.\n\n- ```scheduled``` A message can be scheduled for delivery in the future\nby setting the scheduled property.\n  The scheduled property expects a date time specified in ISO 8601 format. The scheduled time must be\n  provided in UTC and is optional. If no scheduled property is set, the message will be delivered immediately.\n\n- ```message_expiry_timestamp``` A message expiry timestamp can be\nprovided to specify the latest time\n  at which the message should be delivered. If the message cannot be delivered before the specified\n  message expiry timestamp elapses, the message will be discarded. Specifying a message expiry \n  timestamp is optional.\n\n- ```metadata``` Metadata can be included with the message which will\nthen be included with any delivery\n  reports or replies matched to the message. This can be used to create powerful two-way messaging\n  applications without having to store persistent data in the application. Up to 10 key / value metadata data\n  pairs can be specified in a message. Each key can be up to 100 characters long, and each value up to \n  256 characters long. Specifying metadata for a message is optional.\n\nThe response body of a successful POST request to the messages endpoint\nwill include a ```messages``` property which contains a list of all messages submitted. The list of\nmessages submitted will reflect the list of messages included in the request, but each message\nwill also contain two new properties, ```message_id``` and ```status```. The returned message ID\nwill be a 36 character UUID which can be used to check the status of the message via the Get Message\nStatus endpoint. The status of the message which reflect the status of the message at submission\ntime which will always be ```queued```. See the Delivery Reports section of this documentation for\nmore information on message statues.\n\n### Sending from sub-accounts\n\nUsing API keys at the parent account level, you can send messages on behalf of a sub-account. To do this\ninclude a header key ```Account``` with the sub-account ID as the value. For example:\n```Account: mySubAccount```\n\n**Example request with Sending from sub-accounts**\n\n```plain\nPOST /v1/messages HTTP/1.1\nHost: api.messagemedia.com\nAccept: application/json\nContent-Type: application/json\nAuthorization: Basic dGhpc2lzYWtleTp0aGlzaXNhc2VjcmV0Zm9ybW1iYXNpY2F1dGhyZXN0YXBp\nAccount: SubAccount\n{\n  \"messages\": [\n    {\n      \"content\": \"Hello World\",\n      \"destination_number\": \"+61491570156\",\n      “delivery_report”: true\n    }\n  ]\n} \n```\n*Note: when sending multiple messages in a request, all messages must be valid for the request \nto be successful. If any messages in the request are invalid, no messages will be sent.*\n",
+        "description": "Submit one or more (up to 100 per request) SMS, MMS or text to voice\nmessages for delivery.\n\nThe most basic message has the following structure:\n\n```json\n\n{\n    \"messages\": [\n        {\n            \"content\": \"My first message!\",\n            \"destination_number\": \"+61491570156\"\n        }\n    ]\n}\n\n```\n\nMore advanced delivery features can be specified by setting the\nfollowing properties in a message:\n\n- ```callback_url``` A URL can be included with each message to which\nWebhooks will be pushed to via a HTTP POST request. Webhooks will be sent if and when the status of the message changes as it is processed (if the delivery report property of the request is set to ```true```) and when replies are received. Specifying a callback URL is optional.\n\n- ```content``` The content of the message. This can be a Unicode string, up to 5,000 characters long.\n  Message content is required.\n\n- ```delivery_report``` Delivery reports can be requested with each\nmessage. If delivery reports are requested, a webhook will be submitted to the ```callback_url``` property specified for the message (or to the webhooks)\n  specified for the account every time the status of the message changes as it is processed. The\n  current status of the message can also be retrieved via the Delivery Reports endpoint of the\n  Messages API. Delivery reports are optional and by default will not be requested.\n\n- ```destination_number``` The destination number the message should be\ndelivered to. This should be specified in E.164\n  international format. For information on E.164, please refer to http://en.wikipedia.org/wiki/E.164.\n  A destination number is required.\n\n- ```format``` The format specifies which format the message will be\nsent as, ```SMS``` (text message), ```MMS``` (multimedia message)\n  or ```TTS``` (text to speech). With ```TTS``` format, we will call the destination number and read out the\n  message using a computer generated voice. Specifying a format is optional, by default ```SMS``` will be used.\n\n- ```source_number``` A source number may be specified for the message,\nthis will be the number that\n  the message appears from on the handset. By default this feature is _not_ available and will be ignored\n  in the request. Please click <a href=\"https://messagemedia.com/au/feature/alpha-tag\" target=\"_blank\">here</a> for more information. Specifying a source\n  number is optional and a by default a source number will be assigned to the message.\n\n- ```media``` The media is used to specify a list of URLs of the media file(s) that you are trying to send. \nSupported file formats include png, jpeg and gif. ```format``` parameter must be set to ```MMS``` for this to\nwork.\n\n- ```subject``` The subject field is used to denote subject of the MMS\nmessage and has a maximum size of 64 characters long. Specifying a\nsubject is optional.\n\n- ```source_number_type``` If a source number is specified, the type of\nsource number may also be\n  specified. This is recommended when using a source address type that is not an internationally\n  formatted number, available options are ```INTERNATIONAL```, ```ALPHANUMERIC``` or ```SHORTCODE```. Specifying a\n  source number type is only valid when the ```source_number``` parameter is specified and is optional.\n  If a source number is specified and no source number type is specified, the source number type will be\n  inferred from the source number, however this may be inaccurate.\n\n- ```scheduled``` A message can be scheduled for delivery in the future\nby setting the scheduled property.\n  The scheduled property expects a date time specified in ISO 8601 format. The scheduled time must be\n  provided in UTC and is optional. If no scheduled property is set, the message will be delivered immediately.\n\n- ```message_expiry_timestamp``` A message expiry timestamp can be\nprovided to specify the latest time\n  at which the message should be delivered. If the message cannot be delivered before the specified\n  message expiry timestamp elapses, the message will be discarded. Specifying a message expiry \n  timestamp is optional.\n\n- ```metadata``` Metadata can be included with the message which will\nthen be included with any delivery\n  reports or replies matched to the message. This can be used to create powerful two-way messaging\n  applications without having to store persistent data in the application. Up to 10 key / value metadata data\n  pairs can be specified in a message. Each key can be up to 100 characters long, and each value up to \n  256 characters long. Specifying metadata for a message is optional.\n\nThe response body of a successful POST request to the messages endpoint\nwill include a ```messages``` property which contains a list of all messages submitted. The list of\nmessages submitted will reflect the list of messages included in the request, but each message\nwill also contain two new properties, ```message_id``` and ```status```. The returned message ID\nwill be a 36 character UUID which can be used to check the status of the message via the Get Message\nStatus endpoint. The status of the message which reflect the status of the message at submission\ntime which will always be ```queued```. See the Delivery Reports section of this documentation for\nmore information on message statues.\n\n### Sending from sub-accounts\n\nUsing API keys at the parent account level, you can send messages on behalf of a sub-account. To do this\ninclude a header key ```Account``` with the sub-account ID as the value. For example:\n```Account: mySubAccount```\n\n**Example request with Sending from sub-accounts**\n\n```plain\nPOST /v1/messages HTTP/1.1\nHost: api.messagemedia.com\nAccept: application/json\nContent-Type: application/json\nAuthorization: Basic dGhpc2lzYWtleTp0aGlzaXNhc2VjcmV0Zm9ybW1iYXNpY2F1dGhyZXN0YXBp\nAccount: SubAccount\n{\n  \"messages\": [\n    {\n      \"content\": \"Hello World\",\n      \"destination_number\": \"+61491570156\",\n      “delivery_report”: true\n    }\n  ]\n} \n```\n*Note: when sending multiple messages in a request, all messages must be valid for the request \nto be successful. If any messages in the request are invalid, no messages will be sent.*\n",
         "operationId": "SendMessages",
         "parameters": [],
         "requestBody": {
@@ -1077,46 +1081,38 @@
         "x-code-samples": [
           {
             "lang": "C#",
-            "source": "SendMessagesRequest body = new SendMessagesRequest();\nbody.Messages = new List<Message>();\n\nMessage body_messages_0 = new Message();\nbody_messages_0.CallbackUrl = \"https://my.callback.url.com\";\nbody_messages_0.Content = \"My first message\";\nbody_messages_0.DestinationNumber = \"+61491570156\";\nbody_messages_0.DeliveryReport = true;\nbody_messages_0.Format = Format.SMS;\nbody_messages_0.MessageExpiryTimestamp = DateTime.Parse(\"2016-11-03T11:49:02.807Z\");\nbody_messages_0.Metadata = APIHelper.JsonDeserialize<Object>(\"{\\\"key1\\\":\\\"value1\\\",\\\"key2\\\":\\\"value2\\\"}\");\nbody_messages_0.Scheduled = DateTime.Parse(\"2016-11-03T11:49:02.807Z\");\nbody_messages_0.SourceNumber = \"+61491570157\";\nbody_messages_0.SourceNumberType = SourceNumberType.INTERNATIONAL;\nbody.Messages.Add(body_messages_0);\n\nMessage body_messages_1 = new Message();\nbody_messages_1.CallbackUrl = \"https://my.callback.url.com\";\nbody_messages_1.Content = \"My second message\";\nbody_messages_1.DestinationNumber = \"+61491570158\";\nbody_messages_1.DeliveryReport = true;\nbody_messages_1.Format = Format.MMS;\nbody_messages_1.MessageExpiryTimestamp = DateTime.Parse(\"2016-11-03T11:49:02.807Z\");\nbody_messages_1.Metadata = APIHelper.JsonDeserialize<Object>(\"{\\\"key1\\\":\\\"value1\\\",\\\"key2\\\":\\\"value2\\\"}\");\nbody_messages_1.Scheduled = DateTime.Parse(\"2016-11-03T11:49:02.807Z\");\nbody_messages_1.SourceNumber = \"+61491570159\";\nbody_messages_1.SourceNumberType = SourceNumberType.INTERNATIONAL;\nbody_messages_1.Media = new List<string>();\nbody_messages_1.Media.Add(\"https://images.pexels.com/photos/1018350/pexels-photo-1018350.jpeg?cs=srgb&dl=architecture-buildings-city-1018350.jpg\");\nbody_messages_1.Subject = \"This is an MMS message\";\nbody.Messages.Add(body_messages_1);\n\n\ntry \n{\n    SendMessagesResponse result = messages.SendMessagesAsync(body).Result;\n}\ncatch (APIException e){};"
+            "source": "SendMessagesRequest body = new SendMessagesRequest();\r\nbody.Messages = new List<Message>();\r\n\r\nMessage body_messages_0 = new Message();\r\nbody_messages_0.CallbackUrl = \"https://my.callback.url.com\";\r\nbody_messages_0.Content = \"My first message\";\r\nbody_messages_0.DestinationNumber = \"+61491570156\";\r\nbody_messages_0.DeliveryReport = true;\r\nbody_messages_0.Format = Format.SMS;\r\nbody_messages_0.MessageExpiryTimestamp = DateTime.Parse(\"2016-11-03T11:49:02.807Z\");\r\nbody_messages_0.Metadata = APIHelper.JsonDeserialize<Object>(\"{\\\"key1\\\":\\\"value1\\\",\\\"key2\\\":\\\"value2\\\"}\");\r\nbody_messages_0.Scheduled = DateTime.Parse(\"2016-11-03T11:49:02.807Z\");\r\nbody_messages_0.SourceNumber = \"+61491570157\";\r\nbody_messages_0.SourceNumberType = SourceNumberType.INTERNATIONAL;\r\nbody.Messages.Add(body_messages_0);\r\n\r\nMessage body_messages_1 = new Message();\r\nbody_messages_1.CallbackUrl = \"https://my.callback.url.com\";\r\nbody_messages_1.Content = \"My second message\";\r\nbody_messages_1.DestinationNumber = \"+61491570158\";\r\nbody_messages_1.DeliveryReport = true;\r\nbody_messages_1.Format = Format.MMS;\r\nbody_messages_1.MessageExpiryTimestamp = DateTime.Parse(\"2016-11-03T11:49:02.807Z\");\r\nbody_messages_1.Metadata = APIHelper.JsonDeserialize<Object>(\"{\\\"key1\\\":\\\"value1\\\",\\\"key2\\\":\\\"value2\\\"}\");\r\nbody_messages_1.Scheduled = DateTime.Parse(\"2016-11-03T11:49:02.807Z\");\r\nbody_messages_1.SourceNumber = \"+61491570159\";\r\nbody_messages_1.SourceNumberType = SourceNumberType.INTERNATIONAL;\r\nbody_messages_1.Media = new List<string>();\r\nbody_messages_1.Media.Add(\"https://images.pexels.com/photos/1018350/pexels-photo-1018350.jpeg?cs=srgb&dl=architecture-buildings-city-1018350.jpg\");\r\nbody_messages_1.Subject = \"This is an MMS message\";\r\nbody.Messages.Add(body_messages_1);\r\n\r\n\r\ntry \r\n{\r\n    SendMessagesResponse result = messages.SendMessagesAsync(body).Result;\r\n}\r\ncatch (APIException e){};"
           },
           {
             "lang": "Java",
-            "source": "SendMessagesRequest body = new SendMessagesRequest();\nbody.setMessages(new LinkedList<Message>());\n\nMessage body_messages_0 = new Message();\nbody_messages_0.setCallbackUrl(\"https://my.callback.url.com\");\nbody_messages_0.setContent(\"My first message\");\nbody_messages_0.setDestinationNumber(\"+61491570156\");\nbody_messages_0.setDeliveryReport(true);\nbody_messages_0.setFormat(FormatEnum.SMS);\nbody_messages_0.setMessageExpiryTimestamp(new DateTime(\"2016-11-03T11:49:02.807Z\", DateTimeZone.UTC));\nbody_messages_0.setMetadata(com.messagemedia.messages.APIHelper.deserialize(\"{\\\"key1\\\":\\\"value1\\\",\\\"key2\\\":\\\"value2\\\"}\"));\nbody_messages_0.setScheduled(new DateTime(\"2016-11-03T11:49:02.807Z\", DateTimeZone.UTC));\nbody_messages_0.setSourceNumber(\"+61491570157\");\nbody_messages_0.setSourceNumberType(SourceNumberTypeEnum.INTERNATIONAL);\nbody.getMessages().add(body_messages_0);\n\nMessage body_messages_1 = new Message();\nbody_messages_1.setCallbackUrl(\"https://my.callback.url.com\");\nbody_messages_1.setContent(\"My second message\");\nbody_messages_1.setDestinationNumber(\"+61491570158\");\nbody_messages_1.setDeliveryReport(true);\nbody_messages_1.setFormat(FormatEnum.MMS);\nbody_messages_1.setMessageExpiryTimestamp(new DateTime(\"2016-11-03T11:49:02.807Z\", DateTimeZone.UTC));\nbody_messages_1.setMetadata(com.messagemedia.messages.APIHelper.deserialize(\"{\\\"key1\\\":\\\"value1\\\",\\\"key2\\\":\\\"value2\\\"}\"));\nbody_messages_1.setScheduled(new DateTime(\"2016-11-03T11:49:02.807Z\", DateTimeZone.UTC));\nbody_messages_1.setSourceNumber(\"+61491570159\");\nbody_messages_1.setSourceNumberType(SourceNumberTypeEnum.INTERNATIONAL);\nbody_messages_1.setMedia(new LinkedList<String>());\nbody_messages_1.getMedia().add(\"https://images.pexels.com/photos/1018350/pexels-photo-1018350.jpeg?cs=srgb&dl=architecture-buildings-city-1018350.jpg\");\nbody_messages_1.setSubject(\"This is an MMS message\");\nbody.getMessages().add(body_messages_1);\n\n\nmessagesController.sendMessagesAsync(body, new APICallBack<SendMessagesResponse>() {\n    public void onSuccess(HttpContext context, SendMessagesResponse response) {\n        // TODO success callback handler\n    }\n    public void onFailure(HttpContext context, Throwable error) {\n        // TODO failure callback handler\n    }\n});\n"
+            "source": "SendMessagesRequest body = new SendMessagesRequest();\r\nbody.setMessages(new LinkedList<Message>());\r\n\r\nMessage body_messages_0 = new Message();\r\nbody_messages_0.setCallbackUrl(\"https://my.callback.url.com\");\r\nbody_messages_0.setContent(\"My first message\");\r\nbody_messages_0.setDestinationNumber(\"+61491570156\");\r\nbody_messages_0.setDeliveryReport(true);\r\nbody_messages_0.setFormat(FormatEnum.SMS);\r\nbody_messages_0.setMessageExpiryTimestamp(new DateTime(\"2016-11-03T11:49:02.807Z\", DateTimeZone.UTC));\r\nbody_messages_0.setMetadata(com.messagemedia.messages.APIHelper.deserialize(\"{\\\"key1\\\":\\\"value1\\\",\\\"key2\\\":\\\"value2\\\"}\"));\r\nbody_messages_0.setScheduled(new DateTime(\"2016-11-03T11:49:02.807Z\", DateTimeZone.UTC));\r\nbody_messages_0.setSourceNumber(\"+61491570157\");\r\nbody_messages_0.setSourceNumberType(SourceNumberTypeEnum.INTERNATIONAL);\r\nbody.getMessages().add(body_messages_0);\r\n\r\nMessage body_messages_1 = new Message();\r\nbody_messages_1.setCallbackUrl(\"https://my.callback.url.com\");\r\nbody_messages_1.setContent(\"My second message\");\r\nbody_messages_1.setDestinationNumber(\"+61491570158\");\r\nbody_messages_1.setDeliveryReport(true);\r\nbody_messages_1.setFormat(FormatEnum.MMS);\r\nbody_messages_1.setMessageExpiryTimestamp(new DateTime(\"2016-11-03T11:49:02.807Z\", DateTimeZone.UTC));\r\nbody_messages_1.setMetadata(com.messagemedia.messages.APIHelper.deserialize(\"{\\\"key1\\\":\\\"value1\\\",\\\"key2\\\":\\\"value2\\\"}\"));\r\nbody_messages_1.setScheduled(new DateTime(\"2016-11-03T11:49:02.807Z\", DateTimeZone.UTC));\r\nbody_messages_1.setSourceNumber(\"+61491570159\");\r\nbody_messages_1.setSourceNumberType(SourceNumberTypeEnum.INTERNATIONAL);\r\nbody_messages_1.setMedia(new LinkedList<String>());\r\nbody_messages_1.getMedia().add(\"https://images.pexels.com/photos/1018350/pexels-photo-1018350.jpeg?cs=srgb&dl=architecture-buildings-city-1018350.jpg\");\r\nbody_messages_1.setSubject(\"This is an MMS message\");\r\nbody.getMessages().add(body_messages_1);\r\n\r\n\r\nmessagesController.sendMessagesAsync(body, new APICallBack<SendMessagesResponse>() {\r\n    public void onSuccess(HttpContext context, SendMessagesResponse response) {\r\n        // TODO success callback handler\r\n    }\r\n    public void onFailure(HttpContext context, Throwable error) {\r\n        // TODO failure callback handler\r\n    }\r\n});\r\n"
           },
           {
             "lang": "JavaScript",
-            "source": "let body = new lib.SendMessagesRequest();\nbody.messages = [];\n\nbody.messages[0] = new lib.Message();\nbody.messages[0].callbackUrl = 'https://my.callback.url.com';\nbody.messages[0].content = 'My first message';\nbody.messages[0].destinationNumber = '+61491570156';\nbody.messages[0].deliveryReport = true;\nbody.messages[0].format = lib.FormatEnum.SMS;\nbody.messages[0].messageExpiryTimestamp = moment('2016-11-03T11:49:02.807Z').parseZone('2016-11-03T11:49:02.807Z');\nbody.messages[0].metadata = JSON.parse('{\"key1\":\"value1\",\"key2\":\"value2\"}');\nbody.messages[0].scheduled = moment('2016-11-03T11:49:02.807Z').parseZone('2016-11-03T11:49:02.807Z');\nbody.messages[0].sourceNumber = '+61491570157';\nbody.messages[0].sourceNumberType = lib.SourceNumberTypeEnum.INTERNATIONAL;\n\nbody.messages[1] = new lib.Message();\nbody.messages[1].callbackUrl = 'https://my.callback.url.com';\nbody.messages[1].content = 'My second message';\nbody.messages[1].destinationNumber = '+61491570158';\nbody.messages[1].deliveryReport = true;\nbody.messages[1].format = lib.FormatEnum.MMS;\nbody.messages[1].messageExpiryTimestamp = moment('2016-11-03T11:49:02.807Z').parseZone('2016-11-03T11:49:02.807Z');\nbody.messages[1].metadata = JSON.parse('{\"key1\":\"value1\",\"key2\":\"value2\"}');\nbody.messages[1].scheduled = moment('2016-11-03T11:49:02.807Z').parseZone('2016-11-03T11:49:02.807Z');\nbody.messages[1].sourceNumber = '+61491570159';\nbody.messages[1].sourceNumberType = lib.SourceNumberTypeEnum.INTERNATIONAL;\nbody.messages[1].media = ['https://images.pexels.com/photos/1018350/pexels-photo-1018350.jpeg?cs=srgb&dl=architecture-buildings-city-1018350.jpg'];\nbody.messages[1].subject = 'This is an MMS message';\n\n\nconst promise = controller.sendMessages(body);\npromise.then((response) => {\n    // this block will be executed on successful endpoint call\n    // `response` will be of type 'SendMessagesResponse'\n}, (err) => {\n    // this block will be executed on endpoint call failure\n    // `err` is an 'object' containing more information about the error\n});"
+            "source": "let body = new lib.SendMessagesRequest();\r\nbody.messages = [];\r\n\r\nbody.messages[0] = new lib.Message();\r\nbody.messages[0].callbackUrl = 'https://my.callback.url.com';\r\nbody.messages[0].content = 'My first message';\r\nbody.messages[0].destinationNumber = '+61491570156';\r\nbody.messages[0].deliveryReport = true;\r\nbody.messages[0].format = lib.FormatEnum.SMS;\r\nbody.messages[0].messageExpiryTimestamp = moment('2016-11-03T11:49:02.807Z').parseZone('2016-11-03T11:49:02.807Z');\r\nbody.messages[0].metadata = JSON.parse('{\"key1\":\"value1\",\"key2\":\"value2\"}');\r\nbody.messages[0].scheduled = moment('2016-11-03T11:49:02.807Z').parseZone('2016-11-03T11:49:02.807Z');\r\nbody.messages[0].sourceNumber = '+61491570157';\r\nbody.messages[0].sourceNumberType = lib.SourceNumberTypeEnum.INTERNATIONAL;\r\n\r\nbody.messages[1] = new lib.Message();\r\nbody.messages[1].callbackUrl = 'https://my.callback.url.com';\r\nbody.messages[1].content = 'My second message';\r\nbody.messages[1].destinationNumber = '+61491570158';\r\nbody.messages[1].deliveryReport = true;\r\nbody.messages[1].format = lib.FormatEnum.MMS;\r\nbody.messages[1].messageExpiryTimestamp = moment('2016-11-03T11:49:02.807Z').parseZone('2016-11-03T11:49:02.807Z');\r\nbody.messages[1].metadata = JSON.parse('{\"key1\":\"value1\",\"key2\":\"value2\"}');\r\nbody.messages[1].scheduled = moment('2016-11-03T11:49:02.807Z').parseZone('2016-11-03T11:49:02.807Z');\r\nbody.messages[1].sourceNumber = '+61491570159';\r\nbody.messages[1].sourceNumberType = lib.SourceNumberTypeEnum.INTERNATIONAL;\r\nbody.messages[1].media = ['https://images.pexels.com/photos/1018350/pexels-photo-1018350.jpeg?cs=srgb&dl=architecture-buildings-city-1018350.jpg'];\r\nbody.messages[1].subject = 'This is an MMS message';\r\n\r\n\r\nconst promise = controller.sendMessages(body);\r\npromise.then((response) => {\r\n    // this block will be executed on successful endpoint call\r\n    // `response` will be of type 'SendMessagesResponse'\r\n}, (err) => {\r\n    // this block will be executed on endpoint call failure\r\n    // `err` is an 'object' containing more information about the error\r\n});"
           },
           {
             "lang": "PHP",
-            "source": "$body = new Models\\SendMessagesRequest;\n$body->messages = array();\n\n$body->messages[0] = new Models\\Message;\n$body->messages[0]->callbackUrl = 'https://my.callback.url.com';\n$body->messages[0]->content = 'My first message';\n$body->messages[0]->destinationNumber = '+61491570156';\n$body->messages[0]->deliveryReport = true;\n$body->messages[0]->format = Models\\FormatEnum::SMS;\n$body->messages[0]->messageExpiryTimestamp = DateTimeHelper::fromRfc3339DateTime('2016-11-03T11:49:02.807Z');\n$body->messages[0]->metadata = MessageMediaMessagesLib\\APIHelper::deserialize('{\"key1\":\"value1\",\"key2\":\"value2\"}');\n$body->messages[0]->scheduled = DateTimeHelper::fromRfc3339DateTime('2016-11-03T11:49:02.807Z');\n$body->messages[0]->sourceNumber = '+61491570157';\n$body->messages[0]->sourceNumberType = Models\\SourceNumberTypeEnum::INTERNATIONAL;\n\n$body->messages[1] = new Models\\Message;\n$body->messages[1]->callbackUrl = 'https://my.callback.url.com';\n$body->messages[1]->content = 'My second message';\n$body->messages[1]->destinationNumber = '+61491570158';\n$body->messages[1]->deliveryReport = true;\n$body->messages[1]->format = Models\\FormatEnum::MMS;\n$body->messages[1]->messageExpiryTimestamp = DateTimeHelper::fromRfc3339DateTime('2016-11-03T11:49:02.807Z');\n$body->messages[1]->metadata = MessageMediaMessagesLib\\APIHelper::deserialize('{\"key1\":\"value1\",\"key2\":\"value2\"}');\n$body->messages[1]->scheduled = DateTimeHelper::fromRfc3339DateTime('2016-11-03T11:49:02.807Z');\n$body->messages[1]->sourceNumber = '+61491570159';\n$body->messages[1]->sourceNumberType = Models\\SourceNumberTypeEnum::INTERNATIONAL;\n$body->messages[1]->media = array('https://images.pexels.com/photos/1018350/pexels-photo-1018350.jpeg?cs=srgb&dl=architecture-buildings-city-1018350.jpg');\n$body->messages[1]->subject = 'This is an MMS message';\n\n\n$result = $messagesController->sendMessages($body);"
+            "source": "$body = new Models\\SendMessagesRequest;\r\n$body->messages = array();\r\n\r\n$body->messages[0] = new Models\\Message;\r\n$body->messages[0]->callbackUrl = 'https://my.callback.url.com';\r\n$body->messages[0]->content = 'My first message';\r\n$body->messages[0]->destinationNumber = '+61491570156';\r\n$body->messages[0]->deliveryReport = true;\r\n$body->messages[0]->format = Models\\FormatEnum::SMS;\r\n$body->messages[0]->messageExpiryTimestamp = DateTimeHelper::fromRfc3339DateTime('2016-11-03T11:49:02.807Z');\r\n$body->messages[0]->metadata = MessageMediaMessagesLib\\APIHelper::deserialize('{\"key1\":\"value1\",\"key2\":\"value2\"}');\r\n$body->messages[0]->scheduled = DateTimeHelper::fromRfc3339DateTime('2016-11-03T11:49:02.807Z');\r\n$body->messages[0]->sourceNumber = '+61491570157';\r\n$body->messages[0]->sourceNumberType = Models\\SourceNumberTypeEnum::INTERNATIONAL;\r\n\r\n$body->messages[1] = new Models\\Message;\r\n$body->messages[1]->callbackUrl = 'https://my.callback.url.com';\r\n$body->messages[1]->content = 'My second message';\r\n$body->messages[1]->destinationNumber = '+61491570158';\r\n$body->messages[1]->deliveryReport = true;\r\n$body->messages[1]->format = Models\\FormatEnum::MMS;\r\n$body->messages[1]->messageExpiryTimestamp = DateTimeHelper::fromRfc3339DateTime('2016-11-03T11:49:02.807Z');\r\n$body->messages[1]->metadata = MessageMediaMessagesLib\\APIHelper::deserialize('{\"key1\":\"value1\",\"key2\":\"value2\"}');\r\n$body->messages[1]->scheduled = DateTimeHelper::fromRfc3339DateTime('2016-11-03T11:49:02.807Z');\r\n$body->messages[1]->sourceNumber = '+61491570159';\r\n$body->messages[1]->sourceNumberType = Models\\SourceNumberTypeEnum::INTERNATIONAL;\r\n$body->messages[1]->media = array('https://images.pexels.com/photos/1018350/pexels-photo-1018350.jpeg?cs=srgb&dl=architecture-buildings-city-1018350.jpg');\r\n$body->messages[1]->subject = 'This is an MMS message';\r\n\r\n\r\n$result = $messagesController->sendMessages($body);"
           },
           {
             "lang": "Python",
-            "source": "body = SendMessagesRequest()\nbody.messages = []\n\nbody.messages.append(Message())\nbody.messages[0].callback_url = 'https://my.callback.url.com'\nbody.messages[0].content = 'My first message'\nbody.messages[0].destination_number = '+61491570156'\nbody.messages[0].delivery_report = True\nbody.messages[0].format = FormatEnum.SMS\nbody.messages[0].message_expiry_timestamp = dateutil.parser.parse('2016-11-03T11:49:02.807Z')\nbody.messages[0].metadata = jsonpickle.decode('{\"key1\":\"value1\",\"key2\":\"value2\"}')\nbody.messages[0].scheduled = dateutil.parser.parse('2016-11-03T11:49:02.807Z')\nbody.messages[0].source_number = '+61491570157'\nbody.messages[0].source_number_type = SourceNumberTypeEnum.INTERNATIONAL\n\nbody.messages.append(Message())\nbody.messages[1].callback_url = 'https://my.callback.url.com'\nbody.messages[1].content = 'My second message'\nbody.messages[1].destination_number = '+61491570158'\nbody.messages[1].delivery_report = True\nbody.messages[1].format = FormatEnum.MMS\nbody.messages[1].message_expiry_timestamp = dateutil.parser.parse('2016-11-03T11:49:02.807Z')\nbody.messages[1].metadata = jsonpickle.decode('{\"key1\":\"value1\",\"key2\":\"value2\"}')\nbody.messages[1].scheduled = dateutil.parser.parse('2016-11-03T11:49:02.807Z')\nbody.messages[1].source_number = '+61491570159'\nbody.messages[1].source_number_type = SourceNumberTypeEnum.INTERNATIONAL\nbody.messages[1].media = ['https://images.pexels.com/photos/1018350/pexels-photo-1018350.jpeg?cs=srgb&dl=architecture-buildings-city-1018350.jpg']\nbody.messages[1].subject = 'This is an MMS message'\n\n\nresult = messages_controller.send_messages(body)"
+            "source": "body = SendMessagesRequest()\r\nbody.messages = []\r\n\r\nbody.messages.append(Message())\r\nbody.messages[0].callback_url = 'https://my.callback.url.com'\r\nbody.messages[0].content = 'My first message'\r\nbody.messages[0].destination_number = '+61491570156'\r\nbody.messages[0].delivery_report = True\r\nbody.messages[0].format = FormatEnum.SMS\r\nbody.messages[0].message_expiry_timestamp = dateutil.parser.parse('2016-11-03T11:49:02.807Z')\r\nbody.messages[0].metadata = jsonpickle.decode('{\"key1\":\"value1\",\"key2\":\"value2\"}')\r\nbody.messages[0].scheduled = dateutil.parser.parse('2016-11-03T11:49:02.807Z')\r\nbody.messages[0].source_number = '+61491570157'\r\nbody.messages[0].source_number_type = SourceNumberTypeEnum.INTERNATIONAL\r\n\r\nbody.messages.append(Message())\r\nbody.messages[1].callback_url = 'https://my.callback.url.com'\r\nbody.messages[1].content = 'My second message'\r\nbody.messages[1].destination_number = '+61491570158'\r\nbody.messages[1].delivery_report = True\r\nbody.messages[1].format = FormatEnum.MMS\r\nbody.messages[1].message_expiry_timestamp = dateutil.parser.parse('2016-11-03T11:49:02.807Z')\r\nbody.messages[1].metadata = jsonpickle.decode('{\"key1\":\"value1\",\"key2\":\"value2\"}')\r\nbody.messages[1].scheduled = dateutil.parser.parse('2016-11-03T11:49:02.807Z')\r\nbody.messages[1].source_number = '+61491570159'\r\nbody.messages[1].source_number_type = SourceNumberTypeEnum.INTERNATIONAL\r\nbody.messages[1].media = ['https://images.pexels.com/photos/1018350/pexels-photo-1018350.jpeg?cs=srgb&dl=architecture-buildings-city-1018350.jpg']\r\nbody.messages[1].subject = 'This is an MMS message'\r\n\r\n\r\nresult = messages_controller.send_messages(body)"
           },
           {
             "lang": "Ruby",
-            "source": "SendMessagesRequest body = new SendMessagesRequest();\nbody.Messages = new List<Message>();\n\nMessage body_messages_0 = new Message();\nbody_messages_0.CallbackUrl = \"https://my.callback.url.com\";\nbody_messages_0.Content = \"My first message\";\nbody_messages_0.DestinationNumber = \"+61491570156\";\nbody_messages_0.DeliveryReport = true;\nbody_messages_0.Format = Format.SMS;\nbody_messages_0.MessageExpiryTimestamp = DateTime.Parse(\"2016-11-03T11:49:02.807Z\");\nbody_messages_0.Metadata = APIHelper.JsonDeserialize<Object>(\"{\\\"key1\\\":\\\"value1\\\",\\\"key2\\\":\\\"value2\\\"}\");\nbody_messages_0.Scheduled = DateTime.Parse(\"2016-11-03T11:49:02.807Z\");\nbody_messages_0.SourceNumber = \"+61491570157\";\nbody_messages_0.SourceNumberType = SourceNumberType.INTERNATIONAL;\nbody.Messages.Add(body_messages_0);\n\nMessage body_messages_1 = new Message();\nbody_messages_1.CallbackUrl = \"https://my.callback.url.com\";\nbody_messages_1.Content = \"My second message\";\nbody_messages_1.DestinationNumber = \"+61491570158\";\nbody_messages_1.DeliveryReport = true;\nbody_messages_1.Format = Format.MMS;\nbody_messages_1.MessageExpiryTimestamp = DateTime.Parse(\"2016-11-03T11:49:02.807Z\");\nbody_messages_1.Metadata = APIHelper.JsonDeserialize<Object>(\"{\\\"key1\\\":\\\"value1\\\",\\\"key2\\\":\\\"value2\\\"}\");\nbody_messages_1.Scheduled = DateTime.Parse(\"2016-11-03T11:49:02.807Z\");\nbody_messages_1.SourceNumber = \"+61491570159\";\nbody_messages_1.SourceNumberType = SourceNumberType.INTERNATIONAL;\nbody_messages_1.Media = new List<string>();\nbody_messages_1.Media.Add(\"https://images.pexels.com/photos/1018350/pexels-photo-1018350.jpeg?cs=srgb&dl=architecture-buildings-city-1018350.jpg\");\nbody_messages_1.Subject = \"This is an MMS message\";\nbody.Messages.Add(body_messages_1);\n\n\ntry \n{\n    SendMessagesResponse result = messages.SendMessagesAsync(body).Result;\n}\ncatch (APIException e){};"
+            "source": "SendMessagesRequest body = new SendMessagesRequest();\r\nbody.Messages = new List<Message>();\r\n\r\nMessage body_messages_0 = new Message();\r\nbody_messages_0.CallbackUrl = \"https://my.callback.url.com\";\r\nbody_messages_0.Content = \"My first message\";\r\nbody_messages_0.DestinationNumber = \"+61491570156\";\r\nbody_messages_0.DeliveryReport = true;\r\nbody_messages_0.Format = Format.SMS;\r\nbody_messages_0.MessageExpiryTimestamp = DateTime.Parse(\"2016-11-03T11:49:02.807Z\");\r\nbody_messages_0.Metadata = APIHelper.JsonDeserialize<Object>(\"{\\\"key1\\\":\\\"value1\\\",\\\"key2\\\":\\\"value2\\\"}\");\r\nbody_messages_0.Scheduled = DateTime.Parse(\"2016-11-03T11:49:02.807Z\");\r\nbody_messages_0.SourceNumber = \"+61491570157\";\r\nbody_messages_0.SourceNumberType = SourceNumberType.INTERNATIONAL;\r\nbody.Messages.Add(body_messages_0);\r\n\r\nMessage body_messages_1 = new Message();\r\nbody_messages_1.CallbackUrl = \"https://my.callback.url.com\";\r\nbody_messages_1.Content = \"My second message\";\r\nbody_messages_1.DestinationNumber = \"+61491570158\";\r\nbody_messages_1.DeliveryReport = true;\r\nbody_messages_1.Format = Format.MMS;\r\nbody_messages_1.MessageExpiryTimestamp = DateTime.Parse(\"2016-11-03T11:49:02.807Z\");\r\nbody_messages_1.Metadata = APIHelper.JsonDeserialize<Object>(\"{\\\"key1\\\":\\\"value1\\\",\\\"key2\\\":\\\"value2\\\"}\");\r\nbody_messages_1.Scheduled = DateTime.Parse(\"2016-11-03T11:49:02.807Z\");\r\nbody_messages_1.SourceNumber = \"+61491570159\";\r\nbody_messages_1.SourceNumberType = SourceNumberType.INTERNATIONAL;\r\nbody_messages_1.Media = new List<string>();\r\nbody_messages_1.Media.Add(\"https://images.pexels.com/photos/1018350/pexels-photo-1018350.jpeg?cs=srgb&dl=architecture-buildings-city-1018350.jpg\");\r\nbody_messages_1.Subject = \"This is an MMS message\";\r\nbody.Messages.Add(body_messages_1);\r\n\r\n\r\ntry \r\n{\r\n    SendMessagesResponse result = messages.SendMessagesAsync(body).Result;\r\n}\r\ncatch (APIException e){};"
           }
         ]
       }
     },
     "/v1/messaging/numbers/sender_address/requests": {
       "post": {
-        "security": [
-          {
-            "basic_auth": []
-          },
-          {
-            "hmac_auth": []
-          }
-        ],
         "tags": [
           "Source Address"
         ],
         "summary": "Request a sender address",
-        "description": "## Sender address is an alpha tag\n### What is an Alpha Tag?\n  Sending messages from your brand name is particularly ideal for SMS marketing and two-factor authentication, as it increases recognition and trust. There are, however, a few considerations to be aware of. \n\n  Alpha tags are made up of 3-11 letters and/or numbers. Alpha tags must be registered and approved before sending, and must have clear relevancy to your business and/or use case.\n\n  Alpha Tags appear as the From number when you receive messages.\n\n### What is a good Alpha Tag? \n\nValid use cases include:\n* Business names\n* Trademark names    \n* Product or service name\n* an acronym, initialism, or contraction of your entity\n\n### In addition to the new requirements around clearly relating to the business, we typically advise the following for alpha tags to ensure maximum compatibility with the various carriers:\n* 6-11 characters long\n* Only contains characters from the following sets:\n* A-Z\n* a-z\n* 0-9\n* _ (underscore)\n* \\- (hyphen)\n\n## Sender address is my own number\nBefore you can send messages using a your own number (i.e. a non-dedicated nor rotary number), you need to verify that you have a right to use that number. Ensuring you have a right to use a phone number is an important ACMA regulatory requirement, aiming to prevent scam, spam and misuse of messaging services.\n\nIf you do not wish to verify a number from within the web portal, or need to verify a large quantity of numbers, you can verify a number programmatically - via API.\n\n### The process to verify a number via the API is:\n1. (If you don’t have existing credentials) - Create Basic or HMAC credentials for the API by going to https://hub.messagemedia.com/api-settings\n2. Submit a verification request with the number and destination country (usually AU) as per below. **Note**: *the verification is for the account associated with the API credentials only.*\n3. A unique verification code will be sent to the number\n4. Submit an approval request containing the verification code for that number. A 200 OK response will indicate the number has been verified and is ready for use.\n\n⚠️ Own numbers need to be re-verified every 12 months. You will be notified by email that verification of your number is about to expire.\n\n## The most basic request has the following structure:\n  - ```sender_address``` is case insensitive. When one already exists for this account, you get a error message ```conflict```;\n  - ```destination_countries``` currently we only support ```AU``` and ```GB``` as the destination country;\n  - `sender_address_type` and `usage_type` parameters are set to the following value pairs:\n    | Description   | `sender_address_type` | `usage_type`   |\n    |---            |---                    |---             |\n    | Alpha tag     | `ALPHANUMERIC`        | `ALPHANUMERIC` |\n    | My own number | `INTERNATIONAL`       | `OWN_NUMBER`   |\n  - ```reason``` for requesting a sender address is required;\n    - when requesting my own number: provide your reason to use this number in a sentence. e.g. “This is my personal number”.\n    - when requesting an alpha tag: Comprehensive reasons must be supplied when requesting an alpha tag, in accordance with ACMA's compliance requirements. Please adhere to the prescribed structure when formulating the `reason` field in your API request.\n    \n    - `useCase`: one of the following:\n      - `SOLE_TRADER_NAME`\n      - `COMPANY_NAME`\n      - `PARTNERSHIP_NAME`\n      - `REGISTERED_TRUST_NAME`\n      - `CO_OPERATIVE_NAME`\n      - `INDIGENOUS_CORPORATION_NAME`\n      - `REGISTERED_ORGANISATION_NAME`\n      - `PERSONAL_NAME`\n      - `AUSTRALIAN_TRADEMARK`\n      - `INTERNATIONAL_TRADEMARK`\n      - `AUSTRALIAN_GOVERNMENT_AGENCY_OR_ENTITY`\n      - `FOREIGN_GOVERNMENT_AGENCY_OR_ENTITY`\n      - `PRODUCT_OR_SERVICE_NAME`\n      - `ACRONYM_INITIALISM`\n      - `CONTRACTION_OF_NAME`\n      - `OTHER`\n\n    - `description`: Description for selecting OTHER as the use case. Limited to 200 characters.\n\n    - `email`: The preferred contact email for our approval team when additional details are required.\n\n    - `australianGovernmentAgencyOrEntityName`: The name of the entity.\n\n    - `abn`: Australian business number\n\n    - `statement`: Legal declaration.\n      - If applying on behalf of a third-party entity: \n\n        \"We are authorized to use the Sender ID on behalf of [full entity name of sender] with a valid use case.\"\n      - If applying for your own business:\n\n        \"We are authorized to use the Sender ID with a valid use case.\"\n  - ```label``` name of the sender address.\n",
+        "description": "The most basic request has the following structure:\n  - ```sender_address``` is case insensitive. When one already exists for this account, you get a error message ```conflict```;\n  - ```destination_countries``` currently we only support ```AU``` and ```GB``` as the destination country;\n  - ```sender_address_type``` and ```usage_type``` must be ```ALPHANUMERIC```;\n  - ```reason``` for requesting a sender address is required;\n  - ```label``` name of the sender address.\n",
         "operationId": "requestSenderAddressUsingPOST",
         "parameters": [],
         "requestBody": {
@@ -1124,42 +1120,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "oneOf": [
-                  {
-                    "$ref": "#/components/schemas/RequestAlphaTag"
-                  },
-                  {
-                    "$ref": "#/components/schemas/RequestVerificationCode"
-                  }
-                ]
+                "$ref": "#/components/schemas/RequestSenderAddress"
               },
-              "examples": {
-                "example1": {
-                  "summary": "Example for RequestAlphaTag",
-                  "value": {
-                    "sender_address": "EXAMPLE",
-                    "sender_address_type": "ALPHANUMERIC",
-                    "usage_type": "ALPHANUMERIC",
-                    "destination_countries": [
-                      "AU"
-                    ],
-                    "reason": "{\n  \"useCase\":\"AUSTRALIAN_GOVERNMENT_AGENCY_OR_ENTITY\",\n  \"description\":\"bal bla\",\n  \"email\":\"xample@email.com\",\n  \"australianGovernmentAgencyOrEntityName\":\"bla bla\",\n  \"statement\":\"We are authorised to use the Sender ID on behalf of [full entity name of sender] with a valid use case.\"\n}\n",
-                    "label": "label"
-                  }
-                },
-                "example2": {
-                  "summary": "Example for RequestVerificationCode",
-                  "value": {
-                    "sender_address": "+61401234567",
-                    "sender_address_type": "INTERNATIONAL",
-                    "usage_type": "OWN_NUMBER",
-                    "destination_countries": [
-                      "AU"
-                    ],
-                    "reason": "my personal number",
-                    "label": "label"
-                  }
-                }
+              "example": {
+                "sender_address": "EXAMPLE",
+                "sender_address_type": "ALPHANUMERIC",
+                "usage_type": "ALPHANUMERIC",
+                "destination_countries": [
+                  "AU"
+                ],
+                "reason": "This is my reason",
+                "label": "label"
               }
             }
           },
@@ -1172,52 +1143,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "oneOf": [
-                    {
-                      "$ref": "#/components/schemas/AlphaTagRequestItem"
-                    },
-                    {
-                      "$ref": "#/components/schemas/VerificationCodeRequestItem"
-                    }
-                  ]
-                },
-                "examples": {
-                  "example1": {
-                    "summary": "Example for AlphaTagRequest",
-                    "value": {
-                      "id": "6f79a12e-14f1-4776-adc0-5c5e48a999b7",
-                      "sender_address": "EXAMPLE",
-                      "sender_address_type": "ALPHANUMERIC",
-                      "usage_type": "ALPHANUMERIC",
-                      "destination_countries": [
-                        "AU"
-                      ],
-                      "reason": "{\n  \"useCase\":\"AUSTRALIAN_GOVERNMENT_AGENCY_OR_ENTITY\",\n  \"description\":\"bal bla\",\n  \"email\":\"xample@email.com\",\n  \"australianGovernmentAgencyOrEntityName\":\"bla bla\",\n  \"statement\":\"We are authorised to use the Sender ID on behalf of [full entity name of sender] with a valid use case.\"\n}\n",
-                      "label": "label",
-                      "status": "OPEN",
-                      "account_id": "XYZ_ExampleAccount",
-                      "created_date": "2023-10-25T14:15:22Z",
-                      "last_modified_date": "2023-10-25T14:15:22Z"
-                    }
-                  },
-                  "example2": {
-                    "summary": "Example for VerificationCodeRequest",
-                    "value": {
-                      "id": "6f79a12e-14f1-4776-adc0-5c5e48a999b8",
-                      "sender_address": "+61401234567",
-                      "sender_address_type": "INTERNATIONAL",
-                      "usage_type": "OWN_NUMBER",
-                      "destination_countries": [
-                        "AU"
-                      ],
-                      "reason": "my personal number",
-                      "label": "label",
-                      "status": "PENDING",
-                      "account_id": "XYZ_ExampleAccount",
-                      "created_date": "2023-10-24T14:15:22Z",
-                      "last_modified_date": "2023-10-24T14:15:22Z"
-                    }
-                  }
+                  "$ref": "#/components/schemas/SenderAddressRequestItem"
                 }
               }
             }
@@ -1237,102 +1163,8 @@
         }
       }
     },
-    "/v1/messaging/numbers/sender_address/requests/{id}/verify": {
-      "post": {
-        "security": [
-          {
-            "basic_auth": []
-          },
-          {
-            "hmac_auth": []
-          }
-        ],
-        "tags": [
-          "Source Address"
-        ],
-        "summary": "Submitting a verification code",
-        "operationId": "SubmittingVerificationCodePost",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "36 character UUID.",
-            "required": true,
-            "style": "simple",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "description": "Verification code to be verified",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/PostVerificationCode"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "201": {
-            "description": "Created",
-            "headers": {},
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/VerificationCodeRequestItem"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/400response"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/403response"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Resource not found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/404response"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/v1/messaging/numbers/sender_address/requests/{id}": {
       "get": {
-        "security": [
-          {
-            "basic_auth": []
-          },
-          {
-            "hmac_auth": []
-          }
-        ],
         "tags": [
           "Source Address"
         ],
@@ -1358,7 +1190,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AlphaTagRequestItem"
+                  "$ref": "#/components/schemas/SenderAddressRequestItem"
                 }
               }
             }
@@ -1401,80 +1233,22 @@
     },
     "/v1/messaging/numbers/sender_address/addresses/": {
       "get": {
-        "security": [
-          {
-            "basic_auth": []
-          },
-          {
-            "hmac_auth": []
-          }
-        ],
         "tags": [
           "Source Address"
         ],
         "summary": "Get all approved sender address",
         "operationId": "GetAllApprovedSenderAddress",
-        "description": "Get a list of approved sender addresses for your account.\n",
+        "description": "Get a list of approved sender addresses for your account. \n```sender_address_type: ALPHANUMERIC``` only\n",
         "parameters": [
-          {
-            "name": "sender_address",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            },
-            "example": "EXAMPLE"
-          },
           {
             "name": "sender_address_type",
             "in": "query",
+            "required": true,
             "schema": {
-              "type": "string",
-              "enum": [
-                "ALPHANUMERIC",
-                "INTERNATIONAL"
-              ]
+              "type": "string"
             },
             "description": "type of sender address",
             "example": "ALPHANUMERIC"
-          },
-          {
-            "name": "usage_type",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "enum": [
-                "ALPHANUMERIC",
-                "OWN_NUMBER",
-                "DEDICATED"
-              ]
-            },
-            "description": "type of sender address",
-            "example": "ALPHANUMERIC"
-          },
-          {
-            "name": "include_related_accounts",
-            "in": "query",
-            "schema": {
-              "type": "boolean"
-            },
-            "example": true
-          },
-          {
-            "name": "page_size",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 20
-            }
-          },
-          {
-            "name": "token",
-            "in": "query",
-            "description": "In paginated data the original request will return with a \"next_token\" attribute. This token must be entered into subsequent call in the \"token\" query parameter to obtain the next set of records.",
-            "schema": {
-              "type": "string",
-              "example": "example"
-            }
           }
         ],
         "responses": {
@@ -1532,8 +1306,7 @@
                     }
                   ],
                   "pagination": {
-                    "page_size": 20,
-                    "next_token": "UWFTeXNBZGRyMSN8JEAsdmVuZG9ySWRUZXN0MSN8JEAsYWNjb3VudElkVGVzdDI="
+                    "page_size": 20
                   }
                 }
               }
@@ -1664,11 +1437,11 @@
           },
           {
             "lang": "Java",
-            "source": "deliveryReportsController.checkDeliveryReportsAsync(new APICallBack<CheckDeliveryReportsResponse>() {\n    public void onSuccess(HttpContext context, CheckDeliveryReportsResponse response) {\n        // TODO success callback handler\n    }\n    public void onFailure(HttpContext context, Throwable error) {\n        // TODO failure callback handler\n    }\n});"
+            "source": "deliveryReportsController.checkDeliveryReportsAsync(new APICallBack<CheckDeliveryReportsResponse>() {\r\n    public void onSuccess(HttpContext context, CheckDeliveryReportsResponse response) {\r\n        // TODO success callback handler\r\n    }\r\n    public void onFailure(HttpContext context, Throwable error) {\r\n        // TODO failure callback handler\r\n    }\r\n});"
           },
           {
             "lang": "JavaScript",
-            "source": "const promise = controller.checkDeliveryReports();\npromise.then((response) => {\n    // this block will be executed on successful endpoint call\n    // `response` will be of type 'CheckDeliveryReportsResponse'\n}, (err) => {\n    // this block will be executed on endpoint call failure\n    // `err` is an 'object' containing more information about the error\n});"
+            "source": "const promise = controller.checkDeliveryReports();\r\npromise.then((response) => {\r\n    // this block will be executed on successful endpoint call\r\n    // `response` will be of type 'CheckDeliveryReportsResponse'\r\n}, (err) => {\r\n    // this block will be executed on endpoint call failure\r\n    // `err` is an 'object' containing more information about the error\r\n});"
           },
           {
             "lang": "PHP",
@@ -1676,7 +1449,7 @@
           },
           {
             "lang": "Python",
-            "source": "result = delivery_reports_controller.check_delivery_reports()\n"
+            "source": "result = delivery_reports_controller.check_delivery_reports()\r\n"
           },
           {
             "lang": "Ruby",
@@ -1772,19 +1545,19 @@
           },
           {
             "lang": "Java",
-            "source": "ConfirmDeliveryReportsAsReceivedRequest body = new ConfirmDeliveryReportsAsReceivedRequest();\nbody.setDeliveryReportIds(new LinkedList<String>());\nbody.getDeliveryReportIds().add(\"011dcead-6988-4ad6-a1c7-6b6c68ea628d\");\nbody.getDeliveryReportIds().add(\"3487b3fa-6586-4979-a233-2d1b095c7718\");\nbody.getDeliveryReportIds().add(\"ba28e94b-c83d-4759-98e7-ff9c7edb87a1\");\n\ndeliveryReportsController.confirmDeliveryReportsAsReceivedAsync(body, new APICallBack<DynamicResponse>() {\n    public void onSuccess(HttpContext context, DynamicResponse response) {\n        // TODO success callback handler\n    }\n    public void onFailure(HttpContext context, Throwable error) {\n        // TODO failure callback handler\n    }\n});"
+            "source": "ConfirmDeliveryReportsAsReceivedRequest body = new ConfirmDeliveryReportsAsReceivedRequest();\r\nbody.setDeliveryReportIds(new LinkedList<String>());\r\nbody.getDeliveryReportIds().add(\"011dcead-6988-4ad6-a1c7-6b6c68ea628d\");\r\nbody.getDeliveryReportIds().add(\"3487b3fa-6586-4979-a233-2d1b095c7718\");\r\nbody.getDeliveryReportIds().add(\"ba28e94b-c83d-4759-98e7-ff9c7edb87a1\");\r\n\r\ndeliveryReportsController.confirmDeliveryReportsAsReceivedAsync(body, new APICallBack<DynamicResponse>() {\r\n    public void onSuccess(HttpContext context, DynamicResponse response) {\r\n        // TODO success callback handler\r\n    }\r\n    public void onFailure(HttpContext context, Throwable error) {\r\n        // TODO failure callback handler\r\n    }\r\n});"
           },
           {
             "lang": "JavaScript",
-            "source": "let body = new lib.ConfirmDeliveryReportsAsReceivedRequest();\nbody.deliveryReportIds = ['011dcead-6988-4ad6-a1c7-6b6c68ea628d', '3487b3fa-6586-4979-a233-2d1b095c7718', 'ba28e94b-c83d-4759-98e7-ff9c7edb87a1'];\n\nconst promise = controller.confirmDeliveryReportsAsReceived(body);\npromise.then((response) => {\n    // this block will be executed on successful endpoint call\n    // `response` will be of type 'mixed'\n}, (err) => {\n    // this block will be executed on endpoint call failure\n    // `err` is an 'object' containing more information about the error\n});"
+            "source": "let body = new lib.ConfirmDeliveryReportsAsReceivedRequest();\r\nbody.deliveryReportIds = ['011dcead-6988-4ad6-a1c7-6b6c68ea628d', '3487b3fa-6586-4979-a233-2d1b095c7718', 'ba28e94b-c83d-4759-98e7-ff9c7edb87a1'];\r\n\r\nconst promise = controller.confirmDeliveryReportsAsReceived(body);\r\npromise.then((response) => {\r\n    // this block will be executed on successful endpoint call\r\n    // `response` will be of type 'mixed'\r\n}, (err) => {\r\n    // this block will be executed on endpoint call failure\r\n    // `err` is an 'object' containing more information about the error\r\n});"
           },
           {
             "lang": "PHP",
-            "source": "$body = new Models\\ConfirmDeliveryReportsAsReceivedRequest;\n$body->deliveryReportIds = array('011dcead-6988-4ad6-a1c7-6b6c68ea628d', '3487b3fa-6586-4979-a233-2d1b095c7718', 'ba28e94b-c83d-4759-98e7-ff9c7edb87a1');\n\n$result = $deliveryReportsController->confirmDeliveryReportsAsReceived($body);"
+            "source": "$body = new Models\\ConfirmDeliveryReportsAsReceivedRequest;\r\n$body->deliveryReportIds = array('011dcead-6988-4ad6-a1c7-6b6c68ea628d', '3487b3fa-6586-4979-a233-2d1b095c7718', 'ba28e94b-c83d-4759-98e7-ff9c7edb87a1');\r\n\r\n$result = $deliveryReportsController->confirmDeliveryReportsAsReceived($body);"
           },
           {
             "lang": "Python",
-            "source": "body = ConfirmDeliveryReportsAsReceivedRequest()\nbody.delivery_report_ids = ['011dcead-6988-4ad6-a1c7-6b6c68ea628d', '3487b3fa-6586-4979-a233-2d1b095c7718', 'ba28e94b-c83d-4759-98e7-ff9c7edb87a1']\n\nresult = delivery_reports_controller.confirm_delivery_reports_as_received(body)"
+            "source": "body = ConfirmDeliveryReportsAsReceivedRequest()\r\nbody.delivery_report_ids = ['011dcead-6988-4ad6-a1c7-6b6c68ea628d', '3487b3fa-6586-4979-a233-2d1b095c7718', 'ba28e94b-c83d-4759-98e7-ff9c7edb87a1']\r\n\r\nresult = delivery_reports_controller.confirm_delivery_reports_as_received(body)"
           },
           {
             "lang": "Ruby",
@@ -1888,11 +1661,11 @@
           },
           {
             "lang": "Java",
-            "source": "repliesController.checkRepliesAsync(new APICallBack<CheckRepliesResponse>() {\n    public void onSuccess(HttpContext context, CheckRepliesResponse response) {\n        // TODO success callback handler\n    }\n    public void onFailure(HttpContext context, Throwable error) {\n        // TODO failure callback handler\n    }\n});"
+            "source": "repliesController.checkRepliesAsync(new APICallBack<CheckRepliesResponse>() {\r\n    public void onSuccess(HttpContext context, CheckRepliesResponse response) {\r\n        // TODO success callback handler\r\n    }\r\n    public void onFailure(HttpContext context, Throwable error) {\r\n        // TODO failure callback handler\r\n    }\r\n});"
           },
           {
             "lang": "JavaScript",
-            "source": "const promise = controller.checkReplies();\npromise.then((response) => {\n    // this block will be executed on successful endpoint call\n    // `response` will be of type 'CheckRepliesResponse'\n}, (err) => {\n    // this block will be executed on endpoint call failure\n    // `err` is an 'object' containing more information about the error\n});"
+            "source": "const promise = controller.checkReplies();\r\npromise.then((response) => {\r\n    // this block will be executed on successful endpoint call\r\n    // `response` will be of type 'CheckRepliesResponse'\r\n}, (err) => {\r\n    // this block will be executed on endpoint call failure\r\n    // `err` is an 'object' containing more information about the error\r\n});"
           },
           {
             "lang": "PHP",
@@ -1996,15 +1769,15 @@
           },
           {
             "lang": "Java",
-            "source": "ConfirmRepliesAsReceivedRequest body = new ConfirmRepliesAsReceivedRequest();\nbody.setReplyIds(new LinkedList<String>());\nbody.getReplyIds().add(\"011dcead-6988-4ad6-a1c7-6b6c68ea628d\");\nbody.getReplyIds().add(\"3487b3fa-6586-4979-a233-2d1b095c7718\");\nbody.getReplyIds().add(\"ba28e94b-c83d-4759-98e7-ff9c7edb87a1\");\n\nrepliesController.confirmRepliesAsReceivedAsync(body, new APICallBack<DynamicResponse>() {\n    public void onSuccess(HttpContext context, DynamicResponse response) {\n        // TODO success callback handler\n    }\n    public void onFailure(HttpContext context, Throwable error) {\n        // TODO failure callback handler\n    }\n});"
+            "source": "ConfirmRepliesAsReceivedRequest body = new ConfirmRepliesAsReceivedRequest();\r\nbody.setReplyIds(new LinkedList<String>());\r\nbody.getReplyIds().add(\"011dcead-6988-4ad6-a1c7-6b6c68ea628d\");\r\nbody.getReplyIds().add(\"3487b3fa-6586-4979-a233-2d1b095c7718\");\r\nbody.getReplyIds().add(\"ba28e94b-c83d-4759-98e7-ff9c7edb87a1\");\r\n\r\nrepliesController.confirmRepliesAsReceivedAsync(body, new APICallBack<DynamicResponse>() {\r\n    public void onSuccess(HttpContext context, DynamicResponse response) {\r\n        // TODO success callback handler\r\n    }\r\n    public void onFailure(HttpContext context, Throwable error) {\r\n        // TODO failure callback handler\r\n    }\r\n});"
           },
           {
             "lang": "JavaScript",
-            "source": "let body = new lib.ConfirmRepliesAsReceivedRequest();\nbody.replyIds = ['011dcead-6988-4ad6-a1c7-6b6c68ea628d', '3487b3fa-6586-4979-a233-2d1b095c7718', 'ba28e94b-c83d-4759-98e7-ff9c7edb87a1'];\n\nconst promise = controller.confirmRepliesAsReceived(body);\npromise.then((response) => {\n    // this block will be executed on successful endpoint call\n    // `response` will be of type 'mixed'\n}, (err) => {\n    // this block will be executed on endpoint call failure\n    // `err` is an 'object' containing more information about the error\n});"
+            "source": "let body = new lib.ConfirmRepliesAsReceivedRequest();\r\nbody.replyIds = ['011dcead-6988-4ad6-a1c7-6b6c68ea628d', '3487b3fa-6586-4979-a233-2d1b095c7718', 'ba28e94b-c83d-4759-98e7-ff9c7edb87a1'];\r\n\r\nconst promise = controller.confirmRepliesAsReceived(body);\r\npromise.then((response) => {\r\n    // this block will be executed on successful endpoint call\r\n    // `response` will be of type 'mixed'\r\n}, (err) => {\r\n    // this block will be executed on endpoint call failure\r\n    // `err` is an 'object' containing more information about the error\r\n});"
           },
           {
             "lang": "PHP",
-            "source": "$body = new Models\\ConfirmRepliesAsReceivedRequest;\n$body->replyIds = array('011dcead-6988-4ad6-a1c7-6b6c68ea628d', '3487b3fa-6586-4979-a233-2d1b095c7718', 'ba28e94b-c83d-4759-98e7-ff9c7edb87a1');\n\n$result = $repliesController->confirmRepliesAsReceived($body);"
+            "source": "$body = new Models\\ConfirmRepliesAsReceivedRequest;\r\n$body->replyIds = array('011dcead-6988-4ad6-a1c7-6b6c68ea628d', '3487b3fa-6586-4979-a233-2d1b095c7718', 'ba28e94b-c83d-4759-98e7-ff9c7edb87a1');\r\n\r\n$result = $repliesController->confirmRepliesAsReceived($body);"
           },
           {
             "lang": "Python",
@@ -3369,6 +3142,1591 @@
                 }
               }
             }
+          }
+        },
+        "deprecated": false,
+        "x-code-samples": [
+          {
+            "lang": "C#",
+            "source": ""
+          },
+          {
+            "lang": "Java",
+            "source": ""
+          },
+          {
+            "lang": "JavaScript",
+            "source": ""
+          },
+          {
+            "lang": "PHP",
+            "source": ""
+          },
+          {
+            "lang": "Python",
+            "source": ""
+          },
+          {
+            "lang": "Ruby",
+            "source": ""
+          }
+        ]
+      }
+    },
+    "/v1/reporting/{messageType}/metadata/keys": {
+      "get": {
+        "security": [
+          {
+            "basic_auth": []
+          },
+          {
+            "hmac_auth": []
+          }
+        ],
+        "tags": [
+          "LEGACY V1 Reports"
+        ],
+        "summary": "Get metadata keys",
+        "description": "Returns a list of metadata keys",
+        "operationId": "GetMetadataKeys",
+        "parameters": [
+          {
+            "name": "messageType",
+            "in": "path",
+            "description": "Message type. Possible values are sent messages and received messages.",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "$ref": "#/components/schemas/message_type"
+            }
+          },
+          {
+            "name": "start_date",
+            "in": "query",
+            "description": "Start date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "example": "2017-02-10T13:30:00"
+            }
+          },
+          {
+            "name": "end_date",
+            "in": "query",
+            "description": "End date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "example": "2017-02-12T13:30:00"
+            }
+          },
+          {
+            "name": "accounts",
+            "in": "query",
+            "description": "Filter results by a specific account. By default results\n\nwill be returned for the account associated with the authentication\n\ncredentials and all sub-accounts.",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "timezone",
+            "in": "query",
+            "description": "The timezone to use for the context of the request. If provided this will be used as the timezone for the start date and end date parameters, and all datetime fields returns in the response. The timezone should be provided as a IANA (Internet Assigned Numbers Authority) time zone database zone name, i.e., 'Australia/Melbourne'.",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of all metadata keys used in the specified time window",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MetadataKeysResponse"
+                },
+                "example": {
+                  "data": [],
+                  "properties": {
+                    "end_date": "2017-02-10T13:30:00",
+                    "start_date": "2017-02-12T13:30:00",
+                    "accounts": []
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request. Check the json response for more details on what went wrong."
+          }
+        },
+        "deprecated": true,
+        "x-code-samples": [
+          {
+            "lang": "C#",
+            "source": ""
+          },
+          {
+            "lang": "Java",
+            "source": ""
+          },
+          {
+            "lang": "JavaScript",
+            "source": ""
+          },
+          {
+            "lang": "PHP",
+            "source": ""
+          },
+          {
+            "lang": "Python",
+            "source": ""
+          },
+          {
+            "lang": "Ruby",
+            "source": ""
+          }
+        ]
+      }
+    },
+    "/v1/reporting/async_reports": {
+      "get": {
+        "security": [
+          {
+            "basic_auth": []
+          },
+          {
+            "hmac_auth": []
+          }
+        ],
+        "tags": [
+          "LEGACY V1 Reports"
+        ],
+        "summary": "Get async reports",
+        "description": "Lists asynchronous reports.",
+        "operationId": "GetAsyncReports",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number for paging through paginated result sets.",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "number",
+              "format": "double"
+            }
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "description": "Number of results to return in a page for paginated result sets.",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "number",
+              "format": "double"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of requested asynchronous reports.",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/getAsyncReportsResponse"
+                },
+                "example": {
+                  "data": [
+                    {
+                      "created_datetime": "2017-02-12T13:30:00",
+                      "last_modified_datetime": "2017-02-12T13:30:00"
+                    }
+                  ],
+                  "pagination": {}
+                }
+              }
+            }
+          }
+        },
+        "deprecated": true,
+        "x-code-samples": [
+          {
+            "lang": "C#",
+            "source": ""
+          },
+          {
+            "lang": "Java",
+            "source": ""
+          },
+          {
+            "lang": "JavaScript",
+            "source": ""
+          },
+          {
+            "lang": "PHP",
+            "source": ""
+          },
+          {
+            "lang": "Python",
+            "source": ""
+          },
+          {
+            "lang": "Ruby",
+            "source": ""
+          }
+        ]
+      }
+    },
+    "/v1/reporting/async_reports/{report_id}": {
+      "get": {
+        "security": [
+          {
+            "basic_auth": []
+          },
+          {
+            "hmac_auth": []
+          }
+        ],
+        "tags": [
+          "LEGACY V1 Reports"
+        ],
+        "summary": "Get async report by Id",
+        "description": "Gets a single asynchronous report.",
+        "operationId": "GetAsyncReportById",
+        "parameters": [
+          {
+            "name": "report_id",
+            "in": "path",
+            "description": "Unique ID of the async report",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The asynchronous report.",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AsyncReport"
+                },
+                "example": {
+                  "id": "762b24ad-9110-42e3-b1d8-6c60a61a7235",
+                  "report_status": "DONE"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request. Check the json response for more details on what went wrong."
+          },
+          "404": {
+            "description": "The requested report was not found."
+          }
+        },
+        "deprecated": false,
+        "x-code-samples": [
+          {
+            "lang": "C#",
+            "source": ""
+          },
+          {
+            "lang": "Java",
+            "source": ""
+          },
+          {
+            "lang": "JavaScript",
+            "source": ""
+          },
+          {
+            "lang": "PHP",
+            "source": ""
+          },
+          {
+            "lang": "Python",
+            "source": ""
+          },
+          {
+            "lang": "Ruby",
+            "source": ""
+          }
+        ]
+      }
+    },
+    "/v1/reporting/async_reports/{report_id}/data": {
+      "get": {
+        "security": [
+          {
+            "basic_auth": []
+          },
+          {
+            "hmac_auth": []
+          }
+        ],
+        "tags": [
+          "LEGACY V1 Reports"
+        ],
+        "summary": "Get async report data by Id",
+        "description": "Gets the data of an asynchronous report.",
+        "operationId": "GetAsyncReportDataById",
+        "parameters": [
+          {
+            "name": "report_id",
+            "in": "path",
+            "description": "Unique ID of the async report",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {},
+            "content": {
+              "binary": {
+                "schema": {
+                  "type": "string",
+                  "example": "The asynchronous report data as a download."
+                },
+                "example": "The asynchronous report data as a download."
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request. Check the json response for more details on what went wrong."
+          },
+          "404": {
+            "description": "Report not found or not finished."
+          }
+        },
+        "deprecated": true,
+        "x-code-samples": [
+          {
+            "lang": "C#",
+            "source": ""
+          },
+          {
+            "lang": "Java",
+            "source": ""
+          },
+          {
+            "lang": "JavaScript",
+            "source": ""
+          },
+          {
+            "lang": "PHP",
+            "source": ""
+          },
+          {
+            "lang": "Python",
+            "source": ""
+          },
+          {
+            "lang": "Ruby",
+            "source": ""
+          }
+        ]
+      }
+    },
+    "/v1/reporting/received_messages/detail/async": {
+      "post": {
+        "security": [
+          {
+            "basic_auth": []
+          },
+          {
+            "hmac_auth": []
+          }
+        ],
+        "tags": [
+          "LEGACY V1 Reports"
+        ],
+        "summary": "Submit received messages detail",
+        "description": "Submits a request to generate an async detail report",
+        "operationId": "SubmitReceivedMessagesDetail",
+        "parameters": [],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/asyncreceivedmessagesdetailrequest"
+              },
+              "example": {
+                "end_date": "2017-02-10T13:30:00",
+                "start_date": "2017-02-12T13:30:00",
+                "period": "TODAY",
+                "timezone": "Australia/Melbourne",
+                "accounts": [],
+                "delivery_options": [
+                  {
+                    "delivery_type": "EMAIL",
+                    "delivery_addresses": [],
+                    "delivery_format": "CSV"
+                  }
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "The identifier of the async report request",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AsyncReportResponse"
+                },
+                "example": {
+                  "id": "b8ffd5b3-050a-46b9-9192-fbd7c20a22ec"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request. Check the json response for more details on what went wrong."
+          }
+        },
+        "deprecated": false,
+        "x-code-samples": [
+          {
+            "lang": "C#",
+            "source": ""
+          },
+          {
+            "lang": "Java",
+            "source": ""
+          },
+          {
+            "lang": "JavaScript",
+            "source": ""
+          },
+          {
+            "lang": "PHP",
+            "source": ""
+          },
+          {
+            "lang": "Python",
+            "source": ""
+          },
+          {
+            "lang": "Ruby",
+            "source": ""
+          }
+        ]
+      }
+    },
+    "/v1/reporting/received_messages/detail": {
+      "get": {
+        "security": [
+          {
+            "basic_auth": []
+          },
+          {
+            "hmac_auth": []
+          }
+        ],
+        "tags": [
+          "LEGACY V1 Reports"
+        ],
+        "summary": "Get received messages detail",
+        "description": "Returns a list message received",
+        "operationId": "GetReceivedMessagesDetail",
+        "parameters": [
+          {
+            "name": "end_date",
+            "in": "query",
+            "description": "End date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "example": "2017-02-10T13:30:00"
+            }
+          },
+          {
+            "name": "start_date",
+            "in": "query",
+            "description": "Start date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "example": "2017-02-12T13:30:00"
+            }
+          },
+          {
+            "name": "accounts",
+            "in": "query",
+            "description": "Filter results by a specific account. By default results\n\nwill be returned for the account associated with the authentication\n\ncredentials and all sub-accounts.",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "action",
+            "in": "query",
+            "description": "Filter results by the action that was invoked for this message.",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "$ref": "#/components/schemas/action"
+            }
+          },
+          {
+            "name": "destination_address",
+            "in": "query",
+            "description": "Filter results by destination address.",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "message_format",
+            "in": "query",
+            "description": "Filter results by message format.",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "$ref": "#/components/schemas/format"
+            }
+          },
+          {
+            "name": "metadata_key",
+            "in": "query",
+            "description": "Filter results for messages that include a metadata key.",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "metadata_value",
+            "in": "query",
+            "description": "Filter results for messages that include a metadata key containing this value. If this parameter is provided, the metadata_key parameter must also be provided.",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number for paging through paginated result sets.",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "number",
+              "format": "double"
+            }
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "description": "Number of results to return in a page for paginated result sets.",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "number",
+              "format": "double"
+            }
+          },
+          {
+            "name": "source_address",
+            "in": "query",
+            "description": "Filter results by source address.",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "timezone",
+            "in": "query",
+            "description": "The timezone to use for the context of the request. If provided this will be used as the timezone for the start date and end date parameters, and all datetime fields returns in the response. The timezone should be provided as a IANA (Internet Assigned Numbers Authority) time zone database zone name, i.e., 'Australia/Melbourne'.",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of all messages received in the specified time window",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReceivedMessages"
+                },
+                "example": {
+                  "data": [
+                    {
+                      "account": "MyAccount001",
+                      "action": "MyAccount001",
+                      "content": "Hello back",
+                      "destination_address": 61491570156,
+                      "destination_address_country": "AU",
+                      "format": "AU",
+                      "source_address": 61491570156,
+                      "source_address_country": "AU",
+                      "timestamp": "2017-02-12T13:30:00"
+                    }
+                  ],
+                  "pagination": {},
+                  "properties": {
+                    "end_date": "2017-02-10T13:30:00",
+                    "start_date": "2017-02-12T13:30:00",
+                    "sorting": {},
+                    "filters": {
+                      "accounts": []
+                    },
+                    "timezone": "The timezone that this report is presented in, this may be passed in as a parameter to the report, or taken from account settings"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request. Check the json response for more details on what went wrong."
+          }
+        },
+        "deprecated": false,
+        "x-code-samples": [
+          {
+            "lang": "C#",
+            "source": ""
+          },
+          {
+            "lang": "Java",
+            "source": ""
+          },
+          {
+            "lang": "JavaScript",
+            "source": ""
+          },
+          {
+            "lang": "PHP",
+            "source": ""
+          },
+          {
+            "lang": "Python",
+            "source": ""
+          },
+          {
+            "lang": "Ruby",
+            "source": ""
+          }
+        ]
+      }
+    },
+    "/v1/reporting/sent_messages/detail/async": {
+      "post": {
+        "security": [
+          {
+            "basic_auth": []
+          },
+          {
+            "hmac_auth": []
+          }
+        ],
+        "tags": [
+          "LEGACY V1 Reports"
+        ],
+        "summary": "Submit sent messages detail",
+        "description": "Submits a request to generate an async detail report",
+        "operationId": "SubmitSentMessagesDetail",
+        "parameters": [],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/asyncsentmessagesdetailrequestv1"
+              },
+              "example": {
+                "end_date": "2017-02-10T13:30:00",
+                "start_date": "2017-02-12T13:30:00",
+                "period": "TODAY",
+                "timezone": "Australia/Melbourne",
+                "accounts": [],
+                "statuses": [
+                  "CANCELLED"
+                ],
+                "delivery_options": [
+                  {
+                    "delivery_type": "EMAIL",
+                    "delivery_addresses": [],
+                    "delivery_format": "CSV"
+                  }
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "The identifier of the async report request",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AsyncReportResponse"
+                },
+                "example": {
+                  "id": "b8ffd5b3-050a-46b9-9192-fbd7c20a22ec"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request. Check the json response for more details on what went wrong."
+          }
+        },
+        "deprecated": false,
+        "x-code-samples": [
+          {
+            "lang": "C#",
+            "source": ""
+          },
+          {
+            "lang": "Java",
+            "source": ""
+          },
+          {
+            "lang": "JavaScript",
+            "source": ""
+          },
+          {
+            "lang": "PHP",
+            "source": ""
+          },
+          {
+            "lang": "Python",
+            "source": ""
+          },
+          {
+            "lang": "Ruby",
+            "source": ""
+          }
+        ]
+      }
+    },
+    "/v1/reporting/sent_messages/detail": {
+      "get": {
+        "security": [
+          {
+            "basic_auth": []
+          },
+          {
+            "hmac_auth": []
+          }
+        ],
+        "tags": [
+          "LEGACY V1 Reports"
+        ],
+        "summary": "Get sent messages detail",
+        "description": "Returns a list of message sent",
+        "operationId": "GetSentMessagesDetail",
+        "parameters": [
+          {
+            "name": "end_date",
+            "in": "query",
+            "description": "End date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "example": "2017-02-10T13:30:00"
+            }
+          },
+          {
+            "name": "start_date",
+            "in": "query",
+            "description": "Start date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "example": "2017-02-12T13:30:00"
+            }
+          },
+          {
+            "name": "accounts",
+            "in": "query",
+            "description": "Filter results by a specific account. By default results\n\nwill be returned for the account associated with the authentication\n\ncredentials and all sub-accounts.",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "destination_address",
+            "in": "query",
+            "description": "Filter results by destination address.",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "message_format",
+            "in": "query",
+            "description": "Filter results by message format.",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "$ref": "#/components/schemas/format"
+            }
+          },
+          {
+            "name": "metadata_key",
+            "in": "query",
+            "description": "Filter results for messages that include a metadata key.",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "metadata_value",
+            "in": "query",
+            "description": "Filter results for messages that include a metadata key containing this value. If this parameter is provided, the metadata_key parameter must also be provided.",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "status_code",
+            "in": "query",
+            "description": "Filter results by message status code.",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "Filter results by message status. Can't be combined with statuses.",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "$ref": "#/components/schemas/status"
+            }
+          },
+          {
+            "name": "statuses",
+            "in": "query",
+            "description": "Filter results by message status. Can't be combined with status.{array}",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "$ref": "#/components/schemas/statuses"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number for paging through paginated result sets.",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "number",
+              "format": "double"
+            }
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "description": "Number of results to return in a page for paginated result sets.",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "number",
+              "format": "double"
+            }
+          },
+          {
+            "name": "source_address",
+            "in": "query",
+            "description": "Filter results by source address.",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "timezone",
+            "in": "query",
+            "description": "The timezone to use for the context of the request. If provided this will be used as the timezone for the start date and end date parameters, and all datetime fields returns in the response. The timezone should be provided as a IANA (Internet Assigned Numbers Authority) time zone database zone name, i.e., 'Australia/Melbourne'.",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of all messages sent in the specified time window",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SentMessages"
+                },
+                "example": {
+                  "data": [
+                    {
+                      "account": "MyAccount001",
+                      "content": "Hello world!",
+                      "delivered_timestamp": "2017-02-12T13:30:00",
+                      "destination_address": 61491570156,
+                      "destination_address_country": "AU",
+                      "format": "AU",
+                      "source_address": 61491570156,
+                      "source_address_country": "AU",
+                      "units": 2,
+                      "timestamp": "2017-02-12T13:30:00"
+                    }
+                  ],
+                  "pagination": {},
+                  "properties": {
+                    "end_date": "2017-02-10T13:30:00",
+                    "start_date": "2017-02-12T13:30:00",
+                    "sorting": {},
+                    "filters": {
+                      "accounts": []
+                    },
+                    "timezone": "The timezone that this report is presented in, this may be passed in as a parameter to the report, or taken from account settings"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request. Check the json response for more details on what went wrong."
+          }
+        },
+        "deprecated": false,
+        "x-code-samples": [
+          {
+            "lang": "C#",
+            "source": ""
+          },
+          {
+            "lang": "Java",
+            "source": ""
+          },
+          {
+            "lang": "JavaScript",
+            "source": ""
+          },
+          {
+            "lang": "PHP",
+            "source": ""
+          },
+          {
+            "lang": "Python",
+            "source": ""
+          },
+          {
+            "lang": "Ruby",
+            "source": ""
+          }
+        ]
+      }
+    },
+    "/v1/reporting/received_messages/summary/async": {
+      "post": {
+        "security": [
+          {
+            "basic_auth": []
+          },
+          {
+            "hmac_auth": []
+          }
+        ],
+        "tags": [
+          "LEGACY V1 Reports"
+        ],
+        "summary": "Submit received messages summary",
+        "description": "Submits a summarised report of received messages",
+        "operationId": "SubmitReceivedMessagesSummary",
+        "parameters": [],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/asyncreceivedmessagessummaryrequest"
+              },
+              "example": {
+                "end_date": "2017-02-10T13:30:00",
+                "start_date": "2017-02-12T13:30:00",
+                "group_by": [
+                  "DAY"
+                ],
+                "period": "THIS_WEEK",
+                "timezone": "Australia/Melbourne",
+                "accounts": [],
+                "delivery_options": [
+                  {
+                    "delivery_type": "EMAIL",
+                    "delivery_addresses": [],
+                    "delivery_format": "CSV"
+                  }
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "The identifier of the async report request",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AsyncReportResponse"
+                },
+                "example": {
+                  "id": "b8ffd5b3-050a-46b9-9192-fbd7c20a22ec"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request. Check the json response for more details on what went wrong."
+          },
+          "501": {
+            "description": "The group_by combination is not currently implemented"
+          }
+        },
+        "deprecated": false,
+        "x-code-samples": [
+          {
+            "lang": "C#",
+            "source": ""
+          },
+          {
+            "lang": "Java",
+            "source": ""
+          },
+          {
+            "lang": "JavaScript",
+            "source": ""
+          },
+          {
+            "lang": "PHP",
+            "source": ""
+          },
+          {
+            "lang": "Python",
+            "source": ""
+          },
+          {
+            "lang": "Ruby",
+            "source": ""
+          }
+        ]
+      }
+    },
+    "/v1/reporting/received_messages/summary": {
+      "get": {
+        "security": [
+          {
+            "basic_auth": []
+          },
+          {
+            "hmac_auth": []
+          }
+        ],
+        "tags": [
+          "LEGACY V1 Reports"
+        ],
+        "summary": "Get received messages summary",
+        "description": "Returns a summarised report of messages received",
+        "operationId": "GetReceivedMessagesSummary",
+        "parameters": [
+          {
+            "name": "end_date",
+            "in": "query",
+            "description": "End date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "example": "2017-02-10T13:30:00"
+            }
+          },
+          {
+            "name": "start_date",
+            "in": "query",
+            "description": "Start date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "example": "2017-02-12T13:30:00"
+            }
+          },
+          {
+            "name": "group_by",
+            "in": "query",
+            "description": "List of fields to group results set by{array}",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "$ref": "#/components/schemas/group_by"
+            }
+          },
+          {
+            "name": "accounts",
+            "in": "query",
+            "description": "Filter results by a specific account. By default results\n\nwill be returned for the account associated with the authentication\n\ncredentials and all sub-accounts.",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "destination_address",
+            "in": "query",
+            "description": "Filter results by destination address.",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "message_format",
+            "in": "query",
+            "description": "Filter results by message format.",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "$ref": "#/components/schemas/format"
+            }
+          },
+          {
+            "name": "metadata_key",
+            "in": "query",
+            "description": "Filter results for messages that include a metadata key.",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "metadata_value",
+            "in": "query",
+            "description": "Filter results for messages that include a metadata key containing this value. If this parameter is provided, the metadata_key parameter must also be provided.",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "source_address",
+            "in": "query",
+            "description": "Filter results by source address.",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "timezone",
+            "in": "query",
+            "description": "The timezone to use for the context of the request. If provided this will be used as the timezone for the start date and end date parameters, and all datetime fields returns in the response. The timezone should be provided as a IANA (Internet Assigned Numbers Authority) time zone database zone name, i.e., 'Australia/Melbourne'.",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A summarised report of all messages received in the specified time, grouped by by the specified grouping parameter",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SummaryReport"
+                },
+                "example": {
+                  "properties": {
+                    "end_date": "2017-02-10T13:30:00",
+                    "start_date": "2017-02-12T13:30:00",
+                    "timezone": "The timezone that this report is presented in, this may be passed in as a parameter to the report, or taken from account settings"
+                  },
+                  "data": [
+                    {}
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request. Check the json response for more details on what went wrong."
+          },
+          "501": {
+            "description": "The group_by combination is not currently implemented"
+          }
+        },
+        "deprecated": false,
+        "x-code-samples": [
+          {
+            "lang": "C#",
+            "source": ""
+          },
+          {
+            "lang": "Java",
+            "source": ""
+          },
+          {
+            "lang": "JavaScript",
+            "source": ""
+          },
+          {
+            "lang": "PHP",
+            "source": ""
+          },
+          {
+            "lang": "Python",
+            "source": ""
+          },
+          {
+            "lang": "Ruby",
+            "source": ""
+          }
+        ]
+      }
+    },
+    "/v1/reporting/sent_messages/summary/async": {
+      "post": {
+        "security": [
+          {
+            "basic_auth": []
+          },
+          {
+            "hmac_auth": []
+          }
+        ],
+        "tags": [
+          "LEGACY V1 Reports"
+        ],
+        "summary": "Submit sent messages summary",
+        "description": "Submits a summarised report of sent messages",
+        "operationId": "SubmitSentMessagesSummary",
+        "parameters": [],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/asyncsentmessagesrequest"
+              },
+              "example": {
+                "end_date": "2017-02-10T13:30:00",
+                "start_date": "2017-02-12T13:30:00",
+                "group_by": [
+                  "DAY"
+                ],
+                "period": "YESTERDAY",
+                "timezone": "Australia/Melbourne",
+                "accounts": [],
+                "delivery_options": [
+                  {
+                    "delivery_type": "EMAIL",
+                    "delivery_addresses": [],
+                    "delivery_format": "CSV"
+                  }
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "The identifier of the async report request",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AsyncReportResponse"
+                },
+                "example": {
+                  "id": "b8ffd5b3-050a-46b9-9192-fbd7c20a22ec"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request. Check the json response for more details on what went wrong."
+          },
+          "501": {
+            "description": "The group_by combination is not currently implemented"
+          }
+        },
+        "deprecated": false,
+        "x-code-samples": [
+          {
+            "lang": "C#",
+            "source": ""
+          },
+          {
+            "lang": "Java",
+            "source": ""
+          },
+          {
+            "lang": "JavaScript",
+            "source": ""
+          },
+          {
+            "lang": "PHP",
+            "source": ""
+          },
+          {
+            "lang": "Python",
+            "source": ""
+          },
+          {
+            "lang": "Ruby",
+            "source": ""
+          }
+        ]
+      }
+    },
+    "/v1/reporting/sent_messages/summary": {
+      "get": {
+        "security": [
+          {
+            "basic_auth": []
+          },
+          {
+            "hmac_auth": []
+          }
+        ],
+        "tags": [
+          "LEGACY V1 Reports"
+        ],
+        "summary": "Get sent messages summary",
+        "description": "Returns a summarised report of messages sent",
+        "operationId": "GetSentMessagesSummary",
+        "parameters": [
+          {
+            "name": "end_date",
+            "in": "query",
+            "description": "End date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "example": "2017-02-10T13:30:00"
+            }
+          },
+          {
+            "name": "start_date",
+            "in": "query",
+            "description": "Start date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "example": "2017-02-12T13:30:00"
+            }
+          },
+          {
+            "name": "group_by",
+            "in": "query",
+            "description": "List of fields to group results set by{array}",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "$ref": "#/components/schemas/group_by"
+            }
+          },
+          {
+            "name": "accounts",
+            "in": "query",
+            "description": "Filter results by a specific account. By default results\n\nwill be returned for the account associated with the authentication\n\ncredentials and all sub-accounts.",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "destination_address",
+            "in": "query",
+            "description": "Filter results by destination address.",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "message_format",
+            "in": "query",
+            "description": "Filter results by message format.",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "$ref": "#/components/schemas/format"
+            }
+          },
+          {
+            "name": "metadata_key",
+            "in": "query",
+            "description": "Filter results for messages that include a metadata key.",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "metadata_value",
+            "in": "query",
+            "description": "Filter results for messages that include a metadata key containing this value. If this parameter is provided, the metadata_key parameter must also be provided.",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "status_code",
+            "in": "query",
+            "description": "Filter results by message status code.",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "source_address",
+            "in": "query",
+            "description": "Filter results by source address.",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "timezone",
+            "in": "query",
+            "description": "The timezone to use for the context of the request. If provided this will be used as the timezone for the start date and end date parameters, and all datetime fields returns in the response. The timezone should be provided as a IANA (Internet Assigned Numbers Authority) time zone database zone name, i.e., 'Australia/Melbourne'.",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A summarised report of all messages received in the specified time, grouped by by the specified grouping parameter",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SummaryReport"
+                },
+                "example": {
+                  "properties": {
+                    "end_date": "2017-02-10T13:30:00",
+                    "start_date": "2017-02-12T13:30:00",
+                    "timezone": "The timezone that this report is presented in, this may be passed in as a parameter to the report, or taken from account settings"
+                  },
+                  "data": [
+                    {}
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request. Check the json response for more details on what went wrong."
+          },
+          "501": {
+            "description": "The group_by combination is not currently implemented"
           }
         },
         "deprecated": false,
@@ -5664,6 +7022,9 @@
     "schemas": {
       "metakeyresponse": {
         "title": "metakeyresponse",
+        "required": [
+          "keys"
+        ],
         "properties": {
           "keys": {
             "type": "array",
@@ -5681,6 +7042,10 @@
       "chronosscheduleresponse": {
         "title": "chronosscheduleresponse",
         "type": "object",
+        "required": [
+          "page_token",
+          "page_size"
+        ],
         "properties": {
           "page_token": {
             "type": "string",
@@ -5707,64 +7072,6 @@
           "schedule",
           "report"
         ],
-        "properties": {
-          "label": {
-            "type": "string",
-            "example": "Weekly Report",
-            "description": "The label of the report schedule"
-          },
-          "schedule": {
-            "$ref": "#/components/schemas/schedule"
-          },
-          "report": {
-            "$ref": "#/components/schemas/scheduleddetailrequest"
-          },
-          "message_type": {
-            "$ref": "#/components/schemas/MessageDirection"
-          },
-          "report_type": {
-            "type": "string",
-            "example": "detail"
-          },
-          "metadata": {
-            "type": "object",
-            "description": "Metadata for the message specified as a set of key value pairs, each key can be up to 100 characters long and each value can be up to 256 characters long\n```\n{\n   \"myKey\": \"myValue\",\n   \"anotherKey\": \"anotherValue\"\n}\n```",
-            "example": [
-              {
-                "myKey": "myValue"
-              },
-              {
-                "anotherKey": "anotherValue"
-              }
-            ]
-          }
-        }
-      },
-      "updatescheduleddetailreport": {
-        "title": "updatescheduleddetailreport",
-        "type": "object",
-        "required": [
-          "label",
-          "schedule",
-          "report"
-        ],
-        "properties": {
-          "label": {
-            "type": "string",
-            "example": "Weekly Report",
-            "description": "The label of the report schedule"
-          },
-          "schedule": {
-            "$ref": "#/components/schemas/schedule"
-          },
-          "report": {
-            "$ref": "#/components/schemas/scheduleddetailrequest"
-          }
-        }
-      },
-      "scheduleddetailreportresponse": {
-        "title": "scheduleddetailreportresponse",
-        "type": "object",
         "properties": {
           "label": {
             "type": "string",
@@ -5921,6 +7228,11 @@
       "scheduledreport": {
         "title": "scheduledreport",
         "type": "object",
+        "required": [
+          "label",
+          "schedule",
+          "report"
+        ],
         "properties": {
           "label": {
             "type": "string",
@@ -5950,6 +7262,9 @@
       "scheduledreportresponse": {
         "title": "scheduledreportresponse",
         "type": "object",
+        "required": [
+          "scheduled_report_id"
+        ],
         "properties": {
           "scheduled_report_id": {
             "type": "string",
@@ -5966,42 +7281,6 @@
           "schedule",
           "report"
         ],
-        "properties": {
-          "label": {
-            "type": "string",
-            "example": "Weekly Report",
-            "description": "The label of the report schedule"
-          },
-          "schedule": {
-            "$ref": "#/components/schemas/schedule"
-          },
-          "report": {
-            "$ref": "#/components/schemas/scheduledsummaryrequest"
-          },
-          "message_type": {
-            "$ref": "#/components/schemas/MessageDirection"
-          },
-          "report_type": {
-            "type": "string",
-            "example": "detail"
-          },
-          "metadata": {
-            "type": "object",
-            "description": "Metadata for the message specified as a set of key value pairs, each key can be up to 100 characters long and each value can be up to 256 characters long\n```\n{\n   \"myKey\": \"myValue\",\n   \"anotherKey\": \"anotherValue\"\n}\n```",
-            "example": [
-              {
-                "myKey": "myValue"
-              },
-              {
-                "anotherKey": "anotherValue"
-              }
-            ]
-          }
-        }
-      },
-      "scheduledsummaryreportresposne": {
-        "title": "scheduledsummaryreportresposne",
-        "type": "object",
         "properties": {
           "label": {
             "type": "string",
@@ -6037,28 +7316,6 @@
                 "anotherKey": "anotherValue"
               }
             ]
-          }
-        }
-      },
-      "updatescheduledsummaryreport": {
-        "title": "updatescheduledsummaryreport",
-        "type": "object",
-        "required": [
-          "label",
-          "schedule",
-          "report"
-        ],
-        "properties": {
-          "label": {
-            "type": "string",
-            "example": "Weekly Report",
-            "description": "The label of the report schedule"
-          },
-          "schedule": {
-            "$ref": "#/components/schemas/schedule"
-          },
-          "report": {
-            "$ref": "#/components/schemas/scheduledsummaryrequest"
           }
         }
       },
@@ -6590,6 +7847,9 @@
       "asyncreportresponse": {
         "title": "asyncreportresponse",
         "type": "object",
+        "required": [
+          "report_id"
+        ],
         "properties": {
           "report_id": {
             "type": "string",
@@ -7128,8 +8388,8 @@
           }
         }
       },
-      "RequestAlphaTag": {
-        "title": "RequestAlphaTag",
+      "RequestSenderAddress": {
+        "title": "RequestSenderAddress",
         "type": "object",
         "required": [
           "sender_address",
@@ -7141,7 +8401,8 @@
         "properties": {
           "sender_address": {
             "type": "string",
-            "description": "The Sender Address to be requested"
+            "description": "The Sender Address to be requested",
+            "example": "EXAMPLE"
           },
           "sender_address_type": {
             "type": "string",
@@ -7160,60 +8421,23 @@
             "description": "list of 2-character ISO country codes",
             "items": {
               "type": "string"
-            }
+            },
+            "example": [
+              "AU"
+            ]
           },
           "reason": {
-            "type": "string"
+            "type": "string",
+            "example": "This is my reason"
           },
           "label": {
-            "type": "string"
+            "type": "string",
+            "example": "label"
           }
         }
       },
-      "RequestVerificationCode": {
-        "title": "RequestVerificationCode",
-        "type": "object",
-        "required": [
-          "sender_address",
-          "sender_address_type",
-          "usage_type",
-          "destination_countries",
-          "reason"
-        ],
-        "properties": {
-          "sender_address": {
-            "type": "string",
-            "description": "The Own Number to be verified"
-          },
-          "sender_address_type": {
-            "type": "string",
-            "enum": [
-              "INTERNATIONAL"
-            ]
-          },
-          "usage_type": {
-            "type": "string",
-            "enum": [
-              "OWN_NUMBER"
-            ]
-          },
-          "destination_countries": {
-            "type": "array",
-            "description": "list of 2-character ISO country codes",
-            "items": {
-              "type": "string"
-            }
-          },
-          "reason": {
-            "type": "string"
-          },
-          "label": {
-            "type": "string"
-          }
-        }
-      },
-      "AlphaTagRequestItem": {
-        "title": "AlphaTagRequestItem",
+      "SenderAddressRequestItem": {
+        "title": "SenderAddressRequestItem",
         "type": "object",
         "properties": {
           "id": {
@@ -7224,7 +8448,7 @@
           },
           "sender_address": {
             "type": "string",
-            "description": "The Alpha tag to be requested",
+            "description": "The Sender Address to be requested",
             "example": "EXAMPLE"
           },
           "sender_address_type": {
@@ -7282,33 +8506,33 @@
           }
         }
       },
-      "VerificationCodeRequestItem": {
-        "title": "VerificationCodeRequestItem",
+      "GetAllApprovedSenderAddress": {
+        "title": "GetAllApprovedSenderAddress",
         "type": "object",
         "properties": {
           "id": {
             "type": "string",
             "format": "uuid",
             "description": "Primary ID of the record",
-            "example": "6f79a12e-14f1-4776-adc0-5c5e48a999b8"
+            "example": "6f79a12e-14f1-4776-adc0-5c5e48a999b7"
           },
           "sender_address": {
             "type": "string",
-            "description": "The Own Number to be requested",
-            "example": "+61401234567"
+            "description": "The Sender Address to be requested",
+            "example": "EXAMPLE"
           },
           "sender_address_type": {
             "type": "string",
             "description": "The Sender Address Type",
             "enum": [
-              "INTERNATIONAL"
+              "ALPHANUMERIC"
             ]
           },
           "usage_type": {
             "type": "string",
             "description": "The Sender Address Usage Type",
             "enum": [
-              "OWN_NUMBER"
+              "ALPHANUMERIC"
             ]
           },
           "destination_countries": {
@@ -7323,23 +8547,11 @@
           },
           "reason": {
             "type": "string",
-            "example": "my personal number"
+            "example": "This is my reason"
           },
           "label": {
             "type": "string",
             "example": "label"
-          },
-          "status": {
-            "type": "string",
-            "enum": [
-              "PENDING",
-              "REJECTED",
-              "APPROVED"
-            ]
-          },
-          "account_id": {
-            "type": "string",
-            "example": "XYZ_ExampleAccount"
           },
           "created_date": {
             "type": "string",
@@ -7348,90 +8560,10 @@
           "last_modified_date": {
             "type": "string",
             "format": "date-time"
-          }
-        }
-      },
-      "PostVerificationCode": {
-        "type": "object",
-        "title": "PostVerificationCode",
-        "required": [
-          "verification_code"
-        ],
-        "properties": {
-          "verification_code": {
-            "type": "string",
-            "description": "Verify Sender Address Request",
-            "example": "123456"
-          }
-        }
-      },
-      "GetAllApprovedSenderAddress": {
-        "title": "GetAllApprovedSenderAddress",
-        "type": "object",
-        "properties": {
-          "data": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "string",
-                  "format": "uuid",
-                  "description": "Primary ID of the record"
-                },
-                "sender_address": {
-                  "type": "string",
-                  "description": "The Sender Address to be requested"
-                },
-                "sender_address_type": {
-                  "type": "string",
-                  "description": "The Sender Address Type",
-                  "enum": [
-                    "ALPHANUMERIC"
-                  ]
-                },
-                "usage_type": {
-                  "type": "string",
-                  "description": "The Sender Address Usage Type",
-                  "enum": [
-                    "ALPHANUMERIC"
-                  ]
-                },
-                "destination_countries": {
-                  "type": "array",
-                  "description": "list of 2-character ISO country codes this sender address applies to",
-                  "items": {
-                    "type": "string"
-                  }
-                },
-                "reason": {
-                  "type": "string"
-                },
-                "label": {
-                  "type": "string"
-                },
-                "created_date": {
-                  "type": "string",
-                  "format": "date-time"
-                },
-                "last_modified_date": {
-                  "type": "string",
-                  "format": "date-time"
-                }
-              }
-            }
           },
-          "pagination": {
-            "type": "object",
-            "properties": {
-              "page_size": {
-                "type": "number"
-              },
-              "next_token": {
-                "type": "string",
-                "description": "The pagination token of the next set of results."
-              }
-            }
+          "page_size": {
+            "type": "number",
+            "example": 20
           }
         }
       },
@@ -7903,6 +9035,62 @@
           "message": "The number could not be found or is invalid."
         }
       },
+      "MetadataKeysResponse": {
+        "title": "MetadataKeysResponse",
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": ""
+          },
+          "properties": {
+            "$ref": "#/components/schemas/Properties"
+          }
+        },
+        "description": "Metadata key response",
+        "example": {
+          "data": [],
+          "properties": {
+            "end_date": "2019-02-10T13:30:00.000Z",
+            "start_date": "2017-02-12T13:30:00",
+            "accounts": []
+          }
+        }
+      },
+      "Properties": {
+        "title": "Properties",
+        "required": [
+          "end_date",
+          "start_date"
+        ],
+        "type": "object",
+        "properties": {
+          "end_date": {
+            "type": "string",
+            "description": "End date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.",
+            "example": "2017-02-10T16:30:00"
+          },
+          "start_date": {
+            "type": "string",
+            "description": "Start date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.",
+            "example": "2017-02-12T13:30:00"
+          },
+          "accounts": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": [
+              "Account1",
+              "Account2"
+            ],
+            "description": "List of accounts that were considered when fetching the metadata keys."
+          }
+        }
+      },
       "deliveryOptionsBody": {
         "title": "deliveryOptionsBody",
         "type": "object",
@@ -7983,6 +9171,841 @@
           }
         }
       },
+      "ReportingDetailProperties": {
+        "title": "ReportingDetailProperties",
+        "required": [
+          "end_date",
+          "start_date"
+        ],
+        "type": "object",
+        "properties": {
+          "end_date": {
+            "type": "string",
+            "description": "End date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.",
+            "example": "2017-02-10T13:30:00"
+          },
+          "start_date": {
+            "type": "string",
+            "description": "Start date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.",
+            "example": "2017-02-12T13:30:00"
+          },
+          "filters": {
+            "$ref": "#/components/schemas/Filters"
+          },
+          "timezone": {
+            "type": "string",
+            "example": "The timezone that this report is presented in, this may be passed in as a parameter to the report, or taken from account settings"
+          }
+        }
+      },
+      "Sorting": {
+        "title": "Sorting",
+        "type": "object",
+        "properties": {
+          "field": {
+            "$ref": "#/components/schemas/field"
+          },
+          "order": {
+            "$ref": "#/components/schemas/order"
+          }
+        }
+      },
+      "Filters": {
+        "title": "Filters",
+        "type": "object",
+        "properties": {
+          "delivery_report": {
+            "type": "string"
+          },
+          "destination_address_country": {
+            "type": "string"
+          },
+          "destination_address": {
+            "type": "string"
+          },
+          "message_format": {
+            "type": "string"
+          },
+          "metadata_key": {
+            "type": "string"
+          },
+          "metadata_value": {
+            "type": "string"
+          },
+          "source_address_country": {
+            "type": "string"
+          },
+          "source_address": {
+            "type": "string"
+          },
+          "status_code": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "action": {
+            "type": "string"
+          },
+          "accounts": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of accounts that were used to generate this report"
+          }
+        }
+      },
+      "AsyncReport": {
+        "title": "AsyncReport",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique ID for this reply"
+          },
+          "report_status": {
+            "$ref": "#/components/schemas/report_status"
+          }
+        },
+        "example": {
+          "id": "762b24ad-9110-42e3-b1d8-6c60a61a7235",
+          "report_status": "DONE"
+        }
+      },
+      "ReceivedMessage": {
+        "title": "ReceivedMessage",
+        "type": "object",
+        "properties": {
+          "account": {
+            "type": "string",
+            "description": "Account associated with this message",
+            "example": "MyAccount001"
+          },
+          "action": {
+            "$ref": "#/components/schemas/action"
+          },
+          "content": {
+            "type": "string",
+            "description": "Content of the message",
+            "example": "Hello back"
+          },
+          "destination_address": {
+            "type": "string",
+            "description": "Address this message was delivered to. If this message was received in response to a sent message, this is the source address of the sent message",
+            "example": 61491570156
+          },
+          "destination_address_country": {
+            "type": "string",
+            "description": "Country associated with the destination address",
+            "example": "AU"
+          },
+          "format": {
+            "$ref": "#/components/schemas/format"
+          },
+          "id": {
+            "type": "string",
+            "description": "Unique ID for this reply"
+          },
+          "in_response_to": {
+            "type": "string",
+            "description": "If this message was received in response to a sent message, this is the ID of the sent message"
+          },
+          "metadata": {
+            "type": "object",
+            "description": "If this message was received in response to a sent message, this is the metadata associated with the sent message"
+          },
+          "source_address": {
+            "type": "string",
+            "description": "Address this message was received from. If this message was received in response to a sent message, this is the destination address of the sent message.",
+            "example": 61491570156
+          },
+          "source_address_country": {
+            "type": "string",
+            "description": "Country associated with the source address",
+            "example": "AU"
+          },
+          "timestamp": {
+            "type": "string",
+            "description": "Date time at which this message was received",
+            "example": "2017-02-12T13:30:00"
+          }
+        },
+        "description": "A message received for the account specified. This message may be in response to a sent message, or it may be an unsolicited message, matched to the account by the destination address."
+      },
+      "ReceivedMessages": {
+        "title": "ReceivedMessages",
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ReceivedMessage"
+            },
+            "description": "List of received messages"
+          },
+          "pagination": {
+            "$ref": "#/components/schemas/Pagination"
+          },
+          "properties": {
+            "$ref": "#/components/schemas/ReportingDetailProperties"
+          }
+        },
+        "example": {
+          "data": [
+            {
+              "account": "MyAccount001",
+              "action": "MyAccount001",
+              "content": "Hello back",
+              "destination_address": 61491570156,
+              "destination_address_country": "AU",
+              "format": "AU",
+              "source_address": 61491570156,
+              "source_address_country": "AU",
+              "timestamp": "2017-02-12T13:30:00"
+            }
+          ],
+          "pagination": {},
+          "properties": {
+            "end_date": "2017-02-10T13:30:00",
+            "start_date": "2017-02-12T13:30:00",
+            "sorting": {},
+            "filters": {
+              "accounts": []
+            },
+            "timezone": "The timezone that this report is presented in, this may be passed in as a parameter to the report, or taken from account settings"
+          }
+        }
+      },
+      "SentMessage": {
+        "title": "SentMessage",
+        "type": "object",
+        "properties": {
+          "account": {
+            "type": "string",
+            "description": "Account associated with this message",
+            "example": "MyAccount001"
+          },
+          "content": {
+            "type": "string",
+            "description": "Content of the message",
+            "example": "Hello world!"
+          },
+          "destination_address": {
+            "type": "string",
+            "description": "Address this message was delivered to",
+            "example": 61491570156
+          },
+          "destination_address_country": {
+            "type": "string",
+            "description": "Country associated with the destination address",
+            "example": "AU"
+          },
+          "format": {
+            "$ref": "#/components/schemas/format"
+          },
+          "id": {
+            "type": "string",
+            "description": "Unique ID for this message"
+          },
+          "in_response_to": {
+            "type": "string",
+            "description": "If this message was sent in response to a received message (an auto response message for example) this is the ID of the received message."
+          },
+          "metadata": {
+            "type": "object",
+            "description": "Metadata associated with this message"
+          },
+          "source_address": {
+            "type": "string",
+            "description": "Address this message was sent from",
+            "example": 61491570156
+          },
+          "source_address_country": {
+            "type": "string",
+            "description": "Country associated with the source address",
+            "example": "AU"
+          },
+          "timestamp": {
+            "type": "string",
+            "description": "Date time at which this message was submitted to the API, refer to the delivered timestamp for the time at which the message was delivered (or failed to be delivered) to the destination address.",
+            "example": "2017-02-12T13:30:00"
+          }
+        }
+      },
+      "SentMessages": {
+        "title": "SentMessages",
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SentMessage"
+            },
+            "description": "List of sent messages"
+          },
+          "pagination": {
+            "$ref": "#/components/schemas/Pagination"
+          },
+          "properties": {
+            "$ref": "#/components/schemas/ReportingDetailProperties"
+          }
+        },
+        "example": {
+          "data": [
+            {
+              "account": "MyAccount001",
+              "content": "Hello world!",
+              "destination_address": 61491570156,
+              "destination_address_country": "AU",
+              "format": "AU",
+              "source_address": 61491570156,
+              "source_address_country": "AU",
+              "timestamp": "2017-02-12T13:30:00"
+            }
+          ],
+          "pagination": {},
+          "properties": {
+            "end_date": "2017-02-10T13:30:00",
+            "start_date": "2017-02-12T13:30:00",
+            "filters": {
+              "accounts": []
+            },
+            "timezone": "The timezone that this report is presented in, this may be passed in as a parameter to the report, or taken from account settings"
+          }
+        }
+      },
+      "AsyncReportResponse": {
+        "title": "AsyncReportResponse",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The identifier for this async report",
+            "example": "b8ffd5b3-050a-46b9-9192-fbd7c20a22ec"
+          }
+        },
+        "example": {
+          "id": "b8ffd5b3-050a-46b9-9192-fbd7c20a22ec"
+        }
+      },
+      "SummaryReport": {
+        "title": "SummaryReport",
+        "type": "object",
+        "properties": {
+          "properties": {
+            "$ref": "#/components/schemas/Properties33"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SummaryReportItem"
+            },
+            "description": ""
+          }
+        },
+        "example": {
+          "properties": {
+            "end_date": "2017-02-10T13:30:00",
+            "start_date": "2017-02-12T13:30:00",
+            "timezone": "The timezone that this report is presented in, this may be passed in as a parameter to the report, or taken from account settings"
+          },
+          "data": [
+            {}
+          ]
+        }
+      },
+      "Properties33": {
+        "title": "Properties33",
+        "required": [
+          "end_date",
+          "start_date"
+        ],
+        "type": "object",
+        "properties": {
+          "end_date": {
+            "type": "string",
+            "description": "End date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.",
+            "example": "2017-02-10T13:30:00"
+          },
+          "start_date": {
+            "type": "string",
+            "description": "Start date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.",
+            "example": "2017-02-12T13:30:00"
+          },
+          "filters": {
+            "type": "object",
+            "description": "Any filters provided as parameters for this report"
+          },
+          "grouping": {
+            "$ref": "#/components/schemas/grouping"
+          },
+          "timezone": {
+            "type": "string",
+            "example": "The timezone that this report is presented in, this may be passed in as a parameter to the report, or taken from account settings"
+          }
+        }
+      },
+      "SummaryReportItem": {
+        "title": "SummaryReportItem",
+        "type": "object",
+        "properties": {
+          "group": {
+            "type": "string"
+          },
+          "value": {
+            "type": "number"
+          }
+        }
+      },
+      "getAsyncReportsResponse": {
+        "title": "getAsyncReportsResponse",
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AsyncReport"
+            },
+            "description": "List of asynchronous reports"
+          },
+          "pagination": {
+            "$ref": "#/components/schemas/Pagination"
+          }
+        },
+        "example": {
+          "data": [
+            {
+              "created_datetime": "2017-02-12T13:30:00",
+              "last_modified_datetime": "2017-02-12T13:30:00"
+            }
+          ],
+          "pagination": {}
+        }
+      },
+      "asyncreceivedmessagesdetailrequest": {
+        "title": "asyncreceivedmessagesdetailrequest",
+        "required": [
+          "end_date",
+          "start_date",
+          "delivery_options"
+        ],
+        "type": "object",
+        "properties": {
+          "end_date": {
+            "type": "string",
+            "description": "End date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.",
+            "example": "2017-02-10T13:30:00"
+          },
+          "start_date": {
+            "type": "string",
+            "description": "Start date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.",
+            "example": "2017-02-12T13:30:00"
+          },
+          "period": {
+            "$ref": "#/components/schemas/period"
+          },
+          "timezone": {
+            "type": "string",
+            "description": "The timezone to use for the context of the request. If provided this will be used as the timezone for the start date and end date parameters, and all datetime fields returns in the response. The timezone should be provided as a IANA (Internet Assigned Numbers Authority) time zone database zone name, i.e., 'Australia/Melbourne'.",
+            "example": "Australia/Melbourne"
+          },
+          "accounts": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Filter results by a specific account. By default results\n\nwill be returned for the account associated with the authentication\n\ncredentials and all sub-accounts."
+          },
+          "destination_address": {
+            "type": "string",
+            "description": "Filter results by destination address."
+          },
+          "message_format": {
+            "$ref": "#/components/schemas/format"
+          },
+          "metadata_key": {
+            "type": "string",
+            "description": "Filter results for messages that include a metadata key."
+          },
+          "metadata_value": {
+            "type": "string",
+            "description": "Filter results for messages that include a metadata key containing this value. If this parameter is provided, the metadata_key parameter must also be provided."
+          },
+          "source_address": {
+            "type": "string",
+            "description": "Filter results by source address."
+          },
+          "action": {
+            "$ref": "#/components/schemas/action"
+          },
+          "delivery_options": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/deliveryOptionsBody"
+            },
+            "description": "Delivery options for this asynchronous report."
+          }
+        },
+        "example": {
+          "end_date": "2017-02-10T13:30:00",
+          "start_date": "2017-02-12T13:30:00",
+          "period": "TODAY",
+          "sort_by": "ACCOUNT",
+          "sort_direction": "ASCENDING",
+          "timezone": "Australia/Melbourne",
+          "accounts": [],
+          "delivery_options": [
+            {
+              "delivery_type": "EMAIL",
+              "delivery_addresses": [],
+              "delivery_format": "CSV"
+            }
+          ]
+        }
+      },
+      "asyncsentmessagesdetailrequestv1": {
+        "title": "asyncsentmessagesdetailrequest",
+        "required": [
+          "end_date",
+          "start_date",
+          "delivery_options"
+        ],
+        "type": "object",
+        "properties": {
+          "end_date": {
+            "type": "string",
+            "description": "End date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.",
+            "example": "2017-02-10T13:30:00"
+          },
+          "start_date": {
+            "type": "string",
+            "description": "Start date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.",
+            "example": "2017-02-12T13:30:00"
+          },
+          "period": {
+            "$ref": "#/components/schemas/period"
+          },
+          "timezone": {
+            "type": "string",
+            "description": "The timezone to use for the context of the request. If provided this will be used as the timezone for the start date and end date parameters, and all datetime fields returns in the response. The timezone should be provided as a IANA (Internet Assigned Numbers Authority) time zone database zone name, i.e., 'Australia/Melbourne'.",
+            "example": "Australia/Melbourne"
+          },
+          "accounts": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Filter results by a specific account. By default results\n\nwill be returned for the account associated with the authentication\n\ncredentials and all sub-accounts."
+          },
+          "destination_address": {
+            "type": "string",
+            "description": "Filter results by destination address."
+          },
+          "message_format": {
+            "$ref": "#/components/schemas/format"
+          },
+          "metadata_key": {
+            "type": "string",
+            "description": "Filter results for messages that include a metadata key."
+          },
+          "metadata_value": {
+            "type": "string",
+            "description": "Filter results for messages that include a metadata key containing this value. If this parameter is provided, the metadata_key parameter must also be provided."
+          },
+          "source_address": {
+            "type": "string",
+            "description": "Filter results by source address."
+          },
+          "status": {
+            "$ref": "#/components/schemas/status"
+          },
+          "statuses": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/statuses"
+            },
+            "description": "Filter results by message statuses. Can't be combined with status."
+          },
+          "status_code": {
+            "type": "string",
+            "description": "Filter results by message status code."
+          },
+          "delivery_options": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/deliveryOptionsBody"
+            },
+            "description": "Delivery options for this asynchronous report."
+          }
+        },
+        "example": {
+          "end_date": "2017-02-10T13:30:00",
+          "start_date": "2017-02-12T13:30:00",
+          "period": "TODAY",
+          "timezone": "Australia/Melbourne",
+          "accounts": [],
+          "statuses": [
+            "CANCELLED"
+          ],
+          "delivery_options": [
+            {
+              "delivery_type": "EMAIL",
+              "delivery_addresses": [],
+              "delivery_format": "CSV"
+            }
+          ]
+        }
+      },
+      "asyncreceivedmessagessummaryrequest": {
+        "title": "asyncreceivedmessagessummaryrequest",
+        "required": [
+          "end_date",
+          "start_date",
+          "delivery_options"
+        ],
+        "type": "object",
+        "properties": {
+          "end_date": {
+            "type": "string",
+            "description": "End date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.",
+            "example": "2017-02-10T13:30:00"
+          },
+          "start_date": {
+            "type": "string",
+            "description": "Start date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.",
+            "example": "2017-02-12T13:30:00"
+          },
+          "group_by": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GroupByField"
+            },
+            "description": "List of fields to group results set by"
+          },
+          "period": {
+            "$ref": "#/components/schemas/period"
+          },
+          "timezone": {
+            "type": "string",
+            "description": "The timezone to use for the context of the request. If provided this will be used as the timezone for the start date and end date parameters, and all datetime fields returns in the response. The timezone should be provided as a IANA (Internet Assigned Numbers Authority) time zone database zone name, i.e., 'Australia/Melbourne'.",
+            "example": "Australia/Melbourne"
+          },
+          "accounts": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Filter results by a specific account. By default results\n\nwill be returned for the account associated with the authentication\n\ncredentials and all sub-accounts."
+          },
+          "destination_address": {
+            "type": "string",
+            "description": "Filter results by destination address."
+          },
+          "message_format": {
+            "$ref": "#/components/schemas/format"
+          },
+          "metadata_key": {
+            "type": "string",
+            "description": "Filter results for messages that include a metadata key."
+          },
+          "metadata_value": {
+            "type": "string",
+            "description": "Filter results for messages that include a metadata key containing this value. If this parameter is provided, the metadata_key parameter must also be provided."
+          },
+          "source_address": {
+            "type": "string",
+            "description": "Filter results by source address."
+          },
+          "action": {
+            "$ref": "#/components/schemas/action"
+          },
+          "delivery_options": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/deliveryOptionsBody"
+            },
+            "description": "Delivery options for this asynchronous report."
+          }
+        },
+        "example": {
+          "end_date": "2017-02-10T13:30:00",
+          "start_date": "2017-02-12T13:30:00",
+          "group_by": [
+            "DAY"
+          ],
+          "period": "THIS_WEEK",
+          "timezone": "Australia/Melbourne",
+          "accounts": [],
+          "delivery_options": [
+            {
+              "delivery_type": "EMAIL",
+              "delivery_addresses": [],
+              "delivery_format": "CSV"
+            }
+          ]
+        }
+      },
+      "asyncsentmessagesrequest": {
+        "title": "asyncsentmessagesrequest",
+        "required": [
+          "end_date",
+          "start_date",
+          "delivery_options"
+        ],
+        "type": "object",
+        "properties": {
+          "end_date": {
+            "type": "string",
+            "description": "End date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.",
+            "example": "2017-02-10T13:30:00"
+          },
+          "start_date": {
+            "type": "string",
+            "description": "Start date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.",
+            "example": "2017-02-12T13:30:00"
+          },
+          "group_by": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GroupByField"
+            },
+            "description": "List of fields to group results set by"
+          },
+          "period": {
+            "$ref": "#/components/schemas/period"
+          },
+          "timezone": {
+            "type": "string",
+            "description": "The timezone to use for the context of the request. If provided this will be used as the timezone for the start date and end date parameters, and all datetime fields returns in the response. The timezone should be provided as a IANA (Internet Assigned Numbers Authority) time zone database zone name, i.e., 'Australia/Melbourne'.",
+            "example": "Australia/Melbourne"
+          },
+          "accounts": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Filter results by a specific account. By default results\n\nwill be returned for the account associated with the authentication\n\ncredentials and all sub-accounts."
+          },
+          "destination_address": {
+            "type": "string",
+            "description": "Filter results by destination address."
+          },
+          "message_format": {
+            "$ref": "#/components/schemas/format"
+          },
+          "metadata_key": {
+            "type": "string",
+            "description": "Filter results for messages that include a metadata key."
+          },
+          "metadata_value": {
+            "type": "string",
+            "description": "Filter results for messages that include a metadata key containing this value. If this parameter is provided, the metadata_key parameter must also be provided."
+          },
+          "source_address": {
+            "type": "string",
+            "description": "Filter results by source address."
+          },
+          "status_code": {
+            "type": "string",
+            "description": "Filter results by message status code."
+          },
+          "delivery_options": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/deliveryOptionsBody"
+            },
+            "description": "Delivery options for this asynchronous report."
+          }
+        },
+        "example": {
+          "end_date": "2017-02-10T13:30:00",
+          "start_date": "2017-02-12T13:30:00",
+          "group_by": [
+            "DAY"
+          ],
+          "period": "YESTERDAY",
+          "timezone": "Australia/Melbourne",
+          "accounts": [],
+          "delivery_options": [
+            {
+              "delivery_type": "EMAIL",
+              "delivery_addresses": [],
+              "delivery_format": "CSV"
+            }
+          ]
+        }
+      },
+      "action": {
+        "title": "action",
+        "enum": [
+          "MyAccount001",
+          "OPT_OUT",
+          "OPT_IN",
+          "GLOBAL_OPT_OUT"
+        ],
+        "type": "string",
+        "description": "Action that was invoked for this message if any, OPT_OUT, OPT_IN, GLOBAL_OPT_OUT",
+        "example": "MyAccount001"
+      },
+      "field": {
+        "title": "field",
+        "enum": [
+          "ACCOUNT",
+          "DELIVERED_TIMESTAMP",
+          "MESSAGE_EXPIRY_TIMESTAMP",
+          "DELIVERY_REPORT",
+          "DESTINATION_ADDRESS",
+          "DESTINATION_ADDRESS_COUNTRY",
+          "FORMAT",
+          "SOURCE_ADDRESS",
+          "SOURCE_ADDRESS_COUNTRY",
+          "STATUS",
+          "STATUS_CODE",
+          "UNITS",
+          "TIMESTAMP"
+        ],
+        "type": "string",
+        "description": "The value of the sort_by field provided for this report",
+        "example": "ACCOUNT"
+      },
+      "order": {
+        "title": "order",
+        "enum": [
+          "ASCENDING",
+          "DESCENDING"
+        ],
+        "type": "string",
+        "description": "The value of the sort_direction field provided for this report",
+        "example": "ASCENDING"
+      },
+      "period": {
+        "title": "period",
+        "enum": [
+          "TODAY",
+          "YESTERDAY",
+          "THIS_WEEK",
+          "LAST_WEEK",
+          "THIS_MONTH",
+          "LAST_MONTH",
+          "LAST_7_DAYS",
+          "LAST_30_DAYS"
+        ],
+        "type": "string",
+        "description": "Automatically set a date range based on the period value. Can't be combined with start_date and end_date.",
+        "example": "TODAY"
+      },
+      "report_status": {
+        "title": "report_status",
+        "enum": [
+          "REQUESTED",
+          "RUNNING",
+          "CANCELLED",
+          "DONE"
+        ],
+        "type": "string",
+        "example": "REQUESTED"
+      },
       "sort_by": {
         "title": "sort_by",
         "enum": [
@@ -8008,6 +10031,81 @@
         "type": "string",
         "description": "Order to sort results by.",
         "example": "ASCENDING"
+      },
+      "status": {
+        "title": "status",
+        "enum": [
+          "CANCELLED",
+          "DELIVERED",
+          "ENROUTE",
+          "EXPIRED",
+          "HELD",
+          "PROCESSED",
+          "PROCESSING",
+          "QUEUED",
+          "REJECTED",
+          "SCHEDULED",
+          "SUBMITTED"
+        ],
+        "type": "string",
+        "description": "Filter results by message status. Can't be combined with statuses.",
+        "example": "CANCELLED"
+      },
+      "statuses": {
+        "title": "statuses",
+        "enum": [
+          "CANCELLED",
+          "DELIVERED",
+          "ENROUTE",
+          "EXPIRED",
+          "HELD",
+          "PROCESSED",
+          "PROCESSING",
+          "QUEUED",
+          "REJECTED",
+          "SCHEDULED",
+          "SUBMITTED"
+        ],
+        "type": "string",
+        "example": "CANCELLED"
+      },
+      "summary": {
+        "title": "summary",
+        "enum": [
+          "COUNT",
+          "SUM"
+        ],
+        "type": "string",
+        "description": "The value of the summary_by parameter provided for this report",
+        "example": "COUNT"
+      },
+      "summary_by": {
+        "title": "summary_by",
+        "enum": [
+          "COUNT"
+        ],
+        "type": "string",
+        "description": "Function to apply when summarising results",
+        "example": "COUNT"
+      },
+      "summary_field": {
+        "title": "summary_field",
+        "enum": [
+          "UNITS",
+          "MESSAGE_ID"
+        ],
+        "type": "string",
+        "description": "The value of the summary_field parameter provided for this report",
+        "example": "UNITS"
+      },
+      "type": {
+        "title": "type",
+        "enum": [
+          "SUMMARY",
+          "DETAIL"
+        ],
+        "type": "string",
+        "example": "SUMMARY"
       },
       "View": {
         "title": "View",
@@ -10499,6 +12597,50 @@
           "MMS",
           "TTS"
         ]
+      },
+      "group_by": {
+        "title": "group_by",
+        "enum": [
+          "DAY",
+          "DESTINATION_ADDRESS_COUNTRY",
+          "METADATA_KEY",
+          "METADATA_VALUE",
+          "MONTH",
+          "SOURCE_ADDRESS_COUNTRY",
+          "STATUS",
+          "STATUS_CODE",
+          "YEAR",
+          "ACCOUNT"
+        ],
+        "type": "string",
+        "example": "DAY"
+      },
+      "grouping": {
+        "title": "grouping",
+        "enum": [
+          "DAY",
+          "DESTINATION_ADDRESS_COUNTRY",
+          "METADATA_KEY",
+          "METADATA_VALUE",
+          "MONTH",
+          "SOURCE_ADDRESS_COUNTRY",
+          "STATUS",
+          "STATUS_CODE",
+          "YEAR",
+          "ACCOUNT"
+        ],
+        "type": "string",
+        "description": "The value of the group by parameter provided for this report",
+        "example": "DAY"
+      },
+      "message_type": {
+        "title": "message_type",
+        "enum": [
+          "SENT_MESSAGES",
+          "RECEIVED_MESSAGES"
+        ],
+        "type": "string",
+        "example": "SENT_MESSAGES"
       },
       "GroupByField": {
         "title": "GroupByField",
