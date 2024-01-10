@@ -76,13 +76,13 @@ tags:
       Every request requires an `Authorization` header in the following formats:
       For a request with a request body:
       ```plain
-      Authorization: hmac username="<API KEY>", algorithm="hmac-sha1", headers  ="Date Content-MD5 request-line", signature="<SIGNATURE>"
+      Authorization: hmac username="<API KEY>", algorithm="hmac-sha256", headers  ="Date Content-MD5 request-line", signature="<SIGNATURE>"
       ```
 
       For a request _without_ a request body:
 
       ```plain
-      Authorization: hmac username="<API KEY>", algorithm="hmac-sha1", headers="Date request-line", signature="<SIGNATURE>"
+      Authorization: hmac username="<API KEY>", algorithm="hmac-sha256", headers="Date request-line", signature="<SIGNATURE>"
       ```
       ### To create this header
       #### Step 1
@@ -100,7 +100,7 @@ tags:
       Date: Sat, 30 Jul 2016 05:13:23 GMT\nGET /v1/messages/404b941b-2a29-469f-b114-9ea3e16bbe18 HTTP/1.1
       ```
       #### Step 4
-      Create a SHA1 HMAC hash using the signing string and the secret key (both converted to bytes using UTF-8) ```HMAC-SHA1(signing string, secret)```
+      Create a SHA256 HMAC hash using the signing string and the secret key (both converted to bytes using UTF-8) ```HMAC-SHA256(signing string, secret)```
       #### Step 5
       Base64 encode the HMAC hash and include it as the signature in the ```Authorization``` header
       ### Example request with body
@@ -110,7 +110,7 @@ tags:
       Accept: application/json
       Content-Type: application/json
       Date: Sat, 30 Jul 2016 05:18:52 GMT
-      Authorization: hmac username="uCXUdoogNfCsehEClbO2", algorithm="hmac-sha1", headers="Date Content-MD5 request-line", signature="Ia4G5lkhH/3NDYpix+8ZHUnp6bA="
+      Authorization: hmac username="uCXUdoogNfCsehEClbO2", algorithm="hmac-sha256", headers="Date Content-MD5 request-line", signature="Ia4G5lkhH/3NDYpix+8ZHUnp6bA="
       Content-MD5: 5407644fa83bec240dede971307e0cad
       Content-Length: 133
       {
@@ -130,7 +130,7 @@ tags:
       Host: api.messagemedia.com
       Accept: application/json
       Date: Sat, 30 Jul 2016 05:18:52 GMT
-      Authorization: hmac username="uCXUdoogNfCsehEClbO2", algorithm="hmac-sha1", headers="Date request-line", signature="NTUwMjUwNTVmZGYzZTIxODMyYjc1ZmM3M2EwZWQ1NzA3NzA4ZTZjNw==" ```
+      Authorization: hmac username="uCXUdoogNfCsehEClbO2", algorithm="hmac-sha256", headers="Date request-line", signature="NTUwMjUwNTVmZGYzZTIxODMyYjc1ZmM3M2EwZWQ1NzA3NzA4ZTZjNw==" ```
   - name: Development Tools
     description: |
       ## SDKs
@@ -168,6 +168,14 @@ tags:
   - name: Source Address
     description: |
       The Sender Address API provides a number of endpoints for you to request a Sender ID and gain real-time access to its approval status.
+
+      **What is Trusted Sender ID?**
+
+      With regulations surrounding SMS becoming much stricter all over the world in an effect to combat scam SMS messages, MessageMedia is working on “Trusted Sender ID” a concept that allows customers to request a Sender ID and have it verified.
+
+      A Trusted Sender ID means this is a Sender ID that belongs to you across the MessageMedia platform and cannot be claimed by any other organization.
+
+      *Note: Trusted Sender IDs support number types, such as **'Alpha Tags'** and **'My Own Number'**. It will likely be extended to support additional number types, such as TFN and 10DLC where additional registration, (external) verification, and overall account whitelist of numbers will be required.*
   - name: Delivery Reports
     description: |
       If a callback URL is specified in the submit message request, then changes to the message status, 
@@ -546,8 +554,6 @@ tags:
       | ![](Https://developers.messagemedia.com/wp-content/templates/Template1.png) | 7614456e-844f-4d83-bdfe-20c17ce0f97c |
       | ![](Https://developers.messagemedia.com/wp-content/templates/Template2.png) | f56b5806-f732-4693-b87a-90b66a7d7bfc |
       |![](Https://developers.messagemedia.com/wp-content/templates/template3.png) | c9d7ce1d-20c4-4228-9ba1-6da2a3b4e5e0 |
-  - name: LEGACY V1 Reports
-    description: 'The MessageMedia Reports API provides a number of endpoints for running reports of messages sent and received using Messages API.  Reports can be detailed, a list of all messages and details of each message, or summary reports, which can be aggregated on a number of dimensions.'
 servers:
   - url: 'https://api.messagemedia.com/'
 paths:
@@ -814,7 +820,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/scheduleddetailreport'
+              $ref: '#/components/schemas/updatescheduleddetailreport'
         required: true
       responses:
         '200':
@@ -822,7 +828,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/scheduleddetailreport'
+                $ref: '#/components/schemas/scheduleddetailreportresponse'
       deprecated: false
   /v2-preview/reporting/summary/scheduled:
     post:
@@ -873,7 +879,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/scheduledsummaryreport'
+              $ref: '#/components/schemas/updatescheduledsummaryreport'
         required: true
       responses:
         '200':
@@ -881,7 +887,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/scheduledsummaryreport'
+                $ref: '#/components/schemas/scheduledsummaryreportresposne'
       deprecated: false
   /v2-preview/reporting/scheduled:
     get:
@@ -1189,11 +1195,29 @@ paths:
           or ```TTS``` (text to speech). With ```TTS``` format, we will call the destination number and read out the
           message using a computer generated voice. Specifying a format is optional, by default ```SMS``` will be used.
 
-        - ```source_number``` A source number may be specified for the message,
-        this will be the number that
-          the message appears from on the handset. By default this feature is _not_ available and will be ignored
-          in the request. Please click <a href="https://messagemedia.com/au/feature/alpha-tag" target="_blank">here</a> for more information. Specifying a source
-          number is optional and a by default a source number will be assigned to the message.
+        - ```source_number_type``` If a source number is specified, the type of
+        source number may also be
+          specified. This is recommended when using a source address type that is not an internationally
+          formatted number, available options are ```INTERNATIONAL```, ```ALPHANUMERIC``` or ```SHORTCODE```. Specifying a
+          source number type is only valid when the ```source_number``` parameter is specified and is optional.
+          If a source number is specified and no source number type is specified, the source number type will be
+          inferred from the source number, however this may be inaccurate.
+
+        - ```source_number```[optional]  Specify a source number to be used.  Refer to the section below for more information on source numbers.  
+        ⚠️ The number or sender ID must be registered to your account (from 1-Mar-2024).
+
+          #### Source number (sender ID)
+          
+          There are several options for the number or sender ID that will show as the source of an outbound message. Some things to note:
+            - If you do not specify a source number, the message will be sent with the default number for your account.
+              - The default may be a number you have purchased from us - such as a dedicated number, a 10-digit longcode or toll-free number (US/CA), or a shortcode. Log into the web portal to manage your numbers.
+              - If your account has multiple numbers, you can specify which source number to use in the request.
+              - If your account does not have a number, your message may be sent using our shared number pool (in certain countries only)
+            - `Alpha tag:` In some countries (AU, GB, some others), you may be able to send using an alpha tag - text that represents your brand of business.  Before using an alpha tag, you must register it in the Numbers section of the web portal.
+            - `Other numbers:` You may use numbers that you own as the source number, but you must register them in the Numbers section of the web portal to confirm  you have a right to use the number.
+          If you need to register a large number of source numbers/sender IDs, consider using our [Source Address API](https://messagemedia.github.io/documentation/#tag/Source-Address)
+          
+          ⚠️ If you specify a source_number that is not registered to your account, the message may fail to send, or may be sent with an alternative number.
 
         - ```media``` The media is used to specify a list of URLs of the media file(s) that you are trying to send. 
         Supported file formats include png, jpeg and gif. ```format``` parameter must be set to ```MMS``` for this to
@@ -1202,14 +1226,6 @@ paths:
         - ```subject``` The subject field is used to denote subject of the MMS
         message and has a maximum size of 64 characters long. Specifying a
         subject is optional.
-
-        - ```source_number_type``` If a source number is specified, the type of
-        source number may also be
-          specified. This is recommended when using a source address type that is not an internationally
-          formatted number, available options are ```INTERNATIONAL```, ```ALPHANUMERIC``` or ```SHORTCODE```. Specifying a
-          source number type is only valid when the ```source_number``` parameter is specified and is optional.
-          If a source number is specified and no source number type is specified, the source number type will be
-          inferred from the source number, however this may be inaccurate.
 
         - ```scheduled``` A message can be scheduled for delivery in the future
         by setting the scheduled property.
@@ -1341,15 +1357,96 @@ paths:
           source: "SendMessagesRequest body = new SendMessagesRequest();\r\nbody.Messages = new List<Message>();\r\n\r\nMessage body_messages_0 = new Message();\r\nbody_messages_0.CallbackUrl = \"https://my.callback.url.com\";\r\nbody_messages_0.Content = \"My first message\";\r\nbody_messages_0.DestinationNumber = \"+61491570156\";\r\nbody_messages_0.DeliveryReport = true;\r\nbody_messages_0.Format = Format.SMS;\r\nbody_messages_0.MessageExpiryTimestamp = DateTime.Parse(\"2016-11-03T11:49:02.807Z\");\r\nbody_messages_0.Metadata = APIHelper.JsonDeserialize<Object>(\"{\\\"key1\\\":\\\"value1\\\",\\\"key2\\\":\\\"value2\\\"}\");\r\nbody_messages_0.Scheduled = DateTime.Parse(\"2016-11-03T11:49:02.807Z\");\r\nbody_messages_0.SourceNumber = \"+61491570157\";\r\nbody_messages_0.SourceNumberType = SourceNumberType.INTERNATIONAL;\r\nbody.Messages.Add(body_messages_0);\r\n\r\nMessage body_messages_1 = new Message();\r\nbody_messages_1.CallbackUrl = \"https://my.callback.url.com\";\r\nbody_messages_1.Content = \"My second message\";\r\nbody_messages_1.DestinationNumber = \"+61491570158\";\r\nbody_messages_1.DeliveryReport = true;\r\nbody_messages_1.Format = Format.MMS;\r\nbody_messages_1.MessageExpiryTimestamp = DateTime.Parse(\"2016-11-03T11:49:02.807Z\");\r\nbody_messages_1.Metadata = APIHelper.JsonDeserialize<Object>(\"{\\\"key1\\\":\\\"value1\\\",\\\"key2\\\":\\\"value2\\\"}\");\r\nbody_messages_1.Scheduled = DateTime.Parse(\"2016-11-03T11:49:02.807Z\");\r\nbody_messages_1.SourceNumber = \"+61491570159\";\r\nbody_messages_1.SourceNumberType = SourceNumberType.INTERNATIONAL;\r\nbody_messages_1.Media = new List<string>();\r\nbody_messages_1.Media.Add(\"https://images.pexels.com/photos/1018350/pexels-photo-1018350.jpeg?cs=srgb&dl=architecture-buildings-city-1018350.jpg\");\r\nbody_messages_1.Subject = \"This is an MMS message\";\r\nbody.Messages.Add(body_messages_1);\r\n\r\n\r\ntry \r\n{\r\n    SendMessagesResponse result = messages.SendMessagesAsync(body).Result;\r\n}\r\ncatch (APIException e){};"
   /v1/messaging/numbers/sender_address/requests:
     post:
+      security:
+        - basic_auth: []
+        - hmac_auth: []
       tags:
         - Source Address
       summary: Request a sender address
       description: |
-        The most basic request has the following structure:
+        ## Sender address is an alpha tag
+        ### What is an Alpha Tag?
+          Sending messages from your brand name is particularly ideal for SMS marketing and two-factor authentication, as it increases recognition and trust. There are, however, a few considerations to be aware of. 
+
+          Alpha tags are made up of 3-11 letters and/or numbers. Alpha tags must be registered and approved before sending, and must have clear relevancy to your business and/or use case.
+
+          Alpha Tags appear as the From number when you receive messages.
+
+        ### What is a good Alpha Tag? 
+
+        Valid use cases include:
+        * Business names
+        * Trademark names    
+        * Product or service name
+        * an acronym, initialism, or contraction of your entity
+
+        ### In addition to the new requirements around clearly relating to the business, we typically advise the following for alpha tags to ensure maximum compatibility with the various carriers:
+        * 6-11 characters long
+        * Only contains characters from the following sets:
+        * A-Z
+        * a-z
+        * 0-9
+        * _ (underscore)
+        * \- (hyphen)
+
+        ## Sender address is my own number
+        Before you can send messages using a your own number (i.e. a non-dedicated nor rotary number), you need to verify that you have a right to use that number. Ensuring you have a right to use a phone number is an important ACMA regulatory requirement, aiming to prevent scam, spam and misuse of messaging services.
+
+        If you do not wish to verify a number from within the web portal, or need to verify a large quantity of numbers, you can verify a number programmatically - via API.
+
+        ### The process to verify a number via the API is:
+        1. (If you don’t have existing credentials) - Create Basic or HMAC credentials for the API by going to https://hub.messagemedia.com/api-settings
+        2. Submit a verification request with the number and destination country (usually AU) as per below. **Note**: *the verification is for the account associated with the API credentials only.*
+        3. A unique verification code will be sent to the number
+        4. Submit an approval request containing the verification code for that number. A 200 OK response will indicate the number has been verified and is ready for use.
+
+        ⚠️ Own numbers need to be re-verified every 12 months. You will be notified by email that verification of your number is about to expire.
+
+        ## The most basic request has the following structure:
           - ```sender_address``` is case insensitive. When one already exists for this account, you get a error message ```conflict```;
-          - ```destination_countries``` currently we only support ```AU``` and ```GB``` as the destination country;
-          - ```sender_address_type``` and ```usage_type``` must be ```ALPHANUMERIC```;
+          - ```destination_countries``` currently we only support ```AT```, ```AU```, ```CH```, ```CY```, ```DE```, ```DK```, ```EE```, ```ES```, ```FI```, ```GB```, ```HR```, ```IE```, ```IT```, ```LT```, ```LU```, ```LV```, ```MT```, ```NL```, ```NO```, ```PT```, ```SE``` and ```SI```  as the destination country;
+          - `sender_address_type` and `usage_type` parameters are set to the following value pairs:
+            | Description   | `sender_address_type` | `usage_type`   |
+            |---            |---                    |---             |
+            | Alpha tag     | `ALPHANUMERIC`        | `ALPHANUMERIC` |
+            | My own number | `INTERNATIONAL`       | `OWN_NUMBER`   |
           - ```reason``` for requesting a sender address is required;
+            - when requesting my own number: provide your reason to use this number in a sentence. e.g. “This is my personal number”.
+            - when requesting an alpha tag: Comprehensive reasons must be supplied when requesting an alpha tag, in accordance with ACMA's compliance requirements. Please adhere to the prescribed structure when formulating the `reason` field in your API request.
+            
+            - `useCase`: one of the following:
+              - `SOLE_TRADER_NAME`
+              - `COMPANY_NAME`
+              - `PARTNERSHIP_NAME`
+              - `REGISTERED_TRUST_NAME`
+              - `CO_OPERATIVE_NAME`
+              - `INDIGENOUS_CORPORATION_NAME`
+              - `REGISTERED_ORGANISATION_NAME`
+              - `PERSONAL_NAME`
+              - `AUSTRALIAN_TRADEMARK`
+              - `INTERNATIONAL_TRADEMARK`
+              - `AUSTRALIAN_GOVERNMENT_AGENCY_OR_ENTITY`
+              - `FOREIGN_GOVERNMENT_AGENCY_OR_ENTITY`
+              - `PRODUCT_OR_SERVICE_NAME`
+              - `ACRONYM_INITIALISM`
+              - `CONTRACTION_OF_NAME`
+              - `OTHER`
+
+            - `description`: Description for selecting OTHER as the use case. Limited to 200 characters.
+
+            - `email`: The preferred contact email for our approval team when additional details are required.
+
+            - `australianGovernmentAgencyOrEntityName`: The name of the entity.
+
+            - `abn`: Australian business number
+
+            - `statement`: Legal declaration.
+              - If applying on behalf of a third-party entity: 
+
+                "We are authorized to use the Sender ID on behalf of [full entity name of sender] with a valid use case."
+              - If applying for your own business:
+
+                "We are authorized to use the Sender ID with a valid use case."
           - ```label``` name of the sender address.
       operationId: requestSenderAddressUsingPOST
       parameters: []
@@ -1358,15 +1455,37 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/RequestSenderAddress'
-            example:
-              sender_address: EXAMPLE
-              sender_address_type: ALPHANUMERIC
-              usage_type: ALPHANUMERIC
-              destination_countries:
-                - AU
-              reason: This is my reason
-              label: label
+              oneOf:
+                - $ref: '#/components/schemas/RequestAlphaTag'
+                - $ref: '#/components/schemas/RequestVerificationCode'
+            examples:
+              example1:
+                summary: Example for RequestAlphaTag
+                value:
+                  sender_address: EXAMPLE
+                  sender_address_type: ALPHANUMERIC
+                  usage_type: ALPHANUMERIC
+                  destination_countries:
+                    - AU
+                  reason: |
+                    {
+                      "useCase":"AUSTRALIAN_GOVERNMENT_AGENCY_OR_ENTITY",
+                      "description":"bal bla",
+                      "email":"xample@email.com",
+                      "australianGovernmentAgencyOrEntityName":"bla bla",
+                      "statement":"We are authorised to use the Sender ID on behalf of [full entity name of sender] with a valid use case."
+                    }
+                  label: label
+              example2:
+                summary: Example for RequestVerificationCode
+                value:
+                  sender_address: '+61401234567'
+                  sender_address_type: INTERNATIONAL
+                  usage_type: OWN_NUMBER
+                  destination_countries:
+                    - AU
+                  reason: my personal number
+                  label: label
         required: true
       responses:
         '201':
@@ -1375,7 +1494,47 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SenderAddressRequestItem'
+                oneOf:
+                  - $ref: '#/components/schemas/AlphaTagRequestItem'
+                  - $ref: '#/components/schemas/VerificationCodeRequestItem'
+              examples:
+                example1:
+                  summary: Example for AlphaTagRequest
+                  value:
+                    id: 6f79a12e-14f1-4776-adc0-5c5e48a999b7
+                    sender_address: EXAMPLE
+                    sender_address_type: ALPHANUMERIC
+                    usage_type: ALPHANUMERIC
+                    destination_countries:
+                      - AU
+                    reason: |
+                      {
+                        "useCase":"AUSTRALIAN_GOVERNMENT_AGENCY_OR_ENTITY",
+                        "description":"bal bla",
+                        "email":"xample@email.com",
+                        "australianGovernmentAgencyOrEntityName":"bla bla",
+                        "statement":"We are authorised to use the Sender ID on behalf of [full entity name of sender] with a valid use case."
+                      }
+                    label: label
+                    status: OPEN
+                    account_id: XYZ_ExampleAccount
+                    created_date: '2023-10-25T14:15:22Z'
+                    last_modified_date: '2023-10-25T14:15:22Z'
+                example2:
+                  summary: Example for VerificationCodeRequest
+                  value:
+                    id: 6f79a12e-14f1-4776-adc0-5c5e48a999b8
+                    sender_address: '+61401234567'
+                    sender_address_type: INTERNATIONAL
+                    usage_type: OWN_NUMBER
+                    destination_countries:
+                      - AU
+                    reason: my personal number
+                    label: label
+                    status: PENDING
+                    account_id: XYZ_ExampleAccount
+                    created_date: '2023-10-24T14:15:22Z'
+                    last_modified_date: '2023-10-24T14:15:22Z'
         '400':
           description: Bad Request
         '401':
@@ -1384,8 +1543,63 @@ paths:
           description: Forbidden
         '409':
           description: Conflict
+  '/v1/messaging/numbers/sender_address/requests/{id}/verify':
+    post:
+      security:
+        - basic_auth: []
+        - hmac_auth: []
+      tags:
+        - Source Address
+      summary: Submitting a verification code
+      operationId: SubmittingVerificationCodePost
+      parameters:
+        - name: id
+          in: path
+          description: 36 character UUID.
+          required: true
+          style: simple
+          schema:
+            type: string
+      requestBody:
+        description: Verification code to be verified
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostVerificationCode'
+        required: true
+      responses:
+        '201':
+          description: Created
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VerificationCodeRequestItem'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400response'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403response'
+        '404':
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404response'
   '/v1/messaging/numbers/sender_address/requests/{id}':
     get:
+      security:
+        - basic_auth: []
+        - hmac_auth: []
       tags:
         - Source Address
       summary: Get status of a sender address request
@@ -1425,7 +1639,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SenderAddressRequestItem'
+                $ref: '#/components/schemas/AlphaTagRequestItem'
         '400':
           description: Bad request
           content:
@@ -1448,21 +1662,56 @@ paths:
                 $ref: '#/components/schemas/404response'
   /v1/messaging/numbers/sender_address/addresses/:
     get:
+      security:
+        - basic_auth: []
+        - hmac_auth: []
       tags:
         - Source Address
       summary: Get all approved sender address
       operationId: GetAllApprovedSenderAddress
       description: |
-        Get a list of approved sender addresses for your account. 
-        ```sender_address_type: ALPHANUMERIC``` only
+        Get a list of approved sender addresses for your account.
       parameters:
-        - name: sender_address_type
+        - name: sender_address
           in: query
-          required: true
           schema:
             type: string
+          example: EXAMPLE
+        - name: sender_address_type
+          in: query
+          schema:
+            type: string
+            enum:
+              - ALPHANUMERIC
+              - INTERNATIONAL
           description: type of sender address
           example: ALPHANUMERIC
+        - name: usage_type
+          in: query
+          schema:
+            type: string
+            enum:
+              - ALPHANUMERIC
+              - OWN_NUMBER
+              - DEDICATED
+          description: type of sender address
+          example: ALPHANUMERIC
+        - name: include_related_accounts
+          in: query
+          schema:
+            type: boolean
+          example: true
+        - name: page_size
+          in: query
+          schema:
+            type: integer
+            default: 20
+        - name: token
+          in: query
+          description: In paginated data the original request will return with a "next_token" attribute. This token must be entered into subsequent call in the "token" query parameter to obtain the next set of records.
+          schema:
+            type: string
+            example: example
       responses:
         '200':
           description: A list of approved sender addresses for your account only
@@ -1508,6 +1757,7 @@ paths:
                     last_modified_date: 2023-08-24T04:21:55.958Z
                 pagination:
                   page_size: 20
+                  next_token: UWFTeXNBZGRyMSN8JEAsdmVuZG9ySWRUZXN0MSN8JEAsYWNjb3VudElkVGVzdDI=
         '400':
           description: Bad request
           content:
@@ -2870,1042 +3120,6 @@ paths:
                 $ref: '#/components/schemas/403response'
               example:
                 message: Invalid authentication credentials
-      deprecated: false
-      x-code-samples:
-        - lang: 'C#'
-          source: ''
-        - lang: Java
-          source: ''
-        - lang: JavaScript
-          source: ''
-        - lang: PHP
-          source: ''
-        - lang: Python
-          source: ''
-        - lang: Ruby
-          source: ''
-  '/v1/reporting/{messageType}/metadata/keys':
-    get:
-      security:
-        - basic_auth: []
-        - hmac_auth: []
-      tags:
-        - LEGACY V1 Reports
-      summary: Get metadata keys
-      description: Returns a list of metadata keys
-      operationId: GetMetadataKeys
-      parameters:
-        - name: messageType
-          in: path
-          description: Message type. Possible values are sent messages and received messages.
-          required: true
-          style: simple
-          schema:
-            $ref: '#/components/schemas/message_type'
-        - name: start_date
-          in: query
-          description: 'Start date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format'
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: '2017-02-10T13:30:00'
-        - name: end_date
-          in: query
-          description: 'End date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format'
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: '2017-02-12T13:30:00'
-        - name: accounts
-          in: query
-          description: |-
-            Filter results by a specific account. By default results
-
-            will be returned for the account associated with the authentication
-
-            credentials and all sub-accounts.
-          style: form
-          explode: true
-          schema:
-            type: array
-            items:
-              type: string
-        - name: timezone
-          in: query
-          description: 'The timezone to use for the context of the request. If provided this will be used as the timezone for the start date and end date parameters, and all datetime fields returns in the response. The timezone should be provided as a IANA (Internet Assigned Numbers Authority) time zone database zone name, i.e., ''Australia/Melbourne''.'
-          style: form
-          explode: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: A list of all metadata keys used in the specified time window
-          headers: {}
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/MetadataKeysResponse'
-              example:
-                data: []
-                properties:
-                  end_date: '2017-02-10T13:30:00'
-                  start_date: '2017-02-12T13:30:00'
-                  accounts: []
-        '400':
-          description: Bad Request. Check the json response for more details on what went wrong.
-      deprecated: true
-      x-code-samples:
-        - lang: 'C#'
-          source: ''
-        - lang: Java
-          source: ''
-        - lang: JavaScript
-          source: ''
-        - lang: PHP
-          source: ''
-        - lang: Python
-          source: ''
-        - lang: Ruby
-          source: ''
-  /v1/reporting/async_reports:
-    get:
-      security:
-        - basic_auth: []
-        - hmac_auth: []
-      tags:
-        - LEGACY V1 Reports
-      summary: Get async reports
-      description: Lists asynchronous reports.
-      operationId: GetAsyncReports
-      parameters:
-        - name: page
-          in: query
-          description: Page number for paging through paginated result sets.
-          style: form
-          explode: true
-          schema:
-            type: number
-            format: double
-        - name: page_size
-          in: query
-          description: Number of results to return in a page for paginated result sets.
-          style: form
-          explode: true
-          schema:
-            type: number
-            format: double
-      responses:
-        '200':
-          description: A list of requested asynchronous reports.
-          headers: {}
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getAsyncReportsResponse'
-              example:
-                data:
-                  - created_datetime: '2017-02-12T13:30:00'
-                    last_modified_datetime: '2017-02-12T13:30:00'
-                pagination: {}
-      deprecated: true
-      x-code-samples:
-        - lang: 'C#'
-          source: ''
-        - lang: Java
-          source: ''
-        - lang: JavaScript
-          source: ''
-        - lang: PHP
-          source: ''
-        - lang: Python
-          source: ''
-        - lang: Ruby
-          source: ''
-  '/v1/reporting/async_reports/{report_id}':
-    get:
-      security:
-        - basic_auth: []
-        - hmac_auth: []
-      tags:
-        - LEGACY V1 Reports
-      summary: Get async report by Id
-      description: Gets a single asynchronous report.
-      operationId: GetAsyncReportById
-      parameters:
-        - name: report_id
-          in: path
-          description: Unique ID of the async report
-          required: true
-          style: simple
-          schema:
-            type: string
-      responses:
-        '200':
-          description: The asynchronous report.
-          headers: {}
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AsyncReport'
-              example:
-                id: 762b24ad-9110-42e3-b1d8-6c60a61a7235
-                report_status: DONE
-        '400':
-          description: Bad Request. Check the json response for more details on what went wrong.
-        '404':
-          description: The requested report was not found.
-      deprecated: false
-      x-code-samples:
-        - lang: 'C#'
-          source: ''
-        - lang: Java
-          source: ''
-        - lang: JavaScript
-          source: ''
-        - lang: PHP
-          source: ''
-        - lang: Python
-          source: ''
-        - lang: Ruby
-          source: ''
-  '/v1/reporting/async_reports/{report_id}/data':
-    get:
-      security:
-        - basic_auth: []
-        - hmac_auth: []
-      tags:
-        - LEGACY V1 Reports
-      summary: Get async report data by Id
-      description: Gets the data of an asynchronous report.
-      operationId: GetAsyncReportDataById
-      parameters:
-        - name: report_id
-          in: path
-          description: Unique ID of the async report
-          required: true
-          style: simple
-          schema:
-            type: string
-      responses:
-        '200':
-          description: ''
-          headers: {}
-          content:
-            binary:
-              schema:
-                type: string
-                example: The asynchronous report data as a download.
-              example: The asynchronous report data as a download.
-        '400':
-          description: Bad Request. Check the json response for more details on what went wrong.
-        '404':
-          description: Report not found or not finished.
-      deprecated: true
-      x-code-samples:
-        - lang: 'C#'
-          source: ''
-        - lang: Java
-          source: ''
-        - lang: JavaScript
-          source: ''
-        - lang: PHP
-          source: ''
-        - lang: Python
-          source: ''
-        - lang: Ruby
-          source: ''
-  /v1/reporting/received_messages/detail/async:
-    post:
-      security:
-        - basic_auth: []
-        - hmac_auth: []
-      tags:
-        - LEGACY V1 Reports
-      summary: Submit received messages detail
-      description: Submits a request to generate an async detail report
-      operationId: SubmitReceivedMessagesDetail
-      parameters: []
-      requestBody:
-        description: ''
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/asyncreceivedmessagesdetailrequest'
-            example:
-              end_date: '2017-02-10T13:30:00'
-              start_date: '2017-02-12T13:30:00'
-              period: TODAY
-              timezone: Australia/Melbourne
-              accounts: []
-              delivery_options:
-                - delivery_type: EMAIL
-                  delivery_addresses: []
-                  delivery_format: CSV
-        required: true
-      responses:
-        '201':
-          description: The identifier of the async report request
-          headers: {}
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AsyncReportResponse'
-              example:
-                id: b8ffd5b3-050a-46b9-9192-fbd7c20a22ec
-        '400':
-          description: Bad Request. Check the json response for more details on what went wrong.
-      deprecated: false
-      x-code-samples:
-        - lang: 'C#'
-          source: ''
-        - lang: Java
-          source: ''
-        - lang: JavaScript
-          source: ''
-        - lang: PHP
-          source: ''
-        - lang: Python
-          source: ''
-        - lang: Ruby
-          source: ''
-  /v1/reporting/received_messages/detail:
-    get:
-      security:
-        - basic_auth: []
-        - hmac_auth: []
-      tags:
-        - LEGACY V1 Reports
-      summary: Get received messages detail
-      description: Returns a list message received
-      operationId: GetReceivedMessagesDetail
-      parameters:
-        - name: end_date
-          in: query
-          description: 'End date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.'
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: '2017-02-10T13:30:00'
-        - name: start_date
-          in: query
-          description: 'Start date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.'
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: '2017-02-12T13:30:00'
-        - name: accounts
-          in: query
-          description: |-
-            Filter results by a specific account. By default results
-
-            will be returned for the account associated with the authentication
-
-            credentials and all sub-accounts.
-          style: form
-          explode: true
-          schema:
-            type: array
-            items:
-              type: string
-        - name: action
-          in: query
-          description: Filter results by the action that was invoked for this message.
-          style: form
-          explode: true
-          schema:
-            $ref: '#/components/schemas/action'
-        - name: destination_address
-          in: query
-          description: Filter results by destination address.
-          style: form
-          explode: true
-          schema:
-            type: string
-        - name: message_format
-          in: query
-          description: Filter results by message format.
-          style: form
-          explode: true
-          schema:
-            $ref: '#/components/schemas/format'
-        - name: metadata_key
-          in: query
-          description: Filter results for messages that include a metadata key.
-          style: form
-          explode: true
-          schema:
-            type: string
-        - name: metadata_value
-          in: query
-          description: 'Filter results for messages that include a metadata key containing this value. If this parameter is provided, the metadata_key parameter must also be provided.'
-          style: form
-          explode: true
-          schema:
-            type: string
-        - name: page
-          in: query
-          description: Page number for paging through paginated result sets.
-          style: form
-          explode: true
-          schema:
-            type: number
-            format: double
-        - name: page_size
-          in: query
-          description: Number of results to return in a page for paginated result sets.
-          style: form
-          explode: true
-          schema:
-            type: number
-            format: double
-        - name: source_address
-          in: query
-          description: Filter results by source address.
-          style: form
-          explode: true
-          schema:
-            type: string
-        - name: timezone
-          in: query
-          description: 'The timezone to use for the context of the request. If provided this will be used as the timezone for the start date and end date parameters, and all datetime fields returns in the response. The timezone should be provided as a IANA (Internet Assigned Numbers Authority) time zone database zone name, i.e., ''Australia/Melbourne''.'
-          style: form
-          explode: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: A list of all messages received in the specified time window
-          headers: {}
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ReceivedMessages'
-              example:
-                data:
-                  - account: MyAccount001
-                    action: MyAccount001
-                    content: Hello back
-                    destination_address: 61491570156
-                    destination_address_country: AU
-                    format: AU
-                    source_address: 61491570156
-                    source_address_country: AU
-                    timestamp: '2017-02-12T13:30:00'
-                pagination: {}
-                properties:
-                  end_date: '2017-02-10T13:30:00'
-                  start_date: '2017-02-12T13:30:00'
-                  sorting: {}
-                  filters:
-                    accounts: []
-                  timezone: 'The timezone that this report is presented in, this may be passed in as a parameter to the report, or taken from account settings'
-        '400':
-          description: Bad Request. Check the json response for more details on what went wrong.
-      deprecated: false
-      x-code-samples:
-        - lang: 'C#'
-          source: ''
-        - lang: Java
-          source: ''
-        - lang: JavaScript
-          source: ''
-        - lang: PHP
-          source: ''
-        - lang: Python
-          source: ''
-        - lang: Ruby
-          source: ''
-  /v1/reporting/sent_messages/detail/async:
-    post:
-      security:
-        - basic_auth: []
-        - hmac_auth: []
-      tags:
-        - LEGACY V1 Reports
-      summary: Submit sent messages detail
-      description: Submits a request to generate an async detail report
-      operationId: SubmitSentMessagesDetail
-      parameters: []
-      requestBody:
-        description: ''
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/asyncsentmessagesdetailrequestv1'
-            example:
-              end_date: '2017-02-10T13:30:00'
-              start_date: '2017-02-12T13:30:00'
-              period: TODAY
-              timezone: Australia/Melbourne
-              accounts: []
-              statuses:
-                - CANCELLED
-              delivery_options:
-                - delivery_type: EMAIL
-                  delivery_addresses: []
-                  delivery_format: CSV
-        required: true
-      responses:
-        '201':
-          description: The identifier of the async report request
-          headers: {}
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AsyncReportResponse'
-              example:
-                id: b8ffd5b3-050a-46b9-9192-fbd7c20a22ec
-        '400':
-          description: Bad Request. Check the json response for more details on what went wrong.
-      deprecated: false
-      x-code-samples:
-        - lang: 'C#'
-          source: ''
-        - lang: Java
-          source: ''
-        - lang: JavaScript
-          source: ''
-        - lang: PHP
-          source: ''
-        - lang: Python
-          source: ''
-        - lang: Ruby
-          source: ''
-  /v1/reporting/sent_messages/detail:
-    get:
-      security:
-        - basic_auth: []
-        - hmac_auth: []
-      tags:
-        - LEGACY V1 Reports
-      summary: Get sent messages detail
-      description: Returns a list of message sent
-      operationId: GetSentMessagesDetail
-      parameters:
-        - name: end_date
-          in: query
-          description: 'End date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.'
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: '2017-02-10T13:30:00'
-        - name: start_date
-          in: query
-          description: 'Start date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.'
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: '2017-02-12T13:30:00'
-        - name: accounts
-          in: query
-          description: |-
-            Filter results by a specific account. By default results
-
-            will be returned for the account associated with the authentication
-
-            credentials and all sub-accounts.
-          style: form
-          explode: true
-          schema:
-            type: array
-            items:
-              type: string
-        - name: destination_address
-          in: query
-          description: Filter results by destination address.
-          style: form
-          explode: true
-          schema:
-            type: string
-        - name: message_format
-          in: query
-          description: Filter results by message format.
-          style: form
-          explode: true
-          schema:
-            $ref: '#/components/schemas/format'
-        - name: metadata_key
-          in: query
-          description: Filter results for messages that include a metadata key.
-          style: form
-          explode: true
-          schema:
-            type: string
-        - name: metadata_value
-          in: query
-          description: 'Filter results for messages that include a metadata key containing this value. If this parameter is provided, the metadata_key parameter must also be provided.'
-          style: form
-          explode: true
-          schema:
-            type: string
-        - name: status_code
-          in: query
-          description: Filter results by message status code.
-          style: form
-          explode: true
-          schema:
-            type: string
-        - name: status
-          in: query
-          description: Filter results by message status. Can't be combined with statuses.
-          style: form
-          explode: true
-          schema:
-            $ref: '#/components/schemas/status'
-        - name: statuses
-          in: query
-          description: 'Filter results by message status. Can''t be combined with status.{array}'
-          style: form
-          explode: true
-          schema:
-            $ref: '#/components/schemas/statuses'
-        - name: page
-          in: query
-          description: Page number for paging through paginated result sets.
-          style: form
-          explode: true
-          schema:
-            type: number
-            format: double
-        - name: page_size
-          in: query
-          description: Number of results to return in a page for paginated result sets.
-          style: form
-          explode: true
-          schema:
-            type: number
-            format: double
-        - name: source_address
-          in: query
-          description: Filter results by source address.
-          style: form
-          explode: true
-          schema:
-            type: string
-        - name: timezone
-          in: query
-          description: 'The timezone to use for the context of the request. If provided this will be used as the timezone for the start date and end date parameters, and all datetime fields returns in the response. The timezone should be provided as a IANA (Internet Assigned Numbers Authority) time zone database zone name, i.e., ''Australia/Melbourne''.'
-          style: form
-          explode: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: A list of all messages sent in the specified time window
-          headers: {}
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SentMessages'
-              example:
-                data:
-                  - account: MyAccount001
-                    content: Hello world!
-                    delivered_timestamp: '2017-02-12T13:30:00'
-                    destination_address: 61491570156
-                    destination_address_country: AU
-                    format: AU
-                    source_address: 61491570156
-                    source_address_country: AU
-                    units: 2
-                    timestamp: '2017-02-12T13:30:00'
-                pagination: {}
-                properties:
-                  end_date: '2017-02-10T13:30:00'
-                  start_date: '2017-02-12T13:30:00'
-                  sorting: {}
-                  filters:
-                    accounts: []
-                  timezone: 'The timezone that this report is presented in, this may be passed in as a parameter to the report, or taken from account settings'
-        '400':
-          description: Bad Request. Check the json response for more details on what went wrong.
-      deprecated: false
-      x-code-samples:
-        - lang: 'C#'
-          source: ''
-        - lang: Java
-          source: ''
-        - lang: JavaScript
-          source: ''
-        - lang: PHP
-          source: ''
-        - lang: Python
-          source: ''
-        - lang: Ruby
-          source: ''
-  /v1/reporting/received_messages/summary/async:
-    post:
-      security:
-        - basic_auth: []
-        - hmac_auth: []
-      tags:
-        - LEGACY V1 Reports
-      summary: Submit received messages summary
-      description: Submits a summarised report of received messages
-      operationId: SubmitReceivedMessagesSummary
-      parameters: []
-      requestBody:
-        description: ''
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/asyncreceivedmessagessummaryrequest'
-            example:
-              end_date: '2017-02-10T13:30:00'
-              start_date: '2017-02-12T13:30:00'
-              group_by:
-                - DAY
-              period: THIS_WEEK
-              timezone: Australia/Melbourne
-              accounts: []
-              delivery_options:
-                - delivery_type: EMAIL
-                  delivery_addresses: []
-                  delivery_format: CSV
-        required: true
-      responses:
-        '201':
-          description: The identifier of the async report request
-          headers: {}
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AsyncReportResponse'
-              example:
-                id: b8ffd5b3-050a-46b9-9192-fbd7c20a22ec
-        '400':
-          description: Bad Request. Check the json response for more details on what went wrong.
-        '501':
-          description: The group_by combination is not currently implemented
-      deprecated: false
-      x-code-samples:
-        - lang: 'C#'
-          source: ''
-        - lang: Java
-          source: ''
-        - lang: JavaScript
-          source: ''
-        - lang: PHP
-          source: ''
-        - lang: Python
-          source: ''
-        - lang: Ruby
-          source: ''
-  /v1/reporting/received_messages/summary:
-    get:
-      security:
-        - basic_auth: []
-        - hmac_auth: []
-      tags:
-        - LEGACY V1 Reports
-      summary: Get received messages summary
-      description: Returns a summarised report of messages received
-      operationId: GetReceivedMessagesSummary
-      parameters:
-        - name: end_date
-          in: query
-          description: 'End date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.'
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: '2017-02-10T13:30:00'
-        - name: start_date
-          in: query
-          description: 'Start date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.'
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: '2017-02-12T13:30:00'
-        - name: group_by
-          in: query
-          description: 'List of fields to group results set by{array}'
-          required: true
-          style: form
-          explode: true
-          schema:
-            $ref: '#/components/schemas/group_by'
-        - name: accounts
-          in: query
-          description: |-
-            Filter results by a specific account. By default results
-
-            will be returned for the account associated with the authentication
-
-            credentials and all sub-accounts.
-          style: form
-          explode: true
-          schema:
-            type: array
-            items:
-              type: string
-        - name: destination_address
-          in: query
-          description: Filter results by destination address.
-          style: form
-          explode: true
-          schema:
-            type: string
-        - name: message_format
-          in: query
-          description: Filter results by message format.
-          style: form
-          explode: true
-          schema:
-            $ref: '#/components/schemas/format'
-        - name: metadata_key
-          in: query
-          description: Filter results for messages that include a metadata key.
-          style: form
-          explode: true
-          schema:
-            type: string
-        - name: metadata_value
-          in: query
-          description: 'Filter results for messages that include a metadata key containing this value. If this parameter is provided, the metadata_key parameter must also be provided.'
-          style: form
-          explode: true
-          schema:
-            type: string
-        - name: source_address
-          in: query
-          description: Filter results by source address.
-          style: form
-          explode: true
-          schema:
-            type: string
-        - name: timezone
-          in: query
-          description: 'The timezone to use for the context of the request. If provided this will be used as the timezone for the start date and end date parameters, and all datetime fields returns in the response. The timezone should be provided as a IANA (Internet Assigned Numbers Authority) time zone database zone name, i.e., ''Australia/Melbourne''.'
-          style: form
-          explode: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: 'A summarised report of all messages received in the specified time, grouped by by the specified grouping parameter'
-          headers: {}
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SummaryReport'
-              example:
-                properties:
-                  end_date: '2017-02-10T13:30:00'
-                  start_date: '2017-02-12T13:30:00'
-                  timezone: 'The timezone that this report is presented in, this may be passed in as a parameter to the report, or taken from account settings'
-                data:
-                  - {}
-        '400':
-          description: Bad Request. Check the json response for more details on what went wrong.
-        '501':
-          description: The group_by combination is not currently implemented
-      deprecated: false
-      x-code-samples:
-        - lang: 'C#'
-          source: ''
-        - lang: Java
-          source: ''
-        - lang: JavaScript
-          source: ''
-        - lang: PHP
-          source: ''
-        - lang: Python
-          source: ''
-        - lang: Ruby
-          source: ''
-  /v1/reporting/sent_messages/summary/async:
-    post:
-      security:
-        - basic_auth: []
-        - hmac_auth: []
-      tags:
-        - LEGACY V1 Reports
-      summary: Submit sent messages summary
-      description: Submits a summarised report of sent messages
-      operationId: SubmitSentMessagesSummary
-      parameters: []
-      requestBody:
-        description: ''
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/asyncsentmessagesrequest'
-            example:
-              end_date: '2017-02-10T13:30:00'
-              start_date: '2017-02-12T13:30:00'
-              group_by:
-                - DAY
-              period: YESTERDAY
-              timezone: Australia/Melbourne
-              accounts: []
-              delivery_options:
-                - delivery_type: EMAIL
-                  delivery_addresses: []
-                  delivery_format: CSV
-        required: true
-      responses:
-        '201':
-          description: The identifier of the async report request
-          headers: {}
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AsyncReportResponse'
-              example:
-                id: b8ffd5b3-050a-46b9-9192-fbd7c20a22ec
-        '400':
-          description: Bad Request. Check the json response for more details on what went wrong.
-        '501':
-          description: The group_by combination is not currently implemented
-      deprecated: false
-      x-code-samples:
-        - lang: 'C#'
-          source: ''
-        - lang: Java
-          source: ''
-        - lang: JavaScript
-          source: ''
-        - lang: PHP
-          source: ''
-        - lang: Python
-          source: ''
-        - lang: Ruby
-          source: ''
-  /v1/reporting/sent_messages/summary:
-    get:
-      security:
-        - basic_auth: []
-        - hmac_auth: []
-      tags:
-        - LEGACY V1 Reports
-      summary: Get sent messages summary
-      description: Returns a summarised report of messages sent
-      operationId: GetSentMessagesSummary
-      parameters:
-        - name: end_date
-          in: query
-          description: 'End date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.'
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: '2017-02-10T13:30:00'
-        - name: start_date
-          in: query
-          description: 'Start date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.'
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: '2017-02-12T13:30:00'
-        - name: group_by
-          in: query
-          description: 'List of fields to group results set by{array}'
-          required: true
-          style: form
-          explode: true
-          schema:
-            $ref: '#/components/schemas/group_by'
-        - name: accounts
-          in: query
-          description: |-
-            Filter results by a specific account. By default results
-
-            will be returned for the account associated with the authentication
-
-            credentials and all sub-accounts.
-          style: form
-          explode: true
-          schema:
-            type: array
-            items:
-              type: string
-        - name: destination_address
-          in: query
-          description: Filter results by destination address.
-          style: form
-          explode: true
-          schema:
-            type: string
-        - name: message_format
-          in: query
-          description: Filter results by message format.
-          style: form
-          explode: true
-          schema:
-            $ref: '#/components/schemas/format'
-        - name: metadata_key
-          in: query
-          description: Filter results for messages that include a metadata key.
-          style: form
-          explode: true
-          schema:
-            type: string
-        - name: metadata_value
-          in: query
-          description: 'Filter results for messages that include a metadata key containing this value. If this parameter is provided, the metadata_key parameter must also be provided.'
-          style: form
-          explode: true
-          schema:
-            type: string
-        - name: status_code
-          in: query
-          description: Filter results by message status code.
-          style: form
-          explode: true
-          schema:
-            type: string
-        - name: source_address
-          in: query
-          description: Filter results by source address.
-          style: form
-          explode: true
-          schema:
-            type: string
-        - name: timezone
-          in: query
-          description: 'The timezone to use for the context of the request. If provided this will be used as the timezone for the start date and end date parameters, and all datetime fields returns in the response. The timezone should be provided as a IANA (Internet Assigned Numbers Authority) time zone database zone name, i.e., ''Australia/Melbourne''.'
-          style: form
-          explode: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: 'A summarised report of all messages received in the specified time, grouped by by the specified grouping parameter'
-          headers: {}
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SummaryReport'
-              example:
-                properties:
-                  end_date: '2017-02-10T13:30:00'
-                  start_date: '2017-02-12T13:30:00'
-                  timezone: 'The timezone that this report is presented in, this may be passed in as a parameter to the report, or taken from account settings'
-                data:
-                  - {}
-        '400':
-          description: Bad Request. Check the json response for more details on what went wrong.
-        '501':
-          description: The group_by combination is not currently implemented
       deprecated: false
       x-code-samples:
         - lang: 'C#'
@@ -5662,8 +4876,6 @@ components:
   schemas:
     metakeyresponse:
       title: metakeyresponse
-      required:
-        - keys
       properties:
         keys:
           type: array
@@ -5676,9 +4888,6 @@ components:
     chronosscheduleresponse:
       title: chronosscheduleresponse
       type: object
-      required:
-        - page_token
-        - page_size
       properties:
         page_token:
           type: string
@@ -5698,6 +4907,52 @@ components:
         - label
         - schedule
         - report
+      properties:
+        label:
+          type: string
+          example: Weekly Report
+          description: The label of the report schedule
+        schedule:
+          $ref: '#/components/schemas/schedule'
+        report:
+          $ref: '#/components/schemas/scheduleddetailrequest'
+        message_type:
+          $ref: '#/components/schemas/MessageDirection'
+        report_type:
+          type: string
+          example: detail
+        metadata:
+          type: object
+          description: |-
+            Metadata for the message specified as a set of key value pairs, each key can be up to 100 characters long and each value can be up to 256 characters long
+            ```
+            {
+               "myKey": "myValue",
+               "anotherKey": "anotherValue"
+            }
+            ```
+          example:
+            - myKey: myValue
+            - anotherKey: anotherValue
+    updatescheduleddetailreport:
+      title: updatescheduleddetailreport
+      type: object
+      required:
+        - label
+        - schedule
+        - report
+      properties:
+        label:
+          type: string
+          example: Weekly Report
+          description: The label of the report schedule
+        schedule:
+          $ref: '#/components/schemas/schedule'
+        report:
+          $ref: '#/components/schemas/scheduleddetailrequest'
+    scheduleddetailreportresponse:
+      title: scheduleddetailreportresponse
+      type: object
       properties:
         label:
           type: string
@@ -5821,10 +5076,6 @@ components:
     scheduledreport:
       title: scheduledreport
       type: object
-      required:
-        - label
-        - schedule
-        - report
       properties:
         label:
           type: string
@@ -5846,8 +5097,6 @@ components:
     scheduledreportresponse:
       title: scheduledreportresponse
       type: object
-      required:
-        - scheduled_report_id
       properties:
         scheduled_report_id:
           type: string
@@ -5860,6 +5109,36 @@ components:
         - label
         - schedule
         - report
+      properties:
+        label:
+          type: string
+          example: Weekly Report
+          description: The label of the report schedule
+        schedule:
+          $ref: '#/components/schemas/schedule'
+        report:
+          $ref: '#/components/schemas/scheduledsummaryrequest'
+        message_type:
+          $ref: '#/components/schemas/MessageDirection'
+        report_type:
+          type: string
+          example: detail
+        metadata:
+          type: object
+          description: |-
+            Metadata for the message specified as a set of key value pairs, each key can be up to 100 characters long and each value can be up to 256 characters long
+            ```
+            {
+               "myKey": "myValue",
+               "anotherKey": "anotherValue"
+            }
+            ```
+          example:
+            - myKey: myValue
+            - anotherKey: anotherValue
+    scheduledsummaryreportresposne:
+      title: scheduledsummaryreportresposne
+      type: object
       properties:
         label:
           type: string
@@ -5891,6 +5170,22 @@ components:
           example:
             - myKey: myValue
             - anotherKey: anotherValue
+    updatescheduledsummaryreport:
+      title: updatescheduledsummaryreport
+      type: object
+      required:
+        - label
+        - schedule
+        - report
+      properties:
+        label:
+          type: string
+          example: Weekly Report
+          description: The label of the report schedule
+        schedule:
+          $ref: '#/components/schemas/schedule'
+        report:
+          $ref: '#/components/schemas/scheduledsummaryrequest'
     scheduledsummaryrequest:
       title: scheduledsummaryrequest
       type: object
@@ -6289,8 +5584,6 @@ components:
     asyncreportresponse:
       title: asyncreportresponse
       type: object
-      required:
-        - report_id
       properties:
         report_id:
           type: string
@@ -6692,8 +5985,8 @@ components:
           example: '+61491570156'
         vendor_account_id:
           $ref: '#/components/schemas/VendorAccountId'
-    RequestSenderAddress:
-      title: RequestSenderAddress
+    RequestAlphaTag:
+      title: RequestAlphaTag
       type: object
       required:
         - sender_address
@@ -6705,7 +5998,6 @@ components:
         sender_address:
           type: string
           description: The Sender Address to be requested
-          example: EXAMPLE
         sender_address_type:
           type: string
           enum:
@@ -6719,16 +6011,42 @@ components:
           description: list of 2-character ISO country codes
           items:
             type: string
-          example:
-            - AU
         reason:
           type: string
-          example: This is my reason
         label:
           type: string
-          example: label
-    SenderAddressRequestItem:
-      title: SenderAddressRequestItem
+    RequestVerificationCode:
+      title: RequestVerificationCode
+      type: object
+      required:
+        - sender_address
+        - sender_address_type
+        - usage_type
+        - destination_countries
+        - reason
+      properties:
+        sender_address:
+          type: string
+          description: The Own Number to be verified
+        sender_address_type:
+          type: string
+          enum:
+            - INTERNATIONAL
+        usage_type:
+          type: string
+          enum:
+            - OWN_NUMBER
+        destination_countries:
+          type: array
+          description: list of 2-character ISO country codes
+          items:
+            type: string
+        reason:
+          type: string
+        label:
+          type: string
+    AlphaTagRequestItem:
+      title: AlphaTagRequestItem
       type: object
       properties:
         id:
@@ -6738,7 +6056,7 @@ components:
           example: 6f79a12e-14f1-4776-adc0-5c5e48a999b7
         sender_address:
           type: string
-          description: The Sender Address to be requested
+          description: The Alpha tag to be requested
           example: EXAMPLE
         sender_address_type:
           type: string
@@ -6779,29 +6097,29 @@ components:
         last_modified_date:
           type: string
           format: date-time
-    GetAllApprovedSenderAddress:
-      title: GetAllApprovedSenderAddress
+    VerificationCodeRequestItem:
+      title: VerificationCodeRequestItem
       type: object
       properties:
         id:
           type: string
           format: uuid
           description: Primary ID of the record
-          example: 6f79a12e-14f1-4776-adc0-5c5e48a999b7
+          example: 6f79a12e-14f1-4776-adc0-5c5e48a999b8
         sender_address:
           type: string
-          description: The Sender Address to be requested
-          example: EXAMPLE
+          description: The Own Number to be requested
+          example: '+61401234567'
         sender_address_type:
           type: string
           description: The Sender Address Type
           enum:
-            - ALPHANUMERIC
+            - INTERNATIONAL
         usage_type:
           type: string
           description: The Sender Address Usage Type
           enum:
-            - ALPHANUMERIC
+            - OWN_NUMBER
         destination_countries:
           type: array
           description: list of 2-character ISO country codes this sender address applies to
@@ -6811,19 +6129,84 @@ components:
             - AU
         reason:
           type: string
-          example: This is my reason
+          example: my personal number
         label:
           type: string
           example: label
+        status:
+          type: string
+          enum:
+            - PENDING
+            - REJECTED
+            - APPROVED
+        account_id:
+          type: string
+          example: XYZ_ExampleAccount
         created_date:
           type: string
           format: date-time
         last_modified_date:
           type: string
           format: date-time
-        page_size:
-          type: number
-          example: 20
+    PostVerificationCode:
+      type: object
+      title: PostVerificationCode
+      required:
+        - verification_code
+      properties:
+        verification_code:
+          type: string
+          description: Verify Sender Address Request
+          example: '123456'
+    GetAllApprovedSenderAddress:
+      title: GetAllApprovedSenderAddress
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                format: uuid
+                description: Primary ID of the record
+              sender_address:
+                type: string
+                description: The Sender Address to be requested
+              sender_address_type:
+                type: string
+                description: The Sender Address Type
+                enum:
+                  - ALPHANUMERIC
+              usage_type:
+                type: string
+                description: The Sender Address Usage Type
+                enum:
+                  - ALPHANUMERIC
+              destination_countries:
+                type: array
+                description: list of 2-character ISO country codes this sender address applies to
+                items:
+                  type: string
+              reason:
+                type: string
+              label:
+                type: string
+              created_date:
+                type: string
+                format: date-time
+              last_modified_date:
+                type: string
+                format: date-time
+        pagination:
+          type: object
+          properties:
+            page_size:
+              type: number
+            next_token:
+              type: string
+              description: The pagination token of the next set of results.
     DeliveryReport:
       title: DeliveryReport
       type: object
@@ -7198,47 +6581,6 @@ components:
           type: string
       example:
         message: The number could not be found or is invalid.
-    MetadataKeysResponse:
-      title: MetadataKeysResponse
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            type: string
-          description: ''
-        properties:
-          $ref: '#/components/schemas/Properties'
-      description: Metadata key response
-      example:
-        data: []
-        properties:
-          end_date: 2019-02-10T13:30:00.000Z
-          start_date: '2017-02-12T13:30:00'
-          accounts: []
-    Properties:
-      title: Properties
-      required:
-        - end_date
-        - start_date
-      type: object
-      properties:
-        end_date:
-          type: string
-          description: 'End date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.'
-          example: '2017-02-10T16:30:00'
-        start_date:
-          type: string
-          description: 'Start date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.'
-          example: '2017-02-12T13:30:00'
-        accounts:
-          type: array
-          items:
-            type: string
-          example:
-            - Account1
-            - Account2
-          description: List of accounts that were considered when fetching the metadata keys.
     deliveryOptionsBody:
       title: deliveryOptionsBody
       type: object
@@ -7300,642 +6642,6 @@ components:
           type: string
           description: Link to the previous page of results
           example: example.url
-    ReportingDetailProperties:
-      title: ReportingDetailProperties
-      required:
-        - end_date
-        - start_date
-      type: object
-      properties:
-        end_date:
-          type: string
-          description: 'End date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.'
-          example: '2017-02-10T13:30:00'
-        start_date:
-          type: string
-          description: 'Start date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.'
-          example: '2017-02-12T13:30:00'
-        filters:
-          $ref: '#/components/schemas/Filters'
-        timezone:
-          type: string
-          example: 'The timezone that this report is presented in, this may be passed in as a parameter to the report, or taken from account settings'
-    Sorting:
-      title: Sorting
-      type: object
-      properties:
-        field:
-          $ref: '#/components/schemas/field'
-        order:
-          $ref: '#/components/schemas/order'
-    Filters:
-      title: Filters
-      type: object
-      properties:
-        delivery_report:
-          type: string
-        destination_address_country:
-          type: string
-        destination_address:
-          type: string
-        message_format:
-          type: string
-        metadata_key:
-          type: string
-        metadata_value:
-          type: string
-        source_address_country:
-          type: string
-        source_address:
-          type: string
-        status_code:
-          type: string
-        status:
-          type: string
-        action:
-          type: string
-        accounts:
-          type: array
-          items:
-            type: string
-          description: List of accounts that were used to generate this report
-    AsyncReport:
-      title: AsyncReport
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique ID for this reply
-        report_status:
-          $ref: '#/components/schemas/report_status'
-      example:
-        id: 762b24ad-9110-42e3-b1d8-6c60a61a7235
-        report_status: DONE
-    ReceivedMessage:
-      title: ReceivedMessage
-      type: object
-      properties:
-        account:
-          type: string
-          description: Account associated with this message
-          example: MyAccount001
-        action:
-          $ref: '#/components/schemas/action'
-        content:
-          type: string
-          description: Content of the message
-          example: Hello back
-        destination_address:
-          type: string
-          description: 'Address this message was delivered to. If this message was received in response to a sent message, this is the source address of the sent message'
-          example: 61491570156
-        destination_address_country:
-          type: string
-          description: Country associated with the destination address
-          example: AU
-        format:
-          $ref: '#/components/schemas/format'
-        id:
-          type: string
-          description: Unique ID for this reply
-        in_response_to:
-          type: string
-          description: 'If this message was received in response to a sent message, this is the ID of the sent message'
-        metadata:
-          type: object
-          description: 'If this message was received in response to a sent message, this is the metadata associated with the sent message'
-        source_address:
-          type: string
-          description: 'Address this message was received from. If this message was received in response to a sent message, this is the destination address of the sent message.'
-          example: 61491570156
-        source_address_country:
-          type: string
-          description: Country associated with the source address
-          example: AU
-        timestamp:
-          type: string
-          description: Date time at which this message was received
-          example: '2017-02-12T13:30:00'
-      description: 'A message received for the account specified. This message may be in response to a sent message, or it may be an unsolicited message, matched to the account by the destination address.'
-    ReceivedMessages:
-      title: ReceivedMessages
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/ReceivedMessage'
-          description: List of received messages
-        pagination:
-          $ref: '#/components/schemas/Pagination'
-        properties:
-          $ref: '#/components/schemas/ReportingDetailProperties'
-      example:
-        data:
-          - account: MyAccount001
-            action: MyAccount001
-            content: Hello back
-            destination_address: 61491570156
-            destination_address_country: AU
-            format: AU
-            source_address: 61491570156
-            source_address_country: AU
-            timestamp: '2017-02-12T13:30:00'
-        pagination: {}
-        properties:
-          end_date: '2017-02-10T13:30:00'
-          start_date: '2017-02-12T13:30:00'
-          sorting: {}
-          filters:
-            accounts: []
-          timezone: 'The timezone that this report is presented in, this may be passed in as a parameter to the report, or taken from account settings'
-    SentMessage:
-      title: SentMessage
-      type: object
-      properties:
-        account:
-          type: string
-          description: Account associated with this message
-          example: MyAccount001
-        content:
-          type: string
-          description: Content of the message
-          example: Hello world!
-        destination_address:
-          type: string
-          description: Address this message was delivered to
-          example: 61491570156
-        destination_address_country:
-          type: string
-          description: Country associated with the destination address
-          example: AU
-        format:
-          $ref: '#/components/schemas/format'
-        id:
-          type: string
-          description: Unique ID for this message
-        in_response_to:
-          type: string
-          description: If this message was sent in response to a received message (an auto response message for example) this is the ID of the received message.
-        metadata:
-          type: object
-          description: Metadata associated with this message
-        source_address:
-          type: string
-          description: Address this message was sent from
-          example: 61491570156
-        source_address_country:
-          type: string
-          description: Country associated with the source address
-          example: AU
-        timestamp:
-          type: string
-          description: 'Date time at which this message was submitted to the API, refer to the delivered timestamp for the time at which the message was delivered (or failed to be delivered) to the destination address.'
-          example: '2017-02-12T13:30:00'
-    SentMessages:
-      title: SentMessages
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/SentMessage'
-          description: List of sent messages
-        pagination:
-          $ref: '#/components/schemas/Pagination'
-        properties:
-          $ref: '#/components/schemas/ReportingDetailProperties'
-      example:
-        data:
-          - account: MyAccount001
-            content: Hello world!
-            destination_address: 61491570156
-            destination_address_country: AU
-            format: AU
-            source_address: 61491570156
-            source_address_country: AU
-            timestamp: '2017-02-12T13:30:00'
-        pagination: {}
-        properties:
-          end_date: '2017-02-10T13:30:00'
-          start_date: '2017-02-12T13:30:00'
-          filters:
-            accounts: []
-          timezone: 'The timezone that this report is presented in, this may be passed in as a parameter to the report, or taken from account settings'
-    AsyncReportResponse:
-      title: AsyncReportResponse
-      type: object
-      properties:
-        id:
-          type: string
-          description: The identifier for this async report
-          example: b8ffd5b3-050a-46b9-9192-fbd7c20a22ec
-      example:
-        id: b8ffd5b3-050a-46b9-9192-fbd7c20a22ec
-    SummaryReport:
-      title: SummaryReport
-      type: object
-      properties:
-        properties:
-          $ref: '#/components/schemas/Properties33'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/SummaryReportItem'
-          description: ''
-      example:
-        properties:
-          end_date: '2017-02-10T13:30:00'
-          start_date: '2017-02-12T13:30:00'
-          timezone: 'The timezone that this report is presented in, this may be passed in as a parameter to the report, or taken from account settings'
-        data:
-          - {}
-    Properties33:
-      title: Properties33
-      required:
-        - end_date
-        - start_date
-      type: object
-      properties:
-        end_date:
-          type: string
-          description: 'End date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.'
-          example: '2017-02-10T13:30:00'
-        start_date:
-          type: string
-          description: 'Start date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.'
-          example: '2017-02-12T13:30:00'
-        filters:
-          type: object
-          description: Any filters provided as parameters for this report
-        grouping:
-          $ref: '#/components/schemas/grouping'
-        timezone:
-          type: string
-          example: 'The timezone that this report is presented in, this may be passed in as a parameter to the report, or taken from account settings'
-    SummaryReportItem:
-      title: SummaryReportItem
-      type: object
-      properties:
-        group:
-          type: string
-        value:
-          type: number
-    getAsyncReportsResponse:
-      title: getAsyncReportsResponse
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/AsyncReport'
-          description: List of asynchronous reports
-        pagination:
-          $ref: '#/components/schemas/Pagination'
-      example:
-        data:
-          - created_datetime: '2017-02-12T13:30:00'
-            last_modified_datetime: '2017-02-12T13:30:00'
-        pagination: {}
-    asyncreceivedmessagesdetailrequest:
-      title: asyncreceivedmessagesdetailrequest
-      required:
-        - end_date
-        - start_date
-        - delivery_options
-      type: object
-      properties:
-        end_date:
-          type: string
-          description: 'End date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.'
-          example: '2017-02-10T13:30:00'
-        start_date:
-          type: string
-          description: 'Start date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.'
-          example: '2017-02-12T13:30:00'
-        period:
-          $ref: '#/components/schemas/period'
-        timezone:
-          type: string
-          description: 'The timezone to use for the context of the request. If provided this will be used as the timezone for the start date and end date parameters, and all datetime fields returns in the response. The timezone should be provided as a IANA (Internet Assigned Numbers Authority) time zone database zone name, i.e., ''Australia/Melbourne''.'
-          example: Australia/Melbourne
-        accounts:
-          type: array
-          items:
-            type: string
-          description: |-
-            Filter results by a specific account. By default results
-
-            will be returned for the account associated with the authentication
-
-            credentials and all sub-accounts.
-        destination_address:
-          type: string
-          description: Filter results by destination address.
-        message_format:
-          $ref: '#/components/schemas/format'
-        metadata_key:
-          type: string
-          description: Filter results for messages that include a metadata key.
-        metadata_value:
-          type: string
-          description: 'Filter results for messages that include a metadata key containing this value. If this parameter is provided, the metadata_key parameter must also be provided.'
-        source_address:
-          type: string
-          description: Filter results by source address.
-        action:
-          $ref: '#/components/schemas/action'
-        delivery_options:
-          type: array
-          items:
-            $ref: '#/components/schemas/deliveryOptionsBody'
-          description: Delivery options for this asynchronous report.
-      example:
-        end_date: '2017-02-10T13:30:00'
-        start_date: '2017-02-12T13:30:00'
-        period: TODAY
-        sort_by: ACCOUNT
-        sort_direction: ASCENDING
-        timezone: Australia/Melbourne
-        accounts: []
-        delivery_options:
-          - delivery_type: EMAIL
-            delivery_addresses: []
-            delivery_format: CSV
-    asyncsentmessagesdetailrequestv1:
-      title: asyncsentmessagesdetailrequest
-      required:
-        - end_date
-        - start_date
-        - delivery_options
-      type: object
-      properties:
-        end_date:
-          type: string
-          description: 'End date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.'
-          example: '2017-02-10T13:30:00'
-        start_date:
-          type: string
-          description: 'Start date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.'
-          example: '2017-02-12T13:30:00'
-        period:
-          $ref: '#/components/schemas/period'
-        timezone:
-          type: string
-          description: 'The timezone to use for the context of the request. If provided this will be used as the timezone for the start date and end date parameters, and all datetime fields returns in the response. The timezone should be provided as a IANA (Internet Assigned Numbers Authority) time zone database zone name, i.e., ''Australia/Melbourne''.'
-          example: Australia/Melbourne
-        accounts:
-          type: array
-          items:
-            type: string
-          description: |-
-            Filter results by a specific account. By default results
-
-            will be returned for the account associated with the authentication
-
-            credentials and all sub-accounts.
-        destination_address:
-          type: string
-          description: Filter results by destination address.
-        message_format:
-          $ref: '#/components/schemas/format'
-        metadata_key:
-          type: string
-          description: Filter results for messages that include a metadata key.
-        metadata_value:
-          type: string
-          description: 'Filter results for messages that include a metadata key containing this value. If this parameter is provided, the metadata_key parameter must also be provided.'
-        source_address:
-          type: string
-          description: Filter results by source address.
-        status:
-          $ref: '#/components/schemas/status'
-        statuses:
-          type: array
-          items:
-            $ref: '#/components/schemas/statuses'
-          description: Filter results by message statuses. Can't be combined with status.
-        status_code:
-          type: string
-          description: Filter results by message status code.
-        delivery_options:
-          type: array
-          items:
-            $ref: '#/components/schemas/deliveryOptionsBody'
-          description: Delivery options for this asynchronous report.
-      example:
-        end_date: '2017-02-10T13:30:00'
-        start_date: '2017-02-12T13:30:00'
-        period: TODAY
-        timezone: Australia/Melbourne
-        accounts: []
-        statuses:
-          - CANCELLED
-        delivery_options:
-          - delivery_type: EMAIL
-            delivery_addresses: []
-            delivery_format: CSV
-    asyncreceivedmessagessummaryrequest:
-      title: asyncreceivedmessagessummaryrequest
-      required:
-        - end_date
-        - start_date
-        - delivery_options
-      type: object
-      properties:
-        end_date:
-          type: string
-          description: 'End date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.'
-          example: '2017-02-10T13:30:00'
-        start_date:
-          type: string
-          description: 'Start date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.'
-          example: '2017-02-12T13:30:00'
-        group_by:
-          type: array
-          items:
-            $ref: '#/components/schemas/GroupByField'
-          description: List of fields to group results set by
-        period:
-          $ref: '#/components/schemas/period'
-        timezone:
-          type: string
-          description: 'The timezone to use for the context of the request. If provided this will be used as the timezone for the start date and end date parameters, and all datetime fields returns in the response. The timezone should be provided as a IANA (Internet Assigned Numbers Authority) time zone database zone name, i.e., ''Australia/Melbourne''.'
-          example: Australia/Melbourne
-        accounts:
-          type: array
-          items:
-            type: string
-          description: |-
-            Filter results by a specific account. By default results
-
-            will be returned for the account associated with the authentication
-
-            credentials and all sub-accounts.
-        destination_address:
-          type: string
-          description: Filter results by destination address.
-        message_format:
-          $ref: '#/components/schemas/format'
-        metadata_key:
-          type: string
-          description: Filter results for messages that include a metadata key.
-        metadata_value:
-          type: string
-          description: 'Filter results for messages that include a metadata key containing this value. If this parameter is provided, the metadata_key parameter must also be provided.'
-        source_address:
-          type: string
-          description: Filter results by source address.
-        action:
-          $ref: '#/components/schemas/action'
-        delivery_options:
-          type: array
-          items:
-            $ref: '#/components/schemas/deliveryOptionsBody'
-          description: Delivery options for this asynchronous report.
-      example:
-        end_date: '2017-02-10T13:30:00'
-        start_date: '2017-02-12T13:30:00'
-        group_by:
-          - DAY
-        period: THIS_WEEK
-        timezone: Australia/Melbourne
-        accounts: []
-        delivery_options:
-          - delivery_type: EMAIL
-            delivery_addresses: []
-            delivery_format: CSV
-    asyncsentmessagesrequest:
-      title: asyncsentmessagesrequest
-      required:
-        - end_date
-        - start_date
-        - delivery_options
-      type: object
-      properties:
-        end_date:
-          type: string
-          description: 'End date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.'
-          example: '2017-02-10T13:30:00'
-        start_date:
-          type: string
-          description: 'Start date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format.'
-          example: '2017-02-12T13:30:00'
-        group_by:
-          type: array
-          items:
-            $ref: '#/components/schemas/GroupByField'
-          description: List of fields to group results set by
-        period:
-          $ref: '#/components/schemas/period'
-        timezone:
-          type: string
-          description: 'The timezone to use for the context of the request. If provided this will be used as the timezone for the start date and end date parameters, and all datetime fields returns in the response. The timezone should be provided as a IANA (Internet Assigned Numbers Authority) time zone database zone name, i.e., ''Australia/Melbourne''.'
-          example: Australia/Melbourne
-        accounts:
-          type: array
-          items:
-            type: string
-          description: |-
-            Filter results by a specific account. By default results
-
-            will be returned for the account associated with the authentication
-
-            credentials and all sub-accounts.
-        destination_address:
-          type: string
-          description: Filter results by destination address.
-        message_format:
-          $ref: '#/components/schemas/format'
-        metadata_key:
-          type: string
-          description: Filter results for messages that include a metadata key.
-        metadata_value:
-          type: string
-          description: 'Filter results for messages that include a metadata key containing this value. If this parameter is provided, the metadata_key parameter must also be provided.'
-        source_address:
-          type: string
-          description: Filter results by source address.
-        status_code:
-          type: string
-          description: Filter results by message status code.
-        delivery_options:
-          type: array
-          items:
-            $ref: '#/components/schemas/deliveryOptionsBody'
-          description: Delivery options for this asynchronous report.
-      example:
-        end_date: '2017-02-10T13:30:00'
-        start_date: '2017-02-12T13:30:00'
-        group_by:
-          - DAY
-        period: YESTERDAY
-        timezone: Australia/Melbourne
-        accounts: []
-        delivery_options:
-          - delivery_type: EMAIL
-            delivery_addresses: []
-            delivery_format: CSV
-    action:
-      title: action
-      enum:
-        - MyAccount001
-        - OPT_OUT
-        - OPT_IN
-        - GLOBAL_OPT_OUT
-      type: string
-      description: 'Action that was invoked for this message if any, OPT_OUT, OPT_IN, GLOBAL_OPT_OUT'
-      example: MyAccount001
-    field:
-      title: field
-      enum:
-        - ACCOUNT
-        - DELIVERED_TIMESTAMP
-        - MESSAGE_EXPIRY_TIMESTAMP
-        - DELIVERY_REPORT
-        - DESTINATION_ADDRESS
-        - DESTINATION_ADDRESS_COUNTRY
-        - FORMAT
-        - SOURCE_ADDRESS
-        - SOURCE_ADDRESS_COUNTRY
-        - STATUS
-        - STATUS_CODE
-        - UNITS
-        - TIMESTAMP
-      type: string
-      description: The value of the sort_by field provided for this report
-      example: ACCOUNT
-    order:
-      title: order
-      enum:
-        - ASCENDING
-        - DESCENDING
-      type: string
-      description: The value of the sort_direction field provided for this report
-      example: ASCENDING
-    period:
-      title: period
-      enum:
-        - TODAY
-        - YESTERDAY
-        - THIS_WEEK
-        - LAST_WEEK
-        - THIS_MONTH
-        - LAST_MONTH
-        - LAST_7_DAYS
-        - LAST_30_DAYS
-      type: string
-      description: Automatically set a date range based on the period value. Can't be combined with start_date and end_date.
-      example: TODAY
-    report_status:
-      title: report_status
-      enum:
-        - REQUESTED
-        - RUNNING
-        - CANCELLED
-        - DONE
-      type: string
-      example: REQUESTED
     sort_by:
       title: sort_by
       enum:
@@ -7958,69 +6664,6 @@ components:
       type: string
       description: Order to sort results by.
       example: ASCENDING
-    status:
-      title: status
-      enum:
-        - CANCELLED
-        - DELIVERED
-        - ENROUTE
-        - EXPIRED
-        - HELD
-        - PROCESSED
-        - PROCESSING
-        - QUEUED
-        - REJECTED
-        - SCHEDULED
-        - SUBMITTED
-      type: string
-      description: Filter results by message status. Can't be combined with statuses.
-      example: CANCELLED
-    statuses:
-      title: statuses
-      enum:
-        - CANCELLED
-        - DELIVERED
-        - ENROUTE
-        - EXPIRED
-        - HELD
-        - PROCESSED
-        - PROCESSING
-        - QUEUED
-        - REJECTED
-        - SCHEDULED
-        - SUBMITTED
-      type: string
-      example: CANCELLED
-    summary:
-      title: summary
-      enum:
-        - COUNT
-        - SUM
-      type: string
-      description: The value of the summary_by parameter provided for this report
-      example: COUNT
-    summary_by:
-      title: summary_by
-      enum:
-        - COUNT
-      type: string
-      description: Function to apply when summarising results
-      example: COUNT
-    summary_field:
-      title: summary_field
-      enum:
-        - UNITS
-        - MESSAGE_ID
-      type: string
-      description: The value of the summary_field parameter provided for this report
-      example: UNITS
-    type:
-      title: type
-      enum:
-        - SUMMARY
-        - DETAIL
-      type: string
-      example: SUMMARY
     View:
       title: View
       type: object
@@ -9773,44 +8416,6 @@ components:
       example:
         - MMS
         - TTS
-    group_by:
-      title: group_by
-      enum:
-        - DAY
-        - DESTINATION_ADDRESS_COUNTRY
-        - METADATA_KEY
-        - METADATA_VALUE
-        - MONTH
-        - SOURCE_ADDRESS_COUNTRY
-        - STATUS
-        - STATUS_CODE
-        - YEAR
-        - ACCOUNT
-      type: string
-      example: DAY
-    grouping:
-      title: grouping
-      enum:
-        - DAY
-        - DESTINATION_ADDRESS_COUNTRY
-        - METADATA_KEY
-        - METADATA_VALUE
-        - MONTH
-        - SOURCE_ADDRESS_COUNTRY
-        - STATUS
-        - STATUS_CODE
-        - YEAR
-        - ACCOUNT
-      type: string
-      description: The value of the group by parameter provided for this report
-      example: DAY
-    message_type:
-      title: message_type
-      enum:
-        - SENT_MESSAGES
-        - RECEIVED_MESSAGES
-      type: string
-      example: SENT_MESSAGES
     GroupByField:
       title: GroupByField
       enum:
