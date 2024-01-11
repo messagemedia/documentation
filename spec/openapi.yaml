@@ -1551,6 +1551,7 @@ paths:
           "label": "my number sample"
         } 
         ```
+        *Note: The use of the Account header key applies to all Source Address endpoints.*
       operationId: requestSenderAddressUsingPOST
       parameters: []
       requestBody:
