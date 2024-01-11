@@ -1525,6 +1525,31 @@ paths:
         
                 "We are authorized to use the Sender ID with a valid use case."
           - ```label``` name of the sender address.
+        ## Request a Sender Address from sub-accounts
+        Using API keys at the parent account level, you can request a sender address on behalf of a sub-account. To do this
+        include a header key ```Account``` with the sub-account ID as the value. For example:
+        ```Account: mySubAccount```
+
+        **Example request with Request a Sender Address from sub-accounts**
+      
+        ```plain
+        POST /v1/messaging/numbers/sender_address/requests HTTP/1.1
+        Host: api.messagemedia.com
+        Accept: application/json
+        Content-Type: application/json
+        Authorization: Basic dGhpc2lzYWtleTp0aGlzaXNhc2VjcmV0Zm9ybW1iYXNpY2F1dGhyZXN0YXBp
+        Account: SubAccount
+        {
+          "sender_address": "+61341234131",
+          "sender_address_type": "INTERNATIONAL",
+          "usage_type": "OWN_NUMBER",
+          "destination_countries": [
+              "AU"
+          ],
+          "reason": "I confirm that my business has a valid use case",
+          "label": "my number sample"
+        } 
+        ```
       operationId: requestSenderAddressUsingPOST
       parameters: []
       requestBody:
