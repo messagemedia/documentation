@@ -1894,7 +1894,6 @@ paths:
                     account_id: my_account,
                     created_date: 2023-08-04T04:21:55.958Z,
                     last_modified_date: 2023-08-04T04:21:55.958Z,
-                    expiry: 2024-08-03T04:21:55.958Z
                   - id: 365dd65f-7101-46cd-8e79-e49c5620eb15
                     sender_address: EXAMPLE2
                     sender_address_type: ALPHANUMERIC
@@ -1906,11 +1905,10 @@ paths:
                     account_id: my_account,
                     created_date: 2023-08-14T04:21:55.958Z,
                     last_modified_date: 2023-08-14T04:21:55.958Z,
-                    expiry: 2024-08-03T04:21:55.958Z
                   - id: 4a9cb0f4-f383-40b5-84dc-bbb6a3b210dd
                     sender_address: EXAMPLE3
-                    sender_address_type: ALPHANUMERIC
-                    usage_type: ALPHANUMERIC
+                    sender_address_type: INTERNATIONAL
+                    usage_type: OWN_NUMBER
                     destination_countries:
                       - AU
                     reason: 'This is my reason 3'
@@ -1919,6 +1917,7 @@ paths:
                     created_date: 2023-08-24T04:21:55.958Z,
                     last_modified_date: 2023-08-24T04:21:55.958Z,
                     expiry: 2024-08-03T04:21:55.958Z
+                    display_status: APPROVED
                 pagination:
                   page_size: 20
                   next_token: 'UWFTeXNBZGRyMSN8JEAsdmVuZG9ySWRUZXN0MSN8JEAsYWNjb3VudElkVGVzdDI='
@@ -6294,6 +6293,17 @@ components:
               last_modified_date:
                 type: string
                 format: date-time
+              expiry:
+                type: string
+                format: date-time
+                description: The Sender Address expiration time (apply for sender_address_type = OWN_NUMBER)
+              display_status:
+                type: string
+                description: The Sender Address status (apply for sender_address_type = OWN_NUMBER)
+                enum:
+                  - APPROVED
+                  - EXPIRING
+                  - EXPIRED
         pagination:
           type: object
           properties:
