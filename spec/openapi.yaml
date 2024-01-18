@@ -1700,7 +1700,7 @@ paths:
   /v1/messaging/numbers/sender_address/addresses/{id}/reverify:
     post:
       tags:
-        - sender-address-api
+        - Source Address
       summary: Re-verify Sender Address
       description: |
         Re-verify Sender Address
