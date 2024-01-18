@@ -1699,21 +1699,31 @@ paths:
                 $ref: '#/components/schemas/404response'
   /v1/messaging/numbers/sender_address/addresses/{id}/reverify:
     post:
-      security:
-        - basic_auth: [ ]
-        - hmac_auth: [ ]
       tags:
-        - Source Address
+        - sender-address-api
       summary: Re-verify Sender Address
-      operationId: ReverifySenderAddressCodePost
+      description: |
+        Re-verify Sender Address
+        
+        The below table defines: 
+        + the allowed combination of `sender_address_type` and `usage_type` values
+        + requires hub feature "messaging.source.my-number.request"
+
+        | Description      | sender_address_type | usage_type    | required hub feature               |
+        | ---------------- | ------------------- | ------------  | ---------------------------------  |
+        | Own Number       | INTERNATIONAL       | OWN_NUMBER    | messaging.source.my-number.request |
+      operationId: reVerifySenderAddressUsingPOST
+      produces:
+        - application/json;charset=UTF-8
       parameters:
         - name: id
           in: path
-          description: '36 character UUID.'
+          description: Sender Address ID
           required: true
           style: simple
           schema:
             type: string
+          format: uuid
       responses:
         '200':
           description: OK
@@ -1721,7 +1731,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/VerificationCodeRequestItem'
+                $ref: '#/components/schemas/ReVerifySenderAddressRequestItem'
         '400':
           description: Bad Request
           content:
@@ -6191,6 +6201,54 @@ components:
           type: string
           description: Verify Sender Address Request
           example: "123456"
+    ReVerifySenderAddressRequestItem:
+      title: ReVerifySenderAddressRequestItem
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Primary ID of the record
+          example: "6f79a12e-14f1-4776-adc0-5c5e48a999b7"
+        sender_address:
+          type: string
+          description: The Sender Address to be requested
+          example: "+61450999999"
+        sender_address_type:
+          type: string
+          description: The Sender Address Type
+          enum:
+            - INTERNATIONAL
+        usage_type:
+          type: string
+          description: The Sender Address Usage Type
+          enum:
+            - OWN_NUMBER
+        destination_countries:
+          type: array
+          description: list of 2-character ISO country codes this sender address applies to
+          items:
+            type: string
+          example: [ "AU", "NZ", "US" ]
+        reason:
+          type: string
+          example: "my company is example.com"
+        label:
+          type: string
+          example: "Example Address"
+        status:
+          type: string
+          enum:
+            - PENDING
+        account_id:
+          type: string
+          example: "XYZ_ExampleAccount"
+        created_date:
+          type: string
+          format: date-time
+        last_modified_date:
+          type: string
+          format: date-time
     GetAllApprovedSenderAddress:
       title: GetAllApprovedSenderAddress
       type: object
