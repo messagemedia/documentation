@@ -1707,7 +1707,6 @@ paths:
         
         The below table defines: 
         + the allowed combination of `sender_address_type` and `usage_type` values
-        + requires hub feature "messaging.source.my-number.request"
 
         | Description      | sender_address_type | usage_type    |
         | ---------------- | ------------------- | ------------  |
