@@ -1954,13 +1954,15 @@ paths:
           in: path
           description: Sender Address ID
           required: true
-          type: string
-          format: uuid
+          schema:
+            type: string
+            format: uuid
         - name: reason
           in: query
           description: reason for this action
           required: true
-          type: string
+          schema:
+            type: string
       responses:
         '202':
           description: Accepted
