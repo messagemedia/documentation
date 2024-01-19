@@ -1947,7 +1947,7 @@ paths:
       description: |
         Delete a sender address
 
-        (requires hub feature "messaging.source.alpha.request" and/or  "messaging.source.my-number.request")
+        This endpoint allows you to remove any Sender Addresses that are no longer required.
       operationId: deleteSenderAddressUsingDELETE
       parameters:
         - name: id
