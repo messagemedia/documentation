@@ -1936,6 +1936,54 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/403response'
+  /v1/messaging/numbers/sender_address/addresses/{id}:
+    delete:
+      security:
+        - basic_auth: [ ]
+        - hmac_auth: [ ]
+      tags:
+        - Source Address
+      summary: Delete Sender Address
+      description: |
+        Delete a sender address
+
+        (requires hub feature "messaging.source.alpha.request" and/or  "messaging.source.my-number.request")
+      operationId: deleteSenderAddressUsingDELETE
+      parameters:
+        - name: id
+          in: path
+          description: Sender Address ID
+          required: true
+          type: string
+          format: uuid
+        - name: reason
+          in: query
+          description: reason for this action
+          required: true
+          type: string
+      responses:
+        '202':
+          description: Accepted
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400response'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403response'
+        '404':
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404response'
   /v1/delivery_reports:
     get:
       security:
