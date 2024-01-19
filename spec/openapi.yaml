@@ -1703,10 +1703,7 @@ paths:
         - Source Address
       summary: Re-verify Sender Address
       description: |
-        Re-verify Sender Address
-        
-        The below table defines: 
-        + the allowed combination of `sender_address_type` and `usage_type` values
+        The below table defines the allowed combination of `sender_address_type` and `usage_type` values
 
         | Description      | sender_address_type | usage_type    |
         | ---------------- | ------------------- | ------------  |
@@ -1716,9 +1713,9 @@ paths:
         The reverification process is quite similar to the original verification process for the Sender Address, and requires a fresh 2FA check.
         
         To reverify an OWN_NUMBER Sender Address:
-          1. Retrieve the UUID for the OWN_NUMBER using the v1/messaging/numbers/sender_address/addresses/ endpoint
-          2. Make a request to this endpoint /v1/messaging/numbers/sender_address/addresses/{id}/reverify to trigger the 2FA check
-          3. Make a PATCH request to v1/messaging/numbers/sender_address/requests/{id}/verify, providing the new 2FA code in the body of the request
+          1. Retrieve the UUID for the OWN_NUMBER using the Get all approved sender addresses endpoint endpoint
+          2. Make a request to this endpoint to trigger the 2FA check
+          3. Make a PATCH request to the Submit verification code endpoint, providing the new 2FA code in the body of the request
       operationId: reVerifySenderAddressUsingPOST
       parameters:
         - name: id
