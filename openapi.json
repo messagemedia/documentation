@@ -842,27 +842,27 @@
         "x-code-samples": [
           {
             "lang": "C#",
-            "source": "string messageId = \"messageId2\";\r\n\r\ntry \r\n{\r\n    GetMessageStatusResponse result = messages.GetMessageStatusAsync(messageId).Result;\r\n}\r\ncatch (APIException e){};"
+            "source": "string messageId = \"messageId2\";\n\ntry \n{\n    GetMessageStatusResponse result = messages.GetMessageStatusAsync(messageId).Result;\n}\ncatch (APIException e){};"
           },
           {
             "lang": "Java",
-            "source": "String messageId = \"messageId2\";\r\n\r\nmessagesController.getMessageStatusAsync(messageId, new APICallBack<GetMessageStatusResponse>() {\r\n    public void onSuccess(HttpContext context, GetMessageStatusResponse response) {\r\n        // TODO success callback handler\r\n    }\r\n    public void onFailure(HttpContext context, Throwable error) {\r\n        // TODO failure callback handler\r\n    }\r\n});"
+            "source": "String messageId = \"messageId2\";\n\nmessagesController.getMessageStatusAsync(messageId, new APICallBack<GetMessageStatusResponse>() {\n    public void onSuccess(HttpContext context, GetMessageStatusResponse response) {\n        // TODO success callback handler\n    }\n    public void onFailure(HttpContext context, Throwable error) {\n        // TODO failure callback handler\n    }\n});"
           },
           {
             "lang": "JavaScript",
-            "source": "let messageId = 'messageId2';\r\n\r\nconst promise = controller.getMessageStatus(messageId);\r\npromise.then((response) => {\r\n    // this block will be executed on successful endpoint call\r\n    // `response` will be of type 'GetMessageStatusResponse'\r\n}, (err) => {\r\n    // this block will be executed on endpoint call failure\r\n    // `err` is an 'object' containing more information about the error\r\n});"
+            "source": "let messageId = 'messageId2';\n\nconst promise = controller.getMessageStatus(messageId);\npromise.then((response) => {\n    // this block will be executed on successful endpoint call\n    // `response` will be of type 'GetMessageStatusResponse'\n}, (err) => {\n    // this block will be executed on endpoint call failure\n    // `err` is an 'object' containing more information about the error\n});"
           },
           {
             "lang": "PHP",
-            "source": "$messageId = 'messageId2';\r\n\r\n$result = $messagesController->getMessageStatus($messageId);"
+            "source": "$messageId = 'messageId2';\n\n$result = $messagesController->getMessageStatus($messageId);"
           },
           {
             "lang": "Python",
-            "source": "message_id = 'messageId2'\r\n\r\nresult = messages_controller.get_message_status(message_id)"
+            "source": "message_id = 'messageId2'\n\nresult = messages_controller.get_message_status(message_id)"
           },
           {
             "lang": "Ruby",
-            "source": "string messageId = \"messageId2\";\r\n\r\ntry \r\n{\r\n    GetMessageStatusResponse result = messages.GetMessageStatusAsync(messageId).Result;\r\n}\r\ncatch (APIException e){};"
+            "source": "string messageId = \"messageId2\";\n\ntry \n{\n    GetMessageStatusResponse result = messages.GetMessageStatusAsync(messageId).Result;\n}\ncatch (APIException e){};"
           }
         ]
       },
@@ -946,27 +946,27 @@
         "x-code-samples": [
           {
             "lang": "C#",
-            "source": "string messageId = \"messageId2\";\r\nCancelScheduledMessageRequest body = new CancelScheduledMessageRequest();\r\nbody.Status = \"cancelled\";\r\n\r\ntry \r\n{\r\n    dynamic result = messages.CancelScheduledMessageAsync(messageId, body).Result;\r\n}\r\ncatch (APIException e){};"
+            "source": "string messageId = \"messageId2\";\nCancelScheduledMessageRequest body = new CancelScheduledMessageRequest();\nbody.Status = \"cancelled\";\n\ntry \n{\n    dynamic result = messages.CancelScheduledMessageAsync(messageId, body).Result;\n}\ncatch (APIException e){};"
           },
           {
             "lang": "Java",
-            "source": "String messageId = \"messageId2\";\r\nCancelScheduledMessageRequest body = new CancelScheduledMessageRequest();\r\nbody.setStatus(\"cancelled\");\r\n\r\nmessagesController.cancelScheduledMessageAsync(messageId, body, new APICallBack<DynamicResponse>() {\r\n    public void onSuccess(HttpContext context, DynamicResponse response) {\r\n        // TODO success callback handler\r\n    }\r\n    public void onFailure(HttpContext context, Throwable error) {\r\n        // TODO failure callback handler\r\n    }\r\n});"
+            "source": "String messageId = \"messageId2\";\nCancelScheduledMessageRequest body = new CancelScheduledMessageRequest();\nbody.setStatus(\"cancelled\");\n\nmessagesController.cancelScheduledMessageAsync(messageId, body, new APICallBack<DynamicResponse>() {\n    public void onSuccess(HttpContext context, DynamicResponse response) {\n        // TODO success callback handler\n    }\n    public void onFailure(HttpContext context, Throwable error) {\n        // TODO failure callback handler\n    }\n});"
           },
           {
             "lang": "JavaScript",
-            "source": "let messageId = 'messageId2';\r\nlet body = new lib.CancelScheduledMessageRequest();\r\nbody.status = 'cancelled';\r\n\r\nconst promise = controller.cancelScheduledMessage(messageId, body);\r\npromise.then((response) => {\r\n    // this block will be executed on successful endpoint call\r\n    // `response` will be of type 'mixed'\r\n}, (err) => {\r\n    // this block will be executed on endpoint call failure\r\n    // `err` is an 'object' containing more information about the error\r\n});"
+            "source": "let messageId = 'messageId2';\nlet body = new lib.CancelScheduledMessageRequest();\nbody.status = 'cancelled';\n\nconst promise = controller.cancelScheduledMessage(messageId, body);\npromise.then((response) => {\n    // this block will be executed on successful endpoint call\n    // `response` will be of type 'mixed'\n}, (err) => {\n    // this block will be executed on endpoint call failure\n    // `err` is an 'object' containing more information about the error\n});"
           },
           {
             "lang": "PHP",
-            "source": "$messageId = 'messageId2';\r\n$body = new Models\\CancelScheduledMessageRequest;\r\n$body->status = 'cancelled';\r\n\r\n$result = $messagesController->cancelScheduledMessage($messageId, $body);"
+            "source": "$messageId = 'messageId2';\n$body = new Models\\CancelScheduledMessageRequest;\n$body->status = 'cancelled';\n\n$result = $messagesController->cancelScheduledMessage($messageId, $body);"
           },
           {
             "lang": "Python",
-            "source": "message_id = 'messageId2'\r\nbody = CancelScheduledMessageRequest()\r\nbody.status = 'cancelled'\r\n\r\nresult = messages_controller.cancel_scheduled_message(message_id, body)"
+            "source": "message_id = 'messageId2'\nbody = CancelScheduledMessageRequest()\nbody.status = 'cancelled'\n\nresult = messages_controller.cancel_scheduled_message(message_id, body)"
           },
           {
             "lang": "Ruby",
-            "source": "string messageId = \"messageId2\";\r\nCancelScheduledMessageRequest body = new CancelScheduledMessageRequest();\r\nbody.Status = \"cancelled\";\r\n\r\ntry \r\n{\r\n    dynamic result = messages.CancelScheduledMessageAsync(messageId, body).Result;\r\n}\r\ncatch (APIException e){};"
+            "source": "string messageId = \"messageId2\";\nCancelScheduledMessageRequest body = new CancelScheduledMessageRequest();\nbody.Status = \"cancelled\";\n\ntry \n{\n    dynamic result = messages.CancelScheduledMessageAsync(messageId, body).Result;\n}\ncatch (APIException e){};"
           }
         ]
       }
@@ -1077,27 +1077,27 @@
         "x-code-samples": [
           {
             "lang": "C#",
-            "source": "SendMessagesRequest body = new SendMessagesRequest();\r\nbody.Messages = new List<Message>();\r\n\r\nMessage body_messages_0 = new Message();\r\nbody_messages_0.CallbackUrl = \"https://my.callback.url.com\";\r\nbody_messages_0.Content = \"My first message\";\r\nbody_messages_0.DestinationNumber = \"+61491570156\";\r\nbody_messages_0.DeliveryReport = true;\r\nbody_messages_0.Format = Format.SMS;\r\nbody_messages_0.MessageExpiryTimestamp = DateTime.Parse(\"2016-11-03T11:49:02.807Z\");\r\nbody_messages_0.Metadata = APIHelper.JsonDeserialize<Object>(\"{\\\"key1\\\":\\\"value1\\\",\\\"key2\\\":\\\"value2\\\"}\");\r\nbody_messages_0.Scheduled = DateTime.Parse(\"2016-11-03T11:49:02.807Z\");\r\nbody_messages_0.SourceNumber = \"+61491570157\";\r\nbody_messages_0.SourceNumberType = SourceNumberType.INTERNATIONAL;\r\nbody.Messages.Add(body_messages_0);\r\n\r\nMessage body_messages_1 = new Message();\r\nbody_messages_1.CallbackUrl = \"https://my.callback.url.com\";\r\nbody_messages_1.Content = \"My second message\";\r\nbody_messages_1.DestinationNumber = \"+61491570158\";\r\nbody_messages_1.DeliveryReport = true;\r\nbody_messages_1.Format = Format.MMS;\r\nbody_messages_1.MessageExpiryTimestamp = DateTime.Parse(\"2016-11-03T11:49:02.807Z\");\r\nbody_messages_1.Metadata = APIHelper.JsonDeserialize<Object>(\"{\\\"key1\\\":\\\"value1\\\",\\\"key2\\\":\\\"value2\\\"}\");\r\nbody_messages_1.Scheduled = DateTime.Parse(\"2016-11-03T11:49:02.807Z\");\r\nbody_messages_1.SourceNumber = \"+61491570159\";\r\nbody_messages_1.SourceNumberType = SourceNumberType.INTERNATIONAL;\r\nbody_messages_1.Media = new List<string>();\r\nbody_messages_1.Media.Add(\"https://images.pexels.com/photos/1018350/pexels-photo-1018350.jpeg?cs=srgb&dl=architecture-buildings-city-1018350.jpg\");\r\nbody_messages_1.Subject = \"This is an MMS message\";\r\nbody.Messages.Add(body_messages_1);\r\n\r\n\r\ntry \r\n{\r\n    SendMessagesResponse result = messages.SendMessagesAsync(body).Result;\r\n}\r\ncatch (APIException e){};"
+            "source": "SendMessagesRequest body = new SendMessagesRequest();\nbody.Messages = new List<Message>();\n\nMessage body_messages_0 = new Message();\nbody_messages_0.CallbackUrl = \"https://my.callback.url.com\";\nbody_messages_0.Content = \"My first message\";\nbody_messages_0.DestinationNumber = \"+61491570156\";\nbody_messages_0.DeliveryReport = true;\nbody_messages_0.Format = Format.SMS;\nbody_messages_0.MessageExpiryTimestamp = DateTime.Parse(\"2016-11-03T11:49:02.807Z\");\nbody_messages_0.Metadata = APIHelper.JsonDeserialize<Object>(\"{\\\"key1\\\":\\\"value1\\\",\\\"key2\\\":\\\"value2\\\"}\");\nbody_messages_0.Scheduled = DateTime.Parse(\"2016-11-03T11:49:02.807Z\");\nbody_messages_0.SourceNumber = \"+61491570157\";\nbody_messages_0.SourceNumberType = SourceNumberType.INTERNATIONAL;\nbody.Messages.Add(body_messages_0);\n\nMessage body_messages_1 = new Message();\nbody_messages_1.CallbackUrl = \"https://my.callback.url.com\";\nbody_messages_1.Content = \"My second message\";\nbody_messages_1.DestinationNumber = \"+61491570158\";\nbody_messages_1.DeliveryReport = true;\nbody_messages_1.Format = Format.MMS;\nbody_messages_1.MessageExpiryTimestamp = DateTime.Parse(\"2016-11-03T11:49:02.807Z\");\nbody_messages_1.Metadata = APIHelper.JsonDeserialize<Object>(\"{\\\"key1\\\":\\\"value1\\\",\\\"key2\\\":\\\"value2\\\"}\");\nbody_messages_1.Scheduled = DateTime.Parse(\"2016-11-03T11:49:02.807Z\");\nbody_messages_1.SourceNumber = \"+61491570159\";\nbody_messages_1.SourceNumberType = SourceNumberType.INTERNATIONAL;\nbody_messages_1.Media = new List<string>();\nbody_messages_1.Media.Add(\"https://images.pexels.com/photos/1018350/pexels-photo-1018350.jpeg?cs=srgb&dl=architecture-buildings-city-1018350.jpg\");\nbody_messages_1.Subject = \"This is an MMS message\";\nbody.Messages.Add(body_messages_1);\n\n\ntry \n{\n    SendMessagesResponse result = messages.SendMessagesAsync(body).Result;\n}\ncatch (APIException e){};"
           },
           {
             "lang": "Java",
-            "source": "SendMessagesRequest body = new SendMessagesRequest();\r\nbody.setMessages(new LinkedList<Message>());\r\n\r\nMessage body_messages_0 = new Message();\r\nbody_messages_0.setCallbackUrl(\"https://my.callback.url.com\");\r\nbody_messages_0.setContent(\"My first message\");\r\nbody_messages_0.setDestinationNumber(\"+61491570156\");\r\nbody_messages_0.setDeliveryReport(true);\r\nbody_messages_0.setFormat(FormatEnum.SMS);\r\nbody_messages_0.setMessageExpiryTimestamp(new DateTime(\"2016-11-03T11:49:02.807Z\", DateTimeZone.UTC));\r\nbody_messages_0.setMetadata(com.messagemedia.messages.APIHelper.deserialize(\"{\\\"key1\\\":\\\"value1\\\",\\\"key2\\\":\\\"value2\\\"}\"));\r\nbody_messages_0.setScheduled(new DateTime(\"2016-11-03T11:49:02.807Z\", DateTimeZone.UTC));\r\nbody_messages_0.setSourceNumber(\"+61491570157\");\r\nbody_messages_0.setSourceNumberType(SourceNumberTypeEnum.INTERNATIONAL);\r\nbody.getMessages().add(body_messages_0);\r\n\r\nMessage body_messages_1 = new Message();\r\nbody_messages_1.setCallbackUrl(\"https://my.callback.url.com\");\r\nbody_messages_1.setContent(\"My second message\");\r\nbody_messages_1.setDestinationNumber(\"+61491570158\");\r\nbody_messages_1.setDeliveryReport(true);\r\nbody_messages_1.setFormat(FormatEnum.MMS);\r\nbody_messages_1.setMessageExpiryTimestamp(new DateTime(\"2016-11-03T11:49:02.807Z\", DateTimeZone.UTC));\r\nbody_messages_1.setMetadata(com.messagemedia.messages.APIHelper.deserialize(\"{\\\"key1\\\":\\\"value1\\\",\\\"key2\\\":\\\"value2\\\"}\"));\r\nbody_messages_1.setScheduled(new DateTime(\"2016-11-03T11:49:02.807Z\", DateTimeZone.UTC));\r\nbody_messages_1.setSourceNumber(\"+61491570159\");\r\nbody_messages_1.setSourceNumberType(SourceNumberTypeEnum.INTERNATIONAL);\r\nbody_messages_1.setMedia(new LinkedList<String>());\r\nbody_messages_1.getMedia().add(\"https://images.pexels.com/photos/1018350/pexels-photo-1018350.jpeg?cs=srgb&dl=architecture-buildings-city-1018350.jpg\");\r\nbody_messages_1.setSubject(\"This is an MMS message\");\r\nbody.getMessages().add(body_messages_1);\r\n\r\n\r\nmessagesController.sendMessagesAsync(body, new APICallBack<SendMessagesResponse>() {\r\n    public void onSuccess(HttpContext context, SendMessagesResponse response) {\r\n        // TODO success callback handler\r\n    }\r\n    public void onFailure(HttpContext context, Throwable error) {\r\n        // TODO failure callback handler\r\n    }\r\n});\r\n"
+            "source": "SendMessagesRequest body = new SendMessagesRequest();\nbody.setMessages(new LinkedList<Message>());\n\nMessage body_messages_0 = new Message();\nbody_messages_0.setCallbackUrl(\"https://my.callback.url.com\");\nbody_messages_0.setContent(\"My first message\");\nbody_messages_0.setDestinationNumber(\"+61491570156\");\nbody_messages_0.setDeliveryReport(true);\nbody_messages_0.setFormat(FormatEnum.SMS);\nbody_messages_0.setMessageExpiryTimestamp(new DateTime(\"2016-11-03T11:49:02.807Z\", DateTimeZone.UTC));\nbody_messages_0.setMetadata(com.messagemedia.messages.APIHelper.deserialize(\"{\\\"key1\\\":\\\"value1\\\",\\\"key2\\\":\\\"value2\\\"}\"));\nbody_messages_0.setScheduled(new DateTime(\"2016-11-03T11:49:02.807Z\", DateTimeZone.UTC));\nbody_messages_0.setSourceNumber(\"+61491570157\");\nbody_messages_0.setSourceNumberType(SourceNumberTypeEnum.INTERNATIONAL);\nbody.getMessages().add(body_messages_0);\n\nMessage body_messages_1 = new Message();\nbody_messages_1.setCallbackUrl(\"https://my.callback.url.com\");\nbody_messages_1.setContent(\"My second message\");\nbody_messages_1.setDestinationNumber(\"+61491570158\");\nbody_messages_1.setDeliveryReport(true);\nbody_messages_1.setFormat(FormatEnum.MMS);\nbody_messages_1.setMessageExpiryTimestamp(new DateTime(\"2016-11-03T11:49:02.807Z\", DateTimeZone.UTC));\nbody_messages_1.setMetadata(com.messagemedia.messages.APIHelper.deserialize(\"{\\\"key1\\\":\\\"value1\\\",\\\"key2\\\":\\\"value2\\\"}\"));\nbody_messages_1.setScheduled(new DateTime(\"2016-11-03T11:49:02.807Z\", DateTimeZone.UTC));\nbody_messages_1.setSourceNumber(\"+61491570159\");\nbody_messages_1.setSourceNumberType(SourceNumberTypeEnum.INTERNATIONAL);\nbody_messages_1.setMedia(new LinkedList<String>());\nbody_messages_1.getMedia().add(\"https://images.pexels.com/photos/1018350/pexels-photo-1018350.jpeg?cs=srgb&dl=architecture-buildings-city-1018350.jpg\");\nbody_messages_1.setSubject(\"This is an MMS message\");\nbody.getMessages().add(body_messages_1);\n\n\nmessagesController.sendMessagesAsync(body, new APICallBack<SendMessagesResponse>() {\n    public void onSuccess(HttpContext context, SendMessagesResponse response) {\n        // TODO success callback handler\n    }\n    public void onFailure(HttpContext context, Throwable error) {\n        // TODO failure callback handler\n    }\n});\n"
           },
           {
             "lang": "JavaScript",
-            "source": "let body = new lib.SendMessagesRequest();\r\nbody.messages = [];\r\n\r\nbody.messages[0] = new lib.Message();\r\nbody.messages[0].callbackUrl = 'https://my.callback.url.com';\r\nbody.messages[0].content = 'My first message';\r\nbody.messages[0].destinationNumber = '+61491570156';\r\nbody.messages[0].deliveryReport = true;\r\nbody.messages[0].format = lib.FormatEnum.SMS;\r\nbody.messages[0].messageExpiryTimestamp = moment('2016-11-03T11:49:02.807Z').parseZone('2016-11-03T11:49:02.807Z');\r\nbody.messages[0].metadata = JSON.parse('{\"key1\":\"value1\",\"key2\":\"value2\"}');\r\nbody.messages[0].scheduled = moment('2016-11-03T11:49:02.807Z').parseZone('2016-11-03T11:49:02.807Z');\r\nbody.messages[0].sourceNumber = '+61491570157';\r\nbody.messages[0].sourceNumberType = lib.SourceNumberTypeEnum.INTERNATIONAL;\r\n\r\nbody.messages[1] = new lib.Message();\r\nbody.messages[1].callbackUrl = 'https://my.callback.url.com';\r\nbody.messages[1].content = 'My second message';\r\nbody.messages[1].destinationNumber = '+61491570158';\r\nbody.messages[1].deliveryReport = true;\r\nbody.messages[1].format = lib.FormatEnum.MMS;\r\nbody.messages[1].messageExpiryTimestamp = moment('2016-11-03T11:49:02.807Z').parseZone('2016-11-03T11:49:02.807Z');\r\nbody.messages[1].metadata = JSON.parse('{\"key1\":\"value1\",\"key2\":\"value2\"}');\r\nbody.messages[1].scheduled = moment('2016-11-03T11:49:02.807Z').parseZone('2016-11-03T11:49:02.807Z');\r\nbody.messages[1].sourceNumber = '+61491570159';\r\nbody.messages[1].sourceNumberType = lib.SourceNumberTypeEnum.INTERNATIONAL;\r\nbody.messages[1].media = ['https://images.pexels.com/photos/1018350/pexels-photo-1018350.jpeg?cs=srgb&dl=architecture-buildings-city-1018350.jpg'];\r\nbody.messages[1].subject = 'This is an MMS message';\r\n\r\n\r\nconst promise = controller.sendMessages(body);\r\npromise.then((response) => {\r\n    // this block will be executed on successful endpoint call\r\n    // `response` will be of type 'SendMessagesResponse'\r\n}, (err) => {\r\n    // this block will be executed on endpoint call failure\r\n    // `err` is an 'object' containing more information about the error\r\n});"
+            "source": "let body = new lib.SendMessagesRequest();\nbody.messages = [];\n\nbody.messages[0] = new lib.Message();\nbody.messages[0].callbackUrl = 'https://my.callback.url.com';\nbody.messages[0].content = 'My first message';\nbody.messages[0].destinationNumber = '+61491570156';\nbody.messages[0].deliveryReport = true;\nbody.messages[0].format = lib.FormatEnum.SMS;\nbody.messages[0].messageExpiryTimestamp = moment('2016-11-03T11:49:02.807Z').parseZone('2016-11-03T11:49:02.807Z');\nbody.messages[0].metadata = JSON.parse('{\"key1\":\"value1\",\"key2\":\"value2\"}');\nbody.messages[0].scheduled = moment('2016-11-03T11:49:02.807Z').parseZone('2016-11-03T11:49:02.807Z');\nbody.messages[0].sourceNumber = '+61491570157';\nbody.messages[0].sourceNumberType = lib.SourceNumberTypeEnum.INTERNATIONAL;\n\nbody.messages[1] = new lib.Message();\nbody.messages[1].callbackUrl = 'https://my.callback.url.com';\nbody.messages[1].content = 'My second message';\nbody.messages[1].destinationNumber = '+61491570158';\nbody.messages[1].deliveryReport = true;\nbody.messages[1].format = lib.FormatEnum.MMS;\nbody.messages[1].messageExpiryTimestamp = moment('2016-11-03T11:49:02.807Z').parseZone('2016-11-03T11:49:02.807Z');\nbody.messages[1].metadata = JSON.parse('{\"key1\":\"value1\",\"key2\":\"value2\"}');\nbody.messages[1].scheduled = moment('2016-11-03T11:49:02.807Z').parseZone('2016-11-03T11:49:02.807Z');\nbody.messages[1].sourceNumber = '+61491570159';\nbody.messages[1].sourceNumberType = lib.SourceNumberTypeEnum.INTERNATIONAL;\nbody.messages[1].media = ['https://images.pexels.com/photos/1018350/pexels-photo-1018350.jpeg?cs=srgb&dl=architecture-buildings-city-1018350.jpg'];\nbody.messages[1].subject = 'This is an MMS message';\n\n\nconst promise = controller.sendMessages(body);\npromise.then((response) => {\n    // this block will be executed on successful endpoint call\n    // `response` will be of type 'SendMessagesResponse'\n}, (err) => {\n    // this block will be executed on endpoint call failure\n    // `err` is an 'object' containing more information about the error\n});"
           },
           {
             "lang": "PHP",
-            "source": "$body = new Models\\SendMessagesRequest;\r\n$body->messages = array();\r\n\r\n$body->messages[0] = new Models\\Message;\r\n$body->messages[0]->callbackUrl = 'https://my.callback.url.com';\r\n$body->messages[0]->content = 'My first message';\r\n$body->messages[0]->destinationNumber = '+61491570156';\r\n$body->messages[0]->deliveryReport = true;\r\n$body->messages[0]->format = Models\\FormatEnum::SMS;\r\n$body->messages[0]->messageExpiryTimestamp = DateTimeHelper::fromRfc3339DateTime('2016-11-03T11:49:02.807Z');\r\n$body->messages[0]->metadata = MessageMediaMessagesLib\\APIHelper::deserialize('{\"key1\":\"value1\",\"key2\":\"value2\"}');\r\n$body->messages[0]->scheduled = DateTimeHelper::fromRfc3339DateTime('2016-11-03T11:49:02.807Z');\r\n$body->messages[0]->sourceNumber = '+61491570157';\r\n$body->messages[0]->sourceNumberType = Models\\SourceNumberTypeEnum::INTERNATIONAL;\r\n\r\n$body->messages[1] = new Models\\Message;\r\n$body->messages[1]->callbackUrl = 'https://my.callback.url.com';\r\n$body->messages[1]->content = 'My second message';\r\n$body->messages[1]->destinationNumber = '+61491570158';\r\n$body->messages[1]->deliveryReport = true;\r\n$body->messages[1]->format = Models\\FormatEnum::MMS;\r\n$body->messages[1]->messageExpiryTimestamp = DateTimeHelper::fromRfc3339DateTime('2016-11-03T11:49:02.807Z');\r\n$body->messages[1]->metadata = MessageMediaMessagesLib\\APIHelper::deserialize('{\"key1\":\"value1\",\"key2\":\"value2\"}');\r\n$body->messages[1]->scheduled = DateTimeHelper::fromRfc3339DateTime('2016-11-03T11:49:02.807Z');\r\n$body->messages[1]->sourceNumber = '+61491570159';\r\n$body->messages[1]->sourceNumberType = Models\\SourceNumberTypeEnum::INTERNATIONAL;\r\n$body->messages[1]->media = array('https://images.pexels.com/photos/1018350/pexels-photo-1018350.jpeg?cs=srgb&dl=architecture-buildings-city-1018350.jpg');\r\n$body->messages[1]->subject = 'This is an MMS message';\r\n\r\n\r\n$result = $messagesController->sendMessages($body);"
+            "source": "$body = new Models\\SendMessagesRequest;\n$body->messages = array();\n\n$body->messages[0] = new Models\\Message;\n$body->messages[0]->callbackUrl = 'https://my.callback.url.com';\n$body->messages[0]->content = 'My first message';\n$body->messages[0]->destinationNumber = '+61491570156';\n$body->messages[0]->deliveryReport = true;\n$body->messages[0]->format = Models\\FormatEnum::SMS;\n$body->messages[0]->messageExpiryTimestamp = DateTimeHelper::fromRfc3339DateTime('2016-11-03T11:49:02.807Z');\n$body->messages[0]->metadata = MessageMediaMessagesLib\\APIHelper::deserialize('{\"key1\":\"value1\",\"key2\":\"value2\"}');\n$body->messages[0]->scheduled = DateTimeHelper::fromRfc3339DateTime('2016-11-03T11:49:02.807Z');\n$body->messages[0]->sourceNumber = '+61491570157';\n$body->messages[0]->sourceNumberType = Models\\SourceNumberTypeEnum::INTERNATIONAL;\n\n$body->messages[1] = new Models\\Message;\n$body->messages[1]->callbackUrl = 'https://my.callback.url.com';\n$body->messages[1]->content = 'My second message';\n$body->messages[1]->destinationNumber = '+61491570158';\n$body->messages[1]->deliveryReport = true;\n$body->messages[1]->format = Models\\FormatEnum::MMS;\n$body->messages[1]->messageExpiryTimestamp = DateTimeHelper::fromRfc3339DateTime('2016-11-03T11:49:02.807Z');\n$body->messages[1]->metadata = MessageMediaMessagesLib\\APIHelper::deserialize('{\"key1\":\"value1\",\"key2\":\"value2\"}');\n$body->messages[1]->scheduled = DateTimeHelper::fromRfc3339DateTime('2016-11-03T11:49:02.807Z');\n$body->messages[1]->sourceNumber = '+61491570159';\n$body->messages[1]->sourceNumberType = Models\\SourceNumberTypeEnum::INTERNATIONAL;\n$body->messages[1]->media = array('https://images.pexels.com/photos/1018350/pexels-photo-1018350.jpeg?cs=srgb&dl=architecture-buildings-city-1018350.jpg');\n$body->messages[1]->subject = 'This is an MMS message';\n\n\n$result = $messagesController->sendMessages($body);"
           },
           {
             "lang": "Python",
-            "source": "body = SendMessagesRequest()\r\nbody.messages = []\r\n\r\nbody.messages.append(Message())\r\nbody.messages[0].callback_url = 'https://my.callback.url.com'\r\nbody.messages[0].content = 'My first message'\r\nbody.messages[0].destination_number = '+61491570156'\r\nbody.messages[0].delivery_report = True\r\nbody.messages[0].format = FormatEnum.SMS\r\nbody.messages[0].message_expiry_timestamp = dateutil.parser.parse('2016-11-03T11:49:02.807Z')\r\nbody.messages[0].metadata = jsonpickle.decode('{\"key1\":\"value1\",\"key2\":\"value2\"}')\r\nbody.messages[0].scheduled = dateutil.parser.parse('2016-11-03T11:49:02.807Z')\r\nbody.messages[0].source_number = '+61491570157'\r\nbody.messages[0].source_number_type = SourceNumberTypeEnum.INTERNATIONAL\r\n\r\nbody.messages.append(Message())\r\nbody.messages[1].callback_url = 'https://my.callback.url.com'\r\nbody.messages[1].content = 'My second message'\r\nbody.messages[1].destination_number = '+61491570158'\r\nbody.messages[1].delivery_report = True\r\nbody.messages[1].format = FormatEnum.MMS\r\nbody.messages[1].message_expiry_timestamp = dateutil.parser.parse('2016-11-03T11:49:02.807Z')\r\nbody.messages[1].metadata = jsonpickle.decode('{\"key1\":\"value1\",\"key2\":\"value2\"}')\r\nbody.messages[1].scheduled = dateutil.parser.parse('2016-11-03T11:49:02.807Z')\r\nbody.messages[1].source_number = '+61491570159'\r\nbody.messages[1].source_number_type = SourceNumberTypeEnum.INTERNATIONAL\r\nbody.messages[1].media = ['https://images.pexels.com/photos/1018350/pexels-photo-1018350.jpeg?cs=srgb&dl=architecture-buildings-city-1018350.jpg']\r\nbody.messages[1].subject = 'This is an MMS message'\r\n\r\n\r\nresult = messages_controller.send_messages(body)"
+            "source": "body = SendMessagesRequest()\nbody.messages = []\n\nbody.messages.append(Message())\nbody.messages[0].callback_url = 'https://my.callback.url.com'\nbody.messages[0].content = 'My first message'\nbody.messages[0].destination_number = '+61491570156'\nbody.messages[0].delivery_report = True\nbody.messages[0].format = FormatEnum.SMS\nbody.messages[0].message_expiry_timestamp = dateutil.parser.parse('2016-11-03T11:49:02.807Z')\nbody.messages[0].metadata = jsonpickle.decode('{\"key1\":\"value1\",\"key2\":\"value2\"}')\nbody.messages[0].scheduled = dateutil.parser.parse('2016-11-03T11:49:02.807Z')\nbody.messages[0].source_number = '+61491570157'\nbody.messages[0].source_number_type = SourceNumberTypeEnum.INTERNATIONAL\n\nbody.messages.append(Message())\nbody.messages[1].callback_url = 'https://my.callback.url.com'\nbody.messages[1].content = 'My second message'\nbody.messages[1].destination_number = '+61491570158'\nbody.messages[1].delivery_report = True\nbody.messages[1].format = FormatEnum.MMS\nbody.messages[1].message_expiry_timestamp = dateutil.parser.parse('2016-11-03T11:49:02.807Z')\nbody.messages[1].metadata = jsonpickle.decode('{\"key1\":\"value1\",\"key2\":\"value2\"}')\nbody.messages[1].scheduled = dateutil.parser.parse('2016-11-03T11:49:02.807Z')\nbody.messages[1].source_number = '+61491570159'\nbody.messages[1].source_number_type = SourceNumberTypeEnum.INTERNATIONAL\nbody.messages[1].media = ['https://images.pexels.com/photos/1018350/pexels-photo-1018350.jpeg?cs=srgb&dl=architecture-buildings-city-1018350.jpg']\nbody.messages[1].subject = 'This is an MMS message'\n\n\nresult = messages_controller.send_messages(body)"
           },
           {
             "lang": "Ruby",
-            "source": "SendMessagesRequest body = new SendMessagesRequest();\r\nbody.Messages = new List<Message>();\r\n\r\nMessage body_messages_0 = new Message();\r\nbody_messages_0.CallbackUrl = \"https://my.callback.url.com\";\r\nbody_messages_0.Content = \"My first message\";\r\nbody_messages_0.DestinationNumber = \"+61491570156\";\r\nbody_messages_0.DeliveryReport = true;\r\nbody_messages_0.Format = Format.SMS;\r\nbody_messages_0.MessageExpiryTimestamp = DateTime.Parse(\"2016-11-03T11:49:02.807Z\");\r\nbody_messages_0.Metadata = APIHelper.JsonDeserialize<Object>(\"{\\\"key1\\\":\\\"value1\\\",\\\"key2\\\":\\\"value2\\\"}\");\r\nbody_messages_0.Scheduled = DateTime.Parse(\"2016-11-03T11:49:02.807Z\");\r\nbody_messages_0.SourceNumber = \"+61491570157\";\r\nbody_messages_0.SourceNumberType = SourceNumberType.INTERNATIONAL;\r\nbody.Messages.Add(body_messages_0);\r\n\r\nMessage body_messages_1 = new Message();\r\nbody_messages_1.CallbackUrl = \"https://my.callback.url.com\";\r\nbody_messages_1.Content = \"My second message\";\r\nbody_messages_1.DestinationNumber = \"+61491570158\";\r\nbody_messages_1.DeliveryReport = true;\r\nbody_messages_1.Format = Format.MMS;\r\nbody_messages_1.MessageExpiryTimestamp = DateTime.Parse(\"2016-11-03T11:49:02.807Z\");\r\nbody_messages_1.Metadata = APIHelper.JsonDeserialize<Object>(\"{\\\"key1\\\":\\\"value1\\\",\\\"key2\\\":\\\"value2\\\"}\");\r\nbody_messages_1.Scheduled = DateTime.Parse(\"2016-11-03T11:49:02.807Z\");\r\nbody_messages_1.SourceNumber = \"+61491570159\";\r\nbody_messages_1.SourceNumberType = SourceNumberType.INTERNATIONAL;\r\nbody_messages_1.Media = new List<string>();\r\nbody_messages_1.Media.Add(\"https://images.pexels.com/photos/1018350/pexels-photo-1018350.jpeg?cs=srgb&dl=architecture-buildings-city-1018350.jpg\");\r\nbody_messages_1.Subject = \"This is an MMS message\";\r\nbody.Messages.Add(body_messages_1);\r\n\r\n\r\ntry \r\n{\r\n    SendMessagesResponse result = messages.SendMessagesAsync(body).Result;\r\n}\r\ncatch (APIException e){};"
+            "source": "SendMessagesRequest body = new SendMessagesRequest();\nbody.Messages = new List<Message>();\n\nMessage body_messages_0 = new Message();\nbody_messages_0.CallbackUrl = \"https://my.callback.url.com\";\nbody_messages_0.Content = \"My first message\";\nbody_messages_0.DestinationNumber = \"+61491570156\";\nbody_messages_0.DeliveryReport = true;\nbody_messages_0.Format = Format.SMS;\nbody_messages_0.MessageExpiryTimestamp = DateTime.Parse(\"2016-11-03T11:49:02.807Z\");\nbody_messages_0.Metadata = APIHelper.JsonDeserialize<Object>(\"{\\\"key1\\\":\\\"value1\\\",\\\"key2\\\":\\\"value2\\\"}\");\nbody_messages_0.Scheduled = DateTime.Parse(\"2016-11-03T11:49:02.807Z\");\nbody_messages_0.SourceNumber = \"+61491570157\";\nbody_messages_0.SourceNumberType = SourceNumberType.INTERNATIONAL;\nbody.Messages.Add(body_messages_0);\n\nMessage body_messages_1 = new Message();\nbody_messages_1.CallbackUrl = \"https://my.callback.url.com\";\nbody_messages_1.Content = \"My second message\";\nbody_messages_1.DestinationNumber = \"+61491570158\";\nbody_messages_1.DeliveryReport = true;\nbody_messages_1.Format = Format.MMS;\nbody_messages_1.MessageExpiryTimestamp = DateTime.Parse(\"2016-11-03T11:49:02.807Z\");\nbody_messages_1.Metadata = APIHelper.JsonDeserialize<Object>(\"{\\\"key1\\\":\\\"value1\\\",\\\"key2\\\":\\\"value2\\\"}\");\nbody_messages_1.Scheduled = DateTime.Parse(\"2016-11-03T11:49:02.807Z\");\nbody_messages_1.SourceNumber = \"+61491570159\";\nbody_messages_1.SourceNumberType = SourceNumberType.INTERNATIONAL;\nbody_messages_1.Media = new List<string>();\nbody_messages_1.Media.Add(\"https://images.pexels.com/photos/1018350/pexels-photo-1018350.jpeg?cs=srgb&dl=architecture-buildings-city-1018350.jpg\");\nbody_messages_1.Subject = \"This is an MMS message\";\nbody.Messages.Add(body_messages_1);\n\n\ntry \n{\n    SendMessagesResponse result = messages.SendMessagesAsync(body).Result;\n}\ncatch (APIException e){};"
           }
         ]
       }
@@ -1323,6 +1323,74 @@
         }
       }
     },
+    "/v1/messaging/numbers/sender_address/addresses/{id}/reverify": {
+      "post": {
+        "tags": [
+          "Source Address"
+        ],
+        "summary": "Re-verify Sender Address",
+        "description": "Re-verify Sender Address\n\nThe below table defines: \n+ the allowed combination of `sender_address_type` and `usage_type` values\n\n| Description      | sender_address_type | usage_type    |\n| ---------------- | ------------------- | ------------  |\n| Own Number       | INTERNATIONAL       | OWN_NUMBER    |\n\nOWN_NUMBER Sender Addresses require reverification every 12 months to allow continued use.\nThe reverification process is quite similar to the original verification process for the Sender Address, and requires a fresh 2FA check.\n\nTo reverify an OWN_NUMBER Sender Address:\n  1. Retrieve the UUID for the OWN_NUMBER using the v1/messaging/numbers/sender_address/addresses/ endpoint\n  2. Make a request to this endpoint /v1/messaging/numbers/sender_address/addresses/{id}/reverify to trigger the 2FA check\n  3. Make a PATCH request to v1/messaging/numbers/sender_address/requests/{id}/verify, providing the new 2FA code in the body of the request\n",
+        "operationId": "reVerifySenderAddressUsingPOST",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Sender Address ID",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReVerifySenderAddressRequestItem"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/400response"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/403response"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/404response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/messaging/numbers/sender_address/requests/{id}": {
       "get": {
         "security": [
@@ -1500,7 +1568,8 @@
                       "label": "This is my label 1",
                       "account_id": "my_account,",
                       "created_date": "2023-08-04T04:21:55.958Z,",
-                      "last_modified_date": "2023-08-04T04:21:55.958Z"
+                      "last_modified_date": "2023-08-04T04:21:55.958Z,",
+                      "expiry": "2024-08-03T04:21:55.958Z"
                     },
                     {
                       "id": "365dd65f-7101-46cd-8e79-e49c5620eb15",
@@ -1514,7 +1583,8 @@
                       "label": "This is my label 2",
                       "account_id": "my_account,",
                       "created_date": "2023-08-14T04:21:55.958Z,",
-                      "last_modified_date": "2023-08-14T04:21:55.958Z"
+                      "last_modified_date": "2023-08-14T04:21:55.958Z,",
+                      "expiry": "2024-08-03T04:21:55.958Z"
                     },
                     {
                       "id": "4a9cb0f4-f383-40b5-84dc-bbb6a3b210dd",
@@ -1528,7 +1598,8 @@
                       "label": "This is my label 3",
                       "account_id": "my_account,",
                       "created_date": "2023-08-24T04:21:55.958Z,",
-                      "last_modified_date": "2023-08-24T04:21:55.958Z"
+                      "last_modified_date": "2023-08-24T04:21:55.958Z,",
+                      "expiry": "2024-08-03T04:21:55.958Z"
                     }
                   ],
                   "pagination": {
@@ -1664,11 +1735,11 @@
           },
           {
             "lang": "Java",
-            "source": "deliveryReportsController.checkDeliveryReportsAsync(new APICallBack<CheckDeliveryReportsResponse>() {\r\n    public void onSuccess(HttpContext context, CheckDeliveryReportsResponse response) {\r\n        // TODO success callback handler\r\n    }\r\n    public void onFailure(HttpContext context, Throwable error) {\r\n        // TODO failure callback handler\r\n    }\r\n});"
+            "source": "deliveryReportsController.checkDeliveryReportsAsync(new APICallBack<CheckDeliveryReportsResponse>() {\n    public void onSuccess(HttpContext context, CheckDeliveryReportsResponse response) {\n        // TODO success callback handler\n    }\n    public void onFailure(HttpContext context, Throwable error) {\n        // TODO failure callback handler\n    }\n});"
           },
           {
             "lang": "JavaScript",
-            "source": "const promise = controller.checkDeliveryReports();\r\npromise.then((response) => {\r\n    // this block will be executed on successful endpoint call\r\n    // `response` will be of type 'CheckDeliveryReportsResponse'\r\n}, (err) => {\r\n    // this block will be executed on endpoint call failure\r\n    // `err` is an 'object' containing more information about the error\r\n});"
+            "source": "const promise = controller.checkDeliveryReports();\npromise.then((response) => {\n    // this block will be executed on successful endpoint call\n    // `response` will be of type 'CheckDeliveryReportsResponse'\n}, (err) => {\n    // this block will be executed on endpoint call failure\n    // `err` is an 'object' containing more information about the error\n});"
           },
           {
             "lang": "PHP",
@@ -1676,7 +1747,7 @@
           },
           {
             "lang": "Python",
-            "source": "result = delivery_reports_controller.check_delivery_reports()\r\n"
+            "source": "result = delivery_reports_controller.check_delivery_reports()\n"
           },
           {
             "lang": "Ruby",
@@ -1772,19 +1843,19 @@
           },
           {
             "lang": "Java",
-            "source": "ConfirmDeliveryReportsAsReceivedRequest body = new ConfirmDeliveryReportsAsReceivedRequest();\r\nbody.setDeliveryReportIds(new LinkedList<String>());\r\nbody.getDeliveryReportIds().add(\"011dcead-6988-4ad6-a1c7-6b6c68ea628d\");\r\nbody.getDeliveryReportIds().add(\"3487b3fa-6586-4979-a233-2d1b095c7718\");\r\nbody.getDeliveryReportIds().add(\"ba28e94b-c83d-4759-98e7-ff9c7edb87a1\");\r\n\r\ndeliveryReportsController.confirmDeliveryReportsAsReceivedAsync(body, new APICallBack<DynamicResponse>() {\r\n    public void onSuccess(HttpContext context, DynamicResponse response) {\r\n        // TODO success callback handler\r\n    }\r\n    public void onFailure(HttpContext context, Throwable error) {\r\n        // TODO failure callback handler\r\n    }\r\n});"
+            "source": "ConfirmDeliveryReportsAsReceivedRequest body = new ConfirmDeliveryReportsAsReceivedRequest();\nbody.setDeliveryReportIds(new LinkedList<String>());\nbody.getDeliveryReportIds().add(\"011dcead-6988-4ad6-a1c7-6b6c68ea628d\");\nbody.getDeliveryReportIds().add(\"3487b3fa-6586-4979-a233-2d1b095c7718\");\nbody.getDeliveryReportIds().add(\"ba28e94b-c83d-4759-98e7-ff9c7edb87a1\");\n\ndeliveryReportsController.confirmDeliveryReportsAsReceivedAsync(body, new APICallBack<DynamicResponse>() {\n    public void onSuccess(HttpContext context, DynamicResponse response) {\n        // TODO success callback handler\n    }\n    public void onFailure(HttpContext context, Throwable error) {\n        // TODO failure callback handler\n    }\n});"
           },
           {
             "lang": "JavaScript",
-            "source": "let body = new lib.ConfirmDeliveryReportsAsReceivedRequest();\r\nbody.deliveryReportIds = ['011dcead-6988-4ad6-a1c7-6b6c68ea628d', '3487b3fa-6586-4979-a233-2d1b095c7718', 'ba28e94b-c83d-4759-98e7-ff9c7edb87a1'];\r\n\r\nconst promise = controller.confirmDeliveryReportsAsReceived(body);\r\npromise.then((response) => {\r\n    // this block will be executed on successful endpoint call\r\n    // `response` will be of type 'mixed'\r\n}, (err) => {\r\n    // this block will be executed on endpoint call failure\r\n    // `err` is an 'object' containing more information about the error\r\n});"
+            "source": "let body = new lib.ConfirmDeliveryReportsAsReceivedRequest();\nbody.deliveryReportIds = ['011dcead-6988-4ad6-a1c7-6b6c68ea628d', '3487b3fa-6586-4979-a233-2d1b095c7718', 'ba28e94b-c83d-4759-98e7-ff9c7edb87a1'];\n\nconst promise = controller.confirmDeliveryReportsAsReceived(body);\npromise.then((response) => {\n    // this block will be executed on successful endpoint call\n    // `response` will be of type 'mixed'\n}, (err) => {\n    // this block will be executed on endpoint call failure\n    // `err` is an 'object' containing more information about the error\n});"
           },
           {
             "lang": "PHP",
-            "source": "$body = new Models\\ConfirmDeliveryReportsAsReceivedRequest;\r\n$body->deliveryReportIds = array('011dcead-6988-4ad6-a1c7-6b6c68ea628d', '3487b3fa-6586-4979-a233-2d1b095c7718', 'ba28e94b-c83d-4759-98e7-ff9c7edb87a1');\r\n\r\n$result = $deliveryReportsController->confirmDeliveryReportsAsReceived($body);"
+            "source": "$body = new Models\\ConfirmDeliveryReportsAsReceivedRequest;\n$body->deliveryReportIds = array('011dcead-6988-4ad6-a1c7-6b6c68ea628d', '3487b3fa-6586-4979-a233-2d1b095c7718', 'ba28e94b-c83d-4759-98e7-ff9c7edb87a1');\n\n$result = $deliveryReportsController->confirmDeliveryReportsAsReceived($body);"
           },
           {
             "lang": "Python",
-            "source": "body = ConfirmDeliveryReportsAsReceivedRequest()\r\nbody.delivery_report_ids = ['011dcead-6988-4ad6-a1c7-6b6c68ea628d', '3487b3fa-6586-4979-a233-2d1b095c7718', 'ba28e94b-c83d-4759-98e7-ff9c7edb87a1']\r\n\r\nresult = delivery_reports_controller.confirm_delivery_reports_as_received(body)"
+            "source": "body = ConfirmDeliveryReportsAsReceivedRequest()\nbody.delivery_report_ids = ['011dcead-6988-4ad6-a1c7-6b6c68ea628d', '3487b3fa-6586-4979-a233-2d1b095c7718', 'ba28e94b-c83d-4759-98e7-ff9c7edb87a1']\n\nresult = delivery_reports_controller.confirm_delivery_reports_as_received(body)"
           },
           {
             "lang": "Ruby",
@@ -1888,11 +1959,11 @@
           },
           {
             "lang": "Java",
-            "source": "repliesController.checkRepliesAsync(new APICallBack<CheckRepliesResponse>() {\r\n    public void onSuccess(HttpContext context, CheckRepliesResponse response) {\r\n        // TODO success callback handler\r\n    }\r\n    public void onFailure(HttpContext context, Throwable error) {\r\n        // TODO failure callback handler\r\n    }\r\n});"
+            "source": "repliesController.checkRepliesAsync(new APICallBack<CheckRepliesResponse>() {\n    public void onSuccess(HttpContext context, CheckRepliesResponse response) {\n        // TODO success callback handler\n    }\n    public void onFailure(HttpContext context, Throwable error) {\n        // TODO failure callback handler\n    }\n});"
           },
           {
             "lang": "JavaScript",
-            "source": "const promise = controller.checkReplies();\r\npromise.then((response) => {\r\n    // this block will be executed on successful endpoint call\r\n    // `response` will be of type 'CheckRepliesResponse'\r\n}, (err) => {\r\n    // this block will be executed on endpoint call failure\r\n    // `err` is an 'object' containing more information about the error\r\n});"
+            "source": "const promise = controller.checkReplies();\npromise.then((response) => {\n    // this block will be executed on successful endpoint call\n    // `response` will be of type 'CheckRepliesResponse'\n}, (err) => {\n    // this block will be executed on endpoint call failure\n    // `err` is an 'object' containing more information about the error\n});"
           },
           {
             "lang": "PHP",
@@ -1996,15 +2067,15 @@
           },
           {
             "lang": "Java",
-            "source": "ConfirmRepliesAsReceivedRequest body = new ConfirmRepliesAsReceivedRequest();\r\nbody.setReplyIds(new LinkedList<String>());\r\nbody.getReplyIds().add(\"011dcead-6988-4ad6-a1c7-6b6c68ea628d\");\r\nbody.getReplyIds().add(\"3487b3fa-6586-4979-a233-2d1b095c7718\");\r\nbody.getReplyIds().add(\"ba28e94b-c83d-4759-98e7-ff9c7edb87a1\");\r\n\r\nrepliesController.confirmRepliesAsReceivedAsync(body, new APICallBack<DynamicResponse>() {\r\n    public void onSuccess(HttpContext context, DynamicResponse response) {\r\n        // TODO success callback handler\r\n    }\r\n    public void onFailure(HttpContext context, Throwable error) {\r\n        // TODO failure callback handler\r\n    }\r\n});"
+            "source": "ConfirmRepliesAsReceivedRequest body = new ConfirmRepliesAsReceivedRequest();\nbody.setReplyIds(new LinkedList<String>());\nbody.getReplyIds().add(\"011dcead-6988-4ad6-a1c7-6b6c68ea628d\");\nbody.getReplyIds().add(\"3487b3fa-6586-4979-a233-2d1b095c7718\");\nbody.getReplyIds().add(\"ba28e94b-c83d-4759-98e7-ff9c7edb87a1\");\n\nrepliesController.confirmRepliesAsReceivedAsync(body, new APICallBack<DynamicResponse>() {\n    public void onSuccess(HttpContext context, DynamicResponse response) {\n        // TODO success callback handler\n    }\n    public void onFailure(HttpContext context, Throwable error) {\n        // TODO failure callback handler\n    }\n});"
           },
           {
             "lang": "JavaScript",
-            "source": "let body = new lib.ConfirmRepliesAsReceivedRequest();\r\nbody.replyIds = ['011dcead-6988-4ad6-a1c7-6b6c68ea628d', '3487b3fa-6586-4979-a233-2d1b095c7718', 'ba28e94b-c83d-4759-98e7-ff9c7edb87a1'];\r\n\r\nconst promise = controller.confirmRepliesAsReceived(body);\r\npromise.then((response) => {\r\n    // this block will be executed on successful endpoint call\r\n    // `response` will be of type 'mixed'\r\n}, (err) => {\r\n    // this block will be executed on endpoint call failure\r\n    // `err` is an 'object' containing more information about the error\r\n});"
+            "source": "let body = new lib.ConfirmRepliesAsReceivedRequest();\nbody.replyIds = ['011dcead-6988-4ad6-a1c7-6b6c68ea628d', '3487b3fa-6586-4979-a233-2d1b095c7718', 'ba28e94b-c83d-4759-98e7-ff9c7edb87a1'];\n\nconst promise = controller.confirmRepliesAsReceived(body);\npromise.then((response) => {\n    // this block will be executed on successful endpoint call\n    // `response` will be of type 'mixed'\n}, (err) => {\n    // this block will be executed on endpoint call failure\n    // `err` is an 'object' containing more information about the error\n});"
           },
           {
             "lang": "PHP",
-            "source": "$body = new Models\\ConfirmRepliesAsReceivedRequest;\r\n$body->replyIds = array('011dcead-6988-4ad6-a1c7-6b6c68ea628d', '3487b3fa-6586-4979-a233-2d1b095c7718', 'ba28e94b-c83d-4759-98e7-ff9c7edb87a1');\r\n\r\n$result = $repliesController->confirmRepliesAsReceived($body);"
+            "source": "$body = new Models\\ConfirmRepliesAsReceivedRequest;\n$body->replyIds = array('011dcead-6988-4ad6-a1c7-6b6c68ea628d', '3487b3fa-6586-4979-a233-2d1b095c7718', 'ba28e94b-c83d-4759-98e7-ff9c7edb87a1');\n\n$result = $repliesController->confirmRepliesAsReceived($body);"
           },
           {
             "lang": "Python",
@@ -7362,6 +7433,75 @@
             "type": "string",
             "description": "Verify Sender Address Request",
             "example": "123456"
+          }
+        }
+      },
+      "ReVerifySenderAddressRequestItem": {
+        "title": "ReVerifySenderAddressRequestItem",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Primary ID of the record",
+            "example": "6f79a12e-14f1-4776-adc0-5c5e48a999b7"
+          },
+          "sender_address": {
+            "type": "string",
+            "description": "The Sender Address to be requested",
+            "example": "+61450999999"
+          },
+          "sender_address_type": {
+            "type": "string",
+            "description": "The Sender Address Type",
+            "enum": [
+              "INTERNATIONAL"
+            ]
+          },
+          "usage_type": {
+            "type": "string",
+            "description": "The Sender Address Usage Type",
+            "enum": [
+              "OWN_NUMBER"
+            ]
+          },
+          "destination_countries": {
+            "type": "array",
+            "description": "list of 2-character ISO country codes this sender address applies to",
+            "items": {
+              "type": "string"
+            },
+            "example": [
+              "AU",
+              "NZ",
+              "US"
+            ]
+          },
+          "reason": {
+            "type": "string",
+            "example": "my company is example.com"
+          },
+          "label": {
+            "type": "string",
+            "example": "Example Address"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "PENDING"
+            ]
+          },
+          "account_id": {
+            "type": "string",
+            "example": "XYZ_ExampleAccount"
+          },
+          "created_date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "last_modified_date": {
+            "type": "string",
+            "format": "date-time"
           }
         }
       },
