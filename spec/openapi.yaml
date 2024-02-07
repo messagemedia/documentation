@@ -1132,7 +1132,7 @@ paths:
 
         The status property of the response indicates the current status of the
         message. See the Delivery Reports section of this documentation for more information on message
-        statues.
+        statuses. The expiry date for getting an entity is 45 days.
 
         *Note: If an invalid or non existent message ID parameter is specified
         in the request, then a HTTP 404 Not Found response will be returned*
@@ -1179,7 +1179,7 @@ paths:
         A scheduled message can be cancelled by updating the status of a message
         from ```scheduled``` to ```cancelled```. This is done by submitting a PUT request to the
         messages endpoint using the message ID as a parameter (the same endpoint used above to retrieve
-        the status of a message).
+        the status of a message). The expiry date for getting an entity is 45 days.
 
         The body of the request simply needs to contain a ```status``` property with the value set to ```cancelled```.
 
@@ -1341,7 +1341,7 @@ paths:
         will be a 36 character UUID which can be used to check the status of the message via the Get Message
         Status endpoint. The status of the message which reflect the status of the message at submission
         time which will always be ```queued```. See the Delivery Reports section of this documentation for
-        more information on message statues.
+        more information on message statuses.
 
         ### Sending from sub-accounts
 
@@ -2081,7 +2081,7 @@ paths:
         delivery reports that have been
 
         processed are no longer returned in subsequent check delivery reports
-        requests.
+        requests. The expiry date for getting an entity is 45 days.
 
         1. Call check delivery reports endpoint
 
@@ -2186,7 +2186,7 @@ paths:
 
         ```
 
-        Up to 100 delivery reports can be confirmed in a single confirm delivery
+        The expiry date for getting an entity is 45 days. Up to 100 delivery reports can be confirmed in a single confirm delivery
         reports request.
       operationId: ConfirmDeliveryReportsAsReceived
       parameters: []
@@ -2337,7 +2337,7 @@ paths:
         in the following pattern so that replies that have been processed are no
         longer returned in
 
-        subsequent check replies requests.
+        subsequent check replies requests. The expiry date for getting an entity is 45 days.
 
         1. Call check replies endpoint
 
@@ -2437,7 +2437,7 @@ paths:
 
         ```
 
-        Up to 100 replies can be confirmed in a single confirm replies request.
+        The expiry date for getting an entity is 45 days. Up to 100 replies can be confirmed in a single confirm replies request.
       operationId: ConfirmRepliesAsReceived
       parameters: []
       requestBody:
