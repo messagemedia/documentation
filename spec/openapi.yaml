@@ -1132,7 +1132,7 @@ paths:
 
         The status property of the response indicates the current status of the
         message. See the Delivery Reports section of this documentation for more information on message
-        statues. The expiry date for getting an entity is 45 days.
+        statuses. The expiry date for getting an entity is 45 days.
 
         *Note: If an invalid or non existent message ID parameter is specified
         in the request, then a HTTP 404 Not Found response will be returned*
@@ -1341,7 +1341,7 @@ paths:
         will be a 36 character UUID which can be used to check the status of the message via the Get Message
         Status endpoint. The status of the message which reflect the status of the message at submission
         time which will always be ```queued```. See the Delivery Reports section of this documentation for
-        more information on message statues.
+        more information on message statuses.
 
         ### Sending from sub-accounts
 
