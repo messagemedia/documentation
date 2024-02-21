@@ -1866,7 +1866,10 @@ paths:
             enum:
               - EXPIRED
               - EXPIRING
-          description: status of a sender address, only applicable to OWN_NUMBER
+          description: |
+            Filter sender addresses based on their expiry status.
+            This parameter is effective when used in MON request filter,
+            where the sender address type is INTERNATIONAL and the usage type is OWN_NUMBER.
           example: EXPIRED  
         - name: page_size
           in: query
