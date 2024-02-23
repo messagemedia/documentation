@@ -1867,9 +1867,8 @@ paths:
               - EXPIRED
               - EXPIRING
           description: |
-            Filter sender addresses based on their expiry status.
-            This parameter is effective when used in MON request filter,
-            where the sender address type is INTERNATIONAL and the usage type is OWN_NUMBER.
+            Filter sender addresses based on expiry status.
+            This parameter applies only to OWN_NUMBER.
           example: EXPIRED  
         - name: page_size
           in: query
