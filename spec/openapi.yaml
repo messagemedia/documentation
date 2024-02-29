@@ -1859,6 +1859,17 @@ paths:
           schema:
             type: boolean
           example: true
+        - name: expiry_status
+          in: query
+          schema:
+            type: string
+            enum:
+              - EXPIRED
+              - EXPIRING
+          description: |
+            Filter sender addresses based on expiry status.
+            This parameter applies only to OWN_NUMBER.
+          example: EXPIRED  
         - name: page_size
           in: query
           schema:
