@@ -251,15 +251,85 @@ tags:
       ![Message Flow](https://i.imgur.com/jJeHwf5.png)
   - name: Source Address
     description: |
-      The Sender Address API provides a number of endpoints for you to request a Sender ID and gain real-time access to its approval status.
+      The source address API provides several endpoints for you to request an SMS sender ID and track its approval status.
       
       **What is Trusted Sender ID?**
 
+      Simply put, a sender ID is whatever you send a text message from. This is typically either a phone number, or a string of alphanumeric characters (commonly referred to as an “Alpha Tag”).
+
       With regulations surrounding SMS becoming much stricter all over the world in an effect to combat scam SMS messages, MessageMedia is working on “Trusted Sender ID” a concept that allows customers to request a Sender ID and have it verified.
 
-      A Trusted Sender ID means this is a Sender ID that belongs to you across the MessageMedia platform and cannot be claimed by any other organization.
+      Currently Trusted Sender ID supports two types of Sender ID: Alpha Tags and Personal (“Own”) Numbers. It will likely be extended to support additional number types, such as TFN and 10DLC where additional registration, (external) verification, and overall account whitelist of numbers will be required.
 
-      *Note: Trusted Sender IDs support number types, such as **'Alpha Tags'** and **'My Own Number'**. It will likely be extended to support additional number types, such as TFN and 10DLC where additional registration, (external) verification, and overall account whitelist of numbers will be required.*
+      ### Alpha Tag
+        Sending messages from your brand name is particularly ideal for SMS marketing and two-factor authentication, as it increases recognition and trust. There are, however, a few considerations to be aware of. 
+        
+        Alpha tags are made up of 3-11 letters and/or numbers. Alpha tags must be registered and approved before sending and must have clear relevancy to your business and/or use case.
+        
+        Alpha Tags appear as the “From” number when you receive messages.
+        
+        A good alpha tag meets at least one of the following valid use cases: 
+        * Business names
+        * Trademark names    
+        * Product or service name
+        * an acronym, initialism, or contraction of your entity
+        
+        In addition to the requirements around clearly relating to the business, we typically advise the following for alpha tags to ensure maximum compatibility with the various carriers:
+        * 6-11 characters long
+        * Only contains characters from the following sets:
+        * A-Z
+        * a-z
+        * 0-9
+        * _ (underscore)
+        * \- (hyphen)
+        
+        Alpha Tags can currently be registered through the Source Address API for the following countries: ```AU``` and ```GB```
+        
+        To register an Alpha Tag as a sender ID you must:
+        1. Make a request to the **Request a Sender Address** endpoint
+        2. Wait for the alpha tag to be approved. The status of the alpha tag can be monitored using the **Get status of a sender address request** endpoint
+        
+        Once the alpha tag has been approved, you can begin using it as a Sender ID for SMS messages.
+
+        ### Personal Number
+        A personal number, or “My Own Number”, is a number that you own rather than one provided to you by Sinch MessageMedia. Typically, this is your personal mobile phone number. You may wish to register this number for use with our service so that you can easily send messages from a number already associated with your organisation.
+        
+        Before you can send messages using your own number, you need to verify that you have a right to use that number. Ensuring you have a right to use a phone number is an important regulatory requirement, aiming to prevent scam, spam, and misuse of messaging services.
+
+        Personal numbers can currently be registered through the Source Address API for the following countries: ```AT```, ```AU```, ```CH```, ```CY```, ```DE```, ```DK```, ```EE```, ```ES```, ```FI```, ```GB```, ```HR```, ```IE```, ```IT```, ```LT```, ```LU```, ```LV```, ```MT```, ```NL```, ```NO```, ```PT```, ```SE```, and ```SI```
+
+        To register a personal number as a Sender ID you must:
+        1. Make a request to the **Request a Sender Address** endpoint
+        2. A unique verification code will be sent to the requested number
+        3. Make a request to the **Submitting a Verification Code** endpoint, using the verification code that was sent in the previous step. A 200 OK response will indicate the number has been verified and is ready for use.
+
+        ⚠️ Own numbers need to be re-verified every 12 months. You will be notified by email that verification of your number is about to expire.
+
+        ### Requesting a Source Address on behalf of a sub-account
+        By default, all requests made through the API are made on behalf of the account that the API keys used to authorize the request were made on. API keys created on a parent account can can request a source address on behalf of a sub-account. To do this include a header key ```Account``` with the sub-account ID as the value. For example: 
+        ```Account: mySubAccount```
+
+        **Example request with Request a Sender Address from a sub-account**
+        ```plain
+        POST /v1/messaging/numbers/sender_address/requests HTTP/1.1
+        Host: api.messagemedia.com
+        Accept: application/json
+        Content-Type: application/json
+        Authorization: Basic dGhpc2lzYWtleTp0aGlzaXNhc2VjcmV0Zm9ybW1iYXNpY2F1dGhyZXN0YXBp
+        Account: mySubAccount
+        {
+          "sender_address": "+61341234131",
+          "sender_address_type": "INTERNATIONAL",
+          "usage_type": "OWN_NUMBER",
+          "destination_countries": [
+              "AU"
+          ],
+          "reason": "I confirm that my business has a valid use case",
+          "label": "my number sample"
+        } 
+        ```
+        *Note: The use of the Account header key applies to all Source Address endpoints.*
+
   - name: Delivery Reports
     description: |
       If a callback URL is specified in the submit message request, then changes to the message status, 
@@ -1439,59 +1509,26 @@ paths:
         - hmac_auth: [ ]
       tags:
         - Source Address
-      summary: Request a sender address
+      summary: Request a Sender Address
       description: |
-        ## Sender address is an alpha tag
-        ### What is an Alpha Tag?
-          Sending messages from your brand name is particularly ideal for SMS marketing and two-factor authentication, as it increases recognition and trust. There are, however, a few considerations to be aware of. 
+        The **Request a Sender Address** endpoint allows you to submit a request to register a new Sender ID. When making a request to this endpoint, you will always need to specify ```sender_address_type``` and ```usage_type``` parameters. The following table shows the acceptable values and combinations for these parameters:
+          | Sender ID       | sender_address_type | usage_type     |
+          |---              |---                  |---             |
+          | Alpha tag       | `ALPHANUMERIC`      | `ALPHANUMERIC` |
+          | Personal number | `INTERNATIONAL`     | `OWN_NUMBER`   | 
         
-          Alpha tags are made up of 3-11 letters and/or numbers. Alpha tags must be registered and approved before sending, and must have clear relevancy to your business and/or use case.
-        
-          Alpha Tags appear as the From number when you receive messages.
-        
-        ### What is a good Alpha Tag? 
-        
-        Valid use cases include:
-        * Business names
-        * Trademark names    
-        * Product or service name
-        * an acronym, initialism, or contraction of your entity
-        
-        ### In addition to the new requirements around clearly relating to the business, we typically advise the following for alpha tags to ensure maximum compatibility with the various carriers:
-        * 6-11 characters long
-        * Only contains characters from the following sets:
-        * A-Z
-        * a-z
-        * 0-9
-        * _ (underscore)
-        * \- (hyphen)
-        
-        ## Sender address is my own number
-        Before you can send messages using a your own number (i.e. a non-dedicated nor rotary number), you need to verify that you have a right to use that number. Ensuring you have a right to use a phone number is an important ACMA regulatory requirement, aiming to prevent scam, spam and misuse of messaging services.
-        
-        If you do not wish to verify a number from within the web portal, or need to verify a large quantity of numbers, you can verify a number programmatically - via API.
-        
-        ### The process to verify a number via the API is:
-        1. (If you don’t have existing credentials) - Create Basic or HMAC credentials for the API by going to https://hub.messagemedia.com/api-settings
-        2. Submit a verification request with the number and destination country (usually AU) as per below. **Note**: *the verification is for the account associated with the API credentials only.*
-        3. A unique verification code will be sent to the number
-        4. Submit an approval request containing the verification code for that number. A 200 OK response will indicate the number has been verified and is ready for use.
+        The other parameters required for your request will depend on the type of Sender ID you are registering.
 
-        ⚠️ Own numbers need to be re-verified every 12 months. You will be notified by email that verification of your number is about to expire.
-        
-        ## The most basic request has the following structure:
-          - ```sender_address``` is case insensitive. When one already exists for this account, you get a error message ```conflict```;
-          - ```destination_countries``` currently we only support ```AT```, ```AU```, ```CH```, ```CY```, ```DE```, ```DK```, ```EE```, ```ES```, ```FI```, ```GB```, ```HR```, ```IE```, ```IT```, ```LT```, ```LU```, ```LV```, ```MT```, ```NL```, ```NO```, ```PT```, ```SE``` and ```SI```  as the destination country;
-          - `sender_address_type` and `usage_type` parameters are set to the following value pairs:
-            | Description   | `sender_address_type` | `usage_type`   |
-            |---            |---                    |---             |
-            | Alpha tag     | `ALPHANUMERIC`        | `ALPHANUMERIC` |
-            | My own number | `INTERNATIONAL`       | `OWN_NUMBER`   |
-          - ```reason``` for requesting a sender address is required;
-            - when requesting my own number: provide your reason to use this number in a sentence. e.g. “This is my personal number”.
-            - when requesting an alpha tag: Comprehensive reasons must be supplied when requesting an alpha tag, in accordance with ACMA's compliance requirements. Please adhere to the prescribed structure when formulating the `reason` field in your API request.
-            
-            - `useCase`: one of the following:
+        ### Sender ID is an Alpha Tag
+        The following parameters are used when registering an alpha tag as a Sender ID:
+          - ```sender_address:``` **(Required)**. The alphanumeric string that you wish register as an alpha tag. This parameter is case insensitive. If this alpha tag already exists on your account, you will receive a conflict error message.
+          - ```destination_countries:``` **(Required)**. The countries that you wish to register the alpha tag for use in, in two-character ISO 3166 format. Currently only AU is supported.
+          - ```sender_address_type:``` **(Required)**. For alpha tags this is always ALPHANUMERIC
+          - ```usage_type:``` **(Required)**. For alpha tags this is always ALPHANUMERIC
+          - ```label:``` **(Optional)**. A reference name for the sender ID to allow you to easily track it.
+          - ```reason:``` **(Required)**. This is a specifically formatted string made up of the following sub-items (all of which are required):
+
+            - `useCase:` one of the following:
               - `SOLE_TRADER_NAME`
               - `COMPANY_NAME`
               - `PARTNERSHIP_NAME`
@@ -1508,50 +1545,35 @@ paths:
               - `ACRONYM_INITIALISM`
               - `CONTRACTION_OF_NAME`
               - `OTHER`
+            - `description:` A description used if OTHER was selected as the use case. Limited to 200 characters.
 
-            - `description`: Description for selecting OTHER as the use case. Limited to 200 characters.
+            - `email:` The preferred contact email for our approval team when additional details are required.
 
-            - `email`: The preferred contact email for our approval team when additional details are required.
+            - `australianGovernmentAgencyOrEntityName:` The name of your organsation.
 
-            - `australianGovernmentAgencyOrEntityName`: The name of the entity.
+            - `abn:` Your organisation’s Australian Business Number
 
-            - `abn`: Australian business number
+            - `statement:` A legal declaration
+              - If applying for your own business: “We are authorized to use the Sender ID with a valid use case.”
+              - If applying on behalf of a third-party entity: “We are authorized to use the Sender ID on behalf of [full entity name of sender] with a valid use case.”
 
-            - `statement`: Legal declaration.
-              - If applying on behalf of a third-party entity: 
+        The reason parameter must contain all the above items. A well formatted reason looks like the following:
+          - "reason": "{\n  \"useCase\":\"AUSTRALIAN_GOVERNMENT_AGENCY_OR_ENTITY\",\n  \"description\":\"blah blah\",\n  \"email\":\"example@email.com\",\n  \"australianGovernmentAgencyOrEntityName\":\"blah blah\",\n  \"statement\":\"We are authorised to use the Sender ID on behalf of [full entity name of sender] with a valid use case.\"\n}\n"
         
-                "We are authorized to use the Sender ID on behalf of [full entity name of sender] with a valid use case."
-              - If applying for your own business:
-        
-                "We are authorized to use the Sender ID with a valid use case."
-          - ```label``` name of the sender address.
-          
-        ## Request a Sender Address from sub-accounts
-        Using API keys at the parent account level, you can request a sender address on behalf of a sub-account. To do this
-        include a header key ```Account``` with the sub-account ID as the value. For example:
-        ```Account: mySubAccount```
+        ### Sender ID is a Personal Number
+        The following parameters are used when registering an alpha tag as a Sender ID: 
 
-        **Example request with Request a Sender Address from sub-accounts**
-      
-        ```plain
-        POST /v1/messaging/numbers/sender_address/requests HTTP/1.1
-        Host: api.messagemedia.com
-        Accept: application/json
-        Content-Type: application/json
-        Authorization: Basic dGhpc2lzYWtleTp0aGlzaXNhc2VjcmV0Zm9ybW1iYXNpY2F1dGhyZXN0YXBp
-        Account: SubAccount
-        {
-          "sender_address": "+61341234131",
-          "sender_address_type": "INTERNATIONAL",
-          "usage_type": "OWN_NUMBER",
-          "destination_countries": [
-              "AU"
-          ],
-          "reason": "I confirm that my business has a valid use case",
-          "label": "my number sample"
-        } 
-        ```
-        *Note: The use of the Account header key applies to all Source Address endpoints.*
+          - ```sender_address:``` **(Required)**. The phone number that you wish register as a personal number. This number must be in E.164. If this number is already registered to an account, you will receive a conflict error message. 
+
+          - ```destination_countries:``` **(Required)**. The country of the number that you wish to register, in two-character ISO 3166 format. Refer to the **Types of Sender ID** section for a list of currently supported countries. 
+
+          - ```sender_address_type:``` **(Required)**. For personal numbers this is always INTERNATIONAL 
+
+          - ```usage_type:``` **(Required)**. For personal numbers this is always OWN_NUMBER 
+
+          - ```label:``` **(Optional)**. A reference name for the sender ID to allow you to easily track it. 
+
+          - ```Reason:``` **(Required)**. A string describing why you wish to register the number as a Sender ID. Limited to 200 characters.
       operationId: requestSenderAddressUsingPOST
       parameters: []
       requestBody:
@@ -1653,6 +1675,11 @@ paths:
       tags:
         - Source Address
       summary: Submitting a verification code
+      description: |
+        The ```Submitting a verification code``` endpoint allows you to complete the 2FA verification process required to register a Personal Number as a Sender ID.
+        The following parameters are required for this request:
+          - ```id:``` The UUID received in the API response of your request to the **Request a Sender Address** endpoint.
+          - ```verification_code:``` The six-digit code received via SMS to the phone number that you are attempting to register 
       operationId: SubmittingVerificationCodePost
       parameters:
         - name: id
@@ -1713,10 +1740,13 @@ paths:
         The reverification process is quite similar to the original verification process for the Sender Address, and requires a fresh 2FA check.
         
         To reverify an OWN_NUMBER Sender Address:
-          1. Retrieve the UUID for the OWN_NUMBER using the **Get all approved sender addresses** endpoint endpoint
+          1. Retrieve the UUID for the OWN_NUMBER using the **Get all approved sender addresses** endpoint
           2. Make a request to this endpoint to trigger the 2FA check
           3. Make a PATCH request to the **Submit verification code endpoint**, providing the new 2FA code in the body of the request
       operationId: reVerifySenderAddressUsingPOST
+      security:
+        - basic_auth: [ ]
+        - hmac_auth: [ ]
       parameters:
         - name: id
           in: path
@@ -1825,10 +1855,17 @@ paths:
         - hmac_auth: [ ]
       tags:
         - Source Address
-      summary: Get all approved sender address
-      operationId: GetAllApprovedSenderAddress
+      summary: Get all approved sender addresses
+      operationId: GetAllApprovedSenderAddresses
       description: |
-        Get a list of approved sender addresses for your account.
+        The **Get all approved sender addresseses** endpoint allows to retrieve all sender addresses currently registered to your account.
+        The following parameters can be used to filter the results:
+          - ```sender_address:``` A string containing some or all of a specific Sender ID
+          - ```sender_address_type:``` The type of Sender ID. This will be either ALPHANUMERIC or INTERNATIONAL
+          - ```usage_type:``` The usage type of the Sender ID. This will be ALPHANUMERIC, OWN_NUMBER, or DEDICATED
+          - ```expiry_status:``` Filter the results by OWN_NUMBER Sender IDs that are already expired, or will expire soon. Acceptable values are EXPIRED and EXPIRING. This parameter requires both the sender_address_type and usage_type parameters to be present.
+          - ```page_size:``` The number of results per page. Default is 20.
+          - ```token:``` In paginated data the original request will return with a "next_token" attribute. This token must be entered into subsequent call in the "token" query parameter to obtain the next set of records
       parameters:
         - name: sender_address
           in: query
@@ -1941,9 +1978,21 @@ paths:
         - Source Address
       summary: Delete Sender Address
       description: |
-        Delete a sender address
+        The Delete Sender Address endpoint allows you to remove any registered sender addresses that are no longer required from your account.
 
-        This endpoint allows you to remove any Sender Addresses that are no longer required.
+        The following parameters are required on your request:
+          - ```id:``` **(Required)**. The UUID of the sender address
+          - ```reason:``` **(Required)**. A string detailing why the sender address is being removed
+        
+        **Example request with Delete a Sender Address**
+        ```plain
+        DELETE /v1/messaging/numbers/sender_address/addresses/01ccaccb-e654-4503-bb7e-1acbcfc34cb2?reason=I%20want%20do%20delete%20this%20number. HTTP/1.1
+        Host: api.messagemedia.com
+        Accept: application/json
+        Content-Type: application/json
+        Authorization: Basic dGhpc2lzYWtleTp0aGlzaXNhc2VjcmV0Zm9ybW1iYXNpY2F1dGhyZXN0YXBp
+        Account: mySubAccount
+        ```
       operationId: deleteSenderAddressUsingDELETE
       parameters:
         - name: id
