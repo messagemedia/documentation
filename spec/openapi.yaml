@@ -259,7 +259,7 @@ tags:
 
       With regulations surrounding SMS becoming much stricter all over the world in an effect to combat scam SMS messages, MessageMedia is working on “Trusted Sender ID” a concept that allows customers to request a Sender ID and have it verified.
 
-      Currently Trusted Sender ID supports two types of Sender ID: Alpha Tags and Personal (“Own”) Numbers. It will likely be extended to support additional number types, such as TFN and 10DLC where additional registration, (external) verification, and overall account whitelist of numbers will be required.
+      Currently, Trusted Sender ID supports two types of Sender ID: Alpha Tags and Personal (“Own”) Numbers. It will likely be extended to support additional number types, such as TFN and 10DLC where additional registration, (external) verification, and overall account whitelist of numbers will be required.
 
       ### Alpha Tag
         Sending messages from your brand name is particularly ideal for SMS marketing and two-factor authentication, as it increases recognition and trust. There are, however, a few considerations to be aware of. 
@@ -306,7 +306,7 @@ tags:
         ⚠️ Own numbers need to be re-verified every 12 months. You will be notified by email that verification of your number is about to expire.
 
         ### Requesting a Source Address on behalf of a sub-account
-        By default, all requests made through the API are made on behalf of the account that the API keys used to authorize the request were made on. API keys created on a parent account can can request a source address on behalf of a sub-account. To do this include a header key ```Account``` with the sub-account ID as the value. For example: 
+        By default, all requests made through the API are made on behalf of the account that the API keys used to authorize the request were made on. API keys created on a parent account can request a source address on behalf of a sub-account. To do this, include a header key ```Account``` with the sub-account ID as the value. For example: 
         ```Account: mySubAccount```
 
         **Example request with Request a Sender Address from a sub-account**
@@ -1511,7 +1511,7 @@ paths:
         - Source Address
       summary: Request a Sender Address
       description: |
-        The **Request a Sender Address** endpoint allows you to submit a request to register a new Sender ID. When making a request to this endpoint, you will always need to specify ```sender_address_type``` and ```usage_type``` parameters. The following table shows the acceptable values and combinations for these parameters:
+        Submit a request to register a new Sender ID. When making a request to this endpoint, you will always need to specify ```sender_address_type``` and ```usage_type``` parameters. The following table shows the acceptable values and combinations for these parameters:
           | Sender ID       | sender_address_type | usage_type     |
           |---              |---                  |---             |
           | Alpha tag       | `ALPHANUMERIC`      | `ALPHANUMERIC` |
@@ -1561,7 +1561,7 @@ paths:
           - "reason": "{\n  \"useCase\":\"AUSTRALIAN_GOVERNMENT_AGENCY_OR_ENTITY\",\n  \"description\":\"blah blah\",\n  \"email\":\"example@email.com\",\n  \"australianGovernmentAgencyOrEntityName\":\"blah blah\",\n  \"statement\":\"We are authorised to use the Sender ID on behalf of [full entity name of sender] with a valid use case.\"\n}\n"
         
         ### Sender ID is a Personal Number
-        The following parameters are used when registering an alpha tag as a Sender ID: 
+        The following parameters are used when registering a personal mobile phone number as a Sender ID: 
 
           - ```sender_address:``` **(Required)**. The phone number that you wish register as a personal number. This number must be in E.164. If this number is already registered to an account, you will receive a conflict error message. 
 
@@ -1676,7 +1676,7 @@ paths:
         - Source Address
       summary: Submitting a verification code
       description: |
-        The ```Submitting a verification code``` endpoint allows you to complete the 2FA verification process required to register a Personal Number as a Sender ID.
+        Complete the 2FA verification process required to register a Personal Number as a Sender ID.
         The following parameters are required for this request:
           - ```id:``` The UUID received in the API response of your request to the **Request a Sender Address** endpoint.
           - ```verification_code:``` The six-digit code received via SMS to the phone number that you are attempting to register 
@@ -1858,14 +1858,14 @@ paths:
       summary: Get all approved sender addresses
       operationId: GetAllApprovedSenderAddresses
       description: |
-        The **Get all approved sender addresseses** endpoint allows to retrieve all sender addresses currently registered to your account.
+        Retrieve all sender addresses currently registered to your account.
         The following parameters can be used to filter the results:
           - ```sender_address:``` A string containing some or all of a specific Sender ID
           - ```sender_address_type:``` The type of Sender ID. This will be either ALPHANUMERIC or INTERNATIONAL
           - ```usage_type:``` The usage type of the Sender ID. This will be ALPHANUMERIC, OWN_NUMBER, or DEDICATED
           - ```expiry_status:``` Filter the results by OWN_NUMBER Sender IDs that are already expired, or will expire soon. Acceptable values are EXPIRED and EXPIRING. This parameter requires both the sender_address_type and usage_type parameters to be present.
           - ```page_size:``` The number of results per page. Default is 20.
-          - ```token:``` In paginated data the original request will return with a "next_token" attribute. This token must be entered into subsequent call in the "token" query parameter to obtain the next set of records
+          - ```token:``` In paginated data, the original request will return with a "next_token" attribute. This token must be entered into subsequent call in the "token" query parameter to obtain the next set of records
       parameters:
         - name: sender_address
           in: query
@@ -1978,7 +1978,7 @@ paths:
         - Source Address
       summary: Delete Sender Address
       description: |
-        The Delete Sender Address endpoint allows you to remove any registered sender addresses that are no longer required from your account.
+        Remove any registered sender addresses that are no longer required from your account.
 
         The following parameters are required on your request:
           - ```id:``` **(Required)**. The UUID of the sender address
@@ -2002,12 +2002,14 @@ paths:
           schema:
             type: string
             format: uuid
+            example: 01ccaccb-e654-4503-bb7e-1acbcfc34cb2-XXXXXXXXXXX
         - name: reason
           in: query
           description: reason for this action
           required: true
           schema:
             type: string
+            example: I%20want%20do%20delete%20this%20number.
       responses:
         '202':
           description: Accepted
