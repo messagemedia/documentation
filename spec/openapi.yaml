@@ -1859,18 +1859,12 @@ paths:
       operationId: GetAllApprovedSenderAddresses
       description: |
         Retrieve all sender addresses currently registered to your account.
-        The following parameters can be used to filter the results:
-          - ```sender_address:``` A string containing some or all of a specific Sender ID
-          - ```sender_address_type:``` The type of Sender ID. This will be either ALPHANUMERIC or INTERNATIONAL
-          - ```usage_type:``` The usage type of the Sender ID. This will be ALPHANUMERIC, OWN_NUMBER, or DEDICATED
-          - ```expiry_status:``` Filter the results by OWN_NUMBER Sender IDs that are already expired, or will expire soon. Acceptable values are EXPIRED and EXPIRING. This parameter requires both the sender_address_type and usage_type parameters to be present.
-          - ```page_size:``` The number of results per page. Default is 20.
-          - ```token:``` In paginated data, the original request will return with a "next_token" attribute. This token must be entered into subsequent call in the "token" query parameter to obtain the next set of records
       parameters:
         - name: sender_address
           in: query
           schema:
             type: string
+          description: A string containing some or all of a specific Sender ID
           example: 'EXAMPLE'
         - name: sender_address_type
           in: query
@@ -1879,7 +1873,7 @@ paths:
             enum:
               - ALPHANUMERIC
               - INTERNATIONAL
-          description: type of sender address
+          description: The type of Sender ID. This will be either ALPHANUMERIC or INTERNATIONAL
           example: ALPHANUMERIC
         - name: usage_type
           in: query
@@ -1889,7 +1883,7 @@ paths:
               - ALPHANUMERIC
               - OWN_NUMBER
               - DEDICATED
-          description: type of sender address
+          description: The usage type of the Sender ID. This will be ALPHANUMERIC, OWN_NUMBER, or DEDICATED
           example: ALPHANUMERIC
         - name: include_related_accounts
           in: query
@@ -1904,17 +1898,18 @@ paths:
               - EXPIRED
               - EXPIRING
           description: |
-            Filter sender addresses based on expiry status.
-            This parameter applies only to OWN_NUMBER.
+            Filter the results by OWN_NUMBER Sender IDs that are already expired, or will expire soon.
+            Acceptable values are EXPIRED and EXPIRING. This parameter requires both the sender_address_type and usage_type parameters to be present.
           example: EXPIRED  
         - name: page_size
           in: query
           schema:
             type: integer
             default: 20
+          description: The number of results per page. Default is 20.
         - name: token
           in: query
-          description: In paginated data the original request will return with a "next_token" attribute. This token must be entered into subsequent call in the "token" query parameter to obtain the next set of records.
+          description: In paginated data, the original request will return with a "next_token" attribute. This token must be entered into subsequent call in the "token" query parameter to obtain the next set of records.
           schema:
             type: string
             example: example
@@ -1925,7 +1920,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GetAllApprovedSenderAddress'
+                $ref: '#/components/schemas/GetAllApprovedSenderAddresses'
               example:
                 data:
                   - id: 7927d9eb-4e74-4021-836e-6cae071f84e7
@@ -1990,25 +1985,11 @@ paths:
       summary: Delete Sender Address
       description: |
         Remove any registered sender addresses that are no longer required from your account.
-
-        The following parameters are required on your request:
-          - ```id:``` **(Required)**. The UUID of the sender address
-          - ```reason:``` **(Required)**. A string detailing why the sender address is being removed
-        
-        **Example request with Delete a Sender Address**
-        ```plain
-        DELETE /v1/messaging/numbers/sender_address/addresses/01ccaccb-e654-4503-bb7e-1acbcfc34cb2?reason=I%20want%20do%20delete%20this%20number. HTTP/1.1
-        Host: api.messagemedia.com
-        Accept: application/json
-        Content-Type: application/json
-        Authorization: Basic dGhpc2lzYWtleTp0aGlzaXNhc2VjcmV0Zm9ybW1iYXNpY2F1dGhyZXN0YXBp
-        Account: mySubAccount
-        ```
       operationId: deleteSenderAddressUsingDELETE
       parameters:
         - name: id
           in: path
-          description: Sender Address ID
+          description: The UUID of the sender address
           required: true
           schema:
             type: string
@@ -2016,7 +1997,7 @@ paths:
             example: 01ccaccb-e654-4503-bb7e-1acbcfc34cb2-XXXXXXXXXXX
         - name: reason
           in: query
-          description: reason for this action
+          description: A string detailing why the sender address is being removed
           required: true
           schema:
             type: string
@@ -6361,8 +6342,8 @@ components:
         last_modified_date:
           type: string
           format: date-time
-    GetAllApprovedSenderAddress:
-      title: GetAllApprovedSenderAddress
+    GetAllApprovedSenderAddresses:
+      title: GetAllApprovedSenderAddresses
       type: object
       properties:
         data:
