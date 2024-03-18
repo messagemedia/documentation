@@ -1982,10 +1982,10 @@ paths:
         - hmac_auth: [ ]
       tags:
         - Source Address
-      summary: Get specific sender address
-      operationId: GetSpecificSenderAddress
+      summary: Get sender address by id
+      operationId: GetSenderAddressById
       description: |
-        Retrieve a specific sender address currently registered to your account.
+        Retrieve a sender address currently registered to your account by Id
       parameters:
         - name: id
           in: path
@@ -6544,7 +6544,7 @@ components:
           example: "my personal number"
         label:
           type: string
-          example: "updated label"
+          example: "ABC"
         account_id:
           type: string
           example: "XYZ_ExampleAccount"
