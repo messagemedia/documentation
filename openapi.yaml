@@ -376,7 +376,6 @@ tags:
         * `400`: Message failed; undeliverable.
         
         * `405`: Message cancelled or deleted by provider.
-        
   - name: Replies
     description: ''
   - name: Lookups
@@ -1912,7 +1911,7 @@ paths:
         Complete the 2FA verification process required to register a Personal Number as a Sender ID.
         The following parameters are required for this request:
           - ```id:``` The UUID received in the API response of your request to the **Request a Sender Address** endpoint.
-          - ```verification_code:``` The six-digit code received via SMS to the phone number that you are attempting to register 
+          - ```verification_code:``` The six-digit code received via SMS to the phone number that you are attempting to register
       operationId: SubmittingVerificationCodePost
       parameters:
         - name: id
@@ -2209,6 +2208,47 @@ paths:
               schema:
                 $ref: '#/components/schemas/403response'
   '/v1/messaging/numbers/sender_address/addresses/{id}':
+    get:
+      security:
+        - basic_auth: []
+        - hmac_auth: []
+      tags:
+        - Source Address
+      summary: Get sender address by id
+      operationId: GetSenderAddressById
+      description: |
+        Retrieve a sender address currently registered to your account by Id
+      parameters:
+        - name: id
+          in: path
+          description: The UUID of the sender address
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: 01ccaccb-e654-4503-bb7e-XXXXXXXXXXXX
+      responses:
+        '200':
+          description: A sender address for your account only
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetSenderAddress'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400response'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403response'
     delete:
       security:
         - basic_auth: []
@@ -2227,7 +2267,7 @@ paths:
           schema:
             type: string
             format: uuid
-            example: 01ccaccb-e654-4503-bb7e-1acbcfc34cb2-XXXXXXXXXXX
+            example: 01ccaccb-e654-4503-bb7e-XXXXXXXXXXXX
         - name: reason
           in: query
           description: A string detailing why the sender address is being removed
@@ -2238,6 +2278,62 @@ paths:
       responses:
         '202':
           description: Accepted
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400response'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/403response'
+        '404':
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404response'
+    patch:
+      security:
+        - basic_auth: []
+        - hmac_auth: []
+      tags:
+        - Source Address
+      summary: Update My Own Number Label
+      description: |
+        Update label for my own number only.
+      operationId: updateSenderAddressUsingPATCH
+      parameters:
+        - name: id
+          in: path
+          description: The UUID of the sender address
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: 01ccaccb-e654-4503-bb7e-XXXXXXXXXXXX
+      requestBody:
+        description: Input the label need to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchLabelMyOwnNumber'
+            example:
+              label: ExampleLabel
+        required: true
+      responses:
+        '200':
+          description: OK
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetSenderAddress'
         '400':
           description: Bad Request
           content:
@@ -6850,6 +6946,72 @@ components:
             next_token:
               type: string
               description: The pagination token of the next set of results.
+    PatchLabelMyOwnNumber:
+      type: object
+      title: PatchLabelMyOwnNumber
+      required:
+        - label
+      properties:
+        label:
+          type: string
+          maxLength: 100
+          description: Label need to be updated
+          example: My Number
+    GetSenderAddress:
+      title: GetSenderAddress
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Primary ID of the record
+          example: 6f79a12e-14f1-4776-adc0-5c5e48a999b8
+        sender_address:
+          type: string
+          description: The Own Number to be requested
+          example: '+61401234567'
+        sender_address_type:
+          type: string
+          description: The Sender Address Type
+          enum:
+            - INTERNATIONAL
+        usage_type:
+          type: string
+          description: The Sender Address Usage Type
+          enum:
+            - OWN_NUMBER
+        destination_countries:
+          type: array
+          description: list of 2-character ISO country codes this sender address applies to
+          items:
+            type: string
+          example:
+            - AU
+        reason:
+          type: string
+          example: my personal number
+        label:
+          type: string
+          example: ABC
+        account_id:
+          type: string
+          example: XYZ_ExampleAccount
+        created_date:
+          type: string
+          format: date-time
+        last_modified_date:
+          type: string
+          format: date-time
+        expiry:
+          type: string
+          format: date-time
+          description: The Sender Address expiration time (apply for sender_address_type = OWN_NUMBER)
+        display_status:
+          type: string
+          enum:
+            - APPROVED
+            - EXPIRED
+            - EXPIRING
     DeliveryReport:
       title: DeliveryReport
       type: object
