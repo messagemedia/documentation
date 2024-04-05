@@ -241,7 +241,7 @@ tags:
   - name: Sub-accounts
     description: |
       ## Sending from sub-accounts
-      Using API keys at the parent account level, you can send messages on behalf of a sub-account. To do this
+      Using API keys at the parent account level, you can perform actions on behalf of a sub-account. This feature is supported by the Messages, Replies, Delivery Reports and Webhooks APIs. To do this
         include a header key ```Account``` with the sub-account ID as the value. For example:
         ```Account: mySubAccount```
 
