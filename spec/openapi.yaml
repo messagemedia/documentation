@@ -268,9 +268,7 @@ tags:
           ]
         } 
         ```
-        *Note: when sending multiple messages in a request, all messages must be valid for the request 
-        to be successful. If any messages in the request are invalid, no messages will be sent.*
-
+      
   - name: Messages
     description: >-
       The MessageMedia Messages API provides a number of endpoints for building powerful two-way messaging applications. The Messages API provides access to three main resources:
@@ -1446,8 +1444,8 @@ paths:
         time which will always be ```queued```. See the Delivery Reports section of this documentation for
         more information on message statuses.
         
-        When sending multiple messages in a request, all messages must be valid for the request to be successful.
-        If any messages in the request are invalid, no messages will be sent.
+        *Note: when sending multiple messages in a request, all messages must be valid for the request 
+        to be successful. If any messages in the request are invalid, no messages will be sent.
 
       operationId: SendMessages
       parameters: []
