@@ -240,7 +240,7 @@ tags:
       
   - name: Sub-accounts
     description: |
-      ## Sending from sub-accounts
+      ## Performing actions on behalf of sub-accounts
       Using API keys at the parent account level, you can perform actions on behalf of a sub-account. 
       
       This feature is supported by the Messages, Replies, Delivery Reports and Webhooks APIs. 
@@ -1445,6 +1445,9 @@ paths:
         Status endpoint. The status of the message which reflect the status of the message at submission
         time which will always be ```queued```. See the Delivery Reports section of this documentation for
         more information on message statuses.
+        
+        *Note: when sending multiple messages in a request, all messages must be valid for the request to be successful.
+        If any messages in the request are invalid, no messages will be sent.*
 
       operationId: SendMessages
       parameters: []
