@@ -1446,8 +1446,8 @@ paths:
         time which will always be ```queued```. See the Delivery Reports section of this documentation for
         more information on message statuses.
         
-        *Note: when sending multiple messages in a request, all messages must be valid for the request to be successful.
-        If any messages in the request are invalid, no messages will be sent.*
+        When sending multiple messages in a request, all messages must be valid for the request to be successful.
+        If any messages in the request are invalid, no messages will be sent.
 
       operationId: SendMessages
       parameters: []
