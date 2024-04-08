@@ -1445,7 +1445,7 @@ paths:
         more information on message statuses.
         
         *Note: when sending multiple messages in a request, all messages must be valid for the request 
-        to be successful. If any messages in the request are invalid, no messages will be sent.
+        to be successful. If any messages in the request are invalid, no messages will be sent.*
 
       operationId: SendMessages
       parameters: []
