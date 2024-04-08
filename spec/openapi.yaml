@@ -3304,11 +3304,18 @@ paths:
           example: AU
       - name: type
         in: query
-        description: Filter results by Number type
+        description: Filter results by Number type. When both `type` and `types` are provided, `types` will take precedence, and `type` will be ignored.
         style: form
         explode: true
         schema:
           $ref: '#/components/schemas/Type'
+      - name: types
+        in: query
+        description: Filter results by Number Types
+        style: form
+        explode: true
+        schema:
+          $ref: '#/components/schemas/Types'
       - name: classification
         in: query
         description: Filter results by Number Classification
@@ -7625,6 +7632,15 @@ components:
       - SHORT_CODE
       type: string
       example: MOBILE
+    Types:
+      title: Types
+      enum:
+        - MOBILE
+        - LANDLINE
+        - TOLL_FREE
+        - SHORT_CODE
+      type: string
+      example: MOBILE,LANDLINE,TOLL_FREE
     Assignment:
       title: Assignment
       type: object
