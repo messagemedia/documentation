@@ -1529,7 +1529,7 @@ paths:
         ### Sender ID is an Alpha Tag
         The following parameters are used when registering an alpha tag as a Sender ID:
           - ```sender_address:``` **(Required)**. The alphanumeric string that you wish register as an alpha tag. This parameter is case insensitive. If this alpha tag already exists on your account, you will receive a conflict error message.
-          - ```destination_countries:``` **(Required)**. The countries that you wish to register the alpha tag for use in, in two-character ISO 3166 format. Currently only AU is supported.
+          - ```destination_countries:``` **(Required)**. The countries that you wish to register the alpha tag for use in, in two-character ISO 3166 format. Currently AU and GB are supported.
           - ```sender_address_type:``` **(Required)**. For alpha tags this is always ALPHANUMERIC
           - ```usage_type:``` **(Required)**. For alpha tags this is always ALPHANUMERIC
           - ```label:``` **(Optional)**. A reference name for the sender ID to allow you to easily track it.
@@ -1565,7 +1565,7 @@ paths:
               - If applying on behalf of a third-party entity: “We are authorized to use the Sender ID on behalf of [full entity name of sender] with a valid use case.”
 
         The reason parameter must contain all the above items. A well formatted reason looks like the following:
-          - "reason": "{\n  \"useCase\":\"AUSTRALIAN_GOVERNMENT_AGENCY_OR_ENTITY\",\n  \"description\":\"blah blah\",\n  \"email\":\"example@email.com\",\n  \"australianGovernmentAgencyOrEntityName\":\"blah blah\",\n  \"statement\":\"We are authorised to use the Sender ID on behalf of [full entity name of sender] with a valid use case.\"\n}\n"
+          - "reason": "{\n  \"useCase\":\"AUSTRALIAN_GOVERNMENT_AGENCY_OR_ENTITY\",\n  \"description\":\"bal bla\",\n  \"email\":\"xample@email.com\",\n  \"australianGovernmentAgencyOrEntityName\":\"bla bla\",\n  \"statement\":\"We are authorised to use the Sender ID on behalf of [full entity name of sender] with a valid use case.\"\n}\n"
         
         ### Sender ID is a Personal Number
         The following parameters are used when registering a personal mobile phone number as a Sender ID: 
