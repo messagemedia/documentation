@@ -584,9 +584,19 @@ tags:
       Webhooks Management API allows you to manage your webhooks configuration. You can subscribe to one or several events, retrieve the webhooks, update them or even delete them if needed.
   - name: Enterprise Webhooks
     description: |
+      
+      Securing your webhooks is a two-part process. The first part requires you to use the Signature Key Management API to create a key to sign your requests. 
+      
+      This will actually generates a key pair - the private key which is used to sign the requests and is stored in MessageMedia's secure datastore and the public key which is used to verify the signature and is stored on your side. 
+      
+      The second part consists of decrypting the message and verifying the authenticity of the message using the public key created earlier.
+      
+      ## Verifying a webhook
+      
       This documentation assumes that you have already created a key pair using the [Signature Key Management API](https://developers.messagemedia.com/code/signature-key-managment-api-documentation/).
 
       Once you have enabled this feature, all webhooks sent will be signed using the private key created via the Signature Key Management API.
+
 
       ## Headers
 
