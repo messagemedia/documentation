@@ -1565,7 +1565,7 @@ paths:
               - If applying on behalf of a third-party entity: “We are authorized to use the Sender ID on behalf of [full entity name of sender] with a valid use case.”
 
         The reason parameter must contain all the above items. A well formatted reason looks like the following:
-          - "reason": "{\n  \"useCase\":\"AUSTRALIAN_GOVERNMENT_AGENCY_OR_ENTITY\",\n  \"description\":\"bal bla\",\n  \"email\":\"xample@email.com\",\n  \"australianGovernmentAgencyOrEntityName\":\"bla bla\",\n  \"statement\":\"We are authorised to use the Sender ID on behalf of [full entity name of sender] with a valid use case.\"\n}\n"
+          - "reason": "{\\n&nbsp;&nbsp;\\\"useCase\\\":\\\"AUSTRALIAN_GOVERNMENT_AGENCY_OR_ENTITY\\\",\\n&nbsp;&nbsp;\\\"description\\\":\\\"bal bla\\\",\\n&nbsp;&nbsp;\\\"email\\\":\\\"example@email.com\\\",\\n&nbsp;&nbsp;\\\"australianGovernmentAgencyOrEntityName\\\":\\\"bla bla\\\",\\n&nbsp;&nbsp;\\\"statement\\\":\\\"We are authorised to use the Sender ID on behalf of [full entity name of sender] with a valid use case.\\\"\\n}\\n"
         
         ### Sender ID is a Personal Number
         The following parameters are used when registering a personal mobile phone number as a Sender ID: 
