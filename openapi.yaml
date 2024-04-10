@@ -473,9 +473,19 @@ tags:
     description: 'Webhooks Management API allows you to manage your webhooks configuration. You can subscribe to one or several events, retrieve the webhooks, update them or even delete them if needed.'
   - name: Enterprise Webhooks
     description: |
+
+      Securing your webhooks is a two-part process. The first part requires you to use the Signature Key Management API to create a key to sign your requests. 
+
+      This will actually generates a key pair - the private key which is used to sign the requests and is stored in MessageMedia's secure datastore and the public key which is used to verify the signature and is stored on your side. 
+
+      The second part consists of decrypting the message and verifying the authenticity of the message using the public key created earlier.
+
+      ## Verifying a webhook
+
       This documentation assumes that you have already created a key pair using the [Signature Key Management API](https://developers.messagemedia.com/code/signature-key-managment-api-documentation/).
 
       Once you have enabled this feature, all webhooks sent will be signed using the private key created via the Signature Key Management API.
+
 
       ## Headers
 
@@ -1757,7 +1767,7 @@ paths:
         ### Sender ID is an Alpha Tag
         The following parameters are used when registering an alpha tag as a Sender ID:
           - ```sender_address:``` **(Required)**. The alphanumeric string that you wish register as an alpha tag. This parameter is case insensitive. If this alpha tag already exists on your account, you will receive a conflict error message.
-          - ```destination_countries:``` **(Required)**. The countries that you wish to register the alpha tag for use in, in two-character ISO 3166 format. Currently AU and GB are supported.
+          - ```destination_countries:``` **(Required)**. The countries that you wish to register the alpha tag for use in, in two-character ISO 3166 format. Currently only AU is supported.
           - ```sender_address_type:``` **(Required)**. For alpha tags this is always ALPHANUMERIC
           - ```usage_type:``` **(Required)**. For alpha tags this is always ALPHANUMERIC
           - ```label:``` **(Optional)**. A reference name for the sender ID to allow you to easily track it.
@@ -1793,7 +1803,7 @@ paths:
               - If applying on behalf of a third-party entity: “We are authorized to use the Sender ID on behalf of [full entity name of sender] with a valid use case.”
 
         The reason parameter must contain all the above items. A well formatted reason looks like the following:
-          - "reason": "{\n&nbsp;&nbsp;\\"useCase\\":\\"AUSTRALIAN_GOVERNMENT_AGENCY_OR_ENTITY\\",\n&nbsp;&nbsp;\\"description\\":\\"bal bla\\",\n&nbsp;&nbsp;\\"email\\":\\"example@email.com\\",\n&nbsp;&nbsp;\\"australianGovernmentAgencyOrEntityName\\":\\"bla bla\\",\n&nbsp;&nbsp;\\"statement\\":\\"We are authorised to use the Sender ID on behalf of [full entity name of sender] with a valid use case.\\"\n}\n"
+          - "reason": "{\n  \"useCase\":\"AUSTRALIAN_GOVERNMENT_AGENCY_OR_ENTITY\",\n  \"description\":\"blah blah\",\n  \"email\":\"example@email.com\",\n  \"australianGovernmentAgencyOrEntityName\":\"blah blah\",\n  \"statement\":\"We are authorised to use the Sender ID on behalf of [full entity name of sender] with a valid use case.\"\n}\n"
 
         ### Sender ID is a Personal Number
         The following parameters are used when registering a personal mobile phone number as a Sender ID: 
@@ -3715,18 +3725,11 @@ paths:
             example: AU
         - name: type
           in: query
-          description: 'Filter results by Number type. When both `type` and `types` are provided, `types` will take precedence, and `type` will be ignored.'
+          description: Filter results by Number type
           style: form
           explode: true
           schema:
             $ref: '#/components/schemas/Type'
-        - name: types
-          in: query
-          description: Filter results by Number Types
-          style: form
-          explode: true
-          schema:
-            $ref: '#/components/schemas/Types'
         - name: classification
           in: query
           description: Filter results by Number Classification
@@ -4031,7 +4034,11 @@ paths:
                         "RECEIVED_SMS"
                     ],
                     "headers": {},
-                    "template": "{\"id\":\"$mtId\", \"status\":\"$statusCode\"}"
+                    "template": "{\"id\":\"$mtId\", \"status\":\"$statusCode\"}",
+                    "read_timeout": 5000,
+                    "retries": 3,
+                    "retry_delay": 30
+                    
                 }
             ]
         }
@@ -4061,7 +4068,7 @@ paths:
           description: ''
           headers: {}
           content:
-            text/plain:
+            application/json:
               schema:
                 type: object
         '400':
@@ -4108,6 +4115,9 @@ paths:
           "template": {
             "id":"$mtId",
             "status":"$statusCode"}
+          "read_timeout": 5000,
+          "retries": 3,
+          "retry_delay": 30
           }
 
         ```
@@ -4125,6 +4135,15 @@ paths:
         - ```events``` Event or events that will trigger the webhook. Atleast one event should be present.
 
         - ```template``` The structure of the payload that will be returned. You can format this in JSON or XML.
+
+        - ```read_timeout``` (Optional) The read timeout for the call to the Webhook in milliseconds. Set to 20000 by default, max 60000.
+
+        - ```retries``` (Optional) The read timeout for the call to the Webhook in milliseconds. Set to 20000 by default, max 60000.
+
+        - ```retry_delay``` (Optional) The delay period between retries in seconds. Minimum of 5, max 60.
+
+
+
 
         #### Types of Events
 
@@ -4170,6 +4189,49 @@ paths:
         | **Reply Content**| $moContent, $replyContent, $esc.json($!moContent) *- when used in `JSON` encoded `template`*| `Hello Derpina` | `MO` `MO MMS` |
         | **Retry Count**| $retryCount| `1` | `DR` `MO` `MO MMS` |
 
+         #### Message Statuses
+
+        Delivery Reports indicate message status. A message can have one of the following statuses:
+        * `enroute`: Message has been received by the gateway and is being processed (or waiting to be processed).
+        * `submitted`: Message has been submitted to a provider/carrier for delivery.
+        * `delivered`: Message delivery has been confirmed by the provider, including to the handset (where possible).
+        * `expired`: The message has expired.
+        * `rejected`: The message will not be delivered - permanent failure. Reasons may include usage limit exceeded, insufficient credit, number blocked, or content filtered
+        * `failed`: The message has failed. Reasons may include no active routes to destination or undeliverable by downstream provider.
+
+        #### Message Status Codes
+        Status codes provide more granular insight into a message's status. A message can have one of the following status codes:
+        * `101`: Message being processed by the gateway.
+        * `102`: Message is being rerouted to a different provider after failing via the first provider.
+        * `151`: Message held for screening.
+        * `200`: Message submitted to downstream provider for  delivery.
+        * `210`: Message accepted by downstream provider.
+        * `211`: Message is enroute for delivery by provider.
+        * `212`: Message submitted. Delivery pending.
+        * `213`: Message scheduled for delivery by downstream  provider.
+        * `220`: Message delivered.
+        * `221`: Message delivered to the handset.
+        * `320`: Message validity period has expired (prior to  submission).
+        * `401`: Message validity period has expired (before delivery ).
+        * `301`: Usage threshold reached. Message discarded.
+        * `302`: Destination address blocked. Message discarded.
+        * `303`: Source address blocked. Message discarded.
+        * `304`: Message dropped. Contact support.
+        * `305`: Message discarded due to duplicate detection.
+        * `402`: Message rejected by downstream provider.
+        * `403`: Message skipped by downstream provider.
+        * `410`: Invalid source address.
+        * `411`: Invalid destination address.
+        * `412`: Destination address blocked.
+        * `413`: SMS service unavailable on destination.
+        * `414`: Destination unreachable.
+        * `330`: Gateway failure.
+        * `331`: Message discarded.
+        * `332`: No available route to destination.
+        * `333`: Source address unsupported for this destination.
+        * `400`: Message failed; undeliverable.
+        * `405`: Message cancelled or deleted by provider.
+
         *Note: A 400 response will be returned if the `url` is invalid, the `events`, `encoding` or `method` is null or the `headers` has a Content-Type  attribute.*
       operationId: CreateWebhook
       parameters: []
@@ -4189,13 +4251,16 @@ paths:
                 - ENROUTE_DR
                 - DELIVERED_DR
               template: '{"id":"$mtId","status":"$statusCode"}'
+              read_timeout: 5000
+              retries: 3
+              retry_delay: 30
         required: true
       responses:
         '201':
           description: Webhook successfully created
           headers: {}
           content:
-            text/plain:
+            application/json:
               schema:
                 type: object
                 description: Webhook successfully created
@@ -4332,7 +4397,7 @@ paths:
           description: Webhook updated successfully
           headers: {}
           content:
-            text/plain:
+            application/json:
               schema:
                 type: object
                 description: Webhook updated successfully
@@ -8051,15 +8116,6 @@ components:
         - SHORT_CODE
       type: string
       example: MOBILE
-    Types:
-      title: Types
-      enum:
-        - MOBILE
-        - LANDLINE
-        - TOLL_FREE
-        - SHORT_CODE
-      type: string
-      example: 'MOBILE,LANDLINE,TOLL_FREE'
     Assignment:
       title: Assignment
       type: object
