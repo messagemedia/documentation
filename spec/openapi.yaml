@@ -3623,7 +3623,7 @@ paths:
           description: ''
           headers: {}
           content:
-            text/plain:
+            application/json:
               schema:
                 type: object
         400:
@@ -3677,6 +3677,15 @@ paths:
         - ```events``` Event or events that will trigger the webhook. Atleast one event should be present.
         
         - ```template``` The structure of the payload that will be returned. You can format this in JSON or XML.
+        
+        - ```read_timeout``` (Optional) The read timeout for the call to the Webhook in milliseconds. Set to 20000 by default, max 60000.
+        
+        - ```retries``` (Optional) The read timeout for the call to the Webhook in milliseconds. Set to 20000 by default, max 60000.
+        
+        - ```retry_delay``` (Optional) The delay period between retries in seconds. Minimum of 5, max 60.
+
+
+
         
         #### Types of Events
         
@@ -3795,7 +3804,7 @@ paths:
           description: Webhook successfully created
           headers: {}
           content:
-            text/plain:
+            application/json:
               schema:
                 type: object
                 description: Webhook successfully created
@@ -3914,7 +3923,7 @@ paths:
           description: Webhook updated successfully
           headers: {}
           content:
-            text/plain:
+            application/json:
               schema:
                 type: object
                 description: Webhook updated successfully
