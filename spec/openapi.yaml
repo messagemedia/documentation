@@ -26,6 +26,19 @@ info:
     The MessageMedia APIs provide powerful business messaging capabilities across sending, receiving, and processing SMS, MMS, and rich messaging. 
 
     All requests to the MessageMedia REST API must be authenticated, this can either be done using Basic Authentication or by signing with a HMAC signature.
+    
+    *Note: MMS and TTS are not supported for the EU base url: https://eu.app.api.sinch.com*
+
+
+    # Base URI
+      
+    The API uses the following base URI
+    
+    For EU instance please use eu.app.api.sinch.com
+    
+    For APAC instance, use api.messagemedia.com
+    
+    *Note: MessageMedia strongly recommends the use of the HTTPS protocol.*
       
     # Credentials
       
@@ -591,6 +604,9 @@ tags:
       
       The second part consists of decrypting the message and verifying the authenticity of the message using the public key created earlier.
       
+      *Note: This API can not be used along the EU base url: https://eu.app.api.sinch.com*
+
+      
       ## Verifying a webhook
       
       This documentation assumes that you have already created a key pair using the [Signature Key Management API](https://developers.messagemedia.com/code/signature-key-managment-api-documentation/).
@@ -649,8 +665,10 @@ tags:
       - ```Disable an enabled signature key``` Disable the current enabled signature key.
   - name: Mobile Landing Pages (beta)
     description: |
-      The mobile landing pages (MLP) API provides the facilities to create mobile landing pages and sends them to recipients. This API is currently in beta.
+      The mobile landing pages (MLP) API provides the facilities to create mobile landing pages and sends them to recipients. This API is currently in beta. 
       
+      *Note: This API can not be used along the EU base url: https://eu.app.api.sinch.com*
+        
       ## Concepts
       
       The approach to creating mobile landing pages involves creating a _Campaign_ and sending them to one or more _Recipients_.  A campaign consists of the baseline configuration of a mobile landing page and message that will be generated and sent to each recipient.
