@@ -27,19 +27,17 @@ info:
 
     All requests to the MessageMedia REST API must be authenticated, this can either be done using Basic Authentication or by signing with a HMAC signature.
     
-    *Note: MMS and TTS are not supported for the EU base url: https://eu.app.api.sinch.com*
+    *Note: MMS and TTS are only available in the APAC region.*
 
 
     # Base URI
       
     The API uses the following base URI
     
-    For EU instance please use eu.app.api.sinch.com
+    For EU instance please use https://eu.app.api.sinch.com
     
-    For APAC instance, use api.messagemedia.com
+    For APAC instance, use https://api.messagemedia.com
     
-    *Note: MessageMedia strongly recommends the use of the HTTPS protocol.*
-      
     # Credentials
       
     To access the API, an API key and secret are required.
@@ -604,7 +602,7 @@ tags:
       
       The second part consists of decrypting the message and verifying the authenticity of the message using the public key created earlier.
       
-      *Note: This API can not be used along the EU base url: https://eu.app.api.sinch.com*
+      *Note: This API is only available in the APAC region.*
 
       
       ## Verifying a webhook
@@ -667,7 +665,7 @@ tags:
     description: |
       The mobile landing pages (MLP) API provides the facilities to create mobile landing pages and sends them to recipients. This API is currently in beta. 
       
-      *Note: This API can not be used along the EU base url: https://eu.app.api.sinch.com*
+      *Note: This API is only available in the APAC region.*
         
       ## Concepts
       
