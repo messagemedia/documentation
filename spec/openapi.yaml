@@ -5788,8 +5788,8 @@ components:
           items:
             $ref: '#/components/schemas/GroupByField'
           example:
-            - STATUS
-            - COUNTRY
+            - WEEK
+            - ACCOUNT
         delivery_options:
           description: A list of options to configure the delivery of the report.
           type: array
@@ -8924,7 +8924,6 @@ components:
         - METADATA_KEY
         - METADATA_VALUE
         - STATUS
-        - COUNTRY
       type: string
       example: DAY
   headers:
