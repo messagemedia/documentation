@@ -248,7 +248,7 @@ tags:
       [APIAuth](https://github.com/mgomes/api_auth) Ruby Gem 
 
       ## Postman Collections
-      
+
   - name: Sub-accounts
     description: |
       ## Performing actions on behalf of sub-accounts
@@ -279,7 +279,7 @@ tags:
           ]
         } 
         ```
-      
+
   - name: Messages
     description: >-
       The MessageMedia Messages API provides a number of endpoints for building powerful two-way messaging applications. The Messages API provides access to three main resources:
@@ -325,7 +325,7 @@ tags:
         * _ (underscore)
         * \- (hyphen)
         
-        Alpha Tags can currently be registered through the Source Address API for the following countries: ```AU``` and ```GB```
+        Alpha Tags can currently be registered through the Source Address API for the following countries: ```AU```, ```GB```, ```ES```, ```DE``` and ```FR```
         
         To register an Alpha Tag as a sender ID you must:
         1. Make a request to the **Request a Sender Address** endpoint
@@ -1555,7 +1555,7 @@ paths:
         ### Sender ID is an Alpha Tag
         The following parameters are used when registering an alpha tag as a Sender ID:
           - ```sender_address:``` **(Required)**. The alphanumeric string that you wish register as an alpha tag. This parameter is case insensitive. If this alpha tag already exists on your account, you will receive a conflict error message.
-          - ```destination_countries:``` **(Required)**. The countries that you wish to register the alpha tag for use in, in two-character ISO 3166 format. Currently AU and GB are supported.
+          - ```destination_countries:``` **(Required)**. The countries that you wish to register the alpha tag for use in, in two-character ISO 3166 format. Currently AU, GB, ES, DE and FR are supported.
           - ```sender_address_type:``` **(Required)**. For alpha tags this is always ALPHANUMERIC
           - ```usage_type:``` **(Required)**. For alpha tags this is always ALPHANUMERIC
           - ```label:``` **(Optional)**. A reference name for the sender ID to allow you to easily track it.
@@ -3799,7 +3799,7 @@ paths:
         
         *Note: A 400 response will be returned if the `url` is invalid, the `events`, `encoding` or `method` is null or the `headers` has a Content-Type  attribute.*
 
-        
+
       operationId: CreateWebhook
       parameters: []
       requestBody:
