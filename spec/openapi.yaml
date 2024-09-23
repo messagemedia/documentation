@@ -43,15 +43,15 @@ info:
     # Features
     ###  De-Duplication 
     De-Duplication helps you avoid having to undertake data cleansing before commencing send outs.  
-    It automatically detects and withholds messages deemed to be duplicates through the use of a 24-hour window – if a message is sent to the same number with the same content within a 24hr period, the subsequent message(s) will be withheld and rejected. To enable this, you don't need to make any changes to your application, just an account configuration change by the Sinch support team.
+    It automatically detects and withholds messages deemed to be duplicates through the use of a 24-hour window – if a message is sent to the same number with the same content within a 24hr period, the subsequent message(s) will be withheld and rejected. To enable this, you don't need to make any changes to your application, just an account configuration change by Sinch's support team.
 
     ###  Social Sending 
     Social Sending permits messages to be sent only during sociable hours - i.e. 8am to 6pm (based on your accounts local time zone - not local time). 
-    Messages sent outside of these hours are scheduled to be released during the next social time period. This feature helps businesses avoid send-outs during a time that would be deemed unsuitable by the customer. To enable this, you don't need to make any changes to your application, just an account configuration change by the Sinch support team.
+    Messages sent outside of these hours are scheduled to be released during the next social time period. This feature helps businesses avoid send-outs during a time that would be deemed unsuitable by the customer. To enable this, you don't need to make any changes to your application, just an account configuration change by Sinch's support team.
 
     ###  Familiar Sender
     Familiar Sender ensures all communication sent to a customer are from the same phone number. 
-    This allows businesses to build trust and familiarity with their customers and not confuse them by changing outgoing numbers. To enable this, you don't need to make any changes to your application, just an account configuration change by the Sinch support team.
+    This allows businesses to build trust and familiarity with their customers and not confuse them by changing outgoing numbers. To enable this, you don't need to make any changes to your application, just an account configuration change by Sinch's support team.
 
     ### Character Converter
     Characters in a message may not always fall within the GSM-7 supported characterset, and when this occurs all 
@@ -59,7 +59,7 @@ info:
     can help you avoid being double-charged for your SMS by converting all characters into the GSM-7 format ensuring you always 
     get the maximum characters into an SMS. Bear in my mind, this will downgrade all your unicode characters so for instance, 
     your emojis will be translated into a string of unknown characters (eg: �).  To enable this, you don't need to make any 
-    changes to your application, just an account configuration change by the Sinch support team.
+    changes to your application, just an account configuration change by Sinch's support team.
 
 #externalDocs:
   #description: Find out how to create Github repo for your OpenAPI spec.
