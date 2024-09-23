@@ -7,27 +7,23 @@ info:
   # It can be any string but it is better to use semantic versioning: http://semver.org/
   # Warning: OpenAPI require version to be string, but without quotation YAML can recognize it as number.
 
-  title: MessageMedia # Replace with your API title
+  title: Sinch # Replace with your API title
   # Keep it simple. Don't add "API" or version at the end of the string.
 
   termsOfService: 'https://messagemedia.com/au/legal/terms-of-service/' # [Optional] Replace with an URL to your ToS
-  contact:
-    email: developers@messagemedia.com # [Optional] Replace with your contact email
-    url: 'https://developers.messagemedia.com/collaborate/slack/' # [Optional] Replace with link to your contact form
   license:
     name: Apache 2.0
     url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
   x-logo:
-    url: 'https://messagemedia.com/wp-content/themes/MessageMedia%20Theme/images/logo-mm-sinch.svg'
+    url: 'https://cdn-assets-eu.frontify.com/s3/frontify-enterprise-files-eu/eyJwYXRoIjoic2luY2hcL2ZpbGVcL0xYSFMxOTZQSlJpbjJLdFcxclc1LnBuZyJ9:sinch:G873APD1uAA-wfyymEBENuKEj4S5FAt8gk6_fSrqIbM?width=2400'
 
   # Describe your API here, you can use GFM (https://guides.github.com/features/mastering-markdown) here
   description: |
     # Introduction
-    The MessageMedia APIs provide powerful business messaging capabilities across sending, receiving, and processing SMS, MMS, and rich messaging. 
+    The Sinch APIs provide powerful business messaging capabilities across sending, receiving, and processing SMS, MMS, and rich messaging. 
 
-    All requests to the MessageMedia REST API must be authenticated, this can either be done using Basic Authentication or by signing with a HMAC signature.
+    All requests to the Sinch REST API must be authenticated, this can either be done using Basic Authentication or by signing with a HMAC signature.
     
-    *Note: MMS and TTS are only available in the APAC region.*
 
 
     # Base URI
@@ -42,20 +38,20 @@ info:
       
     To access the API, an API key and secret are required.
       
-    [Sign up for a developer account here to get access](https://developers.messagemedia.com/register/): https://developers.messagemedia.com/register/.
+    [Sign up for a developer account here to get access](https://developers.messagemedia.com/register/)
 
     # Features
     ###  De-Duplication 
     De-Duplication helps you avoid having to undertake data cleansing before commencing send outs.  
-    It automatically detects and withholds messages deemed to be duplicates through the use of a 24-hour window – if a message is sent to the same number with the same content within a 24hr period, the subsequent message(s) will be withheld and rejected. To enable this, you don't need to make any changes to your application, just an account configuration change by MessageMedia's support team.
+    It automatically detects and withholds messages deemed to be duplicates through the use of a 24-hour window – if a message is sent to the same number with the same content within a 24hr period, the subsequent message(s) will be withheld and rejected. To enable this, you don't need to make any changes to your application, just an account configuration change by the Sinch support team.
 
     ###  Social Sending 
     Social Sending permits messages to be sent only during sociable hours - i.e. 8am to 6pm (based on your accounts local time zone - not local time). 
-    Messages sent outside of these hours are scheduled to be released during the next social time period. This feature helps businesses avoid send-outs during a time that would be deemed unsuitable by the customer. To enable this, you don't need to make any changes to your application, just an account configuration change by MessageMedia's support team.
+    Messages sent outside of these hours are scheduled to be released during the next social time period. This feature helps businesses avoid send-outs during a time that would be deemed unsuitable by the customer. To enable this, you don't need to make any changes to your application, just an account configuration change by the Sinch support team.
 
     ###  Familiar Sender
     Familiar Sender ensures all communication sent to a customer are from the same phone number. 
-    This allows businesses to build trust and familiarity with their customers and not confuse them by changing outgoing numbers. To enable this, you don't need to make any changes to your application, just an account configuration change by MessageMedia's support team.
+    This allows businesses to build trust and familiarity with their customers and not confuse them by changing outgoing numbers. To enable this, you don't need to make any changes to your application, just an account configuration change by the Sinch support team.
 
     ### Character Converter
     Characters in a message may not always fall within the GSM-7 supported characterset, and when this occurs all 
@@ -63,7 +59,7 @@ info:
     can help you avoid being double-charged for your SMS by converting all characters into the GSM-7 format ensuring you always 
     get the maximum characters into an SMS. Bear in my mind, this will downgrade all your unicode characters so for instance, 
     your emojis will be translated into a string of unknown characters (eg: �).  To enable this, you don't need to make any 
-    changes to your application, just an account configuration change by MessageMedia's support team.
+    changes to your application, just an account configuration change by the Sinch support team.
 
 #externalDocs:
   #description: Find out how to create Github repo for your OpenAPI spec.
@@ -282,7 +278,7 @@ tags:
 
   - name: Messages
     description: >-
-      The MessageMedia Messages API provides a number of endpoints for building powerful two-way messaging applications. The Messages API provides access to three main resources:
+      The Sinch Messages API provides a number of endpoints for building powerful two-way messaging applications. The Messages API provides access to three main resources:
       
       * Messages - Messages delivered from an application to a handset.
       
@@ -299,7 +295,7 @@ tags:
 
       Simply put, a sender ID is whatever you send a text message from. This is typically either a phone number, or a string of alphanumeric characters (commonly referred to as an “Alpha Tag”).
 
-      With regulations surrounding SMS becoming much stricter all over the world in an effect to combat scam SMS messages, MessageMedia is working on “Trusted Sender ID” a concept that allows customers to request a Sender ID and have it verified.
+      With regulations surrounding SMS becoming much stricter all over the world in an effect to combat scam SMS messages, Sinch is working on “Trusted Sender ID” a concept that allows customers to request a Sender ID and have it verified.
 
       Currently, Trusted Sender ID supports two types of Sender ID: Alpha Tags and Personal (“Own”) Numbers. It will likely be extended to support additional number types, such as TFN and 10DLC where additional registration, (external) verification, and overall account whitelist of numbers will be required.
 
@@ -334,7 +330,7 @@ tags:
         Once the alpha tag has been approved, you can begin using it as a Sender ID for SMS messages.
 
         ### Personal Number
-        A personal number, or “My Own Number”, is a number that you own rather than one provided to you by Sinch MessageMedia. Typically, this is your personal mobile phone number. You may wish to register this number for use with our service so that you can easily send messages from a number already associated with your organisation.
+        A personal number, or “My Own Number”, is a number that you own rather than one provided to you by Sinch. Typically, this is your personal mobile phone number. You may wish to register this number for use with our service so that you can easily send messages from a number already associated with your organisation.
         
         Before you can send messages using your own number, you need to verify that you have a right to use that number. Ensuring you have a right to use a phone number is an important regulatory requirement, aiming to prevent scam, spam, and misuse of messaging services.
 
@@ -440,7 +436,7 @@ tags:
 
       * **Message ID**: ID of the original message.
 
-      * **Vendor Account ID**: The account used to submit the original message. The vendor will always be `MessageMedia`
+      * **Vendor Account ID**: The account used to submit the original message. The vendor will always be `SinchEU`
 
       * **Error Code**: A status code which provides additional information about the message status:
 
@@ -506,52 +502,14 @@ tags:
 
   - name: Replies
     description: ''
-  - name: Lookups
-    description: |
-      How confident are you in the accuracy of your database? Sending text messages to inactive, invalid or unrecognisable numbers wastes resources on messages that will never be read.
- 
-      Our Lookups API provides a simple way to keep your database clean. It accesses mobile carrier information about any mobile number, in real-time, anywhere in the world.
-      * Identify invalid numbers and reduce the number of failed or undeliverable messages  
-      * Separate mobiles and landlines, so you don’t pay for messages that will never be delivered 
-      * Identify carriers to determine which are low cost
-
-      To learn more about the benefits of the Lookups API, [visit our product page](https://www.messagemedia.com/au/feature/lookups/).
-
-      ![Lookups](https://developers.messagemedia.com/wp-content/uploads/2017/11/lookups-api.png)
-
-      Required Parameters
-
-      `{phone_number} `
-      This should be set to the phone number to be looked up. 
-
-      By default, a request will only return the country_code and phone_number properties in the response.
-      ```json
-      {
-        "country_code": "AU",
-        "phone_number": "+61491570156",
-      }
-      ```
-      
-      Options for Parameters
-      
-      The options query parameter can also be used to request additional information about the phone number. 
-
-      * `carrier` Request details about the carrier.
-      * `type` Use as a value of the options parameter
-
-      _Note: The `carrier` and the `type` values can be used together using a comma separated list, i.e. carrier,type._ 
-
-      * `hlr` Request details about the location by including as a value of the options parameter.
-
-      _NOTE: The `hlr` value CANNOT be used in conjunction with the other values.
   - name: Number Authorisation
     description: >-
-      The number authorisation API allows you to manage your blacklists. MessageMedia automatically adds numbers to your blacklist if people send one of the opt-out keywords in response to one of your messages.
+      The number authorisation API allows you to manage your blacklists. Sinch automatically adds numbers to your blacklist if people send one of the opt-out keywords in response to one of your messages.
       
       This is a legal requirement. If you decide to handle the legal compliance yourself, calls to this endpoint will not affect your messages.
   - name: Dedicated Numbers
     description: |
-      The Numbers API allows your to purchase, provision and configure the dedicated numbers assigned to your MessageMedia account. 
+      The Numbers API allows your to purchase, provision and configure the dedicated numbers assigned to your Sinch account. 
       
       To learn more about the benefits of dedicated numbers, and their use cases, visit our [feature page](https://messagemedia.com/au/feature/dedicated-virtual-numbers/).
       
@@ -572,11 +530,11 @@ tags:
 
       Any numbers that do not meet the criteria for Gold or Silver are classified as Bronze.
 
-      For pricing on dedicated numbers please refer to the Numbers page in our Hub web portal, or speak with your MessageMedia Account Manager.
+      For pricing on dedicated numbers please refer to the Numbers page in our Hub web portal, or speak with your Sinch Account Manager.
   - name: Messaging Reports
     description: |
-      The MessageMedia Reports API provides a number of endpoints for running reports of messages sent and received through
-      a MessageMedia Account. The API allows two kinds of reports, _Detailed Reports_ and _Summary Reports_.
+      The Sinch Reports API provides a number of endpoints for running reports of messages sent and received through
+      a Sinch Account. The API allows two kinds of reports, _Detailed Reports_ and _Summary Reports_.
       
       Detailed reports list all messages and the details of each message sent or received in a specified time period. Summary reports allow inbound and outbound message data to be aggregated on a number of dimensions.
   - name: Short Trackable Links Reports
@@ -593,62 +551,13 @@ tags:
   - name: Webhooks Management
     description: >-
       Webhooks Management API allows you to manage your webhooks configuration. You can subscribe to one or several events, retrieve the webhooks, update them or even delete them if needed.
-  - name: Enterprise Webhooks
-    description: |
-      
-      Securing your webhooks is a two-part process. The first part requires you to use the Signature Key Management API to create a key to sign your requests. 
-      
-      This will actually generates a key pair - the private key which is used to sign the requests and is stored in MessageMedia's secure datastore and the public key which is used to verify the signature and is stored on your side. 
-      
-      The second part consists of decrypting the message and verifying the authenticity of the message using the public key created earlier.
-      
-      *Note: This API is only available in the APAC region.*
-
-      
-      ## Verifying a webhook
-      
-      This documentation assumes that you have already created a key pair using the [Signature Key Management API](https://developers.messagemedia.com/code/signature-key-managment-api-documentation/).
-
-      Once you have enabled this feature, all webhooks sent will be signed using the private key created via the Signature Key Management API.
-
-
-      ## Headers
-
-      Every signed webhook will have the following additional headers:
-        * `X-MESSAGEMEDIA-KEY-ID`: The uuid of the key used eg: `628fdf4e-bddc-4029-ae59-f9a84a22165c`
-        * `X-MESSAGEMEDIA-CIPHER-TYPE`: Encryption algorithm used for digest encryption eg: `RSA`
-        * `X-MESSAGEMEDIA-DIGEST-TYPE`: The algorithm used for digest eg: `SHA256`
-        * `X-MESSAGEMEDIA-SIGNATURE`: The encrypted digest value which is base64 encoded. This is the signature you will verify against eg: `YdhajTA1p68BrxtWq0hvupEQxA4eliL2rA0tyN5YyuCsJwdYc0tZ8439nQ3KrQCmnsDCoB024lKv3FKhWrWAQldl6tEqpiaabXqJMRAHTAtSph+4R1O3C0tT8WNVNP6wEYOKoPyg1tI43uXOQ8iC4Xr4pIeXaYNkEosPG5I8ZyoiNjy/FW7rdO/QuxtfYcpBqLOE+MG0lHwNTiXkc+JlG0VHQbRg8TmjtmsJEsvB4KGPLqpPBij9v/1fzEagkyLECN+tAHgZY/xjQbhm3xL0cEbMNouYKpK7lg8vyechlkPX5j4hEJMo4u/+5iOw3EFYGPjA9RnneINB6DhbzGM99A==`
-        * `DATE`: Date-Time at which the webhook was sent eg: `Tue, 17 Jul 2018 04:52:31 GMT`
-
-
-      ## Create the comparison string
-
-      To be able to verify the signature, you need to build a comparison string by combining the following:
-      * `Request-Line`: The Request-Line begins with a method token, followed by the Request-URI and the protocol version. This can be found in the first line of the request message. eg: `POST /data HTTP/1.1`
-      * `Date`: This Date is the one sent in the header eg: `Tue, 17 Jul 2018 04:52:31 GMT`
-      * `Body`: This is the the body of the request that is sent back when the webhook is triggered eg: ```{"vendor_account_id":{"vendor_id":"MessageMedia","account_id":"MessageMediaM123"},"callback_url":"https://webhook.site/25f79a05-00cf-4997-a127-c55a889eb97a","delivery_report_id":"6737fda5-bb86-4fdb-8b62-d7ea49863801","source_number":"+61439123036","date_received":"2018-07-26T23:39:25.387Z","status":"enroute","delay":0,"submitted_date":"2018-07-26T23:39:25.382Z","original_text":"Hey there!","message_id":"a0589035-df10-4f3a-92a5-5beac2d100c3","error_code":"101","metadata":{}}```
-
-      The order of concatentation would be `Request-Line` + `Date` + `Body` without any spaces in between. This order must be maintained to build a valid comparison string. 
-
-
-      ## Verifying using public key
-
-      Once you've created the comparison string, you need to use your public key to verify it against the signature (`X-MESSAGEMEDIA-SIGNATURE`) using RSA and the digest type of your key. 
-      The way of doing this can vary depending on the language you are coding in. Below are some suggestions on which built-in functions or libraries you can use for each language:
-      * PHP - [Openssl_verify](http://php.net/manual/en/function.openssl-verify.php)
-      * Python - [Pycrypto](https://gist.github.com/lkdocs/6519372)
-      * Node.js - [Crypto](https://nodejs.org/api/crypto.html#crypto_class_verify)
-      * C# - [Bouncy castle](http://www.bouncycastle.org/csharp/)
-      * Java - [Signature](https://docs.oracle.com/javase/tutorial/security/apisign/vstep4.html)
-      * Ruby - [Verify](http://ruby-doc.org/stdlib-2.5.1/libdoc/openssl/rdoc/OpenSSL/PKey/PKey.html#method-i-verify)
   - name: Signature Key Management
     description: |
-      As MessageMedia's customer, you want to be able to ensure that callbacks are coming from MessageMedia and not from a 3rd party. Since 
+      As a Sinch customer, you want to be able to ensure that callbacks are coming from Sinch and not from a 3rd party. Since 
       these are calls to your own system, you should be provided with an extra level of security 
       when calling your resources.
 
-      The MessageMedia Signature Key API provides a number of endpoints 
+      The Sinch Signature Key API provides a number of endpoints 
       for managing key used to sign each unique request to ensure security 
       and the requests can't (easily) be spoofed. This is similar to using 
       HMAC in your outbound messaging (rather than HTTP Basic).
@@ -2192,7 +2101,7 @@ paths:
                     "original_text": "My first message!",
                     "message_id": "d781dcab-d9d8-4fb2-9e03-872f07ae94ba",
                     "vendor_account_id": {
-                        "vendor_id": "MessageMedia",
+                        "vendor_id": "SinchEU",
                         "account_id": "MyAccount"
                     },
                     "metadata": {
@@ -2211,7 +2120,7 @@ paths:
                     "original_text": "My second message!",
                     "message_id": "fbb3b3f5-b702-4d8b-ab44-65b2ee39a281",
                     "vendor_account_id": {
-                        "vendor_id": "MessageMedia",
+                        "vendor_id": "SinchEU",
                         "account_id": "MyAccount"
                     },
                     "metadata": {
@@ -2289,7 +2198,7 @@ paths:
                     original_text: My first message!
                     message_id: d781dcab-d9d8-4fb2-9e03-872f07ae94ba
                     vendor_account_id:
-                      vendor_id: MessageMedia
+                      vendor_id: SinchEU
                       account_id: MyAccount
                     metadata:
                       key1: value1
@@ -2304,7 +2213,7 @@ paths:
                     original_text: My second message!
                     message_id: fbb3b3f5-b702-4d8b-ab44-65b2ee39a281
                     vendor_account_id:
-                      vendor_id: MessageMedia
+                      vendor_id: SinchEU
                       account_id: MyAccount
                     metadata:
                       key1: value1
@@ -2449,7 +2358,7 @@ paths:
                     "destination_number": "+61491570156",
                     "source_number": "+61491570157",
                     "vendor_account_id": {
-                        "vendor_id": "MessageMedia",
+                        "vendor_id": "SinchEU",
                         "account_id": "MyAccount"
                     },
                     "content": "My first reply!"
@@ -2466,7 +2375,7 @@ paths:
                     "destination_number": "+61491570157",
                     "source_number": "+61491570158",
                     "vendor_account_id": {
-                        "vendor_id": "MessageMedia",
+                        "vendor_id": "SinchEU",
                         "account_id": "MyAccount"
                     },
                     "content": "My second reply!"
@@ -2545,7 +2454,7 @@ paths:
                     destination_number: '+61491570156'
                     source_number: '+61491570157'
                     vendor_account_id:
-                      vendor_id: MessageMedia
+                      vendor_id: SinchEU
                       account_id: MyAccount
                     content: My first reply!
                   - metadata:
@@ -2558,7 +2467,7 @@ paths:
                     destination_number: '+61491570157'
                     source_number: '+61491570158'
                     vendor_account_id:
-                      vendor_id: MessageMedia
+                      vendor_id: SinchEU
                       account_id: MyAccount
                     content: My second reply!
         '403':
@@ -4049,7 +3958,7 @@ paths:
         This will create a key pair:
 
 
-        - The ```private key``` stored in MessageMedia is used to create the signature.
+        - The ```private key``` stored in Sinch is used to create the signature.
 
 
         - The ```public key``` is returned and stored at your side to verify the signature in callbacks.
@@ -6106,7 +6015,7 @@ components:
             original_text: My first message!
             message_id: d781dcab-d9d8-4fb2-9e03-872f07ae94ba
             vendor_account_id:
-              vendor_id: MessageMedia
+              vendor_id: SinchEU
               account_id: MyAccount
             metadata:
               key1: value1
@@ -6121,7 +6030,7 @@ components:
             original_text: My second message!
             message_id: fbb3b3f5-b702-4d8b-ab44-65b2ee39a281
             vendor_account_id:
-              vendor_id: MessageMedia
+              vendor_id: SinchEU
               account_id: MyAccount
             metadata:
               key1: value1
@@ -6150,7 +6059,7 @@ components:
       properties:
         vendor_id:
           type: string
-          example: MessageMedia
+          example: SinchEU
         account_id:
           type: string
           description: The account used to submit the original message.
@@ -6178,7 +6087,7 @@ components:
             destination_number: '+61491570156'
             source_number: '+61491570157'
             vendor_account_id:
-              vendor_id: MessageMedia
+              vendor_id: SinchEU
               account_id: MyAccount
             content: My first reply!
           - metadata:
@@ -6191,7 +6100,7 @@ components:
             destination_number: '+61491570157'
             source_number: '+61491570158'
             vendor_account_id:
-              vendor_id: MessageMedia
+              vendor_id: SinchEU
               account_id: MyAccount
             content: My second reply!
     SourceNumberType:
