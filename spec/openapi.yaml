@@ -375,7 +375,7 @@ tags:
       
       All notifications are JSON encoded and the request expects to receive a response in the HTTP 200 range. If a valid response isn't received the request will be retried in an exponentially backing off fashion.
 
-      Delivery Reports may carry an additional charge. For pricing, please contact your Account Manager or Support Team (support@messagemedia.com).
+      Delivery Reports may carry an additional charge. For pricing, please contact your Account Manager or Support Team (support@app.sinch.com).
 
       For delivery reports or changes in the status of a message, the POST request to the specified URL will be as follows:
         
@@ -513,7 +513,7 @@ tags:
       
       To learn more about the benefits of dedicated numbers, and their use cases, visit our [feature page](https://messagemedia.com/au/feature/dedicated-virtual-numbers/).
       
-      This is a paid feature and must be enabled on your account. Please contact [support@messagemedia.com](support@messagemedia.com) or your account manager.
+      This is a paid feature and must be enabled on your account. Please contact [support@app.sinch.com](support@app.sinch.com) or your account manager.
       
       ## Concepts
 
@@ -545,7 +545,7 @@ tags:
       this feature, allowing users to obtain details regarding 
       the number of click-throughs on each URL.
 
-      To enable this feature on your account, contact your account manager or contact support on [support@messagemedia.com](support@messagemedia.com).
+      To enable this feature on your account, contact your account manager or contact support on [support@app.sinch.com](support@app.sinch.com).
 
       To learn more about the benefits of the Short Trackable Links feature, [visit our feature page](https://messagemedia.com/au/feature/short-urls/).
   - name: Webhooks Management
@@ -2330,7 +2330,7 @@ paths:
         number associated with
 
         an account, known as a dedicated inbound number (contact
-        <support@messagemedia.com> for more
+        <support@app.sinch.com> for more
 
         information on dedicated inbound numbers).
 
