@@ -321,7 +321,7 @@ tags:
         * _ (underscore)
         * \- (hyphen)
         
-        Alpha Tags can currently be registered through the Source Address API for the following countries: ```AU```, ```GB```, ```ES```, ```DE``` and ```FR```
+        Alpha Tags can currently be registered through the Source Address API for the following countries: ```AL```, ```AS```, ```AD```, ```AI```, ```AW```, ```AU```, ```AT```, ```BH```, ```BB```, ```BA```, ```BW```, ```KY```, ```TD```, ```CD```, ```CK```, ```CY```, ```DK```, ```DJ```, ```DM```, ```GQ```, ```EE```, ```FO```, ```FJ```, ```FI```, ```FR```, ```PF```, ```GM```, ```DE```, ```GI```, ```GR```, ```GL```, ```GD```, ```GG```, ```GY```, ```IS```, ```IM```, ```IL```, ```JM```, ```JP```, ```JE```, ```KI```, ```LA```, ```LV```, ```LS```, ```LI```, ```LT```, ```LU```, ```MO```, ```MV```, ```MT```, ```MH```, ```MR```, ```FM```, ```MC```, ```ME```, ```MS```, ```NR```, ```NL```, ```NC```, ```NU```, ```NF```, ```NO```, ```PT```, ```SH```, ```PM```, ```VC```, ```WS```, ```SM```, ```ST```, ```SC```, ```SL```, ```SB```, ```ES```, ```SE```, ```CH```, ```TO```, ```TC```, ```GB``` and ```VG```
         
         To register an Alpha Tag as a sender ID you must:
         1. Make a request to the **Request a Sender Address** endpoint
