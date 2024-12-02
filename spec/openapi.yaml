@@ -1464,7 +1464,7 @@ paths:
         ### Sender ID is an Alpha Tag
         The following parameters are used when registering an alpha tag as a Sender ID:
           - ```sender_address:``` **(Required)**. The alphanumeric string that you wish register as an alpha tag. This parameter is case insensitive. If this alpha tag already exists on your account, you will receive a conflict error message.
-          - ```destination_countries:``` **(Required)**. The countries that you wish to register the alpha tag for use in, in two-character ISO 3166 format. Currently AU, GB, ES, DE and FR are supported.
+          - ```destination_countries:``` **(Required)**. The countries that you wish to register the alpha tag for use in, in two-character ISO 3166 format. Currently AL, AS, AD, AI, AW, AU, AT, BH, BB, BA, BW, KY, TD, CD, CK, CY, DK, DJ, DM, GQ, EE, FO, FJ, FI, FR, PF, GM, DE, GI, GR, GL, GD, GG, GY, IS, IM, IL, JM, JP, JE, KI, LA, LV, LS, LI, LT, LU, MO, MV, MT, MH, MR, FM, MC, ME, MS, NR, NL, NC, NU, NF, NO, PT, SH, PM, VC, WS, SM, ST, SC, SL, SB, ES, SE, CH, TO, TC, GB and VG are supported.
           - ```sender_address_type:``` **(Required)**. For alpha tags this is always ALPHANUMERIC
           - ```usage_type:``` **(Required)**. For alpha tags this is always ALPHANUMERIC
           - ```label:``` **(Optional)**. A reference name for the sender ID to allow you to easily track it.
