@@ -698,6 +698,14 @@ tags:
       | ![](Https://developers.messagemedia.com/wp-content/templates/Template1.png) | 7614456e-844f-4d83-bdfe-20c17ce0f97c |
       | ![](Https://developers.messagemedia.com/wp-content/templates/Template2.png) | f56b5806-f732-4693-b87a-90b66a7d7bfc |
       |![](Https://developers.messagemedia.com/wp-content/templates/template3.png) | c9d7ce1d-20c4-4228-9ba1-6da2a3b4e5e0 |
+  - name: Contacts
+    description: |
+      The API provides access to two main resources:
+  
+        * **Contacts**: Data associated with the individuals you need to contact.
+        * **Lists**: Groups of contacts created for specific purposes.
+        * **Custom Fields**: Additional fields that can be tailored to complement the basic contact fields.
+
 servers:
   - url: 'https://api.messagemedia.com/'
 
@@ -5066,6 +5074,796 @@ paths:
         402:
           description: 'Account is not postpaid, or does not have Mobile Landing Pages Enabled.'
       deprecated: false
+  /api/v1/contacts/contacts:
+    post:
+      security:
+        - basic_auth: [ ]
+        - hmac_auth: [ ]
+      tags:
+        - Contacts
+      summary: Create a contact
+      operationId: createContact
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateContactRequest'
+        required: true
+      responses:
+        '201':
+          description: Contact is created
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ContactData'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '501':
+          $ref: '#/components/responses/RequestNotRecognised'
+        '502':
+          $ref: '#/components/responses/BadGateway'
+        '503':
+          $ref: '#/components/responses/ServerUnavailable'
+        '504':
+          $ref: '#/components/responses/GatewayTimeout'
+    get:
+      security:
+        - basic_auth: [ ]
+        - hmac_auth: [ ]
+      tags:
+        - Contacts
+      summary: Get contacts page
+      operationId: getContactsPage
+      parameters:
+        - name: request
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/GetContactsRequest'
+      responses:
+        '200':
+          description: Returns a contacts page
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PageTokenDtoContactData'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '501':
+          $ref: '#/components/responses/RequestNotRecognised'
+        '502':
+          $ref: '#/components/responses/BadGateway'
+        '503':
+          $ref: '#/components/responses/ServerUnavailable'
+        '504':
+          $ref: '#/components/responses/GatewayTimeout'
+  '/api/v1/contacts/contacts/{contactId}':
+    get:
+      security:
+        - basic_auth: [ ]
+        - hmac_auth: [ ]
+      tags:
+        - Contacts
+      summary: Get a single contact
+      operationId: getContactById
+      parameters:
+        - name: contactId
+          in: path
+          description: Contact id in UUID format
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Returns a single contact
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ContactData'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '501':
+          $ref: '#/components/responses/RequestNotRecognised'
+        '502':
+          $ref: '#/components/responses/BadGateway'
+        '503':
+          $ref: '#/components/responses/ServerUnavailable'
+        '504':
+          $ref: '#/components/responses/GatewayTimeout'
+    delete:
+      security:
+        - basic_auth: [ ]
+        - hmac_auth: [ ]
+      tags:
+        - Contacts
+      summary: Delete a contact
+      operationId: deleteContactById
+      parameters:
+        - name: contactId
+          in: path
+          description: Contact id in UUID format
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Contact is deleted
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '501':
+          $ref: '#/components/responses/RequestNotRecognised'
+        '502':
+          $ref: '#/components/responses/BadGateway'
+        '503':
+          $ref: '#/components/responses/ServerUnavailable'
+        '504':
+          $ref: '#/components/responses/GatewayTimeout'
+    patch:
+      security:
+        - basic_auth: [ ]
+        - hmac_auth: [ ]
+      tags:
+        - Contacts
+      summary: Update a contact
+      operationId: updateContact
+      parameters:
+        - name: contactId
+          in: path
+          description: Contact id in UUID format
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateContactRequest'
+        required: true
+      responses:
+        '200':
+          description: Contact is updated
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ContactData'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '501':
+          $ref: '#/components/responses/RequestNotRecognised'
+        '502':
+          $ref: '#/components/responses/BadGateway'
+        '503':
+          $ref: '#/components/responses/ServerUnavailable'
+        '504':
+          $ref: '#/components/responses/GatewayTimeout'
+  /api/v1/contacts/lists:
+    post:
+      security:
+        - basic_auth: [ ]
+        - hmac_auth: [ ]
+      tags:
+        - Contacts
+      summary: Create a contact list
+      operationId: createContactList
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateListRequest'
+        required: true
+      responses:
+        '201':
+          description: Contact list is created
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ListData'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '501':
+          $ref: '#/components/responses/RequestNotRecognised'
+        '502':
+          $ref: '#/components/responses/BadGateway'
+        '503':
+          $ref: '#/components/responses/ServerUnavailable'
+        '504':
+          $ref: '#/components/responses/GatewayTimeout'
+    get:
+      security:
+        - basic_auth: [ ]
+        - hmac_auth: [ ]
+      tags:
+        - Contacts
+      summary: Get contact lists page
+      operationId: getContactListsPage
+      parameters:
+        - name: request
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/GetListsRequest'
+      responses:
+        '200':
+          description: Returns a contact lists page
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PageTokenDtoListData'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '501':
+          $ref: '#/components/responses/RequestNotRecognised'
+        '502':
+          $ref: '#/components/responses/BadGateway'
+        '503':
+          $ref: '#/components/responses/ServerUnavailable'
+        '504':
+          $ref: '#/components/responses/GatewayTimeout'
+  '/api/v1/contacts/lists/{listId}':
+    get:
+      security:
+        - basic_auth: [ ]
+        - hmac_auth: [ ]
+      tags:
+        - Contacts
+      summary: Get a single contact list
+      operationId: getContactListById
+      parameters:
+        - name: listId
+          in: path
+          description: Contact list id in UUID format
+          required: true
+          schema:
+            type: string
+            format: uuid
+          example: 025e93d3-051b-43f9-b12e-4b5842228dee
+      responses:
+        '200':
+          description: Returns a single contact list
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ListData'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '501':
+          $ref: '#/components/responses/RequestNotRecognised'
+        '502':
+          $ref: '#/components/responses/BadGateway'
+        '503':
+          $ref: '#/components/responses/ServerUnavailable'
+        '504':
+          $ref: '#/components/responses/GatewayTimeout'
+    delete:
+      security:
+        - basic_auth: [ ]
+        - hmac_auth: [ ]
+      tags:
+        - Contacts
+      summary: Delete a contact list
+      operationId: deleteContactListById
+      parameters:
+        - name: listId
+          in: path
+          description: Contact list id in UUID format
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Contact list is deleted
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '501':
+          $ref: '#/components/responses/RequestNotRecognised'
+        '502':
+          $ref: '#/components/responses/BadGateway'
+        '503':
+          $ref: '#/components/responses/ServerUnavailable'
+        '504':
+          $ref: '#/components/responses/GatewayTimeout'
+    patch:
+      security:
+        - basic_auth: [ ]
+        - hmac_auth: [ ]
+      tags:
+        - Contacts
+      summary: Update a contact list
+      operationId: updateContactList
+      parameters:
+        - name: listId
+          in: path
+          description: Contact list id in UUID format
+          required: true
+          schema:
+            type: string
+            format: uuid
+          example: 025e93d3-051b-43f9-b12e-4b5842228dee
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateListRequest'
+        required: true
+      responses:
+        '200':
+          description: List is updated
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ListData'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '501':
+          $ref: '#/components/responses/RequestNotRecognised'
+        '502':
+          $ref: '#/components/responses/BadGateway'
+        '503':
+          $ref: '#/components/responses/ServerUnavailable'
+        '504':
+          $ref: '#/components/responses/GatewayTimeout'
+  '/api/v1/contacts/lists/{listId}/contacts':
+    patch:
+      security:
+        - basic_auth: [ ]
+        - hmac_auth: [ ]
+      tags:
+        - Contacts
+      summary: Add or remove multiple contacts to/from a list
+      operationId: modifyContactsInContactList
+      parameters:
+        - name: listId
+          in: path
+          description: Contact list id in UUID format
+          required: true
+          schema:
+            type: string
+            format: uuid
+          example: 025e93d3-051b-43f9-b12e-4b5842228dee
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateContactsListRequest'
+        required: true
+      responses:
+        '200':
+          description: Contacts added/removed to/from list
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ListData'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '501':
+          $ref: '#/components/responses/RequestNotRecognised'
+        '502':
+          $ref: '#/components/responses/BadGateway'
+        '503':
+          $ref: '#/components/responses/ServerUnavailable'
+        '504':
+          $ref: '#/components/responses/GatewayTimeout'
+  '/api/v1/contacts/lists/{listId}/contacts/{contactId}':
+    post:
+      security:
+        - basic_auth: [ ]
+        - hmac_auth: [ ]
+      tags:
+        - Contacts
+      summary: Add contact to a list
+      operationId: addContactToContactList
+      parameters:
+        - name: listId
+          in: path
+          description: Contact list id in UUID format
+          required: true
+          schema:
+            type: string
+            format: uuid
+          example: 025e93d3-051b-43f9-b12e-4b5842228dee
+        - name: contactId
+          in: path
+          description: Contact id to remove in UUID format
+          required: true
+          schema:
+            type: string
+            format: uuid
+          example: 4a03d2d8-1f85-463f-bdb4-2891c17258a7
+      responses:
+        '200':
+          description: Contacts have been added
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ListData'
+        '201':
+          description: Created
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ListData'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '501':
+          $ref: '#/components/responses/RequestNotRecognised'
+        '502':
+          $ref: '#/components/responses/BadGateway'
+        '503':
+          $ref: '#/components/responses/ServerUnavailable'
+        '504':
+          $ref: '#/components/responses/GatewayTimeout'
+    delete:
+      security:
+        - basic_auth: [ ]
+        - hmac_auth: [ ]
+      tags:
+        - Contacts
+      summary: Remove contact from the contact list
+      operationId: removeContactFromContactList
+      parameters:
+        - name: listId
+          in: path
+          description: Contact list id in UUID format
+          required: true
+          schema:
+            type: string
+            format: uuid
+          example: 025e93d3-051b-43f9-b12e-4b5842228dee
+        - name: contactId
+          in: path
+          description: Contact id to add in UUID format
+          required: true
+          schema:
+            type: string
+            format: uuid
+          example: 4a03d2d8-1f85-463f-bdb4-2891c17258a7
+      responses:
+        '204':
+          description: No Content
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '501':
+          $ref: '#/components/responses/RequestNotRecognised'
+        '502':
+          $ref: '#/components/responses/BadGateway'
+        '503':
+          $ref: '#/components/responses/ServerUnavailable'
+        '504':
+          $ref: '#/components/responses/GatewayTimeout'
+  /api/v1/contacts/custom-fields:
+    post:
+      security:
+        - basic_auth: [ ]
+        - hmac_auth: [ ]
+      tags:
+        - Contacts
+      summary: Create a custom field
+      operationId: createCustomField
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomFieldCreateRequest'
+        required: true
+      responses:
+        '201':
+          description: Custom field is created
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CustomFieldData'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '501':
+          $ref: '#/components/responses/RequestNotRecognised'
+        '502':
+          $ref: '#/components/responses/BadGateway'
+        '503':
+          $ref: '#/components/responses/ServerUnavailable'
+        '504':
+          $ref: '#/components/responses/GatewayTimeout'
+    get:
+      security:
+        - basic_auth: [ ]
+        - hmac_auth: [ ]
+      tags:
+        - Contacts
+      summary: Get custom fields page
+      operationId: getCustomFieldsPage
+      parameters:
+        - name: request
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/GetCustomFieldsRequest'
+      responses:
+        '200':
+          description: Returns a custom fields page
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PageTokenDtoCustomFieldData'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '501':
+          $ref: '#/components/responses/RequestNotRecognised'
+        '502':
+          $ref: '#/components/responses/BadGateway'
+        '503':
+          $ref: '#/components/responses/ServerUnavailable'
+        '504':
+          $ref: '#/components/responses/GatewayTimeout'
+  '/api/v1/contacts/custom-fields/{customFieldId}':
+    get:
+      security:
+        - basic_auth: [ ]
+        - hmac_auth: [ ]
+      tags:
+        - Contacts
+      summary: Get a single custom field
+      operationId: getCustomFieldById
+      parameters:
+        - name: customFieldId
+          in: path
+          description: Custom field id in UUID format
+          required: true
+          schema:
+            type: string
+            format: uuid
+          example: 025e93d3-051b-43f9-b12e-4b5842228dee
+      responses:
+        '200':
+          description: Returns a single custom field
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CustomFieldData'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '501':
+          $ref: '#/components/responses/RequestNotRecognised'
+        '502':
+          $ref: '#/components/responses/BadGateway'
+        '503':
+          $ref: '#/components/responses/ServerUnavailable'
+        '504':
+          $ref: '#/components/responses/GatewayTimeout'
+    delete:
+      security:
+        - basic_auth: [ ]
+        - hmac_auth: [ ]
+      tags:
+        - Contacts
+      summary: Delete a custom field
+      operationId: deleteCustomFieldById
+      parameters:
+        - name: customFieldId
+          in: path
+          description: Custom field id in UUID format
+          required: true
+          schema:
+            type: string
+            format: uuid
+          example: 025e93d3-051b-43f9-b12e-4b5842228dee
+      responses:
+        '204':
+          description: Custom field is deleted
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '501':
+          $ref: '#/components/responses/RequestNotRecognised'
+        '502':
+          $ref: '#/components/responses/BadGateway'
+        '503':
+          $ref: '#/components/responses/ServerUnavailable'
+        '504':
+          $ref: '#/components/responses/GatewayTimeout'
+    patch:
+      security:
+        - basic_auth: [ ]
+        - hmac_auth: [ ]
+      tags:
+        - Contacts
+      summary: Update a custom field
+      operationId: updateCustomField
+      parameters:
+        - name: customFieldId
+          in: path
+          description: Custom field id in UUID format
+          required: true
+          schema:
+            type: string
+            format: uuid
+          example: 025e93d3-051b-43f9-b12e-4b5842228dee
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateCustomFieldRequest'
+        required: true
+      responses:
+        '200':
+          description: Custom field is updated
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CustomFieldData'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '501':
+          $ref: '#/components/responses/RequestNotRecognised'
+        '502':
+          $ref: '#/components/responses/BadGateway'
+        '503':
+          $ref: '#/components/responses/ServerUnavailable'
+        '504':
+          $ref: '#/components/responses/GatewayTimeout'
 # An object to hold reusable parts that can be used across the spec
 components:
   schemas:
@@ -5732,7 +6530,7 @@ components:
           type: string
           example: "2022-12-12T00:00:00.000z"
         end_date:
-          description:  End date time for report window. By default, the timezone for this parameter
+          description: End date time for report window. By default, the timezone for this parameter
             will be taken from the account settings for the account associated with the
             credentials used to make the request, or the account included in the Account parameter.
             This can be overridden using the timezone parameter per request. The date must be in ISO8601 format, and after the requested start_date.
@@ -5854,7 +6652,7 @@ components:
           type: array
           items:
             type: string
-            example: [id, content, meta1]
+            example: [ id, content, meta1 ]
           description: An array of fields to be retrieved.
     detailresponse:
       title: detailresponse
@@ -6129,8 +6927,8 @@ components:
     400response:
       title: Bad request
       required:
-      - message
-      - details
+        - message
+        - details
       type: object
       properties:
         message:
@@ -6143,7 +6941,7 @@ components:
       example:
         message: 'Request failed to parse correctly. Please ensure input is valid and try again.'
         details:
-        - 'Failed to parse message body.'
+          - 'Failed to parse message body.'
     Sendmessagesrequest:
       title: Sendmessagesrequest
       required:
@@ -6321,7 +7119,7 @@ components:
           description: list of 2-character ISO country codes this sender address applies to
           items:
             type: string
-          example: ["AU"]
+          example: [ "AU" ]
         reason:
           type: string
           example: "This is my reason"
@@ -6715,7 +7513,7 @@ components:
     404response:
       title: Resource not found
       required:
-      - message
+        - message
       type: object
       properties:
         message:
@@ -6924,13 +7722,13 @@ components:
     Lookupaphonenumberresponse:
       title: Lookupaphonenumberresponse
       required:
-      - country_code
-      - phone_number
-      - type
-      - carrier
-      - result
-      - imsi
-      - location
+        - country_code
+        - phone_number
+        - type
+        - carrier
+        - result
+        - imsi
+        - location
       type: object
       properties:
         country_code:
@@ -6963,7 +7761,7 @@ components:
     Carrier:
       title: Carrier
       required:
-      - name
+        - name
       type: object
       properties:
         name:
@@ -6971,7 +7769,7 @@ components:
     Lookupaphonenumber404response:
       title: Lookupaphonenumber404response
       required:
-      - message
+        - message
       type: object
       properties:
         message:
@@ -6991,8 +7789,8 @@ components:
           items:
             type: string
           example:
-          - "email@example.com"
-          - "test@example.com"
+            - "email@example.com"
+            - "test@example.com"
           description: A list of email addresses to use as the recipient of the email. Only works for EMAIL delivery type
         delivery_format:
           type: string
@@ -7042,22 +7840,22 @@ components:
     sort_by:
       title: sort_by
       enum:
-      - ACCOUNT
-      - ACTION
-      - DESTINATION_ADDRESS
-      - DESTINATION_ADDRESS_COUNTRY
-      - FORMAT
-      - SOURCE_ADDRESS
-      - SOURCE_ADDRESS_COUNTRY
-      - TIMESTAMP
+        - ACCOUNT
+        - ACTION
+        - DESTINATION_ADDRESS
+        - DESTINATION_ADDRESS_COUNTRY
+        - FORMAT
+        - SOURCE_ADDRESS
+        - SOURCE_ADDRESS_COUNTRY
+        - TIMESTAMP
       type: string
       description: Field to sort results set by
       example: ACCOUNT
     sort_direction:
       title: sort_direction
       enum:
-      - ASCENDING
-      - DESCENDING
+        - ASCENDING
+        - DESCENDING
       type: string
       description: Order to sort results by.
       example: ASCENDING
@@ -7138,13 +7936,13 @@ components:
         click_count: 3
         view_count: 2
         clicks:
-        - dt: 2018-09-18T01:22:17.071493
-          user_agent: Mozilla/5.0 (Windows NT...
-          ip: 127.0.0.1
+          - dt: 2018-09-18T01:22:17.071493
+            user_agent: Mozilla/5.0 (Windows NT...
+            ip: 127.0.0.1
         views:
-        - dt: 2018-09-18T01:22:17.071493
-          user_agent: Mozilla/5.0 (Windows NT...
-          ip: 127.0.0.1
+          - dt: 2018-09-18T01:22:17.071493
+            user_agent: Mozilla/5.0 (Windows NT...
+            ip: 127.0.0.1
         pagination:
           page: 1
           page_size: 100
@@ -7182,12 +7980,12 @@ components:
         unique_views: 1
         short_urls_generated: 1
         short_urls:
-        - click_count: 3
-          view_count: 2
-          message_id: 00000000-0000-0000-0000-000000000000
-          long_url: https://developers.messagemedia.com
-          short_url: https://nxt.to/abc1234
-          destination_number: +61491570157
+          - click_count: 3
+            view_count: 2
+            message_id: 00000000-0000-0000-0000-000000000000
+            long_url: https://developers.messagemedia.com
+            short_url: https://nxt.to/abc1234
+            destination_number: +61491570157
         pagination:
           page: 1
           page_size: 100
@@ -7208,12 +8006,12 @@ components:
     CreateWebhookrequest:
       title: CreateWebhookrequest
       required:
-      - url
-      - method
-      - encoding
-      - headers
-      - events
-      - template
+        - url
+        - method
+        - encoding
+        - headers
+        - events
+        - template
       type: object
       properties:
         url:
@@ -7238,13 +8036,13 @@ components:
         headers:
           Account: DeveloperPortal7000
         events:
-        - ENROUTE_DR
-        - DELIVERED_DR
+          - ENROUTE_DR
+          - DELIVERED_DR
         template: '{"id":"$mtId","status":"$statusCode"}'
     Headers:
       title: Headers
       required:
-      - Account
+        - Account
       type: object
       properties:
         Account:
@@ -7254,11 +8052,11 @@ components:
     UpdateWebhookrequest:
       title: UpdateWebhookrequest
       required:
-      - url
-      - method
-      - encoding
-      - events
-      - template
+        - url
+        - method
+        - encoding
+        - events
+        - template
       type: object
       properties:
         url:
@@ -7279,12 +8077,12 @@ components:
         method: POST
         encoding: FORM_ENCODED
         events:
-        - ENROUTE_DR
+          - ENROUTE_DR
         template: '{"id":"$mtId", "status":"$statusCode"}'
     UpdateWebhook400response:
       title: UpdateWebhook400response
       required:
-      - message
+        - message
       type: object
       properties:
         message:
@@ -7294,8 +8092,8 @@ components:
     Createsignaturekeyrequest:
       title: Createsignaturekeyrequest
       required:
-      - digest
-      - cipher
+        - digest
+        - cipher
       type: object
       properties:
         digest:
@@ -7308,12 +8106,12 @@ components:
     Createsignaturekeyresponse:
       title: Createsignaturekeyresponse
       required:
-      - key_id
-      - public_key
-      - cipher
-      - digest
-      - created
-      - enabled
+        - key_id
+        - public_key
+        - cipher
+        - digest
+        - created
+        - enabled
       type: object
       properties:
         key_id:
@@ -7388,7 +8186,7 @@ components:
     Enablesignaturekeyrequest:
       title: Enablesignaturekeyrequest
       required:
-      - key_id
+        - key_id
       type: object
       properties:
         key_id:
@@ -7423,8 +8221,8 @@ components:
     Enablesignaturekey400response:
       title: Enablesignaturekey400response
       required:
-      - message
-      - details
+        - message
+        - details
       type: object
       properties:
         message:
@@ -7437,7 +8235,7 @@ components:
       example:
         message: Bad Request
         details:
-        - '/key_id: Key id cannot be null'
+          - '/key_id: Key id cannot be null'
     Getenabledsignaturekeyresponse:
       title: Getenabledsignaturekeyresponse
       type: object
@@ -7466,7 +8264,7 @@ components:
     Disablethecurrentenabledsignaturekey.403response:
       title: Disablethecurrentenabledsignaturekey.403response
       required:
-      - message
+        - message
       type: object
       properties:
         message:
@@ -7476,7 +8274,7 @@ components:
     Addoneormorenumberstoyourbacklistrequest:
       title: Addoneormorenumberstoyourbacklistrequest
       required:
-      - numbers
+        - numbers
       type: object
       properties:
         numbers:
@@ -7486,13 +8284,13 @@ components:
           description: 'Array of numbers to be added to the blacklist. These should be specified in E.164 international format. For information on E.164, please refer to http://en.wikipedia.org/wiki/E.164.'
       example:
         numbers:
-        - +61491570156
-        - +61491570157
+          - +61491570156
+          - +61491570157
     Addoneormorenumberstoyourbacklistresponse:
       title: Addoneormorenumberstoyourbacklistresponse
       required:
-      - uri
-      - numbers
+        - uri
+        - numbers
       type: object
       properties:
         uri:
@@ -7505,13 +8303,13 @@ components:
       example:
         uri: /v1/number_authorisation/mt/blacklist
         numbers:
-        - +61491570156
-        - +61491570157
+          - +61491570156
+          - +61491570157
     Checkifoneorseveralnumbersarecurrentlyblacklistedresponse:
       title: Checkifoneorseveralnumbersarecurrentlyblacklistedresponse
       required:
-      - uri
-      - numbers
+        - uri
+        - numbers
       type: object
       properties:
         uri:
@@ -7524,15 +8322,15 @@ components:
       example:
         uri: /v1/number_authorisation/is_authorised/+61491570156,+61491570157
         numbers:
-        - number: +61491570156
-          authorised: true
-        - number: +61491570157
-          authorised: false
+          - number: +61491570156
+            authorised: true
+          - number: +61491570157
+            authorised: false
     Number:
       title: Number
       required:
-      - number
-      - authorised
+        - number
+        - authorised
       type: object
       properties:
         number:
@@ -7545,9 +8343,9 @@ components:
     service_types:
       title: service_types
       enum:
-      - SMS
-      - TTS
-      - MMS
+        - SMS
+        - TTS
+        - MMS
       type: string
       example: SMS
     NumbersListResponse:
@@ -7566,14 +8364,14 @@ components:
           next_token: 0428d673-0f75-4063-9493-e89d75f13438
           page_size: 5
         data:
-        - id: 03cf54ad-a4a3-4cd1-afd5-e0ca2cf158a3
-          phone_number: +61436489205
-          country: AU
-          type: MOBILE
-          classification: BRONZE
-          available_after: 2019-08-06T23:56:15.633Z
-          capabilities:
-          - SMS
+          - id: 03cf54ad-a4a3-4cd1-afd5-e0ca2cf158a3
+            phone_number: +61436489205
+            country: AU
+            type: MOBILE
+            classification: BRONZE
+            available_after: 2019-08-06T23:56:15.633Z
+            capabilities:
+              - SMS
     DedicatedNumber:
       title: Number
       type: object
@@ -7604,31 +8402,31 @@ components:
         classification: SILVER
         available_after: 2019-06-21T04:04:31.707Z
         capabilities:
-        - SMS
-        - MMS
+          - SMS
+          - MMS
     Capability:
       title: Capability
       enum:
-      - SMS
-      - TTS
-      - MMS
+        - SMS
+        - TTS
+        - MMS
       type: string
       example: SMS
     Classification:
       title: Classification
       enum:
-      - BRONZE
-      - SILVER
-      - GOLD
+        - BRONZE
+        - SILVER
+        - GOLD
       type: string
       example: BRONZE
     Type:
       title: Type
       enum:
-      - MOBILE
-      - LANDLINE
-      - TOLL_FREE
-      - SHORT_CODE
+        - MOBILE
+        - LANDLINE
+        - TOLL_FREE
+        - SHORT_CODE
       type: string
       example: MOBILE
     Types:
@@ -7663,8 +8461,8 @@ components:
     createAssignmentrequest:
       title: createAssignmentrequest
       required:
-      - label
-      - metadata
+        - label
+        - metadata
       type: object
       properties:
         label:
@@ -7687,8 +8485,8 @@ components:
     updateAssignmentrequest:
       title: updateAssignmentrequest
       required:
-      - label
-      - metadata
+        - label
+        - metadata
       type: object
       properties:
         label:
@@ -7716,21 +8514,21 @@ components:
           next_token: 0428d673-0f75-4063-9493-e89d75f13438
           page_size: 5
         data:
-        - assignment:
-            metadata:
-              key1: value1
-            label: LabelTest0
-            id: be3cb602-7c00-4c87-ae4b-b8defc04f179
-            number_id: b9ee3fe8-2c20-47b1-96e9-c5d12d7ed985
-          number:
-            id: 03cf54ad-a4a3-4cd1-afd5-e0ca2cf158a3
-            phone_number: +61436489205
-            country: AU
-            type: MOBILE
-            classification: BRONZE
-            available_after: 2019-08-06T23:56:15.633Z
-            capabilities:
-            - SMS
+          - assignment:
+              metadata:
+                key1: value1
+              label: LabelTest0
+              id: be3cb602-7c00-4c87-ae4b-b8defc04f179
+              number_id: b9ee3fe8-2c20-47b1-96e9-c5d12d7ed985
+            number:
+              id: 03cf54ad-a4a3-4cd1-afd5-e0ca2cf158a3
+              phone_number: +61436489205
+              country: AU
+              type: MOBILE
+              classification: BRONZE
+              available_after: 2019-08-06T23:56:15.633Z
+              capabilities:
+                - SMS
     AssignedNumber:
       title: AssignedNumber
       type: object
@@ -7742,7 +8540,7 @@ components:
     403response:
       title: 403 response
       required:
-      - message
+        - message
       type: object
       properties:
         message:
@@ -7752,8 +8550,8 @@ components:
     Campaign:
       title: Campaign
       required:
-      - template_id
-      - message
+        - template_id
+        - message
       type: object
       properties:
         template_id:
@@ -7767,7 +8565,7 @@ components:
     MessageTemplate:
       title: MessageTemplate
       required:
-      - content
+        - content
       type: object
       properties:
         content:
@@ -7797,7 +8595,7 @@ components:
     Recipient:
       title: Recipient
       required:
-      - number
+        - number
       type: object
       properties:
         number:
@@ -7812,8 +8610,8 @@ components:
     CreateLandingPage:
       title: CreateLandingPage
       required:
-      - name
-      - template_id
+        - name
+        - template_id
       type: object
       properties:
         name:
@@ -7847,9 +8645,9 @@ components:
     CampaignSummary:
       title: CampaignSummary
       required:
-      - total_events
-      - unique_engagements
-      - event_summary
+        - total_events
+        - unique_engagements
+        - event_summary
       type: object
       properties:
         total_events:
@@ -7866,9 +8664,9 @@ components:
     EventSummary:
       title: EventSummary
       required:
-      - event
-      - total_events
-      - unique_recipients
+        - event
+        - total_events
+        - unique_recipients
       type: object
       properties:
         event:
@@ -7886,8 +8684,8 @@ components:
     ListCampaignEventPage:
       title: ListCampaignEventPage
       required:
-      - events
-      - pagination
+        - events
+        - pagination
       type: object
       properties:
         events:
@@ -7900,11 +8698,11 @@ components:
     CampaignEvent:
       title: CampaignEvent
       required:
-      - campaign_id
-      - recipient_id
-      - number
-      - event
-      - timestamp
+        - campaign_id
+        - recipient_id
+        - number
+        - event
+        - timestamp
       type: object
       properties:
         campaign_id:
@@ -7928,9 +8726,9 @@ components:
     Pagination1:
       title: Pagination
       required:
-      - page
-      - page_size
-      - total_count
+        - page
+        - page_size
+        - total_count
       type: object
       properties:
         page:
@@ -7945,7 +8743,7 @@ components:
     BarcodeDisplayValue:
       title: BarcodeDisplayValue
       required:
-      - type
+        - type
       type: object
       properties:
         type:
@@ -7955,7 +8753,7 @@ components:
     BarcodeHeight:
       title: BarcodeHeight
       required:
-      - type
+        - type
       type: object
       properties:
         type:
@@ -7965,7 +8763,7 @@ components:
     BarcodeLineColor:
       title: BarcodeLineColor
       required:
-      - type
+        - type
       type: object
       properties:
         type:
@@ -7975,7 +8773,7 @@ components:
     BarcodeMargin:
       title: BarcodeMargin
       required:
-      - type
+        - type
       type: object
       properties:
         type:
@@ -7985,7 +8783,7 @@ components:
     BarcodeValue:
       title: BarcodeValue
       required:
-      - type
+        - type
       type: object
       properties:
         type:
@@ -7995,7 +8793,7 @@ components:
     BarcodeWidth:
       title: BarcodeWidth
       required:
-      - type
+        - type
       type: object
       properties:
         type:
@@ -8005,7 +8803,7 @@ components:
     BodyText:
       title: BodyText
       required:
-      - type
+        - type
       type: object
       properties:
         type:
@@ -8015,7 +8813,7 @@ components:
     ButtonFontFamily:
       title: ButtonFontFamily
       required:
-      - type
+        - type
       type: object
       properties:
         type:
@@ -8025,13 +8823,13 @@ components:
     CreateaLandingPageresponse:
       title: CreateaLandingPageresponse
       required:
-      - id
-      - name
-      - template_id
-      - parameters
-      - fields
-      - created_timestamp
-      - modified_timestamp
+        - id
+        - name
+        - template_id
+        - parameters
+        - fields
+        - created_timestamp
+        - modified_timestamp
       type: object
       properties:
         id:
@@ -8068,10 +8866,10 @@ components:
     CreateNewCampaignresponse:
       title: CreateNewCampaignresponse
       required:
-      - id
-      - template_id
-      - parameters
-      - message
+        - id
+        - template_id
+        - parameters
+        - message
       type: object
       properties:
         id:
@@ -8096,7 +8894,7 @@ components:
     CtaUrl:
       title: CtaUrl
       required:
-      - type
+        - type
       type: object
       properties:
         type:
@@ -8106,9 +8904,9 @@ components:
     Fields:
       title: Fields
       required:
-      - title
-      - bodyText
-      - ctaUrl
+        - title
+        - bodyText
+        - ctaUrl
       type: object
       properties:
         title:
@@ -8127,35 +8925,35 @@ components:
     Fields2:
       title: Fields2
       required:
-      - fontFamilyURL1
-      - secondaryButtonTextColor
-      - fontFamilyURL3
-      - pageTitle
-      - fontFamilyURL2
-      - pageTextColor
-      - barcodeHeight
-      - imageHeaderUrl
-      - barcodeMargin
-      - logoLink
-      - primaryButtonLink
-      - primaryButtonBackgroundColor
-      - secondaryButtonLink
-      - barcodeWidth
-      - primaryButtonText
-      - headline
-      - headlineColor
-      - pageText
-      - secondaryButtonBackgroundColor
-      - imageLinkPreviewUrl
-      - pageTextFontFamily
-      - secondaryButtonText
-      - headlineFontFamily
-      - barcodeLineColor
-      - barcodeValue
-      - primaryButtonTextColor
-      - imageLogoUrl
-      - barcodeDisplayValue
-      - buttonFontFamily
+        - fontFamilyURL1
+        - secondaryButtonTextColor
+        - fontFamilyURL3
+        - pageTitle
+        - fontFamilyURL2
+        - pageTextColor
+        - barcodeHeight
+        - imageHeaderUrl
+        - barcodeMargin
+        - logoLink
+        - primaryButtonLink
+        - primaryButtonBackgroundColor
+        - secondaryButtonLink
+        - barcodeWidth
+        - primaryButtonText
+        - headline
+        - headlineColor
+        - pageText
+        - secondaryButtonBackgroundColor
+        - imageLinkPreviewUrl
+        - pageTextFontFamily
+        - secondaryButtonText
+        - headlineFontFamily
+        - barcodeLineColor
+        - barcodeValue
+        - primaryButtonTextColor
+        - imageLogoUrl
+        - barcodeDisplayValue
+        - buttonFontFamily
       type: object
       properties:
         fontFamilyURL1:
@@ -8278,7 +9076,7 @@ components:
     FontFamilyURL1:
       title: FontFamilyURL1
       required:
-      - type
+        - type
       type: object
       properties:
         type:
@@ -8288,10 +9086,10 @@ components:
     GetCampaignresponse:
       title: GetCampaignresponse
       required:
-      - id
-      - template_id
-      - parameters
-      - message
+        - id
+        - template_id
+        - parameters
+        - message
       type: object
       properties:
         id:
@@ -8316,7 +9114,7 @@ components:
     GetTemplatesFieldsDefinationresponse:
       title: GetTemplatesFieldsDefinationresponse
       required:
-      - fields
+        - fields
       type: object
       properties:
         fields:
@@ -8384,8 +9182,8 @@ components:
     GetTemplatesresponse:
       title: GetTemplatesresponse
       required:
-      - templates
-      - pagination
+        - templates
+        - pagination
       type: object
       properties:
         templates:
@@ -8397,19 +9195,19 @@ components:
           $ref: '#/components/schemas/Pagination1'
       example:
         templates:
-        - id: c9d7ce1d-20c4-4228-9ba1-6da2a3b4e5e0
-          name: Header image and 1 or 2 CTA
-        - id: f56b5806-f732-4693-b87a-90b66a7d7bfc
-          name: Header Image and 1 CTA
-        - id: 7614456e-844f-4d83-bdfe-20c17ce0f97c
-          name: Background image and 0 or 1 CTA
+          - id: c9d7ce1d-20c4-4228-9ba1-6da2a3b4e5e0
+            name: Header image and 1 or 2 CTA
+          - id: f56b5806-f732-4693-b87a-90b66a7d7bfc
+            name: Header Image and 1 CTA
+          - id: 7614456e-844f-4d83-bdfe-20c17ce0f97c
+            name: Background image and 0 or 1 CTA
         pagination:
           next_page_token: qwerty123
           page_size: 5
     Headline:
       title: Headline
       required:
-      - type
+        - type
       type: object
       properties:
         type:
@@ -8419,7 +9217,7 @@ components:
     HeadlineColor:
       title: HeadlineColor
       required:
-      - type
+        - type
       type: object
       properties:
         type:
@@ -8429,7 +9227,7 @@ components:
     HeadlineFontFamily:
       title: HeadlineFontFamily
       required:
-      - type
+        - type
       type: object
       properties:
         type:
@@ -8439,7 +9237,7 @@ components:
     ImageHeaderUrl:
       title: ImageHeaderUrl
       required:
-      - type
+        - type
       type: object
       properties:
         type:
@@ -8449,7 +9247,7 @@ components:
     ImageLinkPreviewUrl:
       title: ImageLinkPreviewUrl
       required:
-      - type
+        - type
       type: object
       properties:
         type:
@@ -8459,7 +9257,7 @@ components:
     ImageLogoUrl:
       title: ImageLogoUrl
       required:
-      - type
+        - type
       type: object
       properties:
         type:
@@ -8469,7 +9267,7 @@ components:
     LogoLink:
       title: LogoLink
       required:
-      - type
+        - type
       type: object
       properties:
         type:
@@ -8479,8 +9277,8 @@ components:
     MessageMLP:
       title: MessageMLP
       required:
-      - content
-      - metadata
+        - content
+        - metadata
       type: object
       properties:
         content:
@@ -8494,7 +9292,7 @@ components:
     MetadataMLP:
       title: Metadata
       required:
-      - key
+        - key
       type: object
       properties:
         key:
@@ -8504,7 +9302,7 @@ components:
     PageText:
       title: PageText
       required:
-      - type
+        - type
       type: object
       properties:
         type:
@@ -8514,7 +9312,7 @@ components:
     PageTextColor:
       title: PageTextColor
       required:
-      - type
+        - type
       type: object
       properties:
         type:
@@ -8524,7 +9322,7 @@ components:
     PageTextFontFamily:
       title: PageTextFontFamily
       required:
-      - type
+        - type
       type: object
       properties:
         type:
@@ -8534,7 +9332,7 @@ components:
     PageTitle:
       title: PageTitle
       required:
-      - type
+        - type
       type: object
       properties:
         type:
@@ -8544,8 +9342,8 @@ components:
     PaginationMLP:
       title: PaginationMLP
       required:
-      - next_page_token
-      - page_size
+        - next_page_token
+        - page_size
       type: object
       properties:
         next_page_token:
@@ -8559,9 +9357,9 @@ components:
     Parameters:
       title: Parameters
       required:
-      - title
-      - bodyText
-      - callToAction
+        - title
+        - bodyText
+        - callToAction
       type: object
       properties:
         title:
@@ -8577,8 +9375,8 @@ components:
     Parameters2:
       title: Parameters2
       required:
-      - firstName
-      - lastName
+        - firstName
+        - lastName
       type: object
       properties:
         firstName:
@@ -8591,9 +9389,9 @@ components:
     Parameters4:
       title: Parameters4
       required:
-      - pageTitle
-      - pageText
-      - callToAction
+        - pageTitle
+        - pageText
+        - callToAction
       type: object
       properties:
         pageTitle:
@@ -8609,7 +9407,7 @@ components:
     PrimaryButtonBackgroundColor:
       title: PrimaryButtonBackgroundColor
       required:
-      - type
+        - type
       type: object
       properties:
         type:
@@ -8619,7 +9417,7 @@ components:
     PrimaryButtonLink:
       title: PrimaryButtonLink
       required:
-      - type
+        - type
       type: object
       properties:
         type:
@@ -8629,7 +9427,7 @@ components:
     PrimaryButtonText:
       title: PrimaryButtonText
       required:
-      - type
+        - type
       type: object
       properties:
         type:
@@ -8639,7 +9437,7 @@ components:
     PrimaryButtonTextColor:
       title: PrimaryButtonTextColor
       required:
-      - type
+        - type
       type: object
       properties:
         type:
@@ -8649,9 +9447,9 @@ components:
     Recipient1:
       title: Recipient1
       required:
-      - id
-      - number
-      - parameters
+        - id
+        - number
+        - parameters
       type: object
       properties:
         id:
@@ -8669,7 +9467,7 @@ components:
     SecondaryButtonBackgroundColor:
       title: SecondaryButtonBackgroundColor
       required:
-      - type
+        - type
       type: object
       properties:
         type:
@@ -8679,7 +9477,7 @@ components:
     SecondaryButtonLink:
       title: SecondaryButtonLink
       required:
-      - type
+        - type
       type: object
       properties:
         type:
@@ -8689,7 +9487,7 @@ components:
     SecondaryButtonText:
       title: SecondaryButtonText
       required:
-      - type
+        - type
       type: object
       properties:
         type:
@@ -8699,7 +9497,7 @@ components:
     SecondaryButtonTextColor:
       title: SecondaryButtonTextColor
       required:
-      - type
+        - type
       type: object
       properties:
         type:
@@ -8709,7 +9507,7 @@ components:
     SendCampaignToRecipientsrequest:
       title: SendCampaignToRecipientsrequest
       required:
-      - recipients
+        - recipients
       type: object
       properties:
         recipients:
@@ -8720,7 +9518,7 @@ components:
     SendCampaignToRecipientsresponse:
       title: SendCampaignToRecipientsresponse
       required:
-      - recipients
+        - recipients
       type: object
       properties:
         recipients:
@@ -8730,21 +9528,21 @@ components:
           description: ''
       example:
         recipients:
-        - id: 05f81030-95fb-4c17-8736-ac73948e8b82
-          number: +61491570156
-          parameters:
-            firstName: John
-            lastName: English
-        - id: 01261663-9428-4a1d-9798-e8a1877cc29d
-          number: +61491570158
-          parameters:
-            firstName: Mary
-            lastName: Example
+          - id: 05f81030-95fb-4c17-8736-ac73948e8b82
+            number: +61491570156
+            parameters:
+              firstName: John
+              lastName: English
+          - id: 01261663-9428-4a1d-9798-e8a1877cc29d
+            number: +61491570158
+            parameters:
+              firstName: Mary
+              lastName: Example
     Template:
       title: Template
       required:
-      - id
-      - name
+        - id
+        - name
       type: object
       properties:
         id:
@@ -8757,7 +9555,7 @@ components:
     Title:
       title: Title
       required:
-      - type
+        - type
       type: object
       properties:
         type:
@@ -8767,13 +9565,13 @@ components:
     UpdateaLandingPageresponse:
       title: UpdateaLandingPageresponse
       required:
-      - id
-      - name
-      - template_id
-      - parameters
-      - fields
-      - created_timestamp
-      - modified_timestamp
+        - id
+        - name
+        - template_id
+        - parameters
+        - fields
+        - created_timestamp
+        - modified_timestamp
       type: object
       properties:
         id:
@@ -8835,6 +9633,903 @@ components:
         - STATUS
       type: string
       example: DAY
+    CreateListRequest:
+      required:
+        - name
+      type: object
+      properties:
+        name:
+          type: string
+          description: Group name
+          example: My group
+        alias:
+          type: string
+          description: Group alias
+          example: Group1
+      description: Contact list create payload
+    ListData:
+      required:
+        - accountId
+        - alias
+        - createdDate
+        - id
+        - lastModifiedDate
+        - name
+        - vendorId
+      type: object
+      properties:
+        id:
+          type: string
+          description: List id in UUID format
+          format: uuid
+          example: 025e93d3-051b-43f9-b12e-4b5842228dee
+        accountId:
+          type: string
+          description: Account id
+        vendorId:
+          type: string
+          description: Vendor id
+        name:
+          type: string
+          description: List name
+          example: My group
+        alias:
+          type: string
+          description: List alias
+          example: VIP group
+        createdDate:
+          type: string
+          description: Create date
+          format: date-time
+          example: '2022-08-18T09:15:03.112Z'
+        lastModifiedDate:
+          type: string
+          description: Last modified date
+          format: date-time
+          example: '2022-08-18T09:15:03.112Z'
+      description: List details data
+    CustomFieldCreateRequest:
+      required:
+        - label
+        - maxLength
+        - mergeTag
+        - type
+      type: object
+      properties:
+        label:
+          type: string
+          description: Custom field label
+          example: Contact name
+        mergeTag:
+          type: string
+          description: Custom field merge tag
+          example: contact_name
+        maxLength:
+          type: integer
+          description: Custom field max length
+          format: int32
+          example: 30
+        type:
+          type: string
+          description: Custom field type
+          example: DATE
+          enum:
+            - DATE
+            - NUMBER
+            - PHONE
+            - TEXT
+            - URL
+            - ZIP_CODE
+            - NAME
+            - EMAIL
+      description: Custom field create payload
+    CustomFieldData:
+      required:
+        - accountId
+        - createdDate
+        - id
+        - label
+        - lastModifiedDate
+        - maxLength
+        - mergeTag
+        - type
+        - vendorId
+      type: object
+      properties:
+        id:
+          type: string
+          description: Custom field id in UUID format
+          format: uuid
+          example: 025e93d3-051b-43f9-b12e-4b5842228dee
+        accountId:
+          type: string
+          description: Account id
+          example: accountId_67846328
+        vendorId:
+          type: string
+          description: Vendor id
+        label:
+          type: string
+          description: Custom field label
+          example: Contact name
+        mergeTag:
+          type: string
+          description: Custom field merge tag
+          example: contact_name
+        maxLength:
+          type: integer
+          description: Custom field max length
+          format: int32
+          example: 30
+        type:
+          type: string
+          description: Custom field type
+          example: DATE
+          enum:
+            - DATE
+            - NUMBER
+            - PHONE
+            - TEXT
+            - URL
+            - ZIP_CODE
+            - NAME
+            - EMAIL
+        createdDate:
+          type: string
+          description: Create date
+          format: date-time
+          example: '2022-08-18T09:15:03.112Z'
+        lastModifiedDate:
+          type: string
+          description: Last modified date
+          format: date-time
+          example: '2022-08-18T09:15:03.112Z'
+      description: Custom field data
+    CreateContactChannelRequest:
+      required:
+        - channelId
+        - type
+      type: object
+      properties:
+        channelId:
+          type: string
+          description: >-
+            Contact channel id (in case phone number - in E164 international
+            format)
+          example: '+15553456783'
+        type:
+          type: string
+          description: Contact channel type
+          example: PHONE
+          enum:
+            - SMS
+            - WHATSAPP
+            - GBM
+            - INSTAGRAM
+            - FACEBOOK
+            - EMAIL
+        subscriptionState:
+          type: string
+          description: Subscription state
+          example: UNSUBSCRIBED
+          enum:
+            - SUBSCRIBED
+            - UNSUBSCRIBED
+      description: Contact channel create payload
+    CreateContactRequest:
+      required:
+        - channels
+      type: object
+      properties:
+        firstName:
+          type: string
+          description: Contact first name
+          example: Adam
+        lastName:
+          type: string
+          description: Contact last name
+          example: Smith
+        alias:
+          type: string
+          description: >-
+            Contact alias. Used as an alternative name for your contact, as well
+            as an email handle for email to sms
+          example: user1234
+        dateOfBirth:
+          type: string
+          description: Date of birth
+          format: date
+          example: '2022-08-18'
+        country:
+          type: string
+          description: Country
+          example: US
+        state:
+          type: string
+          description: State
+          example: CA
+        location:
+          type: string
+          description: Location
+          example: Sunset Blvd
+        note:
+          type: string
+          description: Note
+          example: Note
+        channels:
+          type: array
+          description: Contact channels
+          items:
+            $ref: '#/components/schemas/CreateContactChannelRequest'
+        lists:
+          type: array
+          description: Contact lists
+          items:
+            $ref: '#/components/schemas/CreateListRequest'
+        customFields:
+          type: array
+          description: Contact custom fields
+          items:
+            $ref: '#/components/schemas/CreateCustomFieldRequest'
+      description: Contact create payload
+    CreateCustomFieldRequest:
+      required:
+        - id
+        - value
+      type: object
+      properties:
+        id:
+          type: string
+          description: Custom Field id in UUID format
+          format: uuid
+          example: 025e93d3-051b-43f9-b12e-4b5842228dee
+        value:
+          type: string
+          description: Custom field value
+          example: John
+      description: Contact custom field create payload
+    ContactChannelData:
+      required:
+        - channelId
+        - type
+      type: object
+      properties:
+        channelId:
+          type: string
+          description: >-
+            Contact channel id (in case phone number - in E164 international
+            format)
+          example: '+15553456783'
+        type:
+          type: string
+          description: Contact channel type
+          example: PHONE
+          enum:
+            - SMS
+            - WHATSAPP
+            - GBM
+            - INSTAGRAM
+            - FACEBOOK
+            - EMAIL
+        subscriptionState:
+          type: string
+          description: Subscription state
+          example: UNSUBSCRIBED
+          enum:
+            - SUBSCRIBED
+            - UNSUBSCRIBED
+      description: Contact channel data
+    ContactCustomFieldData:
+      required:
+        - id
+        - mergeTag
+        - type
+        - value
+      type: object
+      properties:
+        id:
+          type: string
+          description: Custom Field id in UUID format
+          format: uuid
+          example: 025e93d3-051b-43f9-b12e-4b5842228dee
+        mergeTag:
+          type: string
+          description: Custom field merge tag
+          example: contact_name
+        value:
+          type: string
+          description: Custom field value
+          example: John
+        type:
+          type: string
+          description: Custom field type
+          example: DATE
+          enum:
+            - DATE
+            - NUMBER
+            - PHONE
+            - TEXT
+            - URL
+            - ZIP_CODE
+            - NAME
+            - EMAIL
+      description: Custom field data
+    ContactData:
+      required:
+        - accountId
+        - alias
+        - channels
+        - country
+        - createdDate
+        - customFields
+        - firstName
+        - fullName
+        - id
+        - lastModifiedDate
+        - lastName
+        - lists
+        - location
+        - note
+        - state
+        - vendorId
+      type: object
+      properties:
+        id:
+          type: string
+          description: Contact id in UUID format
+          format: uuid
+          example: 025e93d3-051b-43f9-b12e-4b5842228dee
+        accountId:
+          type: string
+          description: Account id
+        vendorId:
+          type: string
+          description: Vendor id
+        firstName:
+          type: string
+          description: Contact first name
+          example: Adam
+        lastName:
+          type: string
+          description: Contact last name
+          example: Smith
+        fullName:
+          type: string
+          description: Contact full name
+          example: Adam Smith
+        alias:
+          type: string
+          description: Contact alias
+          example: VIP contact
+        dateOfBirth:
+          type: string
+          description: Date of birth
+          format: date
+          example: '2022-08-18'
+        country:
+          type: string
+          description: Country
+          example: US
+        state:
+          type: string
+          description: State
+          example: CA
+        location:
+          type: string
+          description: Location
+          example: Sunset Blvd
+        note:
+          type: string
+          description: Note
+          example: Note
+        createdDate:
+          type: string
+          description: Create date
+          format: date-time
+          example: '2022-08-18T09:15:03.112Z'
+        lastModifiedDate:
+          type: string
+          description: Last modified date
+          format: date-time
+          example: '2022-08-18T09:15:03.112Z'
+        customFields:
+          type: array
+          description: List of custom fields
+          items:
+            $ref: '#/components/schemas/ContactCustomFieldData'
+        channels:
+          type: array
+          description: Contact channels
+          items:
+            $ref: '#/components/schemas/ContactChannelData'
+        lists:
+          type: array
+          description: Contact lists
+          items:
+            $ref: '#/components/schemas/ContactListData'
+      description: Contact data
+    ContactListData:
+      required:
+        - id
+        - name
+      type: object
+      properties:
+        id:
+          type: string
+          description: List id in UUID format
+          format: uuid
+          example: 025e93d3-051b-43f9-b12e-4b5842228dee
+        name:
+          type: string
+          description: List name
+          example: My list
+      description: Contact list data
+    UpdateListRequest:
+      required:
+        - name
+      type: object
+      properties:
+        name:
+          type: string
+          description: Contact list name
+          example: My list
+        alias:
+          type: string
+          description: Contact list alias
+          example: List1
+      description: Contact list update payload
+    UpdateContactsListRequest:
+      type: object
+      properties:
+        contactsToAddIds:
+          maxItems: 1000
+          minItems: 0
+          type: array
+          items:
+            type: string
+            description: List of contacts to add to the list in UUID format
+            format: uuid
+        contactsToRemoveIds:
+          maxItems: 1000
+          minItems: 0
+          type: array
+          items:
+            type: string
+            description: List of contacts to remove from the list in UUID format
+            format: uuid
+      description: Contacts list update payload
+    UpdateCustomFieldRequest:
+      type: object
+      properties:
+        label:
+          type: string
+          description: Custom field label
+          example: Contact name
+        maxLength:
+          type: integer
+          description: Custom field max length
+          format: int32
+          example: 30
+      description: Custom field update payload
+    UpdateContactChannelRequest:
+      required:
+        - channelId
+        - type
+      type: object
+      properties:
+        channelId:
+          type: string
+          description: >-
+            Contact channel id (in case phone number - in E164 international
+            format)
+          example: '+15553456783'
+        type:
+          type: string
+          description: Contact channel type
+          example: PHONE
+          enum:
+            - SMS
+            - WHATSAPP
+            - GBM
+            - INSTAGRAM
+            - FACEBOOK
+            - EMAIL
+        subscriptionState:
+          type: string
+          description: Subscription state
+          example: UNSUBSCRIBED
+          enum:
+            - SUBSCRIBED
+            - UNSUBSCRIBED
+      description: Contact channel update payload
+    UpdateContactRequest:
+      type: object
+      properties:
+        firstName:
+          type: string
+          description: Contact first name
+          example: Adam
+        lastName:
+          type: string
+          description: Contact last name
+          example: Smith
+        alias:
+          type: string
+          description: >-
+            Contact alias. Used as an alternative name for your contact, as well
+            as an email handle for email to sms
+          example: user1234
+        dateOfBirth:
+          type: string
+          description: Date of birth
+          format: date
+          example: '2022-08-18'
+        country:
+          type: string
+          description: Country
+          example: US
+        state:
+          type: string
+          description: State
+          example: CA
+        location:
+          type: string
+          description: Location
+          example: Sunset Blvd
+        note:
+          type: string
+          description: Note
+          example: Note
+        channels:
+          type: array
+          description: Contact channels
+          items:
+            $ref: '#/components/schemas/UpdateContactChannelRequest'
+        lists:
+          type: array
+          description: Contact lists
+          items:
+            $ref: '#/components/schemas/UpdateListRequest'
+        customFields:
+          type: array
+          description: Contact custom fields
+          items:
+            $ref: '#/components/schemas/UpdateCustomFieldRequest'
+      description: Contact update payload
+    GetListsRequest:
+      type: object
+      properties:
+        nextPageToken:
+          type: string
+        prevPageToken:
+          type: string
+        pageSize:
+          maximum: 1000
+          type: integer
+          format: int32
+        listIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+        alias:
+          type: string
+        name:
+          type: string
+      description: Get contact lists page filter
+    PageTokenDtoListData:
+      required:
+        - content
+        - totalElements
+      type: object
+      properties:
+        content:
+          type: array
+          description: Page content and number of elements is restricted by page size
+          items:
+            $ref: '#/components/schemas/ListData'
+        nextPageToken:
+          type: string
+          description: Pagination token to retrieve the next page
+        prevPageToken:
+          type: string
+          description: Pagination token to retrieve the previous page
+        totalElements:
+          type: integer
+          description: Total number of elements
+          format: int64
+          example: 25
+      description: Page token representation for search result
+    GetCustomFieldsRequest:
+      type: object
+      properties:
+        nextPageToken:
+          type: string
+        prevPageToken:
+          type: string
+        pageSize:
+          maximum: 1000
+          type: integer
+          format: int32
+        customFieldIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+        label:
+          type: string
+        mergeTag:
+          type: string
+      description: Get custom fields page filter
+    PageTokenDtoCustomFieldData:
+      required:
+        - content
+        - totalElements
+      type: object
+      properties:
+        content:
+          type: array
+          description: Page content and number of elements is restricted by page size
+          items:
+            $ref: '#/components/schemas/CustomFieldData'
+        nextPageToken:
+          type: string
+          description: Pagination token to retrieve the next page
+        prevPageToken:
+          type: string
+          description: Pagination token to retrieve the previous page
+        totalElements:
+          type: integer
+          description: Total number of elements
+          format: int64
+          example: 25
+      description: Page token representation for search result
+    GetContactsRequest:
+      type: object
+      properties:
+        nextPageToken:
+          type: string
+        prevPageToken:
+          type: string
+        pageSize:
+          maximum: 1000
+          type: integer
+          format: int32
+        listIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+        contactIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+        channelIds:
+          type: array
+          items:
+            type: string
+        channelTypes:
+          type: array
+          items:
+            type: string
+            enum:
+              - PHONE
+              - WHATSAPP
+              - GBM
+              - INSTAGRAM
+              - FACEBOOK
+              - EMAIL
+        channelSubscriptionState:
+          type: string
+          enum:
+            - SUBSCRIBED
+            - UNSUBSCRIBED
+      description: Get contacts page filter payload
+    PageTokenDtoContactData:
+      required:
+        - content
+        - totalElements
+      type: object
+      properties:
+        content:
+          type: array
+          description: Page content and number of elements is restricted by page size
+          items:
+            $ref: '#/components/schemas/ContactData'
+        nextPageToken:
+          type: string
+          description: Pagination token to retrieve the next page
+        prevPageToken:
+          type: string
+          description: Pagination token to retrieve the previous page
+        totalElements:
+          type: integer
+          description: Total number of elements
+          format: int64
+          example: 25
+      description: Page token representation for search result
+    ApiError:
+      required:
+        - detail
+        - title
+        - type
+        - uuid
+      type: object
+      properties:
+        uuid:
+          type: string
+          description: Error id in UUID format
+          format: uuid
+        type:
+          type: string
+          description: Error type
+          enum:
+            - validation
+            - not_found
+            - method_not_allowed
+            - conflict
+            - payload_too_large
+            - unsupported_media_type
+            - message_not_readable
+            - internal_server_error
+            - request_not_recognised
+            - forbidden
+            - bad_gateway
+            - payment_required
+            - unauthorized
+            - unknown
+        title:
+          type: string
+          description: Error title
+        detail:
+          type: string
+          description: Error additional details
+      description: Api error data
+    InvalidInputApiError:
+      required:
+        - detail
+        - invalidFields
+        - title
+        - type
+        - uuid
+      type: object
+      properties:
+        uuid:
+          type: string
+          description: Error id in UUID format
+          format: uuid
+        type:
+          type: string
+          description: Error type
+          enum:
+            - validation
+            - not_found
+            - method_not_allowed
+            - conflict
+            - payload_too_large
+            - unsupported_media_type
+            - message_not_readable
+            - internal_server_error
+            - request_not_recognised
+            - forbidden
+            - bad_gateway
+            - payment_required
+            - unauthorized
+            - unknown
+        title:
+          type: string
+          description: Error title
+        detail:
+          type: string
+          description: Error additional details
+        invalidFields:
+          type: array
+          description: List of invalid fields
+          items:
+            $ref: '#/components/schemas/InvalidInputField'
+      description: Invalid input error data
+    InvalidInputField:
+      required:
+        - code
+        - name
+        - reason
+      type: object
+      properties:
+        name:
+          type: string
+          description: Invalid input field name
+        channelType:
+          type: string
+          description: Invalid channel type
+          enum:
+            - PHONE
+            - WHATSAPP
+            - GBM
+            - INSTAGRAM
+            - FACEBOOK
+            - EMAIL
+        code:
+          type: string
+          description: Invalid input value code
+          enum:
+            - must_not_be_empty
+            - must_be_empty
+            - must_not_be_null
+            - invalid_length
+            - duplicated_value
+            - invalid_format
+            - type_mismatch
+            - missing_parameter
+            - invalid_reference
+            - incorrect_operation
+            - no_such_pattern
+            - constraint_violation
+        reason:
+          type: string
+          description: Error message
+        invalidIds:
+          type: array
+          items:
+            type: string
+      description: Invalid input field
+  responses:
+    BadRequest:
+      description: Request has incorrect values
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InvalidInputApiError'
+    Unauthorized:
+      description: No valid authentication details were provided
+    Forbidden:
+      description: The authenticated user or account doesn't have permission
+    NotFound:
+      description: The specified resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiError'
+    PayloadTooLarge:
+      description: Maximum upload size exceeded
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiError'
+    UnsupportedMediaType:
+      description: Unsupported media type
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiError'
+    InternalServerError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiError'
+    RequestNotRecognised:
+      description: Request not recognised
+    BadGateway:
+      description: Invalid server response
+    ServerUnavailable:
+      description: Server currently unavailable
+    GatewayTimeout:
+      description: Gateway time out
+    PaymentRequired:
+      description: >-
+        Current user does not have permissions to perform the requested
+        operation
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiError'
+    Conflict:
+      description: Conflict. The entity already exists.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiError'
   headers:
     ExpiresAfter:
       description: date in UTC when token expires
@@ -8846,7 +10541,7 @@ components:
     basic_auth: # security definition name (you can name it as you want)
       type: http
       scheme: basic
-    hmac_auth:  # security definition name (you can name it as you want)
+    hmac_auth: # security definition name (you can name it as you want)
       type: apiKey
       # The following options are specific to apiKey type
       in: header # Where API key will be passed: header or query
