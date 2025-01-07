@@ -561,6 +561,8 @@ tags:
       for managing key used to sign each unique request to ensure security 
       and the requests can't (easily) be spoofed. This is similar to using 
       HMAC in your outbound messaging (rather than HTTP Basic).
+      
+      *Note: This API is only available in the APAC region.*
 
       The Signature Key API provides seven main endpoints:
       - ```Create signature key``` Create a new signature key for signature verification in callbacks.
