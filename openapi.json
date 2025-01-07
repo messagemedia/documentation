@@ -2336,126 +2336,6 @@
         ]
       }
     },
-    "/v1/lookups/phone/{phone_number}": {
-      "get": {
-        "security": [
-          {
-            "basic_auth": []
-          },
-          {
-            "hmac_auth": []
-          }
-        ],
-        "tags": [
-          "Lookups"
-        ],
-        "summary": "Lookup a phone number",
-        "description": "Use the Lookups API to find information about a phone number.\n\nA request to the lookups API has the following format:\n\n```/v1/lookups/phone/{phone_number}?options={x}```\n\nwhere `{x}` is an individual value or a combination of values. \n\nThe `{phone_number}` parameter is a required field and should be set to the phone number to be looked up.\n\nThe options query parameter can also be used to request additional information about the phone number.\n\nBy default, a request will only return the `country_code` and `phone_number` properties in the response.\n\n```json\n{  \"country_code\": \"AU\", \"phone_number\": \"+61491570156\"}\n```\n\nTo request details about the the carrier, include `carrier` as a value of the options parameter and to \nrequest details about the type, include `type` as a value of the options parameter. The `carrier` and\nthe `type` values can be used together using a comma separated list, i.e. `carrier,type`.\n\nTo request details about the location, include `hlr` as a value of the options parameter. \n\nNOTE: The `hlr` value CANNOT be used in conjuction with the other values.\n\nA successful request to the lookups endpoint with `carrier` and `type` as values will \n\nreturn a response body as follows:\n\n```json\n{  \n  \"country_code\": \"AU\",\n  \"phone_number\": \"+61491570156\",\n  \"type\": \"mobile\",  \"carrier\": {\"name\": \"Telstra\"  }\n}\n```\n\nA successful request to the lookups endpoint with `hlr` as the value will return a response body as follows:\n\n```json\n{\"result\": \"OK\",    \"imsi\": 24008,    \"location\": 46}\n```\nEach property in the response body is defined as follows:- ```country_code``` ISO ALPHA 2 country code of the phone number\n- ```phone_number``` E.164 formatted phone number\n- ```type``` The type of number. This can be ```\"mobile\"``` or ```\"landline\"```\n- ```carrier``` Holds information about the specific carrier (if available)  \n- ```name``` The carrier's name as reported by the network\n- `imsi` A unique number identifying a GSM subscriber\n- `location` The location of the mobile number\"\n",
-        "operationId": "LookupAPhoneNumber",
-        "parameters": [
-          {
-            "name": "phone_number",
-            "in": "path",
-            "description": "The phone number to be looked up",
-            "required": true,
-            "style": "simple",
-            "schema": {
-              "type": "string",
-              "example": 61491570156
-            }
-          },
-          {
-            "name": "options",
-            "in": "query",
-            "description": "The options query parameter can also be used to request additional information about the phone number.",
-            "style": "form",
-            "explode": true,
-            "schema": {
-              "type": "string",
-              "example": "\"carrier,type\""
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Number was looked up successfully",
-            "headers": {},
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Lookupaphonenumberresponse"
-                },
-                "example": {
-                  "country_code": "AU",
-                  "phone_number": 61491570156,
-                  "type": "mobile",
-                  "carrier": {
-                    "name": "Telstra"
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/400response"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Unauthorised",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/403response"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Resource not found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Lookupaphonenumber404response"
-                }
-              }
-            }
-          }
-        },
-        "deprecated": false,
-        "x-code-samples": [
-          {
-            "lang": "C#",
-            "source": ""
-          },
-          {
-            "lang": "Java",
-            "source": ""
-          },
-          {
-            "lang": "JavaScript",
-            "source": ""
-          },
-          {
-            "lang": "PHP",
-            "source": ""
-          },
-          {
-            "lang": "Python",
-            "source": ""
-          },
-          {
-            "lang": "Ruby",
-            "source": ""
-          }
-        ]
-      }
-    },
     "/v1/number_authorisation/mt/blacklist": {
       "get": {
         "security": [
@@ -8329,57 +8209,6 @@
         "description": "Filter results by message format, using enumerable MessageType.",
         "example": "SMS"
       },
-      "Lookupaphonenumberresponse": {
-        "title": "Lookupaphonenumberresponse",
-        "required": [
-          "country_code",
-          "phone_number",
-          "type",
-          "carrier",
-          "result",
-          "imsi",
-          "location"
-        ],
-        "type": "object",
-        "properties": {
-          "country_code": {
-            "type": "string"
-          },
-          "phone_number": {
-            "type": "string"
-          },
-          "type": {
-            "type": "string"
-          },
-          "carrier": {
-            "$ref": "#/components/schemas/Carrier"
-          },
-          "result": {
-            "type": "string",
-            "example": "\"OK\""
-          },
-          "imsi": {
-            "type": "integer",
-            "description": "A unique number identifying a GSM subscriber",
-            "format": "int64",
-            "example": 24008
-          },
-          "location": {
-            "type": "integer",
-            "description": "The location of the mobile number",
-            "format": "int32",
-            "example": 46
-          }
-        },
-        "example": {
-          "country_code": "AU",
-          "phone_number": 61491570156,
-          "type": "mobile",
-          "carrier": {
-            "name": "Telstra"
-          }
-        }
-      },
       "Carrier": {
         "title": "Carrier",
         "required": [
@@ -8390,21 +8219,6 @@
           "name": {
             "type": "string"
           }
-        }
-      },
-      "Lookupaphonenumber404response": {
-        "title": "Lookupaphonenumber404response",
-        "required": [
-          "message"
-        ],
-        "type": "object",
-        "properties": {
-          "message": {
-            "type": "string"
-          }
-        },
-        "example": {
-          "message": "The number could not be found or is invalid."
         }
       },
       "deliveryOptionsBody": {
