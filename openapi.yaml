@@ -451,6 +451,8 @@ tags:
       and the requests can't (easily) be spoofed. This is similar to using 
       HMAC in your outbound messaging (rather than HTTP Basic).
 
+      *Note: This API is only available in the APAC region.*
+
       The Signature Key API provides seven main endpoints:
       - ```Create signature key``` Create a new signature key for signature verification in callbacks.
       - ```Get signature key detail``` Retrieve the current detail of a signature key using the key_id returned in the ```create signature key``` endpoint.
