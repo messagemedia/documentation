@@ -9082,6 +9082,891 @@ components:
         - STATUS
       type: string
       example: DAY
+    CreateListRequest:
+      required:
+        - name
+      type: object
+      properties:
+        name:
+          type: string
+          description: Group name
+          example: My group
+        alias:
+          type: string
+          description: Group alias
+          example: Group1
+      description: Contact list create payload
+    ListData:
+      required:
+        - accountId
+        - alias
+        - createdDate
+        - id
+        - lastModifiedDate
+        - name
+        - vendorId
+      type: object
+      properties:
+        id:
+          type: string
+          description: List id in UUID format
+          format: uuid
+          example: 025e93d3-051b-43f9-b12e-4b5842228dee
+        accountId:
+          type: string
+          description: Account id
+        vendorId:
+          type: string
+          description: Vendor id
+        name:
+          type: string
+          description: List name
+          example: My group
+        alias:
+          type: string
+          description: List alias
+          example: VIP group
+        createdDate:
+          type: string
+          description: Create date
+          format: date-time
+          example: '2022-08-18T09:15:03.112Z'
+        lastModifiedDate:
+          type: string
+          description: Last modified date
+          format: date-time
+          example: '2022-08-18T09:15:03.112Z'
+      description: List details data
+    CustomFieldCreateRequest:
+      required:
+        - label
+        - maxLength
+        - mergeTag
+        - type
+      type: object
+      properties:
+        label:
+          type: string
+          description: Custom field label
+          example: Contact name
+        mergeTag:
+          type: string
+          description: Custom field merge tag
+          example: contact_name
+        maxLength:
+          type: integer
+          description: Custom field max length
+          format: int32
+          example: 30
+        type:
+          type: string
+          description: Custom field type
+          example: DATE
+          enum:
+            - DATE
+            - NUMBER
+            - PHONE
+            - TEXT
+            - URL
+            - ZIP_CODE
+            - NAME
+            - EMAIL
+      description: Custom field create payload
+    CustomFieldData:
+      required:
+        - accountId
+        - createdDate
+        - id
+        - label
+        - lastModifiedDate
+        - maxLength
+        - mergeTag
+        - type
+        - vendorId
+      type: object
+      properties:
+        id:
+          type: string
+          description: Custom field id in UUID format
+          format: uuid
+          example: 025e93d3-051b-43f9-b12e-4b5842228dee
+        accountId:
+          type: string
+          description: Account id
+          example: accountId_67846328
+        vendorId:
+          type: string
+          description: Vendor id
+        label:
+          type: string
+          description: Custom field label
+          example: Contact name
+        mergeTag:
+          type: string
+          description: Custom field merge tag
+          example: contact_name
+        maxLength:
+          type: integer
+          description: Custom field max length
+          format: int32
+          example: 30
+        type:
+          type: string
+          description: Custom field type
+          example: DATE
+          enum:
+            - DATE
+            - NUMBER
+            - PHONE
+            - TEXT
+            - URL
+            - ZIP_CODE
+            - NAME
+            - EMAIL
+        createdDate:
+          type: string
+          description: Create date
+          format: date-time
+          example: '2022-08-18T09:15:03.112Z'
+        lastModifiedDate:
+          type: string
+          description: Last modified date
+          format: date-time
+          example: '2022-08-18T09:15:03.112Z'
+      description: Custom field data
+    CreateContactChannelRequest:
+      required:
+        - channelId
+        - type
+      type: object
+      properties:
+        channelId:
+          type: string
+          description: Contact channel id (in case phone number - in E164 international format)
+          example: '+15553456783'
+        type:
+          type: string
+          description: Contact channel type
+          example: PHONE
+          enum:
+            - SMS
+            - WHATSAPP
+            - GBM
+            - INSTAGRAM
+            - FACEBOOK
+            - EMAIL
+        subscriptionState:
+          type: string
+          description: Subscription state
+          example: UNSUBSCRIBED
+          enum:
+            - SUBSCRIBED
+            - UNSUBSCRIBED
+      description: Contact channel create payload
+    CreateContactRequest:
+      required:
+        - channels
+      type: object
+      properties:
+        firstName:
+          type: string
+          description: Contact first name
+          example: Adam
+        lastName:
+          type: string
+          description: Contact last name
+          example: Smith
+        alias:
+          type: string
+          description: 'Contact alias. Used as an alternative name for your contact, as well as an email handle for email to sms'
+          example: user1234
+        dateOfBirth:
+          type: string
+          description: Date of birth
+          format: date
+          example: '2022-08-18'
+        country:
+          type: string
+          description: Country
+          example: US
+        state:
+          type: string
+          description: State
+          example: CA
+        location:
+          type: string
+          description: Location
+          example: Sunset Blvd
+        note:
+          type: string
+          description: Note
+          example: Note
+        channels:
+          type: array
+          description: Contact channels
+          items:
+            $ref: '#/components/schemas/CreateContactChannelRequest'
+        lists:
+          type: array
+          description: Contact lists
+          items:
+            $ref: '#/components/schemas/CreateListRequest'
+        customFields:
+          type: array
+          description: Contact custom fields
+          items:
+            $ref: '#/components/schemas/CreateCustomFieldRequest'
+      description: Contact create payload
+    CreateCustomFieldRequest:
+      required:
+        - id
+        - value
+      type: object
+      properties:
+        id:
+          type: string
+          description: Custom Field id in UUID format
+          format: uuid
+          example: 025e93d3-051b-43f9-b12e-4b5842228dee
+        value:
+          type: string
+          description: Custom field value
+          example: John
+      description: Contact custom field create payload
+    ContactChannelData:
+      required:
+        - channelId
+        - type
+      type: object
+      properties:
+        channelId:
+          type: string
+          description: Contact channel id (in case phone number - in E164 international format)
+          example: '+15553456783'
+        type:
+          type: string
+          description: Contact channel type
+          example: PHONE
+          enum:
+            - SMS
+            - WHATSAPP
+            - GBM
+            - INSTAGRAM
+            - FACEBOOK
+            - EMAIL
+        subscriptionState:
+          type: string
+          description: Subscription state
+          example: UNSUBSCRIBED
+          enum:
+            - SUBSCRIBED
+            - UNSUBSCRIBED
+      description: Contact channel data
+    ContactCustomFieldData:
+      required:
+        - id
+        - mergeTag
+        - type
+        - value
+      type: object
+      properties:
+        id:
+          type: string
+          description: Custom Field id in UUID format
+          format: uuid
+          example: 025e93d3-051b-43f9-b12e-4b5842228dee
+        mergeTag:
+          type: string
+          description: Custom field merge tag
+          example: contact_name
+        value:
+          type: string
+          description: Custom field value
+          example: John
+        type:
+          type: string
+          description: Custom field type
+          example: DATE
+          enum:
+            - DATE
+            - NUMBER
+            - PHONE
+            - TEXT
+            - URL
+            - ZIP_CODE
+            - NAME
+            - EMAIL
+      description: Custom field data
+    ContactData:
+      required:
+        - accountId
+        - alias
+        - channels
+        - country
+        - createdDate
+        - customFields
+        - firstName
+        - fullName
+        - id
+        - lastModifiedDate
+        - lastName
+        - lists
+        - location
+        - note
+        - state
+        - vendorId
+      type: object
+      properties:
+        id:
+          type: string
+          description: Contact id in UUID format
+          format: uuid
+          example: 025e93d3-051b-43f9-b12e-4b5842228dee
+        accountId:
+          type: string
+          description: Account id
+        vendorId:
+          type: string
+          description: Vendor id
+        firstName:
+          type: string
+          description: Contact first name
+          example: Adam
+        lastName:
+          type: string
+          description: Contact last name
+          example: Smith
+        fullName:
+          type: string
+          description: Contact full name
+          example: Adam Smith
+        alias:
+          type: string
+          description: Contact alias
+          example: VIP contact
+        dateOfBirth:
+          type: string
+          description: Date of birth
+          format: date
+          example: '2022-08-18'
+        country:
+          type: string
+          description: Country
+          example: US
+        state:
+          type: string
+          description: State
+          example: CA
+        location:
+          type: string
+          description: Location
+          example: Sunset Blvd
+        note:
+          type: string
+          description: Note
+          example: Note
+        createdDate:
+          type: string
+          description: Create date
+          format: date-time
+          example: '2022-08-18T09:15:03.112Z'
+        lastModifiedDate:
+          type: string
+          description: Last modified date
+          format: date-time
+          example: '2022-08-18T09:15:03.112Z'
+        customFields:
+          type: array
+          description: List of custom fields
+          items:
+            $ref: '#/components/schemas/ContactCustomFieldData'
+        channels:
+          type: array
+          description: Contact channels
+          items:
+            $ref: '#/components/schemas/ContactChannelData'
+        lists:
+          type: array
+          description: Contact lists
+          items:
+            $ref: '#/components/schemas/ContactListData'
+      description: Contact data
+    ContactListData:
+      required:
+        - id
+        - name
+      type: object
+      properties:
+        id:
+          type: string
+          description: List id in UUID format
+          format: uuid
+          example: 025e93d3-051b-43f9-b12e-4b5842228dee
+        name:
+          type: string
+          description: List name
+          example: My list
+      description: Contact list data
+    UpdateListRequest:
+      required:
+        - name
+      type: object
+      properties:
+        name:
+          type: string
+          description: Contact list name
+          example: My list
+        alias:
+          type: string
+          description: Contact list alias
+          example: List1
+      description: Contact list update payload
+    UpdateContactsListRequest:
+      type: object
+      properties:
+        contactsToAddIds:
+          maxItems: 1000
+          minItems: 0
+          type: array
+          items:
+            type: string
+            description: List of contacts to add to the list in UUID format
+            format: uuid
+        contactsToRemoveIds:
+          maxItems: 1000
+          minItems: 0
+          type: array
+          items:
+            type: string
+            description: List of contacts to remove from the list in UUID format
+            format: uuid
+      description: Contacts list update payload
+    UpdateCustomFieldRequest:
+      type: object
+      properties:
+        label:
+          type: string
+          description: Custom field label
+          example: Contact name
+        maxLength:
+          type: integer
+          description: Custom field max length
+          format: int32
+          example: 30
+      description: Custom field update payload
+    UpdateContactChannelRequest:
+      required:
+        - channelId
+        - type
+      type: object
+      properties:
+        channelId:
+          type: string
+          description: Contact channel id (in case phone number - in E164 international format)
+          example: '+15553456783'
+        type:
+          type: string
+          description: Contact channel type
+          example: PHONE
+          enum:
+            - SMS
+            - WHATSAPP
+            - GBM
+            - INSTAGRAM
+            - FACEBOOK
+            - EMAIL
+        subscriptionState:
+          type: string
+          description: Subscription state
+          example: UNSUBSCRIBED
+          enum:
+            - SUBSCRIBED
+            - UNSUBSCRIBED
+      description: Contact channel update payload
+    UpdateContactRequest:
+      type: object
+      properties:
+        firstName:
+          type: string
+          description: Contact first name
+          example: Adam
+        lastName:
+          type: string
+          description: Contact last name
+          example: Smith
+        alias:
+          type: string
+          description: 'Contact alias. Used as an alternative name for your contact, as well as an email handle for email to sms'
+          example: user1234
+        dateOfBirth:
+          type: string
+          description: Date of birth
+          format: date
+          example: '2022-08-18'
+        country:
+          type: string
+          description: Country
+          example: US
+        state:
+          type: string
+          description: State
+          example: CA
+        location:
+          type: string
+          description: Location
+          example: Sunset Blvd
+        note:
+          type: string
+          description: Note
+          example: Note
+        channels:
+          type: array
+          description: Contact channels
+          items:
+            $ref: '#/components/schemas/UpdateContactChannelRequest'
+        lists:
+          type: array
+          description: Contact lists
+          items:
+            $ref: '#/components/schemas/UpdateListRequest'
+        customFields:
+          type: array
+          description: Contact custom fields
+          items:
+            $ref: '#/components/schemas/UpdateCustomFieldRequest'
+      description: Contact update payload
+    GetListsRequest:
+      type: object
+      properties:
+        nextPageToken:
+          type: string
+        prevPageToken:
+          type: string
+        pageSize:
+          maximum: 1000
+          type: integer
+          format: int32
+        listIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+        alias:
+          type: string
+        name:
+          type: string
+      description: Get contact lists page filter
+    PageTokenDtoListData:
+      required:
+        - content
+        - totalElements
+      type: object
+      properties:
+        content:
+          type: array
+          description: Page content and number of elements is restricted by page size
+          items:
+            $ref: '#/components/schemas/ListData'
+        nextPageToken:
+          type: string
+          description: Pagination token to retrieve the next page
+        prevPageToken:
+          type: string
+          description: Pagination token to retrieve the previous page
+        totalElements:
+          type: integer
+          description: Total number of elements
+          format: int64
+          example: 25
+      description: Page token representation for search result
+    GetCustomFieldsRequest:
+      type: object
+      properties:
+        nextPageToken:
+          type: string
+        prevPageToken:
+          type: string
+        pageSize:
+          maximum: 1000
+          type: integer
+          format: int32
+        customFieldIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+        label:
+          type: string
+        mergeTag:
+          type: string
+      description: Get custom fields page filter
+    PageTokenDtoCustomFieldData:
+      required:
+        - content
+        - totalElements
+      type: object
+      properties:
+        content:
+          type: array
+          description: Page content and number of elements is restricted by page size
+          items:
+            $ref: '#/components/schemas/CustomFieldData'
+        nextPageToken:
+          type: string
+          description: Pagination token to retrieve the next page
+        prevPageToken:
+          type: string
+          description: Pagination token to retrieve the previous page
+        totalElements:
+          type: integer
+          description: Total number of elements
+          format: int64
+          example: 25
+      description: Page token representation for search result
+    GetContactsRequest:
+      type: object
+      properties:
+        nextPageToken:
+          type: string
+        prevPageToken:
+          type: string
+        pageSize:
+          maximum: 1000
+          type: integer
+          format: int32
+        listIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+        contactIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+        channelIds:
+          type: array
+          items:
+            type: string
+        channelTypes:
+          type: array
+          items:
+            type: string
+            enum:
+              - PHONE
+              - WHATSAPP
+              - GBM
+              - INSTAGRAM
+              - FACEBOOK
+              - EMAIL
+        channelSubscriptionState:
+          type: string
+          enum:
+            - SUBSCRIBED
+            - UNSUBSCRIBED
+      description: Get contacts page filter payload
+    PageTokenDtoContactData:
+      required:
+        - content
+        - totalElements
+      type: object
+      properties:
+        content:
+          type: array
+          description: Page content and number of elements is restricted by page size
+          items:
+            $ref: '#/components/schemas/ContactData'
+        nextPageToken:
+          type: string
+          description: Pagination token to retrieve the next page
+        prevPageToken:
+          type: string
+          description: Pagination token to retrieve the previous page
+        totalElements:
+          type: integer
+          description: Total number of elements
+          format: int64
+          example: 25
+      description: Page token representation for search result
+    ApiError:
+      required:
+        - detail
+        - title
+        - type
+        - uuid
+      type: object
+      properties:
+        uuid:
+          type: string
+          description: Error id in UUID format
+          format: uuid
+        type:
+          type: string
+          description: Error type
+          enum:
+            - validation
+            - not_found
+            - method_not_allowed
+            - conflict
+            - payload_too_large
+            - unsupported_media_type
+            - message_not_readable
+            - internal_server_error
+            - request_not_recognised
+            - forbidden
+            - bad_gateway
+            - payment_required
+            - unauthorized
+            - unknown
+        title:
+          type: string
+          description: Error title
+        detail:
+          type: string
+          description: Error additional details
+      description: Api error data
+    InvalidInputApiError:
+      required:
+        - detail
+        - invalidFields
+        - title
+        - type
+        - uuid
+      type: object
+      properties:
+        uuid:
+          type: string
+          description: Error id in UUID format
+          format: uuid
+        type:
+          type: string
+          description: Error type
+          enum:
+            - validation
+            - not_found
+            - method_not_allowed
+            - conflict
+            - payload_too_large
+            - unsupported_media_type
+            - message_not_readable
+            - internal_server_error
+            - request_not_recognised
+            - forbidden
+            - bad_gateway
+            - payment_required
+            - unauthorized
+            - unknown
+        title:
+          type: string
+          description: Error title
+        detail:
+          type: string
+          description: Error additional details
+        invalidFields:
+          type: array
+          description: List of invalid fields
+          items:
+            $ref: '#/components/schemas/InvalidInputField'
+      description: Invalid input error data
+    InvalidInputField:
+      required:
+        - code
+        - name
+        - reason
+      type: object
+      properties:
+        name:
+          type: string
+          description: Invalid input field name
+        channelType:
+          type: string
+          description: Invalid channel type
+          enum:
+            - PHONE
+            - WHATSAPP
+            - GBM
+            - INSTAGRAM
+            - FACEBOOK
+            - EMAIL
+        code:
+          type: string
+          description: Invalid input value code
+          enum:
+            - must_not_be_empty
+            - must_be_empty
+            - must_not_be_null
+            - invalid_length
+            - duplicated_value
+            - invalid_format
+            - type_mismatch
+            - missing_parameter
+            - invalid_reference
+            - incorrect_operation
+            - no_such_pattern
+            - constraint_violation
+        reason:
+          type: string
+          description: Error message
+        invalidIds:
+          type: array
+          items:
+            type: string
+      description: Invalid input field
+  responses:
+    BadRequest:
+      description: Request has incorrect values
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InvalidInputApiError'
+    Unauthorized:
+      description: No valid authentication details were provided
+    Forbidden:
+      description: The authenticated user or account doesn't have permission
+    NotFound:
+      description: The specified resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiError'
+    PayloadTooLarge:
+      description: Maximum upload size exceeded
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiError'
+    UnsupportedMediaType:
+      description: Unsupported media type
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiError'
+    InternalServerError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiError'
+    RequestNotRecognised:
+      description: Request not recognised
+    BadGateway:
+      description: Invalid server response
+    ServerUnavailable:
+      description: Server currently unavailable
+    GatewayTimeout:
+      description: Gateway time out
+    PaymentRequired:
+      description: Current user does not have permissions to perform the requested operation
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiError'
+    Conflict:
+      description: Conflict. The entity already exists.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiError'
   headers:
     ExpiresAfter:
       description: date in UTC when token expires
