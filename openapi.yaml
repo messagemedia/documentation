@@ -589,6 +589,13 @@ tags:
       | ![](Https://developers.messagemedia.com/wp-content/templates/Template1.png) | 7614456e-844f-4d83-bdfe-20c17ce0f97c |
       | ![](Https://developers.messagemedia.com/wp-content/templates/Template2.png) | f56b5806-f732-4693-b87a-90b66a7d7bfc |
       |![](Https://developers.messagemedia.com/wp-content/templates/template3.png) | c9d7ce1d-20c4-4228-9ba1-6da2a3b4e5e0 |
+  - name: Contacts
+    description: |
+      The API provides access to two main resources:
+
+        * **Contacts**: Data associated with the individuals you need to contact.
+        * **Lists**: Groups of contacts created for specific purposes.
+        * **Custom Fields**: Additional fields that can be tailored to complement the basic contact fields.
 servers:
   - url: 'https://api.messagemedia.com/'
 paths:
@@ -5437,6 +5444,796 @@ paths:
         '402':
           description: 'Account is not postpaid, or does not have Mobile Landing Pages Enabled.'
       deprecated: false
+  /api/v1/contacts/contacts:
+    post:
+      security:
+        - basic_auth: []
+        - hmac_auth: []
+      tags:
+        - Contacts
+      summary: Create a contact
+      operationId: createContact
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateContactRequest'
+        required: true
+      responses:
+        '201':
+          description: Contact is created
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ContactData'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '501':
+          $ref: '#/components/responses/RequestNotRecognised'
+        '502':
+          $ref: '#/components/responses/BadGateway'
+        '503':
+          $ref: '#/components/responses/ServerUnavailable'
+        '504':
+          $ref: '#/components/responses/GatewayTimeout'
+    get:
+      security:
+        - basic_auth: []
+        - hmac_auth: []
+      tags:
+        - Contacts
+      summary: Get contacts page
+      operationId: getContactsPage
+      parameters:
+        - name: request
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/GetContactsRequest'
+      responses:
+        '200':
+          description: Returns a contacts page
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PageTokenDtoContactData'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '501':
+          $ref: '#/components/responses/RequestNotRecognised'
+        '502':
+          $ref: '#/components/responses/BadGateway'
+        '503':
+          $ref: '#/components/responses/ServerUnavailable'
+        '504':
+          $ref: '#/components/responses/GatewayTimeout'
+  '/api/v1/contacts/contacts/{contactId}':
+    get:
+      security:
+        - basic_auth: []
+        - hmac_auth: []
+      tags:
+        - Contacts
+      summary: Get a single contact
+      operationId: getContactById
+      parameters:
+        - name: contactId
+          in: path
+          description: Contact id in UUID format
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Returns a single contact
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ContactData'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '501':
+          $ref: '#/components/responses/RequestNotRecognised'
+        '502':
+          $ref: '#/components/responses/BadGateway'
+        '503':
+          $ref: '#/components/responses/ServerUnavailable'
+        '504':
+          $ref: '#/components/responses/GatewayTimeout'
+    delete:
+      security:
+        - basic_auth: []
+        - hmac_auth: []
+      tags:
+        - Contacts
+      summary: Delete a contact
+      operationId: deleteContactById
+      parameters:
+        - name: contactId
+          in: path
+          description: Contact id in UUID format
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Contact is deleted
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '501':
+          $ref: '#/components/responses/RequestNotRecognised'
+        '502':
+          $ref: '#/components/responses/BadGateway'
+        '503':
+          $ref: '#/components/responses/ServerUnavailable'
+        '504':
+          $ref: '#/components/responses/GatewayTimeout'
+    patch:
+      security:
+        - basic_auth: []
+        - hmac_auth: []
+      tags:
+        - Contacts
+      summary: Update a contact
+      operationId: updateContact
+      parameters:
+        - name: contactId
+          in: path
+          description: Contact id in UUID format
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateContactRequest'
+        required: true
+      responses:
+        '200':
+          description: Contact is updated
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ContactData'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '501':
+          $ref: '#/components/responses/RequestNotRecognised'
+        '502':
+          $ref: '#/components/responses/BadGateway'
+        '503':
+          $ref: '#/components/responses/ServerUnavailable'
+        '504':
+          $ref: '#/components/responses/GatewayTimeout'
+  /api/v1/contacts/lists:
+    post:
+      security:
+        - basic_auth: []
+        - hmac_auth: []
+      tags:
+        - Contacts
+      summary: Create a contact list
+      operationId: createContactList
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateListRequest'
+        required: true
+      responses:
+        '201':
+          description: Contact list is created
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ListData'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '501':
+          $ref: '#/components/responses/RequestNotRecognised'
+        '502':
+          $ref: '#/components/responses/BadGateway'
+        '503':
+          $ref: '#/components/responses/ServerUnavailable'
+        '504':
+          $ref: '#/components/responses/GatewayTimeout'
+    get:
+      security:
+        - basic_auth: []
+        - hmac_auth: []
+      tags:
+        - Contacts
+      summary: Get contact lists page
+      operationId: getContactListsPage
+      parameters:
+        - name: request
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/GetListsRequest'
+      responses:
+        '200':
+          description: Returns a contact lists page
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PageTokenDtoListData'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '501':
+          $ref: '#/components/responses/RequestNotRecognised'
+        '502':
+          $ref: '#/components/responses/BadGateway'
+        '503':
+          $ref: '#/components/responses/ServerUnavailable'
+        '504':
+          $ref: '#/components/responses/GatewayTimeout'
+  '/api/v1/contacts/lists/{listId}':
+    get:
+      security:
+        - basic_auth: []
+        - hmac_auth: []
+      tags:
+        - Contacts
+      summary: Get a single contact list
+      operationId: getContactListById
+      parameters:
+        - name: listId
+          in: path
+          description: Contact list id in UUID format
+          required: true
+          schema:
+            type: string
+            format: uuid
+          example: 025e93d3-051b-43f9-b12e-4b5842228dee
+      responses:
+        '200':
+          description: Returns a single contact list
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ListData'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '501':
+          $ref: '#/components/responses/RequestNotRecognised'
+        '502':
+          $ref: '#/components/responses/BadGateway'
+        '503':
+          $ref: '#/components/responses/ServerUnavailable'
+        '504':
+          $ref: '#/components/responses/GatewayTimeout'
+    delete:
+      security:
+        - basic_auth: []
+        - hmac_auth: []
+      tags:
+        - Contacts
+      summary: Delete a contact list
+      operationId: deleteContactListById
+      parameters:
+        - name: listId
+          in: path
+          description: Contact list id in UUID format
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Contact list is deleted
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '501':
+          $ref: '#/components/responses/RequestNotRecognised'
+        '502':
+          $ref: '#/components/responses/BadGateway'
+        '503':
+          $ref: '#/components/responses/ServerUnavailable'
+        '504':
+          $ref: '#/components/responses/GatewayTimeout'
+    patch:
+      security:
+        - basic_auth: []
+        - hmac_auth: []
+      tags:
+        - Contacts
+      summary: Update a contact list
+      operationId: updateContactList
+      parameters:
+        - name: listId
+          in: path
+          description: Contact list id in UUID format
+          required: true
+          schema:
+            type: string
+            format: uuid
+          example: 025e93d3-051b-43f9-b12e-4b5842228dee
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateListRequest'
+        required: true
+      responses:
+        '200':
+          description: List is updated
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ListData'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '501':
+          $ref: '#/components/responses/RequestNotRecognised'
+        '502':
+          $ref: '#/components/responses/BadGateway'
+        '503':
+          $ref: '#/components/responses/ServerUnavailable'
+        '504':
+          $ref: '#/components/responses/GatewayTimeout'
+  '/api/v1/contacts/lists/{listId}/contacts':
+    patch:
+      security:
+        - basic_auth: []
+        - hmac_auth: []
+      tags:
+        - Contacts
+      summary: Add or remove multiple contacts to/from a list
+      operationId: modifyContactsInContactList
+      parameters:
+        - name: listId
+          in: path
+          description: Contact list id in UUID format
+          required: true
+          schema:
+            type: string
+            format: uuid
+          example: 025e93d3-051b-43f9-b12e-4b5842228dee
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateContactsListRequest'
+        required: true
+      responses:
+        '200':
+          description: Contacts added/removed to/from list
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ListData'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '501':
+          $ref: '#/components/responses/RequestNotRecognised'
+        '502':
+          $ref: '#/components/responses/BadGateway'
+        '503':
+          $ref: '#/components/responses/ServerUnavailable'
+        '504':
+          $ref: '#/components/responses/GatewayTimeout'
+  '/api/v1/contacts/lists/{listId}/contacts/{contactId}':
+    post:
+      security:
+        - basic_auth: []
+        - hmac_auth: []
+      tags:
+        - Contacts
+      summary: Add contact to a list
+      operationId: addContactToContactList
+      parameters:
+        - name: listId
+          in: path
+          description: Contact list id in UUID format
+          required: true
+          schema:
+            type: string
+            format: uuid
+          example: 025e93d3-051b-43f9-b12e-4b5842228dee
+        - name: contactId
+          in: path
+          description: Contact id to remove in UUID format
+          required: true
+          schema:
+            type: string
+            format: uuid
+          example: 4a03d2d8-1f85-463f-bdb4-2891c17258a7
+      responses:
+        '200':
+          description: Contacts have been added
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ListData'
+        '201':
+          description: Created
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ListData'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '501':
+          $ref: '#/components/responses/RequestNotRecognised'
+        '502':
+          $ref: '#/components/responses/BadGateway'
+        '503':
+          $ref: '#/components/responses/ServerUnavailable'
+        '504':
+          $ref: '#/components/responses/GatewayTimeout'
+    delete:
+      security:
+        - basic_auth: []
+        - hmac_auth: []
+      tags:
+        - Contacts
+      summary: Remove contact from the contact list
+      operationId: removeContactFromContactList
+      parameters:
+        - name: listId
+          in: path
+          description: Contact list id in UUID format
+          required: true
+          schema:
+            type: string
+            format: uuid
+          example: 025e93d3-051b-43f9-b12e-4b5842228dee
+        - name: contactId
+          in: path
+          description: Contact id to add in UUID format
+          required: true
+          schema:
+            type: string
+            format: uuid
+          example: 4a03d2d8-1f85-463f-bdb4-2891c17258a7
+      responses:
+        '204':
+          description: No Content
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '501':
+          $ref: '#/components/responses/RequestNotRecognised'
+        '502':
+          $ref: '#/components/responses/BadGateway'
+        '503':
+          $ref: '#/components/responses/ServerUnavailable'
+        '504':
+          $ref: '#/components/responses/GatewayTimeout'
+  /api/v1/contacts/custom-fields:
+    post:
+      security:
+        - basic_auth: []
+        - hmac_auth: []
+      tags:
+        - Contacts
+      summary: Create a custom field
+      operationId: createCustomField
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomFieldCreateRequest'
+        required: true
+      responses:
+        '201':
+          description: Custom field is created
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CustomFieldData'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '501':
+          $ref: '#/components/responses/RequestNotRecognised'
+        '502':
+          $ref: '#/components/responses/BadGateway'
+        '503':
+          $ref: '#/components/responses/ServerUnavailable'
+        '504':
+          $ref: '#/components/responses/GatewayTimeout'
+    get:
+      security:
+        - basic_auth: []
+        - hmac_auth: []
+      tags:
+        - Contacts
+      summary: Get custom fields page
+      operationId: getCustomFieldsPage
+      parameters:
+        - name: request
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/GetCustomFieldsRequest'
+      responses:
+        '200':
+          description: Returns a custom fields page
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PageTokenDtoCustomFieldData'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '501':
+          $ref: '#/components/responses/RequestNotRecognised'
+        '502':
+          $ref: '#/components/responses/BadGateway'
+        '503':
+          $ref: '#/components/responses/ServerUnavailable'
+        '504':
+          $ref: '#/components/responses/GatewayTimeout'
+  '/api/v1/contacts/custom-fields/{customFieldId}':
+    get:
+      security:
+        - basic_auth: []
+        - hmac_auth: []
+      tags:
+        - Contacts
+      summary: Get a single custom field
+      operationId: getCustomFieldById
+      parameters:
+        - name: customFieldId
+          in: path
+          description: Custom field id in UUID format
+          required: true
+          schema:
+            type: string
+            format: uuid
+          example: 025e93d3-051b-43f9-b12e-4b5842228dee
+      responses:
+        '200':
+          description: Returns a single custom field
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CustomFieldData'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '501':
+          $ref: '#/components/responses/RequestNotRecognised'
+        '502':
+          $ref: '#/components/responses/BadGateway'
+        '503':
+          $ref: '#/components/responses/ServerUnavailable'
+        '504':
+          $ref: '#/components/responses/GatewayTimeout'
+    delete:
+      security:
+        - basic_auth: []
+        - hmac_auth: []
+      tags:
+        - Contacts
+      summary: Delete a custom field
+      operationId: deleteCustomFieldById
+      parameters:
+        - name: customFieldId
+          in: path
+          description: Custom field id in UUID format
+          required: true
+          schema:
+            type: string
+            format: uuid
+          example: 025e93d3-051b-43f9-b12e-4b5842228dee
+      responses:
+        '204':
+          description: Custom field is deleted
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '501':
+          $ref: '#/components/responses/RequestNotRecognised'
+        '502':
+          $ref: '#/components/responses/BadGateway'
+        '503':
+          $ref: '#/components/responses/ServerUnavailable'
+        '504':
+          $ref: '#/components/responses/GatewayTimeout'
+    patch:
+      security:
+        - basic_auth: []
+        - hmac_auth: []
+      tags:
+        - Contacts
+      summary: Update a custom field
+      operationId: updateCustomField
+      parameters:
+        - name: customFieldId
+          in: path
+          description: Custom field id in UUID format
+          required: true
+          schema:
+            type: string
+            format: uuid
+          example: 025e93d3-051b-43f9-b12e-4b5842228dee
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateCustomFieldRequest'
+        required: true
+      responses:
+        '200':
+          description: Custom field is updated
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CustomFieldData'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '501':
+          $ref: '#/components/responses/RequestNotRecognised'
+        '502':
+          $ref: '#/components/responses/BadGateway'
+        '503':
+          $ref: '#/components/responses/ServerUnavailable'
+        '504':
+          $ref: '#/components/responses/GatewayTimeout'
 components:
   schemas:
     metakeyresponse:
@@ -7217,6 +8014,45 @@ components:
       type: string
       description: 'Filter results by message format, using enumerable MessageType.'
       example: SMS
+    Lookupaphonenumberresponse:
+      title: Lookupaphonenumberresponse
+      required:
+        - country_code
+        - phone_number
+        - type
+        - carrier
+        - result
+        - imsi
+        - location
+      type: object
+      properties:
+        country_code:
+          type: string
+        phone_number:
+          type: string
+        type:
+          type: string
+        carrier:
+          $ref: '#/components/schemas/Carrier'
+        result:
+          type: string
+          example: '"OK"'
+        imsi:
+          type: integer
+          description: A unique number identifying a GSM subscriber
+          format: int64
+          example: 24008
+        location:
+          type: integer
+          description: The location of the mobile number
+          format: int32
+          example: 46
+      example:
+        country_code: AU
+        phone_number: 61491570156
+        type: mobile
+        carrier:
+          name: Telstra
     Carrier:
       title: Carrier
       required:
@@ -7225,6 +8061,16 @@ components:
       properties:
         name:
           type: string
+    Lookupaphonenumber404response:
+      title: Lookupaphonenumber404response
+      required:
+        - message
+      type: object
+      properties:
+        message:
+          type: string
+      example:
+        message: The number could not be found or is invalid.
     deliveryOptionsBody:
       title: deliveryOptionsBody
       type: object
