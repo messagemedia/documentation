@@ -13048,7 +13048,7 @@
             "items": {
               "type": "string",
               "enum": [
-                "PHONE",
+                "SMS",
                 "WHATSAPP",
                 "GBM",
                 "INSTAGRAM",
