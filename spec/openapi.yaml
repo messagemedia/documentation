@@ -9708,6 +9708,17 @@ components:
             - SUBSCRIBED
             - UNSUBSCRIBED
       description: Contact channel create payload
+    CreateContactListRequest:
+      required:
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: List id in UUID format
+          format: uuid
+          example: 025e93d3-051b-43f9-b12e-4b5842228dee
+      description: Contact creation list payload
     CreateContactRequest:
       required:
         - channels
@@ -9757,7 +9768,7 @@ components:
           type: array
           description: Contact lists
           items:
-            $ref: '#/components/schemas/CreateListRequest'
+            $ref: '#/components/schemas/CreateContactListRequest'
         customFields:
           type: array
           description: Contact custom fields
@@ -10081,7 +10092,7 @@ components:
           type: array
           description: Contact lists
           items:
-            $ref: '#/components/schemas/UpdateListRequest'
+            $ref: '#/components/schemas/CreateContactListRequest'
         customFields:
           type: array
           description: Contact custom fields
