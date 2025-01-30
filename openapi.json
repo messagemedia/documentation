@@ -12388,7 +12388,7 @@
           "type": {
             "type": "string",
             "description": "Contact channel type",
-            "example": "PHONE",
+            "example": "SMS",
             "enum": [
               "SMS",
               "WHATSAPP",
@@ -12517,7 +12517,7 @@
           "type": {
             "type": "string",
             "description": "Contact channel type",
-            "example": "PHONE",
+            "example": "SMS",
             "enum": [
               "SMS",
               "WHATSAPP",
@@ -12797,7 +12797,7 @@
           "type": {
             "type": "string",
             "description": "Contact channel type",
-            "example": "PHONE",
+            "example": "SMS",
             "enum": [
               "SMS",
               "WHATSAPP",

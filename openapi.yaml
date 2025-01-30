@@ -10093,7 +10093,7 @@ components:
         type:
           type: string
           description: Contact channel type
-          example: PHONE
+          example: SMS
           enum:
             - SMS
             - WHATSAPP
@@ -10192,7 +10192,7 @@ components:
         type:
           type: string
           description: Contact channel type
-          example: PHONE
+          example: SMS
           enum:
             - SMS
             - WHATSAPP
@@ -10413,7 +10413,7 @@ components:
         type:
           type: string
           description: Contact channel type
-          example: PHONE
+          example: SMS
           enum:
             - SMS
             - WHATSAPP
