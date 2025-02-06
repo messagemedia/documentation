@@ -9696,10 +9696,6 @@ components:
           enum:
             - SMS
             - WHATSAPP
-            - GBM
-            - INSTAGRAM
-            - FACEBOOK
-            - EMAIL
         subscriptionState:
           type: string
           description: Subscription state
@@ -9810,10 +9806,6 @@ components:
           enum:
             - SMS
             - WHATSAPP
-            - GBM
-            - INSTAGRAM
-            - FACEBOOK
-            - EMAIL
         subscriptionState:
           type: string
           description: Subscription state
@@ -10033,10 +10025,6 @@ components:
           enum:
             - SMS
             - WHATSAPP
-            - GBM
-            - INSTAGRAM
-            - FACEBOOK
-            - EMAIL
         subscriptionState:
           type: string
           description: Subscription state
