@@ -10093,14 +10093,10 @@ components:
         type:
           type: string
           description: Contact channel type
-          example: PHONE
+          example: SMS
           enum:
             - SMS
             - WHATSAPP
-            - GBM
-            - INSTAGRAM
-            - FACEBOOK
-            - EMAIL
         subscriptionState:
           type: string
           description: Subscription state
@@ -10203,7 +10199,7 @@ components:
         type:
           type: string
           description: Contact channel type
-          example: PHONE
+          example: SMS
           enum:
             - SMS
             - WHATSAPP
@@ -10424,14 +10420,10 @@ components:
         type:
           type: string
           description: Contact channel type
-          example: PHONE
+          example: SMS
           enum:
             - SMS
             - WHATSAPP
-            - GBM
-            - INSTAGRAM
-            - FACEBOOK
-            - EMAIL
         subscriptionState:
           type: string
           description: Subscription state
@@ -10610,7 +10602,7 @@ components:
           items:
             type: string
             enum:
-              - PHONE
+              - SMS
               - WHATSAPP
               - GBM
               - INSTAGRAM

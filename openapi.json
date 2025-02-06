@@ -12388,14 +12388,10 @@
           "type": {
             "type": "string",
             "description": "Contact channel type",
-            "example": "PHONE",
+            "example": "SMS",
             "enum": [
               "SMS",
-              "WHATSAPP",
-              "GBM",
-              "INSTAGRAM",
-              "FACEBOOK",
-              "EMAIL"
+              "WHATSAPP"
             ]
           },
           "subscriptionState": {
@@ -12532,7 +12528,7 @@
           "type": {
             "type": "string",
             "description": "Contact channel type",
-            "example": "PHONE",
+            "example": "SMS",
             "enum": [
               "SMS",
               "WHATSAPP",
@@ -12812,14 +12808,10 @@
           "type": {
             "type": "string",
             "description": "Contact channel type",
-            "example": "PHONE",
+            "example": "SMS",
             "enum": [
               "SMS",
-              "WHATSAPP",
-              "GBM",
-              "INSTAGRAM",
-              "FACEBOOK",
-              "EMAIL"
+              "WHATSAPP"
             ]
           },
           "subscriptionState": {
@@ -13063,7 +13055,7 @@
             "items": {
               "type": "string",
               "enum": [
-                "PHONE",
+                "SMS",
                 "WHATSAPP",
                 "GBM",
                 "INSTAGRAM",
