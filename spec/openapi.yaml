@@ -1694,7 +1694,7 @@ paths:
         To reverify an OWN_NUMBER Sender Address:
           1. Retrieve the UUID for the OWN_NUMBER using the **Get all approved sender addresses** endpoint
           2. Make a request to this endpoint to trigger the 2FA check
-          3. Make a PATCH request to the **Submit verification code endpoint**, providing the new 2FA code in the body of the request
+          3. Make a POST request to the **Submit verification code endpoint**, providing the new 2FA code in the body of the request
       operationId: reVerifySenderAddressUsingPOST
       security:
         - basic_auth: [ ]
