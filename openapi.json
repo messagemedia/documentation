@@ -2,16 +2,20 @@
   "openapi": "3.0.0",
   "info": {
     "version": "2.1.0",
-    "title": "Sinch",
+    "title": "MessageMedia",
     "termsOfService": "https://messagemedia.com/au/legal/terms-of-service/",
+    "contact": {
+      "email": "developers@messagemedia.com",
+      "url": "https://developers.messagemedia.com/collaborate/slack/"
+    },
     "license": {
       "name": "Apache 2.0",
       "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
     },
     "x-logo": {
-      "url": "https://cdn-assets-eu.frontify.com/s3/frontify-enterprise-files-eu/eyJwYXRoIjoic2luY2hcL2ZpbGVcL0xYSFMxOTZQSlJpbjJLdFcxclc1LnBuZyJ9:sinch:G873APD1uAA-wfyymEBENuKEj4S5FAt8gk6_fSrqIbM?width=2400"
+      "url": "https://messagemedia.com/wp-content/themes/MessageMedia%20Theme/images/logo-mm-sinch.svg"
     },
-    "description": "# Introduction\nThe Sinch APIs provide powerful business messaging capabilities across sending, receiving, and processing SMS, MMS, and rich messaging. \n\nAll requests to the Sinch REST API must be authenticated, this can either be done using Basic Authentication or by signing with a HMAC signature.\n\n\n\n# Base URI\n  \nThe API uses the following base URI\n\nFor EU instance please use https://eu.app.api.sinch.com\n\nFor APAC instance, use https://api.messagemedia.com\n\n# Credentials\n  \nTo access the API, an API key and secret are required.\n  \n[Sign up for a developer account here to get access](https://developers.messagemedia.com/register/)\n\n# Features\n###  De-Duplication \nDe-Duplication helps you avoid having to undertake data cleansing before commencing send outs.  \nIt automatically detects and withholds messages deemed to be duplicates through the use of a 24-hour window – if a message is sent to the same number with the same content within a 24hr period, the subsequent message(s) will be withheld and rejected. To enable this, you don't need to make any changes to your application, just an account configuration change by Sinch's support team.\n\n###  Social Sending \nSocial Sending permits messages to be sent only during sociable hours - i.e. 8am to 6pm (based on your accounts local time zone - not local time). \nMessages sent outside of these hours are scheduled to be released during the next social time period. This feature helps businesses avoid send-outs during a time that would be deemed unsuitable by the customer. To enable this, you don't need to make any changes to your application, just an account configuration change by Sinch's support team.\n\n###  Familiar Sender\nFamiliar Sender ensures all communication sent to a customer are from the same phone number. \nThis allows businesses to build trust and familiarity with their customers and not confuse them by changing outgoing numbers. To enable this, you don't need to make any changes to your application, just an account configuration change by Sinch's support team.\n\n### Character Converter\nCharacters in a message may not always fall within the GSM-7 supported characterset, and when this occurs all \noutbound messages will be encoded using UCS-2 leading to the customer being double-charged for the SMS. Character Converter \ncan help you avoid being double-charged for your SMS by converting all characters into the GSM-7 format ensuring you always \nget the maximum characters into an SMS. Bear in my mind, this will downgrade all your unicode characters so for instance, \nyour emojis will be translated into a string of unknown characters (eg: �).  To enable this, you don't need to make any \nchanges to your application, just an account configuration change by Sinch's support team.\n"
+    "description": "# Introduction\nThe MessageMedia APIs provide powerful business messaging capabilities across sending, receiving, and processing SMS, MMS, and rich messaging. \n\nAll requests to the MessageMedia REST API must be authenticated, this can either be done using Basic Authentication or by signing with a HMAC signature.\n\n*Note: MMS and TTS are only available in the APAC region.*\n\n\n# Base URI\n  \nThe API uses the following base URI\n\nFor EU instance please use https://eu.app.api.sinch.com\n\nFor APAC instance, use https://api.messagemedia.com\n\n# Credentials\n  \nTo access the API, an API key and secret are required.\n  \n[Sign up for a developer account here to get access](https://developers.messagemedia.com/register/): https://developers.messagemedia.com/register/.\n\n# Features\n###  De-Duplication \nDe-Duplication helps you avoid having to undertake data cleansing before commencing send outs.  \nIt automatically detects and withholds messages deemed to be duplicates through the use of a 24-hour window – if a message is sent to the same number with the same content within a 24hr period, the subsequent message(s) will be withheld and rejected. To enable this, you don't need to make any changes to your application, just an account configuration change by MessageMedia's support team.\n\n###  Social Sending \nSocial Sending permits messages to be sent only during sociable hours - i.e. 8am to 6pm (based on your accounts local time zone - not local time). \nMessages sent outside of these hours are scheduled to be released during the next social time period. This feature helps businesses avoid send-outs during a time that would be deemed unsuitable by the customer. To enable this, you don't need to make any changes to your application, just an account configuration change by MessageMedia's support team.\n\n###  Familiar Sender\nFamiliar Sender ensures all communication sent to a customer are from the same phone number. \nThis allows businesses to build trust and familiarity with their customers and not confuse them by changing outgoing numbers. To enable this, you don't need to make any changes to your application, just an account configuration change by MessageMedia's support team.\n\n### Character Converter\nCharacters in a message may not always fall within the GSM-7 supported characterset, and when this occurs all \noutbound messages will be encoded using UCS-2 leading to the customer being double-charged for the SMS. Character Converter \ncan help you avoid being double-charged for your SMS by converting all characters into the GSM-7 format ensuring you always \nget the maximum characters into an SMS. Bear in my mind, this will downgrade all your unicode characters so for instance, \nyour emojis will be translated into a string of unknown characters (eg: �).  To enable this, you don't need to make any \nchanges to your application, just an account configuration change by MessageMedia's support team.\n"
   },
   "tags": [
     {
@@ -32,51 +36,55 @@
     },
     {
       "name": "Messages",
-      "description": "The Sinch Messages API provides a number of endpoints for building powerful two-way messaging applications. The Messages API provides access to three main resources:\n* Messages - Messages delivered from an application to a handset.\n* Delivery Reports - Real time reports on the delivery status of a message. As a message is processed, it's status may change several times before it is finally delivered to a handset.\n* Replies - Messages sent from a handset to an application. These messages are typically a reply to a previously sent message.\n![Message Flow](https://i.imgur.com/jJeHwf5.png)"
+      "description": "The MessageMedia Messages API provides a number of endpoints for building powerful two-way messaging applications. The Messages API provides access to three main resources:\n* Messages - Messages delivered from an application to a handset.\n* Delivery Reports - Real time reports on the delivery status of a message. As a message is processed, it's status may change several times before it is finally delivered to a handset.\n* Replies - Messages sent from a handset to an application. These messages are typically a reply to a previously sent message.\n![Message Flow](https://i.imgur.com/jJeHwf5.png)"
     },
     {
       "name": "Source Address",
-      "description": "The source address API provides several endpoints for you to request an SMS sender ID and track its approval status.\n\n**What is Trusted Sender ID?**\n\nSimply put, a sender ID is whatever you send a text message from. This is typically either a phone number, or a string of alphanumeric characters (commonly referred to as an “Alpha Tag”).\n\nWith regulations surrounding SMS becoming much stricter all over the world in an effect to combat scam SMS messages, Sinch is working on “Trusted Sender ID” a concept that allows customers to request a Sender ID and have it verified.\n\nCurrently, Trusted Sender ID supports two types of Sender ID: Alpha Tags and Personal (“Own”) Numbers. It will likely be extended to support additional number types, such as TFN and 10DLC where additional registration, (external) verification, and overall account whitelist of numbers will be required.\n\n### Alpha Tag\n  Sending messages from your brand name is particularly ideal for SMS marketing and two-factor authentication, as it increases recognition and trust. There are, however, a few considerations to be aware of. \n  \n  Alpha tags are made up of 3-11 letters and/or numbers. Alpha tags must be registered and approved before sending and must have clear relevancy to your business and/or use case.\n  \n  Alpha Tags appear as the “From” number when you receive messages.\n  \n  A good alpha tag meets at least one of the following valid use cases: \n  * Business names\n  * Trademark names    \n  * Product or service name\n  * an acronym, initialism, or contraction of your entity\n  \n  In addition to the requirements around clearly relating to the business, we typically advise the following for alpha tags to ensure maximum compatibility with the various carriers:\n  * 6-11 characters long\n  * Only contains characters from the following sets:\n  * A-Z\n  * a-z\n  * 0-9\n  * _ (underscore)\n  * \\- (hyphen)\n  \n  Alpha Tags can currently be registered through the Source Address API for the following countries: ```AD```, ```AI```, ```AL```, ```AS```, ```AT```, ```AU```, ```AW```, ```BA```, ```BB```, ```BH```, ```BW```, ```CD```, ```CH```, ```CK```, ```CY```, ```DE```, ```DJ```, ```DK```, ```DM```, ```EE```, ```ES```, ```FI```, ```FJ```, ```FM```, ```FO```, ```FR```, ```GB```, ```GD```, ```GG```, ```GI```, ```GL```, ```GM```, ```GQ```, ```GR```, ```GY```, ```IL```, ```IM```, ```IS```, ```JE```, ```JM```, ```JP```, ```KI```, ```KY```, ```LA```, ```LI```, ```LS```, ```LT```, ```LU```, ```LV```, ```MC```, ```ME```, ```MH```, ```MO```, ```MR```, ```MS```, ```MT```, ```MV```, ```NC```, ```NF```, ```NL```, ```NO```, ```NR```, ```NU```, ```PF```, ```PM```, ```PT```, ```SB```, ```SC```, ```SE```, ```SH```, ```SL```, ```SM```, ```ST```, ```TC```, ```TD```, ```TO```, ```VC```, ```VG``` and ```WS```\n  \n  To register an Alpha Tag as a sender ID you must:\n  1. Make a request to the **Request a Sender Address** endpoint\n  2. Wait for the alpha tag to be approved. The status of the alpha tag can be monitored using the **Get status of a sender address request** endpoint\n  \n  Once the alpha tag has been approved, you can begin using it as a Sender ID for SMS messages.\n\n  ### Personal Number\n  A personal number, or “My Own Number”, is a number that you own rather than one provided to you by Sinch. Typically, this is your personal mobile phone number. You may wish to register this number for use with our service so that you can easily send messages from a number already associated with your organisation.\n  \n  Before you can send messages using your own number, you need to verify that you have a right to use that number. Ensuring you have a right to use a phone number is an important regulatory requirement, aiming to prevent scam, spam, and misuse of messaging services.\n\n  Personal numbers can currently be registered through the Source Address API for the following countries: ```AT```, ```AU```, ```CH```, ```CY```, ```DE```, ```DK```, ```EE```, ```ES```, ```FI```, ```GB```, ```HR```, ```IE```, ```IT```, ```LT```, ```LU```, ```LV```, ```MT```, ```NL```, ```NO```, ```PT```, ```SE```, and ```SI```\n\n  To register a personal number as a Sender ID you must:\n  1. Make a request to the **Request a Sender Address** endpoint\n  2. A unique verification code will be sent to the requested number\n  3. Make a request to the **Submitting a Verification Code** endpoint, using the verification code that was sent in the previous step. A 200 OK response will indicate the number has been verified and is ready for use.\n\n  ⚠️ Own numbers need to be re-verified every 12 months. You will be notified by email that verification of your number is about to expire.\n\n  ### Requesting a Source Address on behalf of a sub-account\n  By default, all requests made through the API are made on behalf of the account that the API keys used to authorize the request were made on. API keys created on a parent account can request a source address on behalf of a sub-account. To do this, include a header key ```Account``` with the sub-account ID as the value. For example: \n  ```Account: mySubAccount```\n\n  **Example request with Request a Sender Address from a sub-account**\n  ```plain\n  POST /v1/messaging/numbers/sender_address/requests HTTP/1.1\n  Host: api.messagemedia.com\n  Accept: application/json\n  Content-Type: application/json\n  Authorization: Basic dGhpc2lzYWtleTp0aGlzaXNhc2VjcmV0Zm9ybW1iYXNpY2F1dGhyZXN0YXBp\n  Account: mySubAccount\n  {\n    \"sender_address\": \"+61341234131\",\n    \"sender_address_type\": \"INTERNATIONAL\",\n    \"usage_type\": \"OWN_NUMBER\",\n    \"destination_countries\": [\n        \"AU\"\n    ],\n    \"reason\": \"I confirm that my business has a valid use case\",\n    \"label\": \"my number sample\"\n  } \n  ```\n  *Note: The use of the Account header key applies to all Source Address endpoints.*\n"
+      "description": "The source address API provides several endpoints for you to request an SMS sender ID and track its approval status.\n\n**What is Trusted Sender ID?**\n\nSimply put, a sender ID is whatever you send a text message from. This is typically either a phone number, or a string of alphanumeric characters (commonly referred to as an “Alpha Tag”).\n\nWith regulations surrounding SMS becoming much stricter all over the world in an effect to combat scam SMS messages, MessageMedia is working on “Trusted Sender ID” a concept that allows customers to request a Sender ID and have it verified.\n\nCurrently, Trusted Sender ID supports two types of Sender ID: Alpha Tags and Personal (“Own”) Numbers. It will likely be extended to support additional number types, such as TFN and 10DLC where additional registration, (external) verification, and overall account whitelist of numbers will be required.\n\n### Alpha Tag\n  Sending messages from your brand name is particularly ideal for SMS marketing and two-factor authentication, as it increases recognition and trust. There are, however, a few considerations to be aware of. \n  \n  Alpha tags are made up of 3-11 letters and/or numbers. Alpha tags must be registered and approved before sending and must have clear relevancy to your business and/or use case.\n  \n  Alpha Tags appear as the “From” number when you receive messages.\n  \n  A good alpha tag meets at least one of the following valid use cases: \n  * Business names\n  * Trademark names    \n  * Product or service name\n  * an acronym, initialism, or contraction of your entity\n  \n  In addition to the requirements around clearly relating to the business, we typically advise the following for alpha tags to ensure maximum compatibility with the various carriers:\n  * 6-11 characters long\n  * Only contains characters from the following sets:\n  * A-Z\n  * a-z\n  * 0-9\n  * _ (underscore)\n  * \\- (hyphen)\n  \n  Alpha Tags can currently be registered through the Source Address API for the following countries: ```AU```, ```GB```, ```ES```, ```DE``` and ```FR```\n  \n  To register an Alpha Tag as a sender ID you must:\n  1. Make a request to the **Request a Sender Address** endpoint\n  2. Wait for the alpha tag to be approved. The status of the alpha tag can be monitored using the **Get status of a sender address request** endpoint\n  \n  Once the alpha tag has been approved, you can begin using it as a Sender ID for SMS messages.\n\n  ### Personal Number\n  A personal number, or “My Own Number”, is a number that you own rather than one provided to you by Sinch MessageMedia. Typically, this is your personal mobile phone number. You may wish to register this number for use with our service so that you can easily send messages from a number already associated with your organisation.\n  \n  Before you can send messages using your own number, you need to verify that you have a right to use that number. Ensuring you have a right to use a phone number is an important regulatory requirement, aiming to prevent scam, spam, and misuse of messaging services.\n\n  Personal numbers can currently be registered through the Source Address API for the following countries: ```AT```, ```AU```, ```CH```, ```CY```, ```DE```, ```DK```, ```EE```, ```ES```, ```FI```, ```GB```, ```HR```, ```IE```, ```IT```, ```LT```, ```LU```, ```LV```, ```MT```, ```NL```, ```NO```, ```PT```, ```SE```, and ```SI```\n\n  To register a personal number as a Sender ID you must:\n  1. Make a request to the **Request a Sender Address** endpoint\n  2. A unique verification code will be sent to the requested number\n  3. Make a request to the **Submitting a Verification Code** endpoint, using the verification code that was sent in the previous step. A 200 OK response will indicate the number has been verified and is ready for use.\n\n  ⚠️ Own numbers need to be re-verified every 12 months. You will be notified by email that verification of your number is about to expire.\n\n  ### Requesting a Source Address on behalf of a sub-account\n  By default, all requests made through the API are made on behalf of the account that the API keys used to authorize the request were made on. API keys created on a parent account can request a source address on behalf of a sub-account. To do this, include a header key ```Account``` with the sub-account ID as the value. For example: \n  ```Account: mySubAccount```\n\n  **Example request with Request a Sender Address from a sub-account**\n  ```plain\n  POST /v1/messaging/numbers/sender_address/requests HTTP/1.1\n  Host: api.messagemedia.com\n  Accept: application/json\n  Content-Type: application/json\n  Authorization: Basic dGhpc2lzYWtleTp0aGlzaXNhc2VjcmV0Zm9ybW1iYXNpY2F1dGhyZXN0YXBp\n  Account: mySubAccount\n  {\n    \"sender_address\": \"+61341234131\",\n    \"sender_address_type\": \"INTERNATIONAL\",\n    \"usage_type\": \"OWN_NUMBER\",\n    \"destination_countries\": [\n        \"AU\"\n    ],\n    \"reason\": \"I confirm that my business has a valid use case\",\n    \"label\": \"my number sample\"\n  } \n  ```\n  *Note: The use of the Account header key applies to all Source Address endpoints.*\n"
     },
     {
       "name": "Delivery Reports",
-      "description": "If a callback URL is specified in the submit message request, then changes to the message status, \nreplies received in response to the message or delivery reports received for the message will be pushed via a HTTP POST request. An alternative to delivery reports via callbacks is custom webhooks using the webhooks management API. \n\nAll notifications are JSON encoded and the request expects to receive a response in the HTTP 200 range. If a valid response isn't received the request will be retried in an exponentially backing off fashion.\n\nDelivery Reports may carry an additional charge. For pricing, please contact your Account Manager or Support Team (support@app.sinch.com).\n\nFor delivery reports or changes in the status of a message, the POST request to the specified URL will be as follows:\n  \n  _Note, multiple delivery report notifications will be recieved for a single message._\n\n```json\n{\n  \"callback_url\":\"http://mockbin.org/bin/ac52ebd4-eca1-4c86-bf38-4dce79633906\",\n  \"delivery_report_id\":\"693e87f2-a553-4281-9ffe-ddf04cbc4bf3\",\n  \"source_number\":\"+61491570156\",\n  \"date_received\":\"2016-11-03T11:49:02.807Z\",\n  \"status\":\"delivered\",\n  \"delay\":0,\n  \"submitted_date\":\"2016-11-03T11:49:01.551Z\",\n  \"original_text\":\"Hello world!\",\n  \"message_id\":\"389dc1a8-62a4-4110-ba61-af94806c006f\",\n  \"vendor_account_id\":{\n    \"vendor_id\":\"MessageMedia\",\n    \"account_id\":\"MyAccount\"\n  },\n  \"error_code\":\"220\",\n  \"metadata\":{\n    \"key\":\"value\"\n  }\n}\n```\n\n\nThe properties included in the notification are as follows:\n\n* **Callback URL**: The URL specified as the callback URL in the original submit message request.\n\n* **Delivery Report ID**: A unique ID for the delivery report that this notification represents.\n\n* **Source Number**: The destination address of the original message.\n\n* **Date Received**: The date and time at which this notification was generated in UTC.\n\n* **Status**: The status of the message as indicated by this delivery report. The status field can be one of the following values:\n\n  * `enroute`: Message has been received by the gateway and is being processed (or waiting to be processed).\n\n  * `submitted`: Message has been submitted to a provider/carrier for delivery.\n\n  * `delivered`: Message delivery has been confirmed by the provider, including to the handset (where possible).\n\n  * `expired`: The message has expired.\n\n  * `rejected`: The message will not be delivered - permanent failure. Reasons may include usage limit exceeded, insufficient credit, number blocked, or content filtered\n\n  * `failed`: The message has failed. Reasons may include no active routes to destination or undeliverable by downstream provider.\n\n* **Delay**: _Deprecated, no longer in use_\n\n* **Submitted Date**: Date time status of the message changed in UTC. For a delivered DR this may indicate the time at which the message was received on the handset.\n\n* **Original Text**: Text of the original message.\n\n* **Message ID**: ID of the original message.\n\n* **Vendor Account ID**: The account used to submit the original message. The vendor will always be `SinchEU`\n\n* **Error Code**: A status code which provides additional information about the message status:\n\n  * `101`: Message being processed by the gateway.\n  \n  * `102`: Message is being rerouted to a different provider after failing via the first provider.\n  \n  * `151`: Message held for screening.\n  \n  * `200`: Message submitted to downstream provider for delivery.\n  \n  * `210`: Message accepted by downstream provider.\n  \n  * `211`: Message is enroute for delivery by provider.\n  \n  * `212`: Message submitted. Delivery pending.\n  \n  * `213`: Message scheduled for delivery by downstream provider.\n  \n  * `220`: Message delivered.\n  \n  * `221`: Message delivered to the handset.\n  \n  * `320`: Message validity period has expired (prior to submission).\n  \n  * `401`: Message validity period has expired (before delivery).\n  \n  * `301`: Usage threshold reached. Message discarded.\n  \n  * `302`: Destination address blocked. Message discarded.\n  \n  * `303`: Source address blocked. Message discarded.\n  \n  * `304`: Message dropped. Contact support.\n  \n  * `305`: Message discarded due to duplicate detection.\n  \n  * `402`: Message rejected by downstream provider.\n  \n  * `403`: Message skipped by downstream provider.\n  \n  * `410`: Invalid source address.\n  \n  * `411`: Invalid destination address.\n  \n  * `412`: Destination address blocked.\n  \n  * `413`: SMS service unavailable on destination.\n  \n  * `414`: Destination unreachable.\n  \n  * `330`: Gateway failure.\n  \n  * `331`: Message discarded.\n  \n  * `332`: No available route to destination.\n  \n  * `333`: Source address unsupported for this destination.\n  \n  * `400`: Message failed; undeliverable.\n  \n  * `405`: Message cancelled or deleted by provider.\n"
+      "description": "If a callback URL is specified in the submit message request, then changes to the message status, \nreplies received in response to the message or delivery reports received for the message will be pushed via a HTTP POST request. An alternative to delivery reports via callbacks is custom webhooks using the webhooks management API. \n\nAll notifications are JSON encoded and the request expects to receive a response in the HTTP 200 range. If a valid response isn't received the request will be retried in an exponentially backing off fashion.\n\nDelivery Reports may carry an additional charge. For pricing, please contact your Account Manager or Support Team (support@messagemedia.com).\n\nFor delivery reports or changes in the status of a message, the POST request to the specified URL will be as follows:\n  \n  _Note, multiple delivery report notifications will be recieved for a single message._\n\n```json\n{\n  \"callback_url\":\"http://mockbin.org/bin/ac52ebd4-eca1-4c86-bf38-4dce79633906\",\n  \"delivery_report_id\":\"693e87f2-a553-4281-9ffe-ddf04cbc4bf3\",\n  \"source_number\":\"+61491570156\",\n  \"date_received\":\"2016-11-03T11:49:02.807Z\",\n  \"status\":\"delivered\",\n  \"delay\":0,\n  \"submitted_date\":\"2016-11-03T11:49:01.551Z\",\n  \"original_text\":\"Hello world!\",\n  \"message_id\":\"389dc1a8-62a4-4110-ba61-af94806c006f\",\n  \"vendor_account_id\":{\n    \"vendor_id\":\"MessageMedia\",\n    \"account_id\":\"MyAccount\"\n  },\n  \"error_code\":\"220\",\n  \"metadata\":{\n    \"key\":\"value\"\n  }\n}\n```\n\n\nThe properties included in the notification are as follows:\n\n* **Callback URL**: The URL specified as the callback URL in the original submit message request.\n\n* **Delivery Report ID**: A unique ID for the delivery report that this notification represents.\n\n* **Source Number**: The destination address of the original message.\n\n* **Date Received**: The date and time at which this notification was generated in UTC.\n\n* **Status**: The status of the message as indicated by this delivery report. The status field can be one of the following values:\n\n  * `enroute`: Message has been received by the gateway and is being processed (or waiting to be processed).\n\n  * `submitted`: Message has been submitted to a provider/carrier for delivery.\n\n  * `delivered`: Message delivery has been confirmed by the provider, including to the handset (where possible).\n\n  * `expired`: The message has expired.\n\n  * `rejected`: The message will not be delivered - permanent failure. Reasons may include usage limit exceeded, insufficient credit, number blocked, or content filtered\n\n  * `failed`: The message has failed. Reasons may include no active routes to destination or undeliverable by downstream provider.\n\n* **Delay**: _Deprecated, no longer in use_\n\n* **Submitted Date**: Date time status of the message changed in UTC. For a delivered DR this may indicate the time at which the message was received on the handset.\n\n* **Original Text**: Text of the original message.\n\n* **Message ID**: ID of the original message.\n\n* **Vendor Account ID**: The account used to submit the original message. The vendor will always be `MessageMedia`\n\n* **Error Code**: A status code which provides additional information about the message status:\n\n  * `101`: Message being processed by the gateway.\n  \n  * `102`: Message is being rerouted to a different provider after failing via the first provider.\n  \n  * `151`: Message held for screening.\n  \n  * `200`: Message submitted to downstream provider for delivery.\n  \n  * `210`: Message accepted by downstream provider.\n  \n  * `211`: Message is enroute for delivery by provider.\n  \n  * `212`: Message submitted. Delivery pending.\n  \n  * `213`: Message scheduled for delivery by downstream provider.\n  \n  * `220`: Message delivered.\n  \n  * `221`: Message delivered to the handset.\n  \n  * `320`: Message validity period has expired (prior to submission).\n  \n  * `401`: Message validity period has expired (before delivery).\n  \n  * `301`: Usage threshold reached. Message discarded.\n  \n  * `302`: Destination address blocked. Message discarded.\n  \n  * `303`: Source address blocked. Message discarded.\n  \n  * `304`: Message dropped. Contact support.\n  \n  * `305`: Message discarded due to duplicate detection.\n  \n  * `402`: Message rejected by downstream provider.\n  \n  * `403`: Message skipped by downstream provider.\n  \n  * `410`: Invalid source address.\n  \n  * `411`: Invalid destination address.\n  \n  * `412`: Destination address blocked.\n  \n  * `413`: SMS service unavailable on destination.\n  \n  * `414`: Destination unreachable.\n  \n  * `330`: Gateway failure.\n  \n  * `331`: Message discarded.\n  \n  * `332`: No available route to destination.\n  \n  * `333`: Source address unsupported for this destination.\n  \n  * `400`: Message failed; undeliverable.\n  \n  * `405`: Message cancelled or deleted by provider.\n"
     },
     {
       "name": "Replies",
       "description": ""
     },
     {
+      "name": "Lookups",
+      "description": "How confident are you in the accuracy of your database? Sending text messages to inactive, invalid or unrecognisable numbers wastes resources on messages that will never be read.\n\nOur Lookups API provides a simple way to keep your database clean. It accesses mobile carrier information about any mobile number, in real-time, anywhere in the world.\n* Identify invalid numbers and reduce the number of failed or undeliverable messages  \n* Separate mobiles and landlines, so you don’t pay for messages that will never be delivered \n* Identify carriers to determine which are low cost\n\nTo learn more about the benefits of the Lookups API, [visit our product page](https://www.messagemedia.com/au/feature/lookups/).\n\n![Lookups](https://developers.messagemedia.com/wp-content/uploads/2017/11/lookups-api.png)\n\nRequired Parameters\n\n`{phone_number} `\nThis should be set to the phone number to be looked up. \n\nBy default, a request will only return the country_code and phone_number properties in the response.\n```json\n{\n  \"country_code\": \"AU\",\n  \"phone_number\": \"+61491570156\",\n}\n```\n\nOptions for Parameters\n\nThe options query parameter can also be used to request additional information about the phone number. \n\n* `carrier` Request details about the carrier.\n* `type` Use as a value of the options parameter\n\n_Note: The `carrier` and the `type` values can be used together using a comma separated list, i.e. carrier,type._ \n\n* `hlr` Request details about the location by including as a value of the options parameter.\n\n_NOTE: The `hlr` value CANNOT be used in conjunction with the other values.\n"
+    },
+    {
       "name": "Number Authorisation",
-      "description": "The number authorisation API allows you to manage your blacklists. Sinch automatically adds numbers to your blacklist if people send one of the opt-out keywords in response to one of your messages.\nThis is a legal requirement. If you decide to handle the legal compliance yourself, calls to this endpoint will not affect your messages."
+      "description": "The number authorisation API allows you to manage your blacklists. MessageMedia automatically adds numbers to your blacklist if people send one of the opt-out keywords in response to one of your messages.\nThis is a legal requirement. If you decide to handle the legal compliance yourself, calls to this endpoint will not affect your messages."
     },
     {
       "name": "Dedicated Numbers",
-      "description": "The Numbers API allows your to purchase, provision and configure the dedicated numbers assigned to your Sinch account. \n\nTo learn more about the benefits of dedicated numbers, and their use cases, visit our [feature page](https://messagemedia.com/au/feature/dedicated-virtual-numbers/).\n\nThis is a paid feature and must be enabled on your account. Please contact [support@app.sinch.com](support@app.sinch.com) or your account manager.\n\n## Concepts\n\nThis API allows you to purchase and assign to your account a number from a pool of dedicated numbers. Dedicated numbers are priced differently according to their classification.\n\nThe following is the system by which we classify dedicated numbers. \n\n| Pattern Type | Gold|  Silver |\n|---|---|---|\n| Same Number  |  Six of same (e.g. 999999) | Five of same (e.g. 999991 or 199999)  | \n| Sequence  |  Six in sequence (e.g. 234567, or 765432) | Five in sequence (e.g. 245678, 456782, or 287654)  |\n|  Triplets |  Two identical (e.g. 123123) or two double (e.g. 444666) | Identical pairs within triplets (e.g. 004008, or 400800), one identical and one in sequence (e.g. 444789, or 345777), or mirror image (e.g. 468864)| \n|Pair|Three identical (e.g. 454545)|Three non-identical (e.g. 447700) or three in sequence (e.g. 232425, or 090807)|\n\nAny numbers that do not meet the criteria for Gold or Silver are classified as Bronze.\n\nFor pricing on dedicated numbers please refer to the Numbers page in our Hub web portal, or speak with your Sinch Account Manager.\n"
+      "description": "The Numbers API allows your to purchase, provision and configure the dedicated numbers assigned to your MessageMedia account. \n\nTo learn more about the benefits of dedicated numbers, and their use cases, visit our [feature page](https://messagemedia.com/au/feature/dedicated-virtual-numbers/).\n\nThis is a paid feature and must be enabled on your account. Please contact [support@messagemedia.com](support@messagemedia.com) or your account manager.\n\n## Concepts\n\nThis API allows you to purchase and assign to your account a number from a pool of dedicated numbers. Dedicated numbers are priced differently according to their classification.\n\nThe following is the system by which we classify dedicated numbers. \n\n| Pattern Type | Gold|  Silver |\n|---|---|---|\n| Same Number  |  Six of same (e.g. 999999) | Five of same (e.g. 999991 or 199999)  | \n| Sequence  |  Six in sequence (e.g. 234567, or 765432) | Five in sequence (e.g. 245678, 456782, or 287654)  |\n|  Triplets |  Two identical (e.g. 123123) or two double (e.g. 444666) | Identical pairs within triplets (e.g. 004008, or 400800), one identical and one in sequence (e.g. 444789, or 345777), or mirror image (e.g. 468864)| \n|Pair|Three identical (e.g. 454545)|Three non-identical (e.g. 447700) or three in sequence (e.g. 232425, or 090807)|\n\nAny numbers that do not meet the criteria for Gold or Silver are classified as Bronze.\n\nFor pricing on dedicated numbers please refer to the Numbers page in our Hub web portal, or speak with your MessageMedia Account Manager.\n"
     },
     {
       "name": "Messaging Reports",
-      "description": "The Sinch Reports API provides a number of endpoints for running reports of messages sent and received through\na Sinch Account. The API allows two kinds of reports, _Detailed Reports_ and _Summary Reports_.\n\nDetailed reports list all messages and the details of each message sent or received in a specified time period. Summary reports allow inbound and outbound message data to be aggregated on a number of dimensions.\n"
+      "description": "The MessageMedia Reports API provides a number of endpoints for running reports of messages sent and received through\na MessageMedia Account. The API allows two kinds of reports, _Detailed Reports_ and _Summary Reports_.\n\nDetailed reports list all messages and the details of each message sent or received in a specified time period. Summary reports allow inbound and outbound message data to be aggregated on a number of dimensions.\n"
     },
     {
       "name": "Short Trackable Links Reports",
-      "description": "Short Trackable Links is a feature available to [Messaging API](https://developers.messagemedia.com/code/messages-api-documentation/) users whereby it automatically and seamlessly shortens any URL to just 22 characters. Every shortened URL is unique to each recipient.\n\nThe reporting API has endpoints specific to \nthis feature, allowing users to obtain details regarding \nthe number of click-throughs on each URL.\n\nTo enable this feature on your account, contact your account manager or contact support on [support@app.sinch.com](support@app.sinch.com).\n\nTo learn more about the benefits of the Short Trackable Links feature, [visit our feature page](https://messagemedia.com/au/feature/short-urls/).\n"
+      "description": "Short Trackable Links is a feature available to [Messaging API](https://developers.messagemedia.com/code/messages-api-documentation/) users whereby it automatically and seamlessly shortens any URL to just 22 characters. Every shortened URL is unique to each recipient.\n\nThe reporting API has endpoints specific to \nthis feature, allowing users to obtain details regarding \nthe number of click-throughs on each URL.\n\nTo enable this feature on your account, contact your account manager or contact support on [support@messagemedia.com](support@messagemedia.com).\n\nTo learn more about the benefits of the Short Trackable Links feature, [visit our feature page](https://messagemedia.com/au/feature/short-urls/).\n"
     },
     {
       "name": "Webhooks Management",
       "description": "Webhooks Management API allows you to manage your webhooks configuration. You can subscribe to one or several events, retrieve the webhooks, update them or even delete them if needed."
     },
     {
+      "name": "Enterprise Webhooks",
+      "description": "\nSecuring your webhooks is a two-part process. The first part requires you to use the Signature Key Management API to create a key to sign your requests. \n\nThis will actually generates a key pair - the private key which is used to sign the requests and is stored in MessageMedia's secure datastore and the public key which is used to verify the signature and is stored on your side. \n\nThe second part consists of decrypting the message and verifying the authenticity of the message using the public key created earlier.\n\n*Note: This API is only available in the APAC region.*\n\n\n## Verifying a webhook\n\nThis documentation assumes that you have already created a key pair using the [Signature Key Management API](https://developers.messagemedia.com/code/signature-key-managment-api-documentation/).\n\nOnce you have enabled this feature, all webhooks sent will be signed using the private key created via the Signature Key Management API.\n\n\n## Headers\n\nEvery signed webhook will have the following additional headers:\n  * `X-MESSAGEMEDIA-KEY-ID`: The uuid of the key used eg: `628fdf4e-bddc-4029-ae59-f9a84a22165c`\n  * `X-MESSAGEMEDIA-CIPHER-TYPE`: Encryption algorithm used for digest encryption eg: `RSA`\n  * `X-MESSAGEMEDIA-DIGEST-TYPE`: The algorithm used for digest eg: `SHA256`\n  * `X-MESSAGEMEDIA-SIGNATURE`: The encrypted digest value which is base64 encoded. This is the signature you will verify against eg: `YdhajTA1p68BrxtWq0hvupEQxA4eliL2rA0tyN5YyuCsJwdYc0tZ8439nQ3KrQCmnsDCoB024lKv3FKhWrWAQldl6tEqpiaabXqJMRAHTAtSph+4R1O3C0tT8WNVNP6wEYOKoPyg1tI43uXOQ8iC4Xr4pIeXaYNkEosPG5I8ZyoiNjy/FW7rdO/QuxtfYcpBqLOE+MG0lHwNTiXkc+JlG0VHQbRg8TmjtmsJEsvB4KGPLqpPBij9v/1fzEagkyLECN+tAHgZY/xjQbhm3xL0cEbMNouYKpK7lg8vyechlkPX5j4hEJMo4u/+5iOw3EFYGPjA9RnneINB6DhbzGM99A==`\n  * `DATE`: Date-Time at which the webhook was sent eg: `Tue, 17 Jul 2018 04:52:31 GMT`\n\n\n## Create the comparison string\n\nTo be able to verify the signature, you need to build a comparison string by combining the following:\n* `Request-Line`: The Request-Line begins with a method token, followed by the Request-URI and the protocol version. This can be found in the first line of the request message. eg: `POST /data HTTP/1.1`\n* `Date`: This Date is the one sent in the header eg: `Tue, 17 Jul 2018 04:52:31 GMT`\n* `Body`: This is the the body of the request that is sent back when the webhook is triggered eg: ```{\"vendor_account_id\":{\"vendor_id\":\"MessageMedia\",\"account_id\":\"MessageMediaM123\"},\"callback_url\":\"https://webhook.site/25f79a05-00cf-4997-a127-c55a889eb97a\",\"delivery_report_id\":\"6737fda5-bb86-4fdb-8b62-d7ea49863801\",\"source_number\":\"+61439123036\",\"date_received\":\"2018-07-26T23:39:25.387Z\",\"status\":\"enroute\",\"delay\":0,\"submitted_date\":\"2018-07-26T23:39:25.382Z\",\"original_text\":\"Hey there!\",\"message_id\":\"a0589035-df10-4f3a-92a5-5beac2d100c3\",\"error_code\":\"101\",\"metadata\":{}}```\n\nThe order of concatentation would be `Request-Line` + `Date` + `Body` without any spaces in between. This order must be maintained to build a valid comparison string. \n\n\n## Verifying using public key\n\nOnce you've created the comparison string, you need to use your public key to verify it against the signature (`X-MESSAGEMEDIA-SIGNATURE`) using RSA and the digest type of your key. \nThe way of doing this can vary depending on the language you are coding in. Below are some suggestions on which built-in functions or libraries you can use for each language:\n* PHP - [Openssl_verify](http://php.net/manual/en/function.openssl-verify.php)\n* Python - [Pycrypto](https://gist.github.com/lkdocs/6519372)\n* Node.js - [Crypto](https://nodejs.org/api/crypto.html#crypto_class_verify)\n* C# - [Bouncy castle](http://www.bouncycastle.org/csharp/)\n* Java - [Signature](https://docs.oracle.com/javase/tutorial/security/apisign/vstep4.html)\n* Ruby - [Verify](http://ruby-doc.org/stdlib-2.5.1/libdoc/openssl/rdoc/OpenSSL/PKey/PKey.html#method-i-verify)\n"
+    },
+    {
       "name": "Signature Key Management",
-      "description": "As a Sinch customer, you want to be able to ensure that callbacks are coming from Sinch and not from a 3rd party. Since \nthese are calls to your own system, you should be provided with an extra level of security \nwhen calling your resources.\n\nThe Sinch Signature Key API provides a number of endpoints \nfor managing key used to sign each unique request to ensure security \nand the requests can't (easily) be spoofed. This is similar to using \nHMAC in your outbound messaging (rather than HTTP Basic).\n\n*Note: This API is only available in the APAC region.*\n\nThe Signature Key API provides seven main endpoints:\n- ```Create signature key``` Create a new signature key for signature verification in callbacks.\n- ```Get signature key detail``` Retrieve the current detail of a signature key using the key_id returned in the ```create signature key``` endpoint.\n- ```Delete signature key``` Delete a signature key using the key_id returned in the ```create signature key``` endpoint.\n- ```Get signature key list``` Retrieve the paginated list of signature keys.\n- ```Enable signature key``` Enable a signature key using the key_id returned in the ```create signature key``` endpoint.\n- ```Get enabled signature key``` Retrieve the current enabled signature key.\n- ```Disable an enabled signature key``` Disable the current enabled signature key.\n"
+      "description": "As MessageMedia's customer, you want to be able to ensure that callbacks are coming from MessageMedia and not from a 3rd party. Since \nthese are calls to your own system, you should be provided with an extra level of security \nwhen calling your resources.\n\nThe MessageMedia Signature Key API provides a number of endpoints \nfor managing key used to sign each unique request to ensure security \nand the requests can't (easily) be spoofed. This is similar to using \nHMAC in your outbound messaging (rather than HTTP Basic).\n\nThe Signature Key API provides seven main endpoints:\n- ```Create signature key``` Create a new signature key for signature verification in callbacks.\n- ```Get signature key detail``` Retrieve the current detail of a signature key using the key_id returned in the ```create signature key``` endpoint.\n- ```Delete signature key``` Delete a signature key using the key_id returned in the ```create signature key``` endpoint.\n- ```Get signature key list``` Retrieve the paginated list of signature keys.\n- ```Enable signature key``` Enable a signature key using the key_id returned in the ```create signature key``` endpoint.\n- ```Get enabled signature key``` Retrieve the current enabled signature key.\n- ```Disable an enabled signature key``` Disable the current enabled signature key.\n"
     },
     {
       "name": "Mobile Landing Pages (beta)",
       "description": "The mobile landing pages (MLP) API provides the facilities to create mobile landing pages and sends them to recipients. This API is currently in beta. \n\n*Note: This API is only available in the APAC region.*\n  \n## Concepts\n\nThe approach to creating mobile landing pages involves creating a _Campaign_ and sending them to one or more _Recipients_.  A campaign consists of the baseline configuration of a mobile landing page and message that will be generated and sent to each recipient.\n\n## Parameters\n\nCampaign and Recipients can contain parameters.  These parameters are used to customise the generated landing page and the message that is to be sent to each user.  Campaign and Recipient parameters are merged to form a complete set when processing a recipient.\n\nWhen resolving parameters sets, Recipient parameters override Campaign parameters with the same name.\n\nParameter names used within the template have an associated type, which will be validated when creating the Campaign or sending it to Recipients.  You are free to define additional parameters for your own uses, such as when specifying the message.\n\nThe SMS message that is to be sent to each user is defined at the Campaign level. \n\nThe message itself can consist of parameter references surrounded in `${...}`, for example:\n\n```Hello ${firstName} ${lastName}, this is your message.```\n\n## Sending Mobile Landing Pages \n\nFrom end to end, sending a Mobile Landing Pages involves the following steps: \n\n### Step 1: Create a campaign\n\nChoose a template from the template catalogue, and work out what you are going to specify for the required parameters for that template. You will then use the `Create new campaign` endpoint to create the campaign. The following example \nspecifies the desired parameters for the template_id and sets up a message template:\n\n```\n{\n    \"template_id\": \"ac895f01-3149-4bf8-a8fe-01d3b8a9ba97\",\n    \"parameters\": {\n      \"pageTitle\": \"The page title\",\n      \"pageText\": \"The body text\",\n      \"imageUrl\": \"https://example.com/image.jpg\",\n      \"secondaryImageUrl\": \"https://www.example.com/optional_secondary_image.jpg\",\n      \"buttonLink\": \"https://example.com/\",\n      \"buttonText\": \"Call to Action Button Text\",\n      \"secondaryButtonLink\": \"https://example.com/optional_secondary_button\",\n      \"secondaryButtonText\": \"Secondary Call to Action Button\"\n    },\n    \"message\": {\n      \"content\": \"Hello ${firstName} ${lastName}, this is the SMS message body\",\n      \"metadata\": {\n        \"key\": \"value\"\n      }\n    }\n}\n```\n\nInside the message content the `{}` curly braces indicate template placeholders. These are the names of the parameters you will need to specify for the message when you send to your recipients.\n\n### Step 2: Send to recipients\n\nUsing the `Send campaign to recipients` endpoint, you can specify the id of your campaign in the path and a array of recipients as the payload. Each recipient will include an E.164 formatted \n(international) phone number, an optional scheduled time, and values of any recipient scoped template parameters you may have created. In the following example the recipients have been scoped with the template parameters above: \n\n```\n{\n  \"recipients\": [\n    {\n      \"number\": \"+6140000000\",\n      \"parameters\": { \"firstName\":\"Joe\", \"lastName\",\"Bloe\" }\n    },\n    {\n      \"number\": \"+6141111111\",\n      \"parameters\": { \"firstName\":\"Jane\", \"lastName\",\"Doe\" }\n    }\n  ]\n}\n```\n\n## Landing Page Store\n\nThe Landing Page Store is used by the Hub portal to store landing page templates that have been configured using the visual interface. This means that you can \noptionally use this data store to programatically send landing pages that have been designed and configured in the hub.\n\nIf you have made a landing page in the hub, use the `Get landing pages` endpoint to find the landing pages you have made, along with the template and parameters that have been configured. \nYou will then need to copy those template and parameters into a campaign. \n\n## Template Parameters\n\nEach template will have different required parameters, shown in the Templates section. The following is a description of the requirements of each parameter when included in a template.\n\n| Parameter | Required | Tyep|Description |\n|------------------|-------------|-----------|-----------|\n| imageBackgroundUrl | Optional - depends on MLP template. |image| Width: 750 pixels, height: 1624 pixels, size: less than 300 kB, type: png, gif, or jpg|\n| barcodeValue | Optional - depends on MLP template. |text| Alphanumeric string. We will use CODE-128 format 1-D barcode. |\n| barcodeDisplayValue | Optional - defaults to true. Otherwise, use false |text| Indicates whether the barcode value is shown below the barcode image|\n| barcodeHeight| Optional| text||\n| barcodeMargin| Optional| text||\n| barcodeWidth| Optional| text||\n| barcodeLineColor|Optional - each template has it's own default value| text|  Indicate the color of bar code. Use a color name(eg. 'red', 'green'), or a hex value(eg. '#F0F8FF') |\n| pageText | |html| For personalisation, use the following format: “Hi ${firstName}, thanks for visiting…”|\n| pageTextColor|Optional - each template has it's own default value| text|  Indicate the color of page text. Use a color name(eg. 'red', 'green'), or a hex value(eg. '#F0F8FF') |\n| imageHeaderUrl | Optional - depends on MLP template |image| Width: 750 pixels, height: 375 pixels, size: less than 300 kB, type: png, gif, or jpg.|\n| headline | |text| For personalisation, use the following format: “Hi ${firstName}, thanks for visiting…”. Specifications: 60 characters or less recommended|\n| headlineColor|Optional - each template has it's own default value| text|  Indicate the color of headline. Use a color name(eg. 'red', 'green'), or a hex value(eg. '#F0F8FF') |\n| pageTitle | |text| HTML page title shown on browser tab. Specifications: 60 characters or less recommended.|\n| imageLogoUrl |Optional |image| Specifications: width: 300 pixels, height: 120 pixels, size: less than 300 kB, type: png, gif, or jpg|\n| logoLink | Optional|url| For personalisation, use the following format: “https://example.com/?cid=${customerId}”|\n| primaryButtonLink | |url| For personalisation, use the following format: “https://example.com/?cid=${customerId}”|\n| primaryButtonText | |text| For personalisation, use the following format: “${firstName}, shop now”. Specifications: 36 characters or less recommended |\n| primaryButtonTextColor|Optional - each template has it's own default value| text|  Indicate the color of primary button text. Use a color name(eg. 'red', 'green'), or a hex value(eg. '#F0F8FF') |\n| primaryButtonBackgroundColor|Optional - each template has it's own default value| text|  Indicate the background color of primary button. Use a color name(eg. 'red', 'green'), or a hex value(eg. '#F0F8FF') |\n| secondaryButtonLink | Optional - depends on MLP template |url| For personalisation, use the following format: “https://example.com/?cid=${customerId}”|\n| secondaryButtonText | Optional - depends on MLP template |text| For personalisation, use the following format: “Hi ${firstName}, thanks for visiting…”. Specifications: 36 characters or less recommended |\n| secondaryButtonTextColor|Optional - each template has it's own default value| text|  Indicate the color of the secondary button text. Use a color name(eg. 'red', 'green'), or a hex value(eg. '#F0F8FF') |\n| secondaryButtonBackgroundColor|Optional - each template has it's own default value| text|  Indicate the background color of secondary button. Use a color name(eg. 'red', 'green'), or a hex value(eg. '#F0F8FF') |\n| fontFamilyURL1 | Optional - each template has it's own default value|url| Indicate the url of font family, those font family can be used in other property(eg. `headlineFontFamily`)|\n| fontFamilyURL2 | Optional - each template has it's own default value|url| Indicate the url of font family, those font family can be used in other property(eg. `headlineFontFamily`)|\n| fontFamilyURL3 | Optional - each template has it's own default value|url| Indicate the url of font family, those font family can be used in other property(eg. `headlineFontFamily`)|\n| pageTextFontFamily | |text| Specify the font family of page text |\n| headlineFontFamily | |text| Specify the font family of headline text |\n| buttonFontFamily | |text| Specify the font family of button text |\n\n## Template Catalogue\n\n| Name and preview | Template ID |\n|-------------------|-------------|\n| ![](Https://developers.messagemedia.com/wp-content/templates/Template1.png) | 7614456e-844f-4d83-bdfe-20c17ce0f97c |\n| ![](Https://developers.messagemedia.com/wp-content/templates/Template2.png) | f56b5806-f732-4693-b87a-90b66a7d7bfc |\n|![](Https://developers.messagemedia.com/wp-content/templates/template3.png) | c9d7ce1d-20c4-4228-9ba1-6da2a3b4e5e0 |\n"
-    },
-    {
-      "name": "Contacts",
-      "description": "The API provides access to two main resources:\n\n  * **Contacts**: Data associated with the individuals you need to contact.\n  * **Lists**: Groups of contacts created for specific purposes.\n  * **Custom Fields**: Additional fields that can be tailored to complement the basic contact fields.\n"
     }
   ],
   "servers": [
@@ -1112,7 +1120,7 @@
           "Source Address"
         ],
         "summary": "Request a Sender Address",
-        "description": "Submit a request to register a new Sender ID. When making a request to this endpoint, you will always need to specify ```sender_address_type``` and ```usage_type``` parameters. The following table shows the acceptable values and combinations for these parameters:\n  | Sender ID       | sender_address_type | usage_type     |\n  |---              |---                  |---             |\n  | Alpha tag       | `ALPHANUMERIC`      | `ALPHANUMERIC` |\n  | Personal number | `INTERNATIONAL`     | `OWN_NUMBER`   | \n\nThe other parameters required for your request will depend on the type of Sender ID you are registering.\n\n### Sender ID is an Alpha Tag\nThe following parameters are used when registering an alpha tag as a Sender ID:\n  - ```sender_address:``` **(Required)**. The alphanumeric string that you wish register as an alpha tag. This parameter is case insensitive. If this alpha tag already exists on your account, you will receive a conflict error message.\n  - ```destination_countries:``` **(Required)**. The countries that you wish to register the alpha tag for use in, in two-character ISO 3166 format. Currently AD, AI, AL, AS, AT, AU, AW, BA, BB, BH, BW, CD, CH, CK, CY, DE, DJ, DK, DM, EE, ES, FI, FJ, FM, FO, FR, GB, GD, GG, GI, GL, GM, GQ, GR, GY, IL, IM, IS, JE, JM, JP, KI, KY, LA, LI, LS, LT, LU, LV, MC, ME, MH, MO, MR, MS, MT, MV, NC, NF, NL, NO, NR, NU, PF, PM, PT, SB, SC, SE, SH, SL, SM, ST, TC, TD, TO, VC, VG and WS are supported.\n  - ```sender_address_type:``` **(Required)**. For alpha tags this is always ALPHANUMERIC\n  - ```usage_type:``` **(Required)**. For alpha tags this is always ALPHANUMERIC\n  - ```label:``` **(Optional)**. A reference name for the sender ID to allow you to easily track it.\n  - ```reason:``` **(Required)**. This is a specifically formatted string made up of the following sub-items (all of which are required):\n\n    - `useCase:` one of the following:\n      - `SOLE_TRADER_NAME`\n      - `COMPANY_NAME`\n      - `PARTNERSHIP_NAME`\n      - `REGISTERED_TRUST_NAME`\n      - `CO_OPERATIVE_NAME`\n      - `INDIGENOUS_CORPORATION_NAME`\n      - `REGISTERED_ORGANISATION_NAME`\n      - `PERSONAL_NAME`\n      - `AUSTRALIAN_TRADEMARK`\n      - `INTERNATIONAL_TRADEMARK`\n      - `AUSTRALIAN_GOVERNMENT_AGENCY_OR_ENTITY`\n      - `FOREIGN_GOVERNMENT_AGENCY_OR_ENTITY`\n      - `PRODUCT_OR_SERVICE_NAME`\n      - `ACRONYM_INITIALISM`\n      - `CONTRACTION_OF_NAME`\n      - `OTHER`\n    - `description:` A description used if OTHER was selected as the use case. Limited to 200 characters.\n\n    - `email:` The preferred contact email for our approval team when additional details are required.\n\n    - `australianGovernmentAgencyOrEntityName:` The name of your organsation.\n\n    - `abn:` Your organisation’s Australian Business Number\n\n    - `statement:` A legal declaration\n      - If applying for your own business: “We are authorized to use the Sender ID with a valid use case.”\n      - If applying on behalf of a third-party entity: “We are authorized to use the Sender ID on behalf of [full entity name of sender] with a valid use case.”\n\nThe reason parameter must contain all the above items. A well formatted reason looks like the following:\n  - \"reason\": \"{\\n&nbsp;&nbsp;\\\\\"useCase\\\\\":\\\\\"AUSTRALIAN_GOVERNMENT_AGENCY_OR_ENTITY\\\\\",\\n&nbsp;&nbsp;\\\\\"description\\\\\":\\\\\"bal bla\\\\\",\\n&nbsp;&nbsp;\\\\\"email\\\\\":\\\\\"example@email.com\\\\\",\\n&nbsp;&nbsp;\\\\\"australianGovernmentAgencyOrEntityName\\\\\":\\\\\"bla bla\\\\\",\\n&nbsp;&nbsp;\\\\\"statement\\\\\":\\\\\"We are authorised to use the Sender ID on behalf of [full entity name of sender] with a valid use case.\\\\\"\\n}\\n\"\n\n### Sender ID is a Personal Number\nThe following parameters are used when registering a personal mobile phone number as a Sender ID: \n\n  - ```sender_address:``` **(Required)**. The phone number that you wish register as a personal number. This number must be in E.164. If this number is already registered to an account, you will receive a conflict error message. \n\n  - ```destination_countries:``` **(Required)**. The country of the number that you wish to register, in two-character ISO 3166 format. Refer to the **Types of Sender ID** section for a list of currently supported countries. \n\n  - ```sender_address_type:``` **(Required)**. For personal numbers this is always INTERNATIONAL \n\n  - ```usage_type:``` **(Required)**. For personal numbers this is always OWN_NUMBER \n\n  - ```label:``` **(Optional)**. A reference name for the sender ID to allow you to easily track it. \n\n  - ```Reason:``` **(Required)**. A string describing why you wish to register the number as a Sender ID. Limited to 200 characters.\n",
+        "description": "Submit a request to register a new Sender ID. When making a request to this endpoint, you will always need to specify ```sender_address_type``` and ```usage_type``` parameters. The following table shows the acceptable values and combinations for these parameters:\n  | Sender ID       | sender_address_type | usage_type     |\n  |---              |---                  |---             |\n  | Alpha tag       | `ALPHANUMERIC`      | `ALPHANUMERIC` |\n  | Personal number | `INTERNATIONAL`     | `OWN_NUMBER`   | \n\nThe other parameters required for your request will depend on the type of Sender ID you are registering.\n\n### Sender ID is an Alpha Tag\nThe following parameters are used when registering an alpha tag as a Sender ID:\n  - ```sender_address:``` **(Required)**. The alphanumeric string that you wish register as an alpha tag. This parameter is case insensitive. If this alpha tag already exists on your account, you will receive a conflict error message.\n  - ```destination_countries:``` **(Required)**. The countries that you wish to register the alpha tag for use in, in two-character ISO 3166 format. Currently AU, GB, ES, DE and FR are supported.\n  - ```sender_address_type:``` **(Required)**. For alpha tags this is always ALPHANUMERIC\n  - ```usage_type:``` **(Required)**. For alpha tags this is always ALPHANUMERIC\n  - ```label:``` **(Optional)**. A reference name for the sender ID to allow you to easily track it.\n  - ```reason:``` **(Required)**. This is a specifically formatted string made up of the following sub-items (all of which are required):\n\n    - `useCase:` one of the following:\n      - `SOLE_TRADER_NAME`\n      - `COMPANY_NAME`\n      - `PARTNERSHIP_NAME`\n      - `REGISTERED_TRUST_NAME`\n      - `CO_OPERATIVE_NAME`\n      - `INDIGENOUS_CORPORATION_NAME`\n      - `REGISTERED_ORGANISATION_NAME`\n      - `PERSONAL_NAME`\n      - `AUSTRALIAN_TRADEMARK`\n      - `INTERNATIONAL_TRADEMARK`\n      - `AUSTRALIAN_GOVERNMENT_AGENCY_OR_ENTITY`\n      - `FOREIGN_GOVERNMENT_AGENCY_OR_ENTITY`\n      - `PRODUCT_OR_SERVICE_NAME`\n      - `ACRONYM_INITIALISM`\n      - `CONTRACTION_OF_NAME`\n      - `OTHER`\n    - `description:` A description used if OTHER was selected as the use case. Limited to 200 characters.\n\n    - `email:` The preferred contact email for our approval team when additional details are required.\n\n    - `australianGovernmentAgencyOrEntityName:` The name of your organsation.\n\n    - `abn:` Your organisation’s Australian Business Number\n\n    - `statement:` A legal declaration\n      - If applying for your own business: “We are authorized to use the Sender ID with a valid use case.”\n      - If applying on behalf of a third-party entity: “We are authorized to use the Sender ID on behalf of [full entity name of sender] with a valid use case.”\n\nThe reason parameter must contain all the above items. A well formatted reason looks like the following:\n  - \"reason\": \"{\\n&nbsp;&nbsp;\\\\\"useCase\\\\\":\\\\\"AUSTRALIAN_GOVERNMENT_AGENCY_OR_ENTITY\\\\\",\\n&nbsp;&nbsp;\\\\\"description\\\\\":\\\\\"bal bla\\\\\",\\n&nbsp;&nbsp;\\\\\"email\\\\\":\\\\\"example@email.com\\\\\",\\n&nbsp;&nbsp;\\\\\"australianGovernmentAgencyOrEntityName\\\\\":\\\\\"bla bla\\\\\",\\n&nbsp;&nbsp;\\\\\"statement\\\\\":\\\\\"We are authorised to use the Sender ID on behalf of [full entity name of sender] with a valid use case.\\\\\"\\n}\\n\"\n\n### Sender ID is a Personal Number\nThe following parameters are used when registering a personal mobile phone number as a Sender ID: \n\n  - ```sender_address:``` **(Required)**. The phone number that you wish register as a personal number. This number must be in E.164. If this number is already registered to an account, you will receive a conflict error message. \n\n  - ```destination_countries:``` **(Required)**. The country of the number that you wish to register, in two-character ISO 3166 format. Refer to the **Types of Sender ID** section for a list of currently supported countries. \n\n  - ```sender_address_type:``` **(Required)**. For personal numbers this is always INTERNATIONAL \n\n  - ```usage_type:``` **(Required)**. For personal numbers this is always OWN_NUMBER \n\n  - ```label:``` **(Optional)**. A reference name for the sender ID to allow you to easily track it. \n\n  - ```Reason:``` **(Required)**. A string describing why you wish to register the number as a Sender ID. Limited to 200 characters.\n",
         "operationId": "requestSenderAddressUsingPOST",
         "parameters": [],
         "requestBody": {
@@ -1326,7 +1334,7 @@
           "Source Address"
         ],
         "summary": "Re-verify Sender Address",
-        "description": "The below table defines the allowed combination of `sender_address_type` and `usage_type` values\n\n| Description      | sender_address_type | usage_type    |\n| ---------------- | ------------------- | ------------  |\n| Own Number       | INTERNATIONAL       | OWN_NUMBER    |\n\nOWN_NUMBER Sender Addresses require reverification every 12 months to allow continued use.\nThe reverification process is quite similar to the original verification process for the Sender Address, and requires a fresh 2FA check.\n\nTo reverify an OWN_NUMBER Sender Address:\n  1. Retrieve the UUID for the OWN_NUMBER using the **Get all approved sender addresses** endpoint\n  2. Make a request to this endpoint to trigger the 2FA check\n  3. Make a POST request to the **Submit verification code endpoint**, providing the new 2FA code in the body of the request\n",
+        "description": "The below table defines the allowed combination of `sender_address_type` and `usage_type` values\n\n| Description      | sender_address_type | usage_type    |\n| ---------------- | ------------------- | ------------  |\n| Own Number       | INTERNATIONAL       | OWN_NUMBER    |\n\nOWN_NUMBER Sender Addresses require reverification every 12 months to allow continued use.\nThe reverification process is quite similar to the original verification process for the Sender Address, and requires a fresh 2FA check.\n\nTo reverify an OWN_NUMBER Sender Address:\n  1. Retrieve the UUID for the OWN_NUMBER using the **Get all approved sender addresses** endpoint\n  2. Make a request to this endpoint to trigger the 2FA check\n  3. Make a PATCH request to the **Submit verification code endpoint**, providing the new 2FA code in the body of the request\n",
         "operationId": "reVerifySenderAddressUsingPOST",
         "security": [
           {
@@ -1902,7 +1910,7 @@
           "Delivery Reports"
         ],
         "summary": "Check delivery reports",
-        "description": "Check for any delivery reports that have been received.\nDelivery reports are a notification of the change in status of a message as it is being processed.\nEach request to the check delivery reports endpoint will return any delivery reports received that\nhave not yet been confirmed using the confirm delivery reports endpoint. A response from the check\ndelivery reports endpoint will have the following structure:\n```json\n{\n    \"delivery_reports\": [\n        {\n            \"callback_url\": \"https://my.callback.url.com\",\n            \"delivery_report_id\": \"01e1fa0a-6e27-4945-9cdb-18644b4de043\",\n            \"source_number\": \"+61491570157\",\n            \"date_received\": \"2017-05-20T06:30:37.642Z\",\n            \"status\": \"enroute\",\n            \"delay\": 0,\n            \"submitted_date\": \"2017-05-20T06:30:37.639Z\",\n            \"original_text\": \"My first message!\",\n            \"message_id\": \"d781dcab-d9d8-4fb2-9e03-872f07ae94ba\",\n            \"vendor_account_id\": {\n                \"vendor_id\": \"SinchEU\",\n                \"account_id\": \"MyAccount\"\n            },\n            \"metadata\": {\n                \"key1\": \"value1\",\n                \"key2\": \"value2\"\n            }\n        },\n        {\n            \"callback_url\": \"https://my.callback.url.com\",\n            \"delivery_report_id\": \"0edf9022-7ccc-43e6-acab-480e93e98c1b\",\n            \"source_number\": \"+61491570158\",\n            \"date_received\": \"2017-05-21T01:46:42.579Z\",\n            \"status\": \"enroute\",\n            \"delay\": 0,\n            \"submitted_date\": \"2017-05-21T01:46:42.574Z\",\n            \"original_text\": \"My second message!\",\n            \"message_id\": \"fbb3b3f5-b702-4d8b-ab44-65b2ee39a281\",\n            \"vendor_account_id\": {\n                \"vendor_id\": \"SinchEU\",\n                \"account_id\": \"MyAccount\"\n            },\n            \"metadata\": {\n                \"key1\": \"value1\",\n                \"key2\": \"value2\"\n            }\n        }\n    ]\n}\n```\nEach delivery report will contain details about the message, including any metadata specified\nand the new status of the message (as each delivery report indicates a change in status of a\nmessage) and the timestamp at which the status changed. Every delivery report will have a \nunique delivery report ID for use with the confirm delivery reports endpoint.\n*Note: The source number and destination number properties in a delivery report are the inverse of\nthose specified in the message that the delivery report relates to. The source number of the\ndelivery report is the destination number of the original message.*\nSubsequent requests to the check delivery reports endpoint will return the same delivery reports\nand a maximum of 100 delivery reports will be returned in each request. Applications should use the\nconfirm delivery reports endpoint in the following pattern so that delivery reports that have been\nprocessed are no longer returned in subsequent check delivery reports requests. The expiry date for getting an entity is 45 days.\n1. Call check delivery reports endpoint\n2. Process each delivery report\n3. Confirm all processed delivery reports using the confirm delivery reports endpoint\n*Note: It is recommended to use the Webhooks feature to receive reply messages rather than\npolling the check delivery reports endpoint.*",
+        "description": "Check for any delivery reports that have been received.\nDelivery reports are a notification of the change in status of a message as it is being processed.\nEach request to the check delivery reports endpoint will return any delivery reports received that\nhave not yet been confirmed using the confirm delivery reports endpoint. A response from the check\ndelivery reports endpoint will have the following structure:\n```json\n{\n    \"delivery_reports\": [\n        {\n            \"callback_url\": \"https://my.callback.url.com\",\n            \"delivery_report_id\": \"01e1fa0a-6e27-4945-9cdb-18644b4de043\",\n            \"source_number\": \"+61491570157\",\n            \"date_received\": \"2017-05-20T06:30:37.642Z\",\n            \"status\": \"enroute\",\n            \"delay\": 0,\n            \"submitted_date\": \"2017-05-20T06:30:37.639Z\",\n            \"original_text\": \"My first message!\",\n            \"message_id\": \"d781dcab-d9d8-4fb2-9e03-872f07ae94ba\",\n            \"vendor_account_id\": {\n                \"vendor_id\": \"MessageMedia\",\n                \"account_id\": \"MyAccount\"\n            },\n            \"metadata\": {\n                \"key1\": \"value1\",\n                \"key2\": \"value2\"\n            }\n        },\n        {\n            \"callback_url\": \"https://my.callback.url.com\",\n            \"delivery_report_id\": \"0edf9022-7ccc-43e6-acab-480e93e98c1b\",\n            \"source_number\": \"+61491570158\",\n            \"date_received\": \"2017-05-21T01:46:42.579Z\",\n            \"status\": \"enroute\",\n            \"delay\": 0,\n            \"submitted_date\": \"2017-05-21T01:46:42.574Z\",\n            \"original_text\": \"My second message!\",\n            \"message_id\": \"fbb3b3f5-b702-4d8b-ab44-65b2ee39a281\",\n            \"vendor_account_id\": {\n                \"vendor_id\": \"MessageMedia\",\n                \"account_id\": \"MyAccount\"\n            },\n            \"metadata\": {\n                \"key1\": \"value1\",\n                \"key2\": \"value2\"\n            }\n        }\n    ]\n}\n```\nEach delivery report will contain details about the message, including any metadata specified\nand the new status of the message (as each delivery report indicates a change in status of a\nmessage) and the timestamp at which the status changed. Every delivery report will have a \nunique delivery report ID for use with the confirm delivery reports endpoint.\n*Note: The source number and destination number properties in a delivery report are the inverse of\nthose specified in the message that the delivery report relates to. The source number of the\ndelivery report is the destination number of the original message.*\nSubsequent requests to the check delivery reports endpoint will return the same delivery reports\nand a maximum of 100 delivery reports will be returned in each request. Applications should use the\nconfirm delivery reports endpoint in the following pattern so that delivery reports that have been\nprocessed are no longer returned in subsequent check delivery reports requests. The expiry date for getting an entity is 45 days.\n1. Call check delivery reports endpoint\n2. Process each delivery report\n3. Confirm all processed delivery reports using the confirm delivery reports endpoint\n*Note: It is recommended to use the Webhooks feature to receive reply messages rather than\npolling the check delivery reports endpoint.*",
         "operationId": "CheckDeliveryReports",
         "parameters": [],
         "responses": {
@@ -1927,7 +1935,7 @@
                       "original_text": "My first message!",
                       "message_id": "d781dcab-d9d8-4fb2-9e03-872f07ae94ba",
                       "vendor_account_id": {
-                        "vendor_id": "SinchEU",
+                        "vendor_id": "MessageMedia",
                         "account_id": "MyAccount"
                       },
                       "metadata": {
@@ -1946,7 +1954,7 @@
                       "original_text": "My second message!",
                       "message_id": "fbb3b3f5-b702-4d8b-ab44-65b2ee39a281",
                       "vendor_account_id": {
-                        "vendor_id": "SinchEU",
+                        "vendor_id": "MessageMedia",
                         "account_id": "MyAccount"
                       },
                       "metadata": {
@@ -2130,7 +2138,7 @@
           "Replies"
         ],
         "summary": "Check replies",
-        "description": "Check for any replies that have been received.\nReplies are messages that have been sent from a handset in response to a message sent by an\napplication or messages that have been sent from a handset to a inbound number associated with\nan account, known as a dedicated inbound number (contact <support@app.sinch.com> for more\ninformation on dedicated inbound numbers).\nEach request to the check replies endpoint will return any replies received that have not yet\nbeen confirmed using the confirm replies endpoint. A response from the check replies endpoint\nwill have the following structure:\n```json\n{\n    \"replies\": [\n        {\n            \"metadata\": {\n                \"key1\": \"value1\",\n                \"key2\": \"value2\"\n            },\n            \"message_id\": \"877c19ef-fa2e-4cec-827a-e1df9b5509f7\",\n            \"reply_id\": \"a175e797-2b54-468b-9850-41a3eab32f74\",\n            \"date_received\": \"2016-12-07T08:43:00.850Z\",\n            \"callback_url\": \"https://my.callback.url.com\",\n            \"destination_number\": \"+61491570156\",\n            \"source_number\": \"+61491570157\",\n            \"vendor_account_id\": {\n                \"vendor_id\": \"SinchEU\",\n                \"account_id\": \"MyAccount\"\n            },\n            \"content\": \"My first reply!\"\n        },\n        {\n            \"metadata\": {\n                \"key1\": \"value1\",\n                \"key2\": \"value2\"\n            },\n            \"message_id\": \"8f2f5927-2e16-4f1c-bd43-47dbe2a77ae4\",\n            \"reply_id\": \"3d8d53d8-01d3-45dd-8cfa-4dfc81600f7f\",\n            \"date_received\": \"2016-12-07T08:43:00.850Z\",\n            \"callback_url\": \"https://my.callback.url.com\",\n            \"destination_number\": \"+61491570157\",\n            \"source_number\": \"+61491570158\",\n            \"vendor_account_id\": {\n                \"vendor_id\": \"SinchEU\",\n                \"account_id\": \"MyAccount\"\n            },\n            \"content\": \"My second reply!\"\n        }\n    ]\n}\n```\nEach reply will contain details about the reply message, as well as details of the message the reply was sent\nin response to, including any metadata specified. Every reply will have a reply ID to be used with the\nconfirm replies endpoint.\n*Note: The source number and destination number properties in a reply are the inverse of those\nspecified in the message the reply is in response to. The source number of the reply message is the\nsame as the destination number of the original message, and the destination number of the reply\nmessage is the same as the source number of the original message. If a source number\nwasn't specified in the original message, then the destination number property will not be present\nin the reply message.*\nSubsequent requests to the check replies endpoint will return the same reply messages and a maximum\nof 100 replies will be returned in each request. Applications should use the confirm replies endpoint\nin the following pattern so that replies that have been processed are no longer returned in\nsubsequent check replies requests. The expiry date for getting an entity is 45 days.\n1. Call check replies endpoint\n2. Process each reply message\n3. Confirm all processed reply messages using the confirm replies endpoint\n*Note: It is recommended to use the Webhooks feature to receive reply messages rather than polling\nthe check replies endpoint.*",
+        "description": "Check for any replies that have been received.\nReplies are messages that have been sent from a handset in response to a message sent by an\napplication or messages that have been sent from a handset to a inbound number associated with\nan account, known as a dedicated inbound number (contact <support@messagemedia.com> for more\ninformation on dedicated inbound numbers).\nEach request to the check replies endpoint will return any replies received that have not yet\nbeen confirmed using the confirm replies endpoint. A response from the check replies endpoint\nwill have the following structure:\n```json\n{\n    \"replies\": [\n        {\n            \"metadata\": {\n                \"key1\": \"value1\",\n                \"key2\": \"value2\"\n            },\n            \"message_id\": \"877c19ef-fa2e-4cec-827a-e1df9b5509f7\",\n            \"reply_id\": \"a175e797-2b54-468b-9850-41a3eab32f74\",\n            \"date_received\": \"2016-12-07T08:43:00.850Z\",\n            \"callback_url\": \"https://my.callback.url.com\",\n            \"destination_number\": \"+61491570156\",\n            \"source_number\": \"+61491570157\",\n            \"vendor_account_id\": {\n                \"vendor_id\": \"MessageMedia\",\n                \"account_id\": \"MyAccount\"\n            },\n            \"content\": \"My first reply!\"\n        },\n        {\n            \"metadata\": {\n                \"key1\": \"value1\",\n                \"key2\": \"value2\"\n            },\n            \"message_id\": \"8f2f5927-2e16-4f1c-bd43-47dbe2a77ae4\",\n            \"reply_id\": \"3d8d53d8-01d3-45dd-8cfa-4dfc81600f7f\",\n            \"date_received\": \"2016-12-07T08:43:00.850Z\",\n            \"callback_url\": \"https://my.callback.url.com\",\n            \"destination_number\": \"+61491570157\",\n            \"source_number\": \"+61491570158\",\n            \"vendor_account_id\": {\n                \"vendor_id\": \"MessageMedia\",\n                \"account_id\": \"MyAccount\"\n            },\n            \"content\": \"My second reply!\"\n        }\n    ]\n}\n```\nEach reply will contain details about the reply message, as well as details of the message the reply was sent\nin response to, including any metadata specified. Every reply will have a reply ID to be used with the\nconfirm replies endpoint.\n*Note: The source number and destination number properties in a reply are the inverse of those\nspecified in the message the reply is in response to. The source number of the reply message is the\nsame as the destination number of the original message, and the destination number of the reply\nmessage is the same as the source number of the original message. If a source number\nwasn't specified in the original message, then the destination number property will not be present\nin the reply message.*\nSubsequent requests to the check replies endpoint will return the same reply messages and a maximum\nof 100 replies will be returned in each request. Applications should use the confirm replies endpoint\nin the following pattern so that replies that have been processed are no longer returned in\nsubsequent check replies requests. The expiry date for getting an entity is 45 days.\n1. Call check replies endpoint\n2. Process each reply message\n3. Confirm all processed reply messages using the confirm replies endpoint\n*Note: It is recommended to use the Webhooks feature to receive reply messages rather than polling\nthe check replies endpoint.*",
         "operationId": "CheckReplies",
         "parameters": [],
         "responses": {
@@ -2156,7 +2164,7 @@
                       "destination_number": "+61491570156",
                       "source_number": "+61491570157",
                       "vendor_account_id": {
-                        "vendor_id": "SinchEU",
+                        "vendor_id": "MessageMedia",
                         "account_id": "MyAccount"
                       },
                       "content": "My first reply!"
@@ -2173,7 +2181,7 @@
                       "destination_number": "+61491570157",
                       "source_number": "+61491570158",
                       "vendor_account_id": {
-                        "vendor_id": "SinchEU",
+                        "vendor_id": "MessageMedia",
                         "account_id": "MyAccount"
                       },
                       "content": "My second reply!"
@@ -2328,6 +2336,126 @@
           {
             "lang": "PHP",
             "source": "$body = new Models\\ConfirmRepliesAsReceivedRequest;\n$body->replyIds = array('011dcead-6988-4ad6-a1c7-6b6c68ea628d', '3487b3fa-6586-4979-a233-2d1b095c7718', 'ba28e94b-c83d-4759-98e7-ff9c7edb87a1');\n\n$result = $repliesController->confirmRepliesAsReceived($body);"
+          },
+          {
+            "lang": "Python",
+            "source": ""
+          },
+          {
+            "lang": "Ruby",
+            "source": ""
+          }
+        ]
+      }
+    },
+    "/v1/lookups/phone/{phone_number}": {
+      "get": {
+        "security": [
+          {
+            "basic_auth": []
+          },
+          {
+            "hmac_auth": []
+          }
+        ],
+        "tags": [
+          "Lookups"
+        ],
+        "summary": "Lookup a phone number",
+        "description": "Use the Lookups API to find information about a phone number.\n\nA request to the lookups API has the following format:\n\n```/v1/lookups/phone/{phone_number}?options={x}```\n\nwhere `{x}` is an individual value or a combination of values. \n\nThe `{phone_number}` parameter is a required field and should be set to the phone number to be looked up.\n\nThe options query parameter can also be used to request additional information about the phone number.\n\nBy default, a request will only return the `country_code` and `phone_number` properties in the response.\n\n```json\n{  \"country_code\": \"AU\", \"phone_number\": \"+61491570156\"}\n```\n\nTo request details about the the carrier, include `carrier` as a value of the options parameter and to \nrequest details about the type, include `type` as a value of the options parameter. The `carrier` and\nthe `type` values can be used together using a comma separated list, i.e. `carrier,type`.\n\nTo request details about the location, include `hlr` as a value of the options parameter. \n\nNOTE: The `hlr` value CANNOT be used in conjuction with the other values.\n\nA successful request to the lookups endpoint with `carrier` and `type` as values will \n\nreturn a response body as follows:\n\n```json\n{  \n  \"country_code\": \"AU\",\n  \"phone_number\": \"+61491570156\",\n  \"type\": \"mobile\",  \"carrier\": {\"name\": \"Telstra\"  }\n}\n```\n\nA successful request to the lookups endpoint with `hlr` as the value will return a response body as follows:\n\n```json\n{\"result\": \"OK\",    \"imsi\": 24008,    \"location\": 46}\n```\nEach property in the response body is defined as follows:- ```country_code``` ISO ALPHA 2 country code of the phone number\n- ```phone_number``` E.164 formatted phone number\n- ```type``` The type of number. This can be ```\"mobile\"``` or ```\"landline\"```\n- ```carrier``` Holds information about the specific carrier (if available)  \n- ```name``` The carrier's name as reported by the network\n- `imsi` A unique number identifying a GSM subscriber\n- `location` The location of the mobile number\"\n",
+        "operationId": "LookupAPhoneNumber",
+        "parameters": [
+          {
+            "name": "phone_number",
+            "in": "path",
+            "description": "The phone number to be looked up",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string",
+              "example": 61491570156
+            }
+          },
+          {
+            "name": "options",
+            "in": "query",
+            "description": "The options query parameter can also be used to request additional information about the phone number.",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "example": "\"carrier,type\""
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Number was looked up successfully",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Lookupaphonenumberresponse"
+                },
+                "example": {
+                  "country_code": "AU",
+                  "phone_number": 61491570156,
+                  "type": "mobile",
+                  "carrier": {
+                    "name": "Telstra"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/400response"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Unauthorised",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/403response"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Lookupaphonenumber404response"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false,
+        "x-code-samples": [
+          {
+            "lang": "C#",
+            "source": ""
+          },
+          {
+            "lang": "Java",
+            "source": ""
+          },
+          {
+            "lang": "JavaScript",
+            "source": ""
+          },
+          {
+            "lang": "PHP",
+            "source": ""
           },
           {
             "lang": "Python",
@@ -4399,7 +4527,7 @@
           "Signature Key Management"
         ],
         "summary": "Create signature key",
-        "description": "This will create a key pair:\n\n- The ```private key``` stored in Sinch is used to create the signature.\n\n- The ```public key``` is returned and stored at your side to verify the signature in callbacks.\n\nYou need to enable your signature key after creating.\n\nThe most basic body has the following structure:\n\n```json\n{\n    \"digest\": \"SHA224\",\n    \"cipher\": \"RSA\"\n}\n```\n\n- ```digest``` is used to hash the message. The valid values for digest type are: SHA224, SHA256, SHA512\n\n- ```cipher``` is used to encrypt the hashed message. The valid value for cipher type is: RSA\n\nA successful request for the ```create signature key``` endpoint will return a response body as follows:\n\n```json\n{\n    \"key_id\": \"7ca628a8-08b0-4e42-aeb8-960b37049c31\",\n    \"public_key\": \"MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCTIxtRyT5CuOD74r7UCT+AKzWNxvaAP9myjAqR7+vBnJKEvoPnmbKTnm6uLlxutnMbjKrnCCWnQ9vtBVnnd+ElhwLDPADfMcJoOqwi7mTcxucckeEbBsfsgYRfdacxgSZL8hVD1hLViQr3xwjEIkJcx1w3x8npvwMuTY0uW8+PjwIDAQAB\",\n    \"cipher\": \"RSA\",\n    \"digest\": \"SHA224\",\n    \"created\": \"2018-01-18T10:16:12.364Z\",\n    \"enabled\": false\n}\n```\n\nThe response body of a successful POST request to the ```create signature key``` endpoint will contain six properties:\n\n- ```key_id``` will be a 36 character UUID which can be used to enable, delete or get the details.\n\n- ```public_key``` is used to decrypt the signature.\n\n- ```cipher``` same as cipher in request body.\n\n- ```digest``` same as digest in request body.\n\n- ```created``` is the created date.\n\n- ```enabled``` is false for the new signature key. You can use the ```enable signature key``` endpoint to set this field to true.",
+        "description": "This will create a key pair:\n\n- The ```private key``` stored in MessageMedia is used to create the signature.\n\n- The ```public key``` is returned and stored at your side to verify the signature in callbacks.\n\nYou need to enable your signature key after creating.\n\nThe most basic body has the following structure:\n\n```json\n{\n    \"digest\": \"SHA224\",\n    \"cipher\": \"RSA\"\n}\n```\n\n- ```digest``` is used to hash the message. The valid values for digest type are: SHA224, SHA256, SHA512\n\n- ```cipher``` is used to encrypt the hashed message. The valid value for cipher type is: RSA\n\nA successful request for the ```create signature key``` endpoint will return a response body as follows:\n\n```json\n{\n    \"key_id\": \"7ca628a8-08b0-4e42-aeb8-960b37049c31\",\n    \"public_key\": \"MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCTIxtRyT5CuOD74r7UCT+AKzWNxvaAP9myjAqR7+vBnJKEvoPnmbKTnm6uLlxutnMbjKrnCCWnQ9vtBVnnd+ElhwLDPADfMcJoOqwi7mTcxucckeEbBsfsgYRfdacxgSZL8hVD1hLViQr3xwjEIkJcx1w3x8npvwMuTY0uW8+PjwIDAQAB\",\n    \"cipher\": \"RSA\",\n    \"digest\": \"SHA224\",\n    \"created\": \"2018-01-18T10:16:12.364Z\",\n    \"enabled\": false\n}\n```\n\nThe response body of a successful POST request to the ```create signature key``` endpoint will contain six properties:\n\n- ```key_id``` will be a 36 character UUID which can be used to enable, delete or get the details.\n\n- ```public_key``` is used to decrypt the signature.\n\n- ```cipher``` same as cipher in request body.\n\n- ```digest``` same as digest in request body.\n\n- ```created``` is the created date.\n\n- ```enabled``` is false for the new signature key. You can use the ```enable signature key``` endpoint to set this field to true.",
         "operationId": "CreateSignatureKey",
         "parameters": [
           {
@@ -5874,1277 +6002,6 @@
         },
         "deprecated": false
       }
-    },
-    "/api/v1/contacts/contacts": {
-      "post": {
-        "security": [
-          {
-            "basic_auth": []
-          },
-          {
-            "hmac_auth": []
-          }
-        ],
-        "tags": [
-          "Contacts"
-        ],
-        "summary": "Create a contact",
-        "operationId": "createContact",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateContactRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "201": {
-            "description": "Contact is created",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/ContactData"
-                }
-              }
-            }
-          },
-          "400": {
-            "$ref": "#/components/responses/BadRequest"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "403": {
-            "$ref": "#/components/responses/Forbidden"
-          },
-          "409": {
-            "$ref": "#/components/responses/Conflict"
-          },
-          "500": {
-            "$ref": "#/components/responses/InternalServerError"
-          },
-          "501": {
-            "$ref": "#/components/responses/RequestNotRecognised"
-          },
-          "502": {
-            "$ref": "#/components/responses/BadGateway"
-          },
-          "503": {
-            "$ref": "#/components/responses/ServerUnavailable"
-          },
-          "504": {
-            "$ref": "#/components/responses/GatewayTimeout"
-          }
-        }
-      },
-      "get": {
-        "security": [
-          {
-            "basic_auth": []
-          },
-          {
-            "hmac_auth": []
-          }
-        ],
-        "tags": [
-          "Contacts"
-        ],
-        "summary": "Get contacts page",
-        "operationId": "getContactsPage",
-        "parameters": [
-          {
-            "name": "request",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "$ref": "#/components/schemas/GetContactsRequest"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Returns a contacts page",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/PageTokenDtoContactData"
-                }
-              }
-            }
-          },
-          "400": {
-            "$ref": "#/components/responses/BadRequest"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "403": {
-            "$ref": "#/components/responses/Forbidden"
-          },
-          "409": {
-            "$ref": "#/components/responses/Conflict"
-          },
-          "500": {
-            "$ref": "#/components/responses/InternalServerError"
-          },
-          "501": {
-            "$ref": "#/components/responses/RequestNotRecognised"
-          },
-          "502": {
-            "$ref": "#/components/responses/BadGateway"
-          },
-          "503": {
-            "$ref": "#/components/responses/ServerUnavailable"
-          },
-          "504": {
-            "$ref": "#/components/responses/GatewayTimeout"
-          }
-        }
-      }
-    },
-    "/api/v1/contacts/contacts/{contactId}": {
-      "get": {
-        "security": [
-          {
-            "basic_auth": []
-          },
-          {
-            "hmac_auth": []
-          }
-        ],
-        "tags": [
-          "Contacts"
-        ],
-        "summary": "Get a single contact",
-        "operationId": "getContactById",
-        "parameters": [
-          {
-            "name": "contactId",
-            "in": "path",
-            "description": "Contact id in UUID format",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Returns a single contact",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/ContactData"
-                }
-              }
-            }
-          },
-          "400": {
-            "$ref": "#/components/responses/BadRequest"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "403": {
-            "$ref": "#/components/responses/Forbidden"
-          },
-          "404": {
-            "$ref": "#/components/responses/NotFound"
-          },
-          "409": {
-            "$ref": "#/components/responses/Conflict"
-          },
-          "500": {
-            "$ref": "#/components/responses/InternalServerError"
-          },
-          "501": {
-            "$ref": "#/components/responses/RequestNotRecognised"
-          },
-          "502": {
-            "$ref": "#/components/responses/BadGateway"
-          },
-          "503": {
-            "$ref": "#/components/responses/ServerUnavailable"
-          },
-          "504": {
-            "$ref": "#/components/responses/GatewayTimeout"
-          }
-        }
-      },
-      "delete": {
-        "security": [
-          {
-            "basic_auth": []
-          },
-          {
-            "hmac_auth": []
-          }
-        ],
-        "tags": [
-          "Contacts"
-        ],
-        "summary": "Delete a contact",
-        "operationId": "deleteContactById",
-        "parameters": [
-          {
-            "name": "contactId",
-            "in": "path",
-            "description": "Contact id in UUID format",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "Contact is deleted"
-          },
-          "400": {
-            "$ref": "#/components/responses/BadRequest"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "403": {
-            "$ref": "#/components/responses/Forbidden"
-          },
-          "404": {
-            "$ref": "#/components/responses/NotFound"
-          },
-          "409": {
-            "$ref": "#/components/responses/Conflict"
-          },
-          "500": {
-            "$ref": "#/components/responses/InternalServerError"
-          },
-          "501": {
-            "$ref": "#/components/responses/RequestNotRecognised"
-          },
-          "502": {
-            "$ref": "#/components/responses/BadGateway"
-          },
-          "503": {
-            "$ref": "#/components/responses/ServerUnavailable"
-          },
-          "504": {
-            "$ref": "#/components/responses/GatewayTimeout"
-          }
-        }
-      },
-      "patch": {
-        "security": [
-          {
-            "basic_auth": []
-          },
-          {
-            "hmac_auth": []
-          }
-        ],
-        "tags": [
-          "Contacts"
-        ],
-        "summary": "Update a contact",
-        "operationId": "updateContact",
-        "parameters": [
-          {
-            "name": "contactId",
-            "in": "path",
-            "description": "Contact id in UUID format",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateContactRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Contact is updated",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/ContactData"
-                }
-              }
-            }
-          },
-          "400": {
-            "$ref": "#/components/responses/BadRequest"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "403": {
-            "$ref": "#/components/responses/Forbidden"
-          },
-          "404": {
-            "$ref": "#/components/responses/NotFound"
-          },
-          "409": {
-            "$ref": "#/components/responses/Conflict"
-          },
-          "500": {
-            "$ref": "#/components/responses/InternalServerError"
-          },
-          "501": {
-            "$ref": "#/components/responses/RequestNotRecognised"
-          },
-          "502": {
-            "$ref": "#/components/responses/BadGateway"
-          },
-          "503": {
-            "$ref": "#/components/responses/ServerUnavailable"
-          },
-          "504": {
-            "$ref": "#/components/responses/GatewayTimeout"
-          }
-        }
-      }
-    },
-    "/api/v1/contacts/lists": {
-      "post": {
-        "security": [
-          {
-            "basic_auth": []
-          },
-          {
-            "hmac_auth": []
-          }
-        ],
-        "tags": [
-          "Contacts"
-        ],
-        "summary": "Create a contact list",
-        "operationId": "createContactList",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateListRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "201": {
-            "description": "Contact list is created",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/ListData"
-                }
-              }
-            }
-          },
-          "400": {
-            "$ref": "#/components/responses/BadRequest"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "403": {
-            "$ref": "#/components/responses/Forbidden"
-          },
-          "409": {
-            "$ref": "#/components/responses/Conflict"
-          },
-          "500": {
-            "$ref": "#/components/responses/InternalServerError"
-          },
-          "501": {
-            "$ref": "#/components/responses/RequestNotRecognised"
-          },
-          "502": {
-            "$ref": "#/components/responses/BadGateway"
-          },
-          "503": {
-            "$ref": "#/components/responses/ServerUnavailable"
-          },
-          "504": {
-            "$ref": "#/components/responses/GatewayTimeout"
-          }
-        }
-      },
-      "get": {
-        "security": [
-          {
-            "basic_auth": []
-          },
-          {
-            "hmac_auth": []
-          }
-        ],
-        "tags": [
-          "Contacts"
-        ],
-        "summary": "Get contact lists page",
-        "operationId": "getContactListsPage",
-        "parameters": [
-          {
-            "name": "request",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "$ref": "#/components/schemas/GetListsRequest"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Returns a contact lists page",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/PageTokenDtoListData"
-                }
-              }
-            }
-          },
-          "400": {
-            "$ref": "#/components/responses/BadRequest"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "403": {
-            "$ref": "#/components/responses/Forbidden"
-          },
-          "409": {
-            "$ref": "#/components/responses/Conflict"
-          },
-          "500": {
-            "$ref": "#/components/responses/InternalServerError"
-          },
-          "501": {
-            "$ref": "#/components/responses/RequestNotRecognised"
-          },
-          "502": {
-            "$ref": "#/components/responses/BadGateway"
-          },
-          "503": {
-            "$ref": "#/components/responses/ServerUnavailable"
-          },
-          "504": {
-            "$ref": "#/components/responses/GatewayTimeout"
-          }
-        }
-      }
-    },
-    "/api/v1/contacts/lists/{listId}": {
-      "get": {
-        "security": [
-          {
-            "basic_auth": []
-          },
-          {
-            "hmac_auth": []
-          }
-        ],
-        "tags": [
-          "Contacts"
-        ],
-        "summary": "Get a single contact list",
-        "operationId": "getContactListById",
-        "parameters": [
-          {
-            "name": "listId",
-            "in": "path",
-            "description": "Contact list id in UUID format",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            },
-            "example": "025e93d3-051b-43f9-b12e-4b5842228dee"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Returns a single contact list",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/ListData"
-                }
-              }
-            }
-          },
-          "400": {
-            "$ref": "#/components/responses/BadRequest"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "403": {
-            "$ref": "#/components/responses/Forbidden"
-          },
-          "404": {
-            "$ref": "#/components/responses/NotFound"
-          },
-          "409": {
-            "$ref": "#/components/responses/Conflict"
-          },
-          "500": {
-            "$ref": "#/components/responses/InternalServerError"
-          },
-          "501": {
-            "$ref": "#/components/responses/RequestNotRecognised"
-          },
-          "502": {
-            "$ref": "#/components/responses/BadGateway"
-          },
-          "503": {
-            "$ref": "#/components/responses/ServerUnavailable"
-          },
-          "504": {
-            "$ref": "#/components/responses/GatewayTimeout"
-          }
-        }
-      },
-      "delete": {
-        "security": [
-          {
-            "basic_auth": []
-          },
-          {
-            "hmac_auth": []
-          }
-        ],
-        "tags": [
-          "Contacts"
-        ],
-        "summary": "Delete a contact list",
-        "operationId": "deleteContactListById",
-        "parameters": [
-          {
-            "name": "listId",
-            "in": "path",
-            "description": "Contact list id in UUID format",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "Contact list is deleted"
-          },
-          "400": {
-            "$ref": "#/components/responses/BadRequest"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "403": {
-            "$ref": "#/components/responses/Forbidden"
-          },
-          "404": {
-            "$ref": "#/components/responses/NotFound"
-          },
-          "409": {
-            "$ref": "#/components/responses/Conflict"
-          },
-          "500": {
-            "$ref": "#/components/responses/InternalServerError"
-          },
-          "501": {
-            "$ref": "#/components/responses/RequestNotRecognised"
-          },
-          "502": {
-            "$ref": "#/components/responses/BadGateway"
-          },
-          "503": {
-            "$ref": "#/components/responses/ServerUnavailable"
-          },
-          "504": {
-            "$ref": "#/components/responses/GatewayTimeout"
-          }
-        }
-      },
-      "patch": {
-        "security": [
-          {
-            "basic_auth": []
-          },
-          {
-            "hmac_auth": []
-          }
-        ],
-        "tags": [
-          "Contacts"
-        ],
-        "summary": "Update a contact list",
-        "operationId": "updateContactList",
-        "parameters": [
-          {
-            "name": "listId",
-            "in": "path",
-            "description": "Contact list id in UUID format",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            },
-            "example": "025e93d3-051b-43f9-b12e-4b5842228dee"
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateListRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "List is updated",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/ListData"
-                }
-              }
-            }
-          },
-          "400": {
-            "$ref": "#/components/responses/BadRequest"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "403": {
-            "$ref": "#/components/responses/Forbidden"
-          },
-          "404": {
-            "$ref": "#/components/responses/NotFound"
-          },
-          "409": {
-            "$ref": "#/components/responses/Conflict"
-          },
-          "500": {
-            "$ref": "#/components/responses/InternalServerError"
-          },
-          "501": {
-            "$ref": "#/components/responses/RequestNotRecognised"
-          },
-          "502": {
-            "$ref": "#/components/responses/BadGateway"
-          },
-          "503": {
-            "$ref": "#/components/responses/ServerUnavailable"
-          },
-          "504": {
-            "$ref": "#/components/responses/GatewayTimeout"
-          }
-        }
-      }
-    },
-    "/api/v1/contacts/lists/{listId}/contacts": {
-      "patch": {
-        "security": [
-          {
-            "basic_auth": []
-          },
-          {
-            "hmac_auth": []
-          }
-        ],
-        "tags": [
-          "Contacts"
-        ],
-        "summary": "Add or remove multiple contacts to/from a list",
-        "operationId": "modifyContactsInContactList",
-        "parameters": [
-          {
-            "name": "listId",
-            "in": "path",
-            "description": "Contact list id in UUID format",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            },
-            "example": "025e93d3-051b-43f9-b12e-4b5842228dee"
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateContactsListRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Contacts added/removed to/from list",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/ListData"
-                }
-              }
-            }
-          },
-          "400": {
-            "$ref": "#/components/responses/BadRequest"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "403": {
-            "$ref": "#/components/responses/Forbidden"
-          },
-          "409": {
-            "$ref": "#/components/responses/Conflict"
-          },
-          "500": {
-            "$ref": "#/components/responses/InternalServerError"
-          },
-          "501": {
-            "$ref": "#/components/responses/RequestNotRecognised"
-          },
-          "502": {
-            "$ref": "#/components/responses/BadGateway"
-          },
-          "503": {
-            "$ref": "#/components/responses/ServerUnavailable"
-          },
-          "504": {
-            "$ref": "#/components/responses/GatewayTimeout"
-          }
-        }
-      }
-    },
-    "/api/v1/contacts/lists/{listId}/contacts/{contactId}": {
-      "post": {
-        "security": [
-          {
-            "basic_auth": []
-          },
-          {
-            "hmac_auth": []
-          }
-        ],
-        "tags": [
-          "Contacts"
-        ],
-        "summary": "Add contact to a list",
-        "operationId": "addContactToContactList",
-        "parameters": [
-          {
-            "name": "listId",
-            "in": "path",
-            "description": "Contact list id in UUID format",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            },
-            "example": "025e93d3-051b-43f9-b12e-4b5842228dee"
-          },
-          {
-            "name": "contactId",
-            "in": "path",
-            "description": "Contact id to remove in UUID format",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            },
-            "example": "4a03d2d8-1f85-463f-bdb4-2891c17258a7"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Contacts have been added",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/ListData"
-                }
-              }
-            }
-          },
-          "201": {
-            "description": "Created",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/ListData"
-                }
-              }
-            }
-          },
-          "400": {
-            "$ref": "#/components/responses/BadRequest"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "403": {
-            "$ref": "#/components/responses/Forbidden"
-          },
-          "409": {
-            "$ref": "#/components/responses/Conflict"
-          },
-          "500": {
-            "$ref": "#/components/responses/InternalServerError"
-          },
-          "501": {
-            "$ref": "#/components/responses/RequestNotRecognised"
-          },
-          "502": {
-            "$ref": "#/components/responses/BadGateway"
-          },
-          "503": {
-            "$ref": "#/components/responses/ServerUnavailable"
-          },
-          "504": {
-            "$ref": "#/components/responses/GatewayTimeout"
-          }
-        }
-      },
-      "delete": {
-        "security": [
-          {
-            "basic_auth": []
-          },
-          {
-            "hmac_auth": []
-          }
-        ],
-        "tags": [
-          "Contacts"
-        ],
-        "summary": "Remove contact from the contact list",
-        "operationId": "removeContactFromContactList",
-        "parameters": [
-          {
-            "name": "listId",
-            "in": "path",
-            "description": "Contact list id in UUID format",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            },
-            "example": "025e93d3-051b-43f9-b12e-4b5842228dee"
-          },
-          {
-            "name": "contactId",
-            "in": "path",
-            "description": "Contact id to add in UUID format",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            },
-            "example": "4a03d2d8-1f85-463f-bdb4-2891c17258a7"
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "No Content"
-          },
-          "400": {
-            "$ref": "#/components/responses/BadRequest"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "403": {
-            "$ref": "#/components/responses/Forbidden"
-          },
-          "409": {
-            "$ref": "#/components/responses/Conflict"
-          },
-          "500": {
-            "$ref": "#/components/responses/InternalServerError"
-          },
-          "501": {
-            "$ref": "#/components/responses/RequestNotRecognised"
-          },
-          "502": {
-            "$ref": "#/components/responses/BadGateway"
-          },
-          "503": {
-            "$ref": "#/components/responses/ServerUnavailable"
-          },
-          "504": {
-            "$ref": "#/components/responses/GatewayTimeout"
-          }
-        }
-      }
-    },
-    "/api/v1/contacts/custom-fields": {
-      "post": {
-        "security": [
-          {
-            "basic_auth": []
-          },
-          {
-            "hmac_auth": []
-          }
-        ],
-        "tags": [
-          "Contacts"
-        ],
-        "summary": "Create a custom field",
-        "operationId": "createCustomField",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CustomFieldCreateRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "201": {
-            "description": "Custom field is created",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/CustomFieldData"
-                }
-              }
-            }
-          },
-          "400": {
-            "$ref": "#/components/responses/BadRequest"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "403": {
-            "$ref": "#/components/responses/Forbidden"
-          },
-          "409": {
-            "$ref": "#/components/responses/Conflict"
-          },
-          "500": {
-            "$ref": "#/components/responses/InternalServerError"
-          },
-          "501": {
-            "$ref": "#/components/responses/RequestNotRecognised"
-          },
-          "502": {
-            "$ref": "#/components/responses/BadGateway"
-          },
-          "503": {
-            "$ref": "#/components/responses/ServerUnavailable"
-          },
-          "504": {
-            "$ref": "#/components/responses/GatewayTimeout"
-          }
-        }
-      },
-      "get": {
-        "security": [
-          {
-            "basic_auth": []
-          },
-          {
-            "hmac_auth": []
-          }
-        ],
-        "tags": [
-          "Contacts"
-        ],
-        "summary": "Get custom fields page",
-        "operationId": "getCustomFieldsPage",
-        "parameters": [
-          {
-            "name": "request",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "$ref": "#/components/schemas/GetCustomFieldsRequest"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Returns a custom fields page",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/PageTokenDtoCustomFieldData"
-                }
-              }
-            }
-          },
-          "400": {
-            "$ref": "#/components/responses/BadRequest"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "403": {
-            "$ref": "#/components/responses/Forbidden"
-          },
-          "409": {
-            "$ref": "#/components/responses/Conflict"
-          },
-          "500": {
-            "$ref": "#/components/responses/InternalServerError"
-          },
-          "501": {
-            "$ref": "#/components/responses/RequestNotRecognised"
-          },
-          "502": {
-            "$ref": "#/components/responses/BadGateway"
-          },
-          "503": {
-            "$ref": "#/components/responses/ServerUnavailable"
-          },
-          "504": {
-            "$ref": "#/components/responses/GatewayTimeout"
-          }
-        }
-      }
-    },
-    "/api/v1/contacts/custom-fields/{customFieldId}": {
-      "get": {
-        "security": [
-          {
-            "basic_auth": []
-          },
-          {
-            "hmac_auth": []
-          }
-        ],
-        "tags": [
-          "Contacts"
-        ],
-        "summary": "Get a single custom field",
-        "operationId": "getCustomFieldById",
-        "parameters": [
-          {
-            "name": "customFieldId",
-            "in": "path",
-            "description": "Custom field id in UUID format",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            },
-            "example": "025e93d3-051b-43f9-b12e-4b5842228dee"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Returns a single custom field",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/CustomFieldData"
-                }
-              }
-            }
-          },
-          "400": {
-            "$ref": "#/components/responses/BadRequest"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "403": {
-            "$ref": "#/components/responses/Forbidden"
-          },
-          "404": {
-            "$ref": "#/components/responses/NotFound"
-          },
-          "409": {
-            "$ref": "#/components/responses/Conflict"
-          },
-          "500": {
-            "$ref": "#/components/responses/InternalServerError"
-          },
-          "501": {
-            "$ref": "#/components/responses/RequestNotRecognised"
-          },
-          "502": {
-            "$ref": "#/components/responses/BadGateway"
-          },
-          "503": {
-            "$ref": "#/components/responses/ServerUnavailable"
-          },
-          "504": {
-            "$ref": "#/components/responses/GatewayTimeout"
-          }
-        }
-      },
-      "delete": {
-        "security": [
-          {
-            "basic_auth": []
-          },
-          {
-            "hmac_auth": []
-          }
-        ],
-        "tags": [
-          "Contacts"
-        ],
-        "summary": "Delete a custom field",
-        "operationId": "deleteCustomFieldById",
-        "parameters": [
-          {
-            "name": "customFieldId",
-            "in": "path",
-            "description": "Custom field id in UUID format",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            },
-            "example": "025e93d3-051b-43f9-b12e-4b5842228dee"
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "Custom field is deleted"
-          },
-          "400": {
-            "$ref": "#/components/responses/BadRequest"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "403": {
-            "$ref": "#/components/responses/Forbidden"
-          },
-          "404": {
-            "$ref": "#/components/responses/NotFound"
-          },
-          "409": {
-            "$ref": "#/components/responses/Conflict"
-          },
-          "500": {
-            "$ref": "#/components/responses/InternalServerError"
-          },
-          "501": {
-            "$ref": "#/components/responses/RequestNotRecognised"
-          },
-          "502": {
-            "$ref": "#/components/responses/BadGateway"
-          },
-          "503": {
-            "$ref": "#/components/responses/ServerUnavailable"
-          },
-          "504": {
-            "$ref": "#/components/responses/GatewayTimeout"
-          }
-        }
-      },
-      "patch": {
-        "security": [
-          {
-            "basic_auth": []
-          },
-          {
-            "hmac_auth": []
-          }
-        ],
-        "tags": [
-          "Contacts"
-        ],
-        "summary": "Update a custom field",
-        "operationId": "updateCustomField",
-        "parameters": [
-          {
-            "name": "customFieldId",
-            "in": "path",
-            "description": "Custom field id in UUID format",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            },
-            "example": "025e93d3-051b-43f9-b12e-4b5842228dee"
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateCustomFieldRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Custom field is updated",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/CustomFieldData"
-                }
-              }
-            }
-          },
-          "400": {
-            "$ref": "#/components/responses/BadRequest"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "403": {
-            "$ref": "#/components/responses/Forbidden"
-          },
-          "404": {
-            "$ref": "#/components/responses/NotFound"
-          },
-          "409": {
-            "$ref": "#/components/responses/Conflict"
-          },
-          "500": {
-            "$ref": "#/components/responses/InternalServerError"
-          },
-          "501": {
-            "$ref": "#/components/responses/RequestNotRecognised"
-          },
-          "502": {
-            "$ref": "#/components/responses/BadGateway"
-          },
-          "503": {
-            "$ref": "#/components/responses/ServerUnavailable"
-          },
-          "504": {
-            "$ref": "#/components/responses/GatewayTimeout"
-          }
-        }
-      }
     }
   },
   "components": {
@@ -8329,7 +7186,7 @@
               "original_text": "My first message!",
               "message_id": "d781dcab-d9d8-4fb2-9e03-872f07ae94ba",
               "vendor_account_id": {
-                "vendor_id": "SinchEU",
+                "vendor_id": "MessageMedia",
                 "account_id": "MyAccount"
               },
               "metadata": {
@@ -8348,7 +7205,7 @@
               "original_text": "My second message!",
               "message_id": "fbb3b3f5-b702-4d8b-ab44-65b2ee39a281",
               "vendor_account_id": {
-                "vendor_id": "SinchEU",
+                "vendor_id": "MessageMedia",
                 "account_id": "MyAccount"
               },
               "metadata": {
@@ -8390,7 +7247,7 @@
         "properties": {
           "vendor_id": {
             "type": "string",
-            "example": "SinchEU"
+            "example": "MessageMedia"
           },
           "account_id": {
             "type": "string",
@@ -8427,7 +7284,7 @@
               "destination_number": "+61491570156",
               "source_number": "+61491570157",
               "vendor_account_id": {
-                "vendor_id": "SinchEU",
+                "vendor_id": "MessageMedia",
                 "account_id": "MyAccount"
               },
               "content": "My first reply!"
@@ -8444,7 +7301,7 @@
               "destination_number": "+61491570157",
               "source_number": "+61491570158",
               "vendor_account_id": {
-                "vendor_id": "SinchEU",
+                "vendor_id": "MessageMedia",
                 "account_id": "MyAccount"
               },
               "content": "My second reply!"
@@ -12184,1169 +11041,6 @@
         ],
         "type": "string",
         "example": "DAY"
-      },
-      "CreateListRequest": {
-        "required": [
-          "name"
-        ],
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string",
-            "description": "Group name",
-            "example": "My group"
-          },
-          "alias": {
-            "type": "string",
-            "description": "Group alias",
-            "example": "Group1"
-          }
-        },
-        "description": "Contact list create payload"
-      },
-      "ListData": {
-        "required": [
-          "accountId",
-          "alias",
-          "createdDate",
-          "id",
-          "lastModifiedDate",
-          "name",
-          "vendorId"
-        ],
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "description": "List id in UUID format",
-            "format": "uuid",
-            "example": "025e93d3-051b-43f9-b12e-4b5842228dee"
-          },
-          "accountId": {
-            "type": "string",
-            "description": "Account id"
-          },
-          "vendorId": {
-            "type": "string",
-            "description": "Vendor id"
-          },
-          "name": {
-            "type": "string",
-            "description": "List name",
-            "example": "My group"
-          },
-          "alias": {
-            "type": "string",
-            "description": "List alias",
-            "example": "VIP group"
-          },
-          "createdDate": {
-            "type": "string",
-            "description": "Create date",
-            "format": "date-time",
-            "example": "2022-08-18T09:15:03.112Z"
-          },
-          "lastModifiedDate": {
-            "type": "string",
-            "description": "Last modified date",
-            "format": "date-time",
-            "example": "2022-08-18T09:15:03.112Z"
-          }
-        },
-        "description": "List details data"
-      },
-      "CustomFieldCreateRequest": {
-        "required": [
-          "label",
-          "maxLength",
-          "mergeTag",
-          "type"
-        ],
-        "type": "object",
-        "properties": {
-          "label": {
-            "type": "string",
-            "description": "Custom field label",
-            "example": "Contact name"
-          },
-          "mergeTag": {
-            "type": "string",
-            "description": "Custom field merge tag",
-            "example": "contact_name"
-          },
-          "maxLength": {
-            "type": "integer",
-            "description": "Custom field max length",
-            "format": "int32",
-            "example": 30
-          },
-          "type": {
-            "type": "string",
-            "description": "Custom field type",
-            "example": "DATE",
-            "enum": [
-              "DATE",
-              "NUMBER",
-              "PHONE",
-              "TEXT",
-              "URL",
-              "ZIP_CODE",
-              "NAME",
-              "EMAIL"
-            ]
-          }
-        },
-        "description": "Custom field create payload"
-      },
-      "CustomFieldData": {
-        "required": [
-          "accountId",
-          "createdDate",
-          "id",
-          "label",
-          "lastModifiedDate",
-          "maxLength",
-          "mergeTag",
-          "type",
-          "vendorId"
-        ],
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "description": "Custom field id in UUID format",
-            "format": "uuid",
-            "example": "025e93d3-051b-43f9-b12e-4b5842228dee"
-          },
-          "accountId": {
-            "type": "string",
-            "description": "Account id",
-            "example": "accountId_67846328"
-          },
-          "vendorId": {
-            "type": "string",
-            "description": "Vendor id"
-          },
-          "label": {
-            "type": "string",
-            "description": "Custom field label",
-            "example": "Contact name"
-          },
-          "mergeTag": {
-            "type": "string",
-            "description": "Custom field merge tag",
-            "example": "contact_name"
-          },
-          "maxLength": {
-            "type": "integer",
-            "description": "Custom field max length",
-            "format": "int32",
-            "example": 30
-          },
-          "type": {
-            "type": "string",
-            "description": "Custom field type",
-            "example": "DATE",
-            "enum": [
-              "DATE",
-              "NUMBER",
-              "PHONE",
-              "TEXT",
-              "URL",
-              "ZIP_CODE",
-              "NAME",
-              "EMAIL"
-            ]
-          },
-          "createdDate": {
-            "type": "string",
-            "description": "Create date",
-            "format": "date-time",
-            "example": "2022-08-18T09:15:03.112Z"
-          },
-          "lastModifiedDate": {
-            "type": "string",
-            "description": "Last modified date",
-            "format": "date-time",
-            "example": "2022-08-18T09:15:03.112Z"
-          }
-        },
-        "description": "Custom field data"
-      },
-      "CreateContactChannelRequest": {
-        "required": [
-          "channelId",
-          "type"
-        ],
-        "type": "object",
-        "properties": {
-          "channelId": {
-            "type": "string",
-            "description": "Contact channel id (in case phone number - in E164 international format)",
-            "example": "+15553456783"
-          },
-          "type": {
-            "type": "string",
-            "description": "Contact channel type",
-            "example": "SMS",
-            "enum": [
-              "SMS",
-              "WHATSAPP"
-            ]
-          },
-          "subscriptionState": {
-            "type": "string",
-            "description": "Subscription state",
-            "example": "UNSUBSCRIBED",
-            "enum": [
-              "SUBSCRIBED",
-              "UNSUBSCRIBED"
-            ]
-          }
-        },
-        "description": "Contact channel create payload"
-      },
-      "CreateContactListRequest": {
-        "required": [
-          "id"
-        ],
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "description": "List id in UUID format",
-            "format": "uuid",
-            "example": "025e93d3-051b-43f9-b12e-4b5842228dee"
-          }
-        },
-        "description": "Contact creation list payload"
-      },
-      "CreateContactRequest": {
-        "required": [
-          "channels"
-        ],
-        "type": "object",
-        "properties": {
-          "firstName": {
-            "type": "string",
-            "description": "Contact first name",
-            "example": "Adam"
-          },
-          "lastName": {
-            "type": "string",
-            "description": "Contact last name",
-            "example": "Smith"
-          },
-          "alias": {
-            "type": "string",
-            "description": "Contact alias. Used as an alternative name for your contact, as well as an email handle for email to sms",
-            "example": "user1234"
-          },
-          "dateOfBirth": {
-            "type": "string",
-            "description": "Date of birth",
-            "format": "date",
-            "example": "2022-08-18"
-          },
-          "country": {
-            "type": "string",
-            "description": "Country",
-            "example": "US"
-          },
-          "state": {
-            "type": "string",
-            "description": "State",
-            "example": "CA"
-          },
-          "location": {
-            "type": "string",
-            "description": "Location",
-            "example": "Sunset Blvd"
-          },
-          "note": {
-            "type": "string",
-            "description": "Note",
-            "example": "Note"
-          },
-          "channels": {
-            "type": "array",
-            "description": "Contact channels",
-            "items": {
-              "$ref": "#/components/schemas/CreateContactChannelRequest"
-            }
-          },
-          "lists": {
-            "type": "array",
-            "description": "Contact lists",
-            "items": {
-              "$ref": "#/components/schemas/CreateContactListRequest"
-            }
-          },
-          "customFields": {
-            "type": "array",
-            "description": "Contact custom fields",
-            "items": {
-              "$ref": "#/components/schemas/CreateCustomFieldRequest"
-            }
-          }
-        },
-        "description": "Contact create payload"
-      },
-      "CreateCustomFieldRequest": {
-        "required": [
-          "id",
-          "value"
-        ],
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "description": "Custom Field id in UUID format",
-            "format": "uuid",
-            "example": "025e93d3-051b-43f9-b12e-4b5842228dee"
-          },
-          "value": {
-            "type": "string",
-            "description": "Custom field value",
-            "example": "John"
-          }
-        },
-        "description": "Contact custom field create payload"
-      },
-      "ContactChannelData": {
-        "required": [
-          "channelId",
-          "type"
-        ],
-        "type": "object",
-        "properties": {
-          "channelId": {
-            "type": "string",
-            "description": "Contact channel id (in case phone number - in E164 international format)",
-            "example": "+15553456783"
-          },
-          "type": {
-            "type": "string",
-            "description": "Contact channel type",
-            "example": "SMS",
-            "enum": [
-              "SMS",
-              "WHATSAPP",
-              "GBM",
-              "INSTAGRAM",
-              "FACEBOOK",
-              "EMAIL"
-            ]
-          },
-          "subscriptionState": {
-            "type": "string",
-            "description": "Subscription state",
-            "example": "UNSUBSCRIBED",
-            "enum": [
-              "SUBSCRIBED",
-              "UNSUBSCRIBED"
-            ]
-          }
-        },
-        "description": "Contact channel data"
-      },
-      "ContactCustomFieldData": {
-        "required": [
-          "id",
-          "mergeTag",
-          "type",
-          "value"
-        ],
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "description": "Custom Field id in UUID format",
-            "format": "uuid",
-            "example": "025e93d3-051b-43f9-b12e-4b5842228dee"
-          },
-          "mergeTag": {
-            "type": "string",
-            "description": "Custom field merge tag",
-            "example": "contact_name"
-          },
-          "value": {
-            "type": "string",
-            "description": "Custom field value",
-            "example": "John"
-          },
-          "type": {
-            "type": "string",
-            "description": "Custom field type",
-            "example": "DATE",
-            "enum": [
-              "DATE",
-              "NUMBER",
-              "PHONE",
-              "TEXT",
-              "URL",
-              "ZIP_CODE",
-              "NAME",
-              "EMAIL"
-            ]
-          }
-        },
-        "description": "Custom field data"
-      },
-      "ContactData": {
-        "required": [
-          "accountId",
-          "alias",
-          "channels",
-          "country",
-          "createdDate",
-          "customFields",
-          "firstName",
-          "fullName",
-          "id",
-          "lastModifiedDate",
-          "lastName",
-          "lists",
-          "location",
-          "note",
-          "state",
-          "vendorId"
-        ],
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "description": "Contact id in UUID format",
-            "format": "uuid",
-            "example": "025e93d3-051b-43f9-b12e-4b5842228dee"
-          },
-          "accountId": {
-            "type": "string",
-            "description": "Account id"
-          },
-          "vendorId": {
-            "type": "string",
-            "description": "Vendor id"
-          },
-          "firstName": {
-            "type": "string",
-            "description": "Contact first name",
-            "example": "Adam"
-          },
-          "lastName": {
-            "type": "string",
-            "description": "Contact last name",
-            "example": "Smith"
-          },
-          "fullName": {
-            "type": "string",
-            "description": "Contact full name",
-            "example": "Adam Smith"
-          },
-          "alias": {
-            "type": "string",
-            "description": "Contact alias",
-            "example": "VIP contact"
-          },
-          "dateOfBirth": {
-            "type": "string",
-            "description": "Date of birth",
-            "format": "date",
-            "example": "2022-08-18"
-          },
-          "country": {
-            "type": "string",
-            "description": "Country",
-            "example": "US"
-          },
-          "state": {
-            "type": "string",
-            "description": "State",
-            "example": "CA"
-          },
-          "location": {
-            "type": "string",
-            "description": "Location",
-            "example": "Sunset Blvd"
-          },
-          "note": {
-            "type": "string",
-            "description": "Note",
-            "example": "Note"
-          },
-          "createdDate": {
-            "type": "string",
-            "description": "Create date",
-            "format": "date-time",
-            "example": "2022-08-18T09:15:03.112Z"
-          },
-          "lastModifiedDate": {
-            "type": "string",
-            "description": "Last modified date",
-            "format": "date-time",
-            "example": "2022-08-18T09:15:03.112Z"
-          },
-          "customFields": {
-            "type": "array",
-            "description": "List of custom fields",
-            "items": {
-              "$ref": "#/components/schemas/ContactCustomFieldData"
-            }
-          },
-          "channels": {
-            "type": "array",
-            "description": "Contact channels",
-            "items": {
-              "$ref": "#/components/schemas/ContactChannelData"
-            }
-          },
-          "lists": {
-            "type": "array",
-            "description": "Contact lists",
-            "items": {
-              "$ref": "#/components/schemas/ContactListData"
-            }
-          }
-        },
-        "description": "Contact data"
-      },
-      "ContactListData": {
-        "required": [
-          "id",
-          "name"
-        ],
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "description": "List id in UUID format",
-            "format": "uuid",
-            "example": "025e93d3-051b-43f9-b12e-4b5842228dee"
-          },
-          "name": {
-            "type": "string",
-            "description": "List name",
-            "example": "My list"
-          }
-        },
-        "description": "Contact list data"
-      },
-      "UpdateListRequest": {
-        "required": [
-          "name"
-        ],
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string",
-            "description": "Contact list name",
-            "example": "My list"
-          },
-          "alias": {
-            "type": "string",
-            "description": "Contact list alias",
-            "example": "List1"
-          }
-        },
-        "description": "Contact list update payload"
-      },
-      "UpdateContactsListRequest": {
-        "type": "object",
-        "properties": {
-          "contactsToAddIds": {
-            "maxItems": 1000,
-            "minItems": 0,
-            "type": "array",
-            "items": {
-              "type": "string",
-              "description": "List of contacts to add to the list in UUID format",
-              "format": "uuid"
-            }
-          },
-          "contactsToRemoveIds": {
-            "maxItems": 1000,
-            "minItems": 0,
-            "type": "array",
-            "items": {
-              "type": "string",
-              "description": "List of contacts to remove from the list in UUID format",
-              "format": "uuid"
-            }
-          }
-        },
-        "description": "Contacts list update payload"
-      },
-      "UpdateCustomFieldRequest": {
-        "type": "object",
-        "properties": {
-          "label": {
-            "type": "string",
-            "description": "Custom field label",
-            "example": "Contact name"
-          },
-          "maxLength": {
-            "type": "integer",
-            "description": "Custom field max length",
-            "format": "int32",
-            "example": 30
-          }
-        },
-        "description": "Custom field update payload"
-      },
-      "UpdateContactChannelRequest": {
-        "required": [
-          "channelId",
-          "type"
-        ],
-        "type": "object",
-        "properties": {
-          "channelId": {
-            "type": "string",
-            "description": "Contact channel id (in case phone number - in E164 international format)",
-            "example": "+15553456783"
-          },
-          "type": {
-            "type": "string",
-            "description": "Contact channel type",
-            "example": "SMS",
-            "enum": [
-              "SMS",
-              "WHATSAPP"
-            ]
-          },
-          "subscriptionState": {
-            "type": "string",
-            "description": "Subscription state",
-            "example": "UNSUBSCRIBED",
-            "enum": [
-              "SUBSCRIBED",
-              "UNSUBSCRIBED"
-            ]
-          }
-        },
-        "description": "Contact channel update payload"
-      },
-      "UpdateContactRequest": {
-        "type": "object",
-        "properties": {
-          "firstName": {
-            "type": "string",
-            "description": "Contact first name",
-            "example": "Adam"
-          },
-          "lastName": {
-            "type": "string",
-            "description": "Contact last name",
-            "example": "Smith"
-          },
-          "alias": {
-            "type": "string",
-            "description": "Contact alias. Used as an alternative name for your contact, as well as an email handle for email to sms",
-            "example": "user1234"
-          },
-          "dateOfBirth": {
-            "type": "string",
-            "description": "Date of birth",
-            "format": "date",
-            "example": "2022-08-18"
-          },
-          "country": {
-            "type": "string",
-            "description": "Country",
-            "example": "US"
-          },
-          "state": {
-            "type": "string",
-            "description": "State",
-            "example": "CA"
-          },
-          "location": {
-            "type": "string",
-            "description": "Location",
-            "example": "Sunset Blvd"
-          },
-          "note": {
-            "type": "string",
-            "description": "Note",
-            "example": "Note"
-          },
-          "channels": {
-            "type": "array",
-            "description": "Contact channels",
-            "items": {
-              "$ref": "#/components/schemas/UpdateContactChannelRequest"
-            }
-          },
-          "lists": {
-            "type": "array",
-            "description": "Contact lists",
-            "items": {
-              "$ref": "#/components/schemas/CreateContactListRequest"
-            }
-          },
-          "customFields": {
-            "type": "array",
-            "description": "Contact custom fields",
-            "items": {
-              "$ref": "#/components/schemas/UpdateCustomFieldRequest"
-            }
-          }
-        },
-        "description": "Contact update payload"
-      },
-      "GetListsRequest": {
-        "type": "object",
-        "properties": {
-          "nextPageToken": {
-            "type": "string"
-          },
-          "prevPageToken": {
-            "type": "string"
-          },
-          "pageSize": {
-            "maximum": 1000,
-            "type": "integer",
-            "format": "int32"
-          },
-          "listIds": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          "alias": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          }
-        },
-        "description": "Get contact lists page filter"
-      },
-      "PageTokenDtoListData": {
-        "required": [
-          "content",
-          "totalElements"
-        ],
-        "type": "object",
-        "properties": {
-          "content": {
-            "type": "array",
-            "description": "Page content and number of elements is restricted by page size",
-            "items": {
-              "$ref": "#/components/schemas/ListData"
-            }
-          },
-          "nextPageToken": {
-            "type": "string",
-            "description": "Pagination token to retrieve the next page"
-          },
-          "prevPageToken": {
-            "type": "string",
-            "description": "Pagination token to retrieve the previous page"
-          },
-          "totalElements": {
-            "type": "integer",
-            "description": "Total number of elements",
-            "format": "int64",
-            "example": 25
-          }
-        },
-        "description": "Page token representation for search result"
-      },
-      "GetCustomFieldsRequest": {
-        "type": "object",
-        "properties": {
-          "nextPageToken": {
-            "type": "string"
-          },
-          "prevPageToken": {
-            "type": "string"
-          },
-          "pageSize": {
-            "maximum": 1000,
-            "type": "integer",
-            "format": "int32"
-          },
-          "customFieldIds": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          "label": {
-            "type": "string"
-          },
-          "mergeTag": {
-            "type": "string"
-          }
-        },
-        "description": "Get custom fields page filter"
-      },
-      "PageTokenDtoCustomFieldData": {
-        "required": [
-          "content",
-          "totalElements"
-        ],
-        "type": "object",
-        "properties": {
-          "content": {
-            "type": "array",
-            "description": "Page content and number of elements is restricted by page size",
-            "items": {
-              "$ref": "#/components/schemas/CustomFieldData"
-            }
-          },
-          "nextPageToken": {
-            "type": "string",
-            "description": "Pagination token to retrieve the next page"
-          },
-          "prevPageToken": {
-            "type": "string",
-            "description": "Pagination token to retrieve the previous page"
-          },
-          "totalElements": {
-            "type": "integer",
-            "description": "Total number of elements",
-            "format": "int64",
-            "example": 25
-          }
-        },
-        "description": "Page token representation for search result"
-      },
-      "GetContactsRequest": {
-        "type": "object",
-        "properties": {
-          "nextPageToken": {
-            "type": "string"
-          },
-          "prevPageToken": {
-            "type": "string"
-          },
-          "pageSize": {
-            "maximum": 1000,
-            "type": "integer",
-            "format": "int32"
-          },
-          "listIds": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          "contactIds": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          "channelIds": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "channelTypes": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "enum": [
-                "SMS",
-                "WHATSAPP",
-                "GBM",
-                "INSTAGRAM",
-                "FACEBOOK",
-                "EMAIL"
-              ]
-            }
-          },
-          "channelSubscriptionState": {
-            "type": "string",
-            "enum": [
-              "SUBSCRIBED",
-              "UNSUBSCRIBED"
-            ]
-          }
-        },
-        "description": "Get contacts page filter payload"
-      },
-      "PageTokenDtoContactData": {
-        "required": [
-          "content",
-          "totalElements"
-        ],
-        "type": "object",
-        "properties": {
-          "content": {
-            "type": "array",
-            "description": "Page content and number of elements is restricted by page size",
-            "items": {
-              "$ref": "#/components/schemas/ContactData"
-            }
-          },
-          "nextPageToken": {
-            "type": "string",
-            "description": "Pagination token to retrieve the next page"
-          },
-          "prevPageToken": {
-            "type": "string",
-            "description": "Pagination token to retrieve the previous page"
-          },
-          "totalElements": {
-            "type": "integer",
-            "description": "Total number of elements",
-            "format": "int64",
-            "example": 25
-          }
-        },
-        "description": "Page token representation for search result"
-      },
-      "ApiError": {
-        "required": [
-          "detail",
-          "title",
-          "type",
-          "uuid"
-        ],
-        "type": "object",
-        "properties": {
-          "uuid": {
-            "type": "string",
-            "description": "Error id in UUID format",
-            "format": "uuid"
-          },
-          "type": {
-            "type": "string",
-            "description": "Error type",
-            "enum": [
-              "validation",
-              "not_found",
-              "method_not_allowed",
-              "conflict",
-              "payload_too_large",
-              "unsupported_media_type",
-              "message_not_readable",
-              "internal_server_error",
-              "request_not_recognised",
-              "forbidden",
-              "bad_gateway",
-              "payment_required",
-              "unauthorized",
-              "unknown"
-            ]
-          },
-          "title": {
-            "type": "string",
-            "description": "Error title"
-          },
-          "detail": {
-            "type": "string",
-            "description": "Error additional details"
-          }
-        },
-        "description": "Api error data"
-      },
-      "InvalidInputApiError": {
-        "required": [
-          "detail",
-          "invalidFields",
-          "title",
-          "type",
-          "uuid"
-        ],
-        "type": "object",
-        "properties": {
-          "uuid": {
-            "type": "string",
-            "description": "Error id in UUID format",
-            "format": "uuid"
-          },
-          "type": {
-            "type": "string",
-            "description": "Error type",
-            "enum": [
-              "validation",
-              "not_found",
-              "method_not_allowed",
-              "conflict",
-              "payload_too_large",
-              "unsupported_media_type",
-              "message_not_readable",
-              "internal_server_error",
-              "request_not_recognised",
-              "forbidden",
-              "bad_gateway",
-              "payment_required",
-              "unauthorized",
-              "unknown"
-            ]
-          },
-          "title": {
-            "type": "string",
-            "description": "Error title"
-          },
-          "detail": {
-            "type": "string",
-            "description": "Error additional details"
-          },
-          "invalidFields": {
-            "type": "array",
-            "description": "List of invalid fields",
-            "items": {
-              "$ref": "#/components/schemas/InvalidInputField"
-            }
-          }
-        },
-        "description": "Invalid input error data"
-      },
-      "InvalidInputField": {
-        "required": [
-          "code",
-          "name",
-          "reason"
-        ],
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string",
-            "description": "Invalid input field name"
-          },
-          "channelType": {
-            "type": "string",
-            "description": "Invalid channel type",
-            "enum": [
-              "PHONE",
-              "WHATSAPP",
-              "GBM",
-              "INSTAGRAM",
-              "FACEBOOK",
-              "EMAIL"
-            ]
-          },
-          "code": {
-            "type": "string",
-            "description": "Invalid input value code",
-            "enum": [
-              "must_not_be_empty",
-              "must_be_empty",
-              "must_not_be_null",
-              "invalid_length",
-              "duplicated_value",
-              "invalid_format",
-              "type_mismatch",
-              "missing_parameter",
-              "invalid_reference",
-              "incorrect_operation",
-              "no_such_pattern",
-              "constraint_violation"
-            ]
-          },
-          "reason": {
-            "type": "string",
-            "description": "Error message"
-          },
-          "invalidIds": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          }
-        },
-        "description": "Invalid input field"
-      }
-    },
-    "responses": {
-      "BadRequest": {
-        "description": "Request has incorrect values",
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "#/components/schemas/InvalidInputApiError"
-            }
-          }
-        }
-      },
-      "Unauthorized": {
-        "description": "No valid authentication details were provided"
-      },
-      "Forbidden": {
-        "description": "The authenticated user or account doesn't have permission"
-      },
-      "NotFound": {
-        "description": "The specified resource not found",
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "#/components/schemas/ApiError"
-            }
-          }
-        }
-      },
-      "PayloadTooLarge": {
-        "description": "Maximum upload size exceeded",
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "#/components/schemas/ApiError"
-            }
-          }
-        }
-      },
-      "UnsupportedMediaType": {
-        "description": "Unsupported media type",
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "#/components/schemas/ApiError"
-            }
-          }
-        }
-      },
-      "InternalServerError": {
-        "description": "Internal server error",
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "#/components/schemas/ApiError"
-            }
-          }
-        }
-      },
-      "RequestNotRecognised": {
-        "description": "Request not recognised"
-      },
-      "BadGateway": {
-        "description": "Invalid server response"
-      },
-      "ServerUnavailable": {
-        "description": "Server currently unavailable"
-      },
-      "GatewayTimeout": {
-        "description": "Gateway time out"
-      },
-      "PaymentRequired": {
-        "description": "Current user does not have permissions to perform the requested operation",
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "#/components/schemas/ApiError"
-            }
-          }
-        }
-      },
-      "Conflict": {
-        "description": "Conflict. The entity already exists.",
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "#/components/schemas/ApiError"
-            }
-          }
-        }
       }
     },
     "headers": {
