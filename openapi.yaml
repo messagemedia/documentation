@@ -1,23 +1,19 @@
 openapi: 3.0.0
 info:
   version: 2.1.0
-  title: MessageMedia
+  title: Sinch
   termsOfService: 'https://messagemedia.com/au/legal/terms-of-service/'
-  contact:
-    email: developers@messagemedia.com
-    url: 'https://developers.messagemedia.com/collaborate/slack/'
   license:
     name: Apache 2.0
     url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
   x-logo:
-    url: 'https://messagemedia.com/wp-content/themes/MessageMedia%20Theme/images/logo-mm-sinch.svg'
+    url: 'https://cdn-assets-eu.frontify.com/s3/frontify-enterprise-files-eu/eyJwYXRoIjoic2luY2hcL2ZpbGVcL0xYSFMxOTZQSlJpbjJLdFcxclc1LnBuZyJ9:sinch:G873APD1uAA-wfyymEBENuKEj4S5FAt8gk6_fSrqIbM?width=2400'
   description: |
     # Introduction
-    The MessageMedia APIs provide powerful business messaging capabilities across sending, receiving, and processing SMS, MMS, and rich messaging. 
+    The Sinch APIs provide powerful business messaging capabilities across sending, receiving, and processing SMS, MMS, and rich messaging. 
 
-    All requests to the MessageMedia REST API must be authenticated, this can either be done using Basic Authentication or by signing with a HMAC signature.
+    All requests to the Sinch REST API must be authenticated, this can either be done using Basic Authentication or by signing with a HMAC signature.
 
-    *Note: MMS and TTS are only available in the APAC region.*
 
 
     # Base URI
@@ -32,20 +28,20 @@ info:
       
     To access the API, an API key and secret are required.
       
-    [Sign up for a developer account here to get access](https://developers.messagemedia.com/register/): https://developers.messagemedia.com/register/.
+    [Sign up for a developer account here to get access](https://developers.messagemedia.com/register/)
 
     # Features
     ###  De-Duplication 
     De-Duplication helps you avoid having to undertake data cleansing before commencing send outs.  
-    It automatically detects and withholds messages deemed to be duplicates through the use of a 24-hour window – if a message is sent to the same number with the same content within a 24hr period, the subsequent message(s) will be withheld and rejected. To enable this, you don't need to make any changes to your application, just an account configuration change by MessageMedia's support team.
+    It automatically detects and withholds messages deemed to be duplicates through the use of a 24-hour window – if a message is sent to the same number with the same content within a 24hr period, the subsequent message(s) will be withheld and rejected. To enable this, you don't need to make any changes to your application, just an account configuration change by Sinch's support team.
 
     ###  Social Sending 
     Social Sending permits messages to be sent only during sociable hours - i.e. 8am to 6pm (based on your accounts local time zone - not local time). 
-    Messages sent outside of these hours are scheduled to be released during the next social time period. This feature helps businesses avoid send-outs during a time that would be deemed unsuitable by the customer. To enable this, you don't need to make any changes to your application, just an account configuration change by MessageMedia's support team.
+    Messages sent outside of these hours are scheduled to be released during the next social time period. This feature helps businesses avoid send-outs during a time that would be deemed unsuitable by the customer. To enable this, you don't need to make any changes to your application, just an account configuration change by Sinch's support team.
 
     ###  Familiar Sender
     Familiar Sender ensures all communication sent to a customer are from the same phone number. 
-    This allows businesses to build trust and familiarity with their customers and not confuse them by changing outgoing numbers. To enable this, you don't need to make any changes to your application, just an account configuration change by MessageMedia's support team.
+    This allows businesses to build trust and familiarity with their customers and not confuse them by changing outgoing numbers. To enable this, you don't need to make any changes to your application, just an account configuration change by Sinch's support team.
 
     ### Character Converter
     Characters in a message may not always fall within the GSM-7 supported characterset, and when this occurs all 
@@ -53,7 +49,7 @@ info:
     can help you avoid being double-charged for your SMS by converting all characters into the GSM-7 format ensuring you always 
     get the maximum characters into an SMS. Bear in my mind, this will downgrade all your unicode characters so for instance, 
     your emojis will be translated into a string of unknown characters (eg: �).  To enable this, you don't need to make any 
-    changes to your application, just an account configuration change by MessageMedia's support team.
+    changes to your application, just an account configuration change by Sinch's support team.
 tags:
   - name: Basic Authentication
     description: |-
@@ -201,7 +197,7 @@ tags:
         ```
   - name: Messages
     description: |-
-      The MessageMedia Messages API provides a number of endpoints for building powerful two-way messaging applications. The Messages API provides access to three main resources:
+      The Sinch Messages API provides a number of endpoints for building powerful two-way messaging applications. The Messages API provides access to three main resources:
       * Messages - Messages delivered from an application to a handset.
       * Delivery Reports - Real time reports on the delivery status of a message. As a message is processed, it's status may change several times before it is finally delivered to a handset.
       * Replies - Messages sent from a handset to an application. These messages are typically a reply to a previously sent message.
@@ -214,7 +210,7 @@ tags:
 
       Simply put, a sender ID is whatever you send a text message from. This is typically either a phone number, or a string of alphanumeric characters (commonly referred to as an “Alpha Tag”).
 
-      With regulations surrounding SMS becoming much stricter all over the world in an effect to combat scam SMS messages, MessageMedia is working on “Trusted Sender ID” a concept that allows customers to request a Sender ID and have it verified.
+      With regulations surrounding SMS becoming much stricter all over the world in an effect to combat scam SMS messages, Sinch is working on “Trusted Sender ID” a concept that allows customers to request a Sender ID and have it verified.
 
       Currently, Trusted Sender ID supports two types of Sender ID: Alpha Tags and Personal (“Own”) Numbers. It will likely be extended to support additional number types, such as TFN and 10DLC where additional registration, (external) verification, and overall account whitelist of numbers will be required.
 
@@ -240,7 +236,7 @@ tags:
         * _ (underscore)
         * \- (hyphen)
         
-        Alpha Tags can currently be registered through the Source Address API for the following countries: ```AU```, ```GB```, ```ES```, ```DE``` and ```FR```
+        Alpha Tags can currently be registered through the Source Address API for the following countries: ```AD```, ```AI```, ```AL```, ```AS```, ```AT```, ```AU```, ```AW```, ```BA```, ```BB```, ```BH```, ```BW```, ```CD```, ```CH```, ```CK```, ```CY```, ```DE```, ```DJ```, ```DK```, ```DM```, ```EE```, ```ES```, ```FI```, ```FJ```, ```FM```, ```FO```, ```FR```, ```GB```, ```GD```, ```GG```, ```GI```, ```GL```, ```GM```, ```GQ```, ```GR```, ```GY```, ```IL```, ```IM```, ```IS```, ```JE```, ```JM```, ```JP```, ```KI```, ```KY```, ```LA```, ```LI```, ```LS```, ```LT```, ```LU```, ```LV```, ```MC```, ```ME```, ```MH```, ```MO```, ```MR```, ```MS```, ```MT```, ```MV```, ```NC```, ```NF```, ```NL```, ```NO```, ```NR```, ```NU```, ```PF```, ```PM```, ```PT```, ```SB```, ```SC```, ```SE```, ```SH```, ```SL```, ```SM```, ```ST```, ```TC```, ```TD```, ```TO```, ```VC```, ```VG``` and ```WS```
         
         To register an Alpha Tag as a sender ID you must:
         1. Make a request to the **Request a Sender Address** endpoint
@@ -249,7 +245,7 @@ tags:
         Once the alpha tag has been approved, you can begin using it as a Sender ID for SMS messages.
 
         ### Personal Number
-        A personal number, or “My Own Number”, is a number that you own rather than one provided to you by Sinch MessageMedia. Typically, this is your personal mobile phone number. You may wish to register this number for use with our service so that you can easily send messages from a number already associated with your organisation.
+        A personal number, or “My Own Number”, is a number that you own rather than one provided to you by Sinch. Typically, this is your personal mobile phone number. You may wish to register this number for use with our service so that you can easily send messages from a number already associated with your organisation.
         
         Before you can send messages using your own number, you need to verify that you have a right to use that number. Ensuring you have a right to use a phone number is an important regulatory requirement, aiming to prevent scam, spam, and misuse of messaging services.
 
@@ -293,7 +289,7 @@ tags:
 
       All notifications are JSON encoded and the request expects to receive a response in the HTTP 200 range. If a valid response isn't received the request will be retried in an exponentially backing off fashion.
 
-      Delivery Reports may carry an additional charge. For pricing, please contact your Account Manager or Support Team (support@messagemedia.com).
+      Delivery Reports may carry an additional charge. For pricing, please contact your Account Manager or Support Team (support@app.sinch.com).
 
       For delivery reports or changes in the status of a message, the POST request to the specified URL will be as follows:
         
@@ -354,7 +350,7 @@ tags:
 
       * **Message ID**: ID of the original message.
 
-      * **Vendor Account ID**: The account used to submit the original message. The vendor will always be `MessageMedia`
+      * **Vendor Account ID**: The account used to submit the original message. The vendor will always be `SinchEU`
 
       * **Error Code**: A status code which provides additional information about the message status:
 
@@ -419,54 +415,16 @@ tags:
         * `405`: Message cancelled or deleted by provider.
   - name: Replies
     description: ''
-  - name: Lookups
-    description: |
-      How confident are you in the accuracy of your database? Sending text messages to inactive, invalid or unrecognisable numbers wastes resources on messages that will never be read.
-
-      Our Lookups API provides a simple way to keep your database clean. It accesses mobile carrier information about any mobile number, in real-time, anywhere in the world.
-      * Identify invalid numbers and reduce the number of failed or undeliverable messages  
-      * Separate mobiles and landlines, so you don’t pay for messages that will never be delivered 
-      * Identify carriers to determine which are low cost
-
-      To learn more about the benefits of the Lookups API, [visit our product page](https://www.messagemedia.com/au/feature/lookups/).
-
-      ![Lookups](https://developers.messagemedia.com/wp-content/uploads/2017/11/lookups-api.png)
-
-      Required Parameters
-
-      `{phone_number} `
-      This should be set to the phone number to be looked up. 
-
-      By default, a request will only return the country_code and phone_number properties in the response.
-      ```json
-      {
-        "country_code": "AU",
-        "phone_number": "+61491570156",
-      }
-      ```
-
-      Options for Parameters
-
-      The options query parameter can also be used to request additional information about the phone number. 
-
-      * `carrier` Request details about the carrier.
-      * `type` Use as a value of the options parameter
-
-      _Note: The `carrier` and the `type` values can be used together using a comma separated list, i.e. carrier,type._ 
-
-      * `hlr` Request details about the location by including as a value of the options parameter.
-
-      _NOTE: The `hlr` value CANNOT be used in conjunction with the other values.
   - name: Number Authorisation
     description: |-
-      The number authorisation API allows you to manage your blacklists. MessageMedia automatically adds numbers to your blacklist if people send one of the opt-out keywords in response to one of your messages.
+      The number authorisation API allows you to manage your blacklists. Sinch automatically adds numbers to your blacklist if people send one of the opt-out keywords in response to one of your messages.
       This is a legal requirement. If you decide to handle the legal compliance yourself, calls to this endpoint will not affect your messages.
   - name: Dedicated Numbers
-    description: "The Numbers API allows your to purchase, provision and configure the dedicated numbers assigned to your MessageMedia account. \n\nTo learn more about the benefits of dedicated numbers, and their use cases,\_visit our [feature page](https://messagemedia.com/au/feature/dedicated-virtual-numbers/).\n\nThis is a paid feature and must be enabled on your account. Please contact [support@messagemedia.com](support@messagemedia.com) or your account manager.\n\n## Concepts\n\nThis API allows you to purchase and assign to your account a number from a pool of dedicated numbers. Dedicated numbers are priced differently according to their classification.\n\nThe following is the system by which we classify dedicated numbers. \n\n| Pattern Type | Gold|  Silver |\n|---|---|---|\n| Same Number  |  Six of same (e.g. 999999) | Five of same (e.g. 999991 or 199999)  | \n| Sequence  |  Six in sequence (e.g. 234567, or 765432) | Five in sequence (e.g. 245678, 456782, or 287654)  |\n|  Triplets |  Two identical (e.g. 123123) or two double (e.g. 444666) | Identical pairs within triplets (e.g. 004008, or 400800), one identical and one in sequence (e.g. 444789, or 345777), or mirror image (e.g. 468864)| \n|Pair|Three identical (e.g. 454545)|Three non-identical (e.g. 447700) or three in sequence (e.g. 232425, or 090807)|\n\nAny numbers that do not meet the criteria for Gold or Silver are classified as Bronze.\n\nFor pricing on dedicated numbers please refer to the Numbers page in our Hub web portal, or speak with your MessageMedia Account Manager.\n"
+    description: "The Numbers API allows your to purchase, provision and configure the dedicated numbers assigned to your Sinch account. \n\nTo learn more about the benefits of dedicated numbers, and their use cases,\_visit our [feature page](https://messagemedia.com/au/feature/dedicated-virtual-numbers/).\n\nThis is a paid feature and must be enabled on your account. Please contact [support@app.sinch.com](support@app.sinch.com) or your account manager.\n\n## Concepts\n\nThis API allows you to purchase and assign to your account a number from a pool of dedicated numbers. Dedicated numbers are priced differently according to their classification.\n\nThe following is the system by which we classify dedicated numbers. \n\n| Pattern Type | Gold|  Silver |\n|---|---|---|\n| Same Number  |  Six of same (e.g. 999999) | Five of same (e.g. 999991 or 199999)  | \n| Sequence  |  Six in sequence (e.g. 234567, or 765432) | Five in sequence (e.g. 245678, 456782, or 287654)  |\n|  Triplets |  Two identical (e.g. 123123) or two double (e.g. 444666) | Identical pairs within triplets (e.g. 004008, or 400800), one identical and one in sequence (e.g. 444789, or 345777), or mirror image (e.g. 468864)| \n|Pair|Three identical (e.g. 454545)|Three non-identical (e.g. 447700) or three in sequence (e.g. 232425, or 090807)|\n\nAny numbers that do not meet the criteria for Gold or Silver are classified as Bronze.\n\nFor pricing on dedicated numbers please refer to the Numbers page in our Hub web portal, or speak with your Sinch Account Manager.\n"
   - name: Messaging Reports
     description: |
-      The MessageMedia Reports API provides a number of endpoints for running reports of messages sent and received through
-      a MessageMedia Account. The API allows two kinds of reports, _Detailed Reports_ and _Summary Reports_.
+      The Sinch Reports API provides a number of endpoints for running reports of messages sent and received through
+      a Sinch Account. The API allows two kinds of reports, _Detailed Reports_ and _Summary Reports_.
 
       Detailed reports list all messages and the details of each message sent or received in a specified time period. Summary reports allow inbound and outbound message data to be aggregated on a number of dimensions.
   - name: Short Trackable Links Reports
@@ -477,70 +435,23 @@ tags:
       this feature, allowing users to obtain details regarding 
       the number of click-throughs on each URL.
 
-      To enable this feature on your account, contact your account manager or contact support on [support@messagemedia.com](support@messagemedia.com).
+      To enable this feature on your account, contact your account manager or contact support on [support@app.sinch.com](support@app.sinch.com).
 
       To learn more about the benefits of the Short Trackable Links feature, [visit our feature page](https://messagemedia.com/au/feature/short-urls/).
   - name: Webhooks Management
     description: 'Webhooks Management API allows you to manage your webhooks configuration. You can subscribe to one or several events, retrieve the webhooks, update them or even delete them if needed.'
-  - name: Enterprise Webhooks
-    description: |
-
-      Securing your webhooks is a two-part process. The first part requires you to use the Signature Key Management API to create a key to sign your requests. 
-
-      This will actually generates a key pair - the private key which is used to sign the requests and is stored in MessageMedia's secure datastore and the public key which is used to verify the signature and is stored on your side. 
-
-      The second part consists of decrypting the message and verifying the authenticity of the message using the public key created earlier.
-
-      *Note: This API is only available in the APAC region.*
-
-
-      ## Verifying a webhook
-
-      This documentation assumes that you have already created a key pair using the [Signature Key Management API](https://developers.messagemedia.com/code/signature-key-managment-api-documentation/).
-
-      Once you have enabled this feature, all webhooks sent will be signed using the private key created via the Signature Key Management API.
-
-
-      ## Headers
-
-      Every signed webhook will have the following additional headers:
-        * `X-MESSAGEMEDIA-KEY-ID`: The uuid of the key used eg: `628fdf4e-bddc-4029-ae59-f9a84a22165c`
-        * `X-MESSAGEMEDIA-CIPHER-TYPE`: Encryption algorithm used for digest encryption eg: `RSA`
-        * `X-MESSAGEMEDIA-DIGEST-TYPE`: The algorithm used for digest eg: `SHA256`
-        * `X-MESSAGEMEDIA-SIGNATURE`: The encrypted digest value which is base64 encoded. This is the signature you will verify against eg: `YdhajTA1p68BrxtWq0hvupEQxA4eliL2rA0tyN5YyuCsJwdYc0tZ8439nQ3KrQCmnsDCoB024lKv3FKhWrWAQldl6tEqpiaabXqJMRAHTAtSph+4R1O3C0tT8WNVNP6wEYOKoPyg1tI43uXOQ8iC4Xr4pIeXaYNkEosPG5I8ZyoiNjy/FW7rdO/QuxtfYcpBqLOE+MG0lHwNTiXkc+JlG0VHQbRg8TmjtmsJEsvB4KGPLqpPBij9v/1fzEagkyLECN+tAHgZY/xjQbhm3xL0cEbMNouYKpK7lg8vyechlkPX5j4hEJMo4u/+5iOw3EFYGPjA9RnneINB6DhbzGM99A==`
-        * `DATE`: Date-Time at which the webhook was sent eg: `Tue, 17 Jul 2018 04:52:31 GMT`
-
-
-      ## Create the comparison string
-
-      To be able to verify the signature, you need to build a comparison string by combining the following:
-      * `Request-Line`: The Request-Line begins with a method token, followed by the Request-URI and the protocol version. This can be found in the first line of the request message. eg: `POST /data HTTP/1.1`
-      * `Date`: This Date is the one sent in the header eg: `Tue, 17 Jul 2018 04:52:31 GMT`
-      * `Body`: This is the the body of the request that is sent back when the webhook is triggered eg: ```{"vendor_account_id":{"vendor_id":"MessageMedia","account_id":"MessageMediaM123"},"callback_url":"https://webhook.site/25f79a05-00cf-4997-a127-c55a889eb97a","delivery_report_id":"6737fda5-bb86-4fdb-8b62-d7ea49863801","source_number":"+61439123036","date_received":"2018-07-26T23:39:25.387Z","status":"enroute","delay":0,"submitted_date":"2018-07-26T23:39:25.382Z","original_text":"Hey there!","message_id":"a0589035-df10-4f3a-92a5-5beac2d100c3","error_code":"101","metadata":{}}```
-
-      The order of concatentation would be `Request-Line` + `Date` + `Body` without any spaces in between. This order must be maintained to build a valid comparison string. 
-
-
-      ## Verifying using public key
-
-      Once you've created the comparison string, you need to use your public key to verify it against the signature (`X-MESSAGEMEDIA-SIGNATURE`) using RSA and the digest type of your key. 
-      The way of doing this can vary depending on the language you are coding in. Below are some suggestions on which built-in functions or libraries you can use for each language:
-      * PHP - [Openssl_verify](http://php.net/manual/en/function.openssl-verify.php)
-      * Python - [Pycrypto](https://gist.github.com/lkdocs/6519372)
-      * Node.js - [Crypto](https://nodejs.org/api/crypto.html#crypto_class_verify)
-      * C# - [Bouncy castle](http://www.bouncycastle.org/csharp/)
-      * Java - [Signature](https://docs.oracle.com/javase/tutorial/security/apisign/vstep4.html)
-      * Ruby - [Verify](http://ruby-doc.org/stdlib-2.5.1/libdoc/openssl/rdoc/OpenSSL/PKey/PKey.html#method-i-verify)
   - name: Signature Key Management
     description: |
-      As MessageMedia's customer, you want to be able to ensure that callbacks are coming from MessageMedia and not from a 3rd party. Since 
+      As a Sinch customer, you want to be able to ensure that callbacks are coming from Sinch and not from a 3rd party. Since 
       these are calls to your own system, you should be provided with an extra level of security 
       when calling your resources.
 
-      The MessageMedia Signature Key API provides a number of endpoints 
+      The Sinch Signature Key API provides a number of endpoints 
       for managing key used to sign each unique request to ensure security 
       and the requests can't (easily) be spoofed. This is similar to using 
       HMAC in your outbound messaging (rather than HTTP Basic).
+
+      *Note: This API is only available in the APAC region.*
 
       The Signature Key API provides seven main endpoints:
       - ```Create signature key``` Create a new signature key for signature verification in callbacks.
@@ -678,6 +589,13 @@ tags:
       | ![](Https://developers.messagemedia.com/wp-content/templates/Template1.png) | 7614456e-844f-4d83-bdfe-20c17ce0f97c |
       | ![](Https://developers.messagemedia.com/wp-content/templates/Template2.png) | f56b5806-f732-4693-b87a-90b66a7d7bfc |
       |![](Https://developers.messagemedia.com/wp-content/templates/template3.png) | c9d7ce1d-20c4-4228-9ba1-6da2a3b4e5e0 |
+  - name: Contacts
+    description: |
+      The API provides access to two main resources:
+
+        * **Contacts**: Data associated with the individuals you need to contact.
+        * **Lists**: Groups of contacts created for specific purposes.
+        * **Custom Fields**: Additional fields that can be tailored to complement the basic contact fields.
 servers:
   - url: 'https://api.messagemedia.com/'
 paths:
@@ -1783,7 +1701,7 @@ paths:
         ### Sender ID is an Alpha Tag
         The following parameters are used when registering an alpha tag as a Sender ID:
           - ```sender_address:``` **(Required)**. The alphanumeric string that you wish register as an alpha tag. This parameter is case insensitive. If this alpha tag already exists on your account, you will receive a conflict error message.
-          - ```destination_countries:``` **(Required)**. The countries that you wish to register the alpha tag for use in, in two-character ISO 3166 format. Currently AU, GB, ES, DE and FR are supported.
+          - ```destination_countries:``` **(Required)**. The countries that you wish to register the alpha tag for use in, in two-character ISO 3166 format. Currently AD, AI, AL, AS, AT, AU, AW, BA, BB, BH, BW, CD, CH, CK, CY, DE, DJ, DK, DM, EE, ES, FI, FJ, FM, FO, FR, GB, GD, GG, GI, GL, GM, GQ, GR, GY, IL, IM, IS, JE, JM, JP, KI, KY, LA, LI, LS, LT, LU, LV, MC, ME, MH, MO, MR, MS, MT, MV, NC, NF, NL, NO, NR, NU, PF, PM, PT, SB, SC, SE, SH, SL, SM, ST, TC, TD, TO, VC, VG and WS are supported.
           - ```sender_address_type:``` **(Required)**. For alpha tags this is always ALPHANUMERIC
           - ```usage_type:``` **(Required)**. For alpha tags this is always ALPHANUMERIC
           - ```label:``` **(Optional)**. A reference name for the sender ID to allow you to easily track it.
@@ -2005,7 +1923,7 @@ paths:
         To reverify an OWN_NUMBER Sender Address:
           1. Retrieve the UUID for the OWN_NUMBER using the **Get all approved sender addresses** endpoint
           2. Make a request to this endpoint to trigger the 2FA check
-          3. Make a PATCH request to the **Submit verification code endpoint**, providing the new 2FA code in the body of the request
+          3. Make a POST request to the **Submit verification code endpoint**, providing the new 2FA code in the body of the request
       operationId: reVerifySenderAddressUsingPOST
       security:
         - basic_auth: []
@@ -2413,7 +2331,7 @@ paths:
                     "original_text": "My first message!",
                     "message_id": "d781dcab-d9d8-4fb2-9e03-872f07ae94ba",
                     "vendor_account_id": {
-                        "vendor_id": "MessageMedia",
+                        "vendor_id": "SinchEU",
                         "account_id": "MyAccount"
                     },
                     "metadata": {
@@ -2432,7 +2350,7 @@ paths:
                     "original_text": "My second message!",
                     "message_id": "fbb3b3f5-b702-4d8b-ab44-65b2ee39a281",
                     "vendor_account_id": {
-                        "vendor_id": "MessageMedia",
+                        "vendor_id": "SinchEU",
                         "account_id": "MyAccount"
                     },
                     "metadata": {
@@ -2481,7 +2399,7 @@ paths:
                     original_text: My first message!
                     message_id: d781dcab-d9d8-4fb2-9e03-872f07ae94ba
                     vendor_account_id:
-                      vendor_id: MessageMedia
+                      vendor_id: SinchEU
                       account_id: MyAccount
                     metadata:
                       key1: value1
@@ -2496,7 +2414,7 @@ paths:
                     original_text: My second message!
                     message_id: fbb3b3f5-b702-4d8b-ab44-65b2ee39a281
                     vendor_account_id:
-                      vendor_id: MessageMedia
+                      vendor_id: SinchEU
                       account_id: MyAccount
                     metadata:
                       key1: value1
@@ -2668,7 +2586,7 @@ paths:
         Check for any replies that have been received.
         Replies are messages that have been sent from a handset in response to a message sent by an
         application or messages that have been sent from a handset to a inbound number associated with
-        an account, known as a dedicated inbound number (contact <support@messagemedia.com> for more
+        an account, known as a dedicated inbound number (contact <support@app.sinch.com> for more
         information on dedicated inbound numbers).
         Each request to the check replies endpoint will return any replies received that have not yet
         been confirmed using the confirm replies endpoint. A response from the check replies endpoint
@@ -2688,7 +2606,7 @@ paths:
                     "destination_number": "+61491570156",
                     "source_number": "+61491570157",
                     "vendor_account_id": {
-                        "vendor_id": "MessageMedia",
+                        "vendor_id": "SinchEU",
                         "account_id": "MyAccount"
                     },
                     "content": "My first reply!"
@@ -2705,7 +2623,7 @@ paths:
                     "destination_number": "+61491570157",
                     "source_number": "+61491570158",
                     "vendor_account_id": {
-                        "vendor_id": "MessageMedia",
+                        "vendor_id": "SinchEU",
                         "account_id": "MyAccount"
                     },
                     "content": "My second reply!"
@@ -2753,7 +2671,7 @@ paths:
                     destination_number: '+61491570156'
                     source_number: '+61491570157'
                     vendor_account_id:
-                      vendor_id: MessageMedia
+                      vendor_id: SinchEU
                       account_id: MyAccount
                     content: My first reply!
                   - metadata:
@@ -2766,7 +2684,7 @@ paths:
                     destination_number: '+61491570157'
                     source_number: '+61491570158'
                     vendor_account_id:
-                      vendor_id: MessageMedia
+                      vendor_id: SinchEU
                       account_id: MyAccount
                     content: My second reply!
         '403':
@@ -2915,129 +2833,6 @@ paths:
             $body->replyIds = array('011dcead-6988-4ad6-a1c7-6b6c68ea628d', '3487b3fa-6586-4979-a233-2d1b095c7718', 'ba28e94b-c83d-4759-98e7-ff9c7edb87a1');
 
             $result = $repliesController->confirmRepliesAsReceived($body);
-        - lang: Python
-          source: ''
-        - lang: Ruby
-          source: ''
-  '/v1/lookups/phone/{phone_number}':
-    get:
-      security:
-        - basic_auth: []
-        - hmac_auth: []
-      tags:
-        - Lookups
-      summary: Lookup a phone number
-      description: |
-        Use the Lookups API to find information about a phone number.
-
-        A request to the lookups API has the following format:
-
-        ```/v1/lookups/phone/{phone_number}?options={x}```
-
-        where `{x}` is an individual value or a combination of values. 
-
-        The `{phone_number}` parameter is a required field and should be set to the phone number to be looked up.
-
-        The options query parameter can also be used to request additional information about the phone number.
-
-        By default, a request will only return the `country_code` and `phone_number` properties in the response.
-
-        ```json
-        {  "country_code": "AU", "phone_number": "+61491570156"}
-        ```
-
-        To request details about the the carrier, include `carrier` as a value of the options parameter and to 
-        request details about the type, include `type` as a value of the options parameter. The `carrier` and
-        the `type` values can be used together using a comma separated list, i.e. `carrier,type`.
-
-        To request details about the location, include `hlr` as a value of the options parameter. 
-
-        NOTE: The `hlr` value CANNOT be used in conjuction with the other values.
-
-        A successful request to the lookups endpoint with `carrier` and `type` as values will 
-
-        return a response body as follows:
-
-        ```json
-        {  
-          "country_code": "AU",
-          "phone_number": "+61491570156",
-          "type": "mobile",  "carrier": {"name": "Telstra"  }
-        }
-        ```
-
-        A successful request to the lookups endpoint with `hlr` as the value will return a response body as follows:
-
-        ```json
-        {"result": "OK",    "imsi": 24008,    "location": 46}
-        ```
-        Each property in the response body is defined as follows:- ```country_code``` ISO ALPHA 2 country code of the phone number
-        - ```phone_number``` E.164 formatted phone number
-        - ```type``` The type of number. This can be ```"mobile"``` or ```"landline"```
-        - ```carrier``` Holds information about the specific carrier (if available)  
-        - ```name``` The carrier's name as reported by the network
-        - `imsi` A unique number identifying a GSM subscriber
-        - `location` The location of the mobile number"
-      operationId: LookupAPhoneNumber
-      parameters:
-        - name: phone_number
-          in: path
-          description: The phone number to be looked up
-          required: true
-          style: simple
-          schema:
-            type: string
-            example: 61491570156
-        - name: options
-          in: query
-          description: The options query parameter can also be used to request additional information about the phone number.
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: '"carrier,type"'
-      responses:
-        '200':
-          description: Number was looked up successfully
-          headers: {}
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Lookupaphonenumberresponse'
-              example:
-                country_code: AU
-                phone_number: 61491570156
-                type: mobile
-                carrier:
-                  name: Telstra
-        '400':
-          description: Bad request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/400response'
-        '403':
-          description: Unauthorised
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/403response'
-        '404':
-          description: Resource not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Lookupaphonenumber404response'
-      deprecated: false
-      x-code-samples:
-        - lang: 'C#'
-          source: ''
-        - lang: Java
-          source: ''
-        - lang: JavaScript
-          source: ''
-        - lang: PHP
-          source: ''
         - lang: Python
           source: ''
         - lang: Ruby
@@ -4544,7 +4339,7 @@ paths:
       description: |-
         This will create a key pair:
 
-        - The ```private key``` stored in MessageMedia is used to create the signature.
+        - The ```private key``` stored in Sinch is used to create the signature.
 
         - The ```public key``` is returned and stored at your side to verify the signature in callbacks.
 
@@ -5649,6 +5444,796 @@ paths:
         '402':
           description: 'Account is not postpaid, or does not have Mobile Landing Pages Enabled.'
       deprecated: false
+  /api/v1/contacts/contacts:
+    post:
+      security:
+        - basic_auth: []
+        - hmac_auth: []
+      tags:
+        - Contacts
+      summary: Create a contact
+      operationId: createContact
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateContactRequest'
+        required: true
+      responses:
+        '201':
+          description: Contact is created
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ContactData'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '501':
+          $ref: '#/components/responses/RequestNotRecognised'
+        '502':
+          $ref: '#/components/responses/BadGateway'
+        '503':
+          $ref: '#/components/responses/ServerUnavailable'
+        '504':
+          $ref: '#/components/responses/GatewayTimeout'
+    get:
+      security:
+        - basic_auth: []
+        - hmac_auth: []
+      tags:
+        - Contacts
+      summary: Get contacts page
+      operationId: getContactsPage
+      parameters:
+        - name: request
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/GetContactsRequest'
+      responses:
+        '200':
+          description: Returns a contacts page
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PageTokenDtoContactData'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '501':
+          $ref: '#/components/responses/RequestNotRecognised'
+        '502':
+          $ref: '#/components/responses/BadGateway'
+        '503':
+          $ref: '#/components/responses/ServerUnavailable'
+        '504':
+          $ref: '#/components/responses/GatewayTimeout'
+  '/api/v1/contacts/contacts/{contactId}':
+    get:
+      security:
+        - basic_auth: []
+        - hmac_auth: []
+      tags:
+        - Contacts
+      summary: Get a single contact
+      operationId: getContactById
+      parameters:
+        - name: contactId
+          in: path
+          description: Contact id in UUID format
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Returns a single contact
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ContactData'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '501':
+          $ref: '#/components/responses/RequestNotRecognised'
+        '502':
+          $ref: '#/components/responses/BadGateway'
+        '503':
+          $ref: '#/components/responses/ServerUnavailable'
+        '504':
+          $ref: '#/components/responses/GatewayTimeout'
+    delete:
+      security:
+        - basic_auth: []
+        - hmac_auth: []
+      tags:
+        - Contacts
+      summary: Delete a contact
+      operationId: deleteContactById
+      parameters:
+        - name: contactId
+          in: path
+          description: Contact id in UUID format
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Contact is deleted
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '501':
+          $ref: '#/components/responses/RequestNotRecognised'
+        '502':
+          $ref: '#/components/responses/BadGateway'
+        '503':
+          $ref: '#/components/responses/ServerUnavailable'
+        '504':
+          $ref: '#/components/responses/GatewayTimeout'
+    patch:
+      security:
+        - basic_auth: []
+        - hmac_auth: []
+      tags:
+        - Contacts
+      summary: Update a contact
+      operationId: updateContact
+      parameters:
+        - name: contactId
+          in: path
+          description: Contact id in UUID format
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateContactRequest'
+        required: true
+      responses:
+        '200':
+          description: Contact is updated
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ContactData'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '501':
+          $ref: '#/components/responses/RequestNotRecognised'
+        '502':
+          $ref: '#/components/responses/BadGateway'
+        '503':
+          $ref: '#/components/responses/ServerUnavailable'
+        '504':
+          $ref: '#/components/responses/GatewayTimeout'
+  /api/v1/contacts/lists:
+    post:
+      security:
+        - basic_auth: []
+        - hmac_auth: []
+      tags:
+        - Contacts
+      summary: Create a contact list
+      operationId: createContactList
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateListRequest'
+        required: true
+      responses:
+        '201':
+          description: Contact list is created
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ListData'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '501':
+          $ref: '#/components/responses/RequestNotRecognised'
+        '502':
+          $ref: '#/components/responses/BadGateway'
+        '503':
+          $ref: '#/components/responses/ServerUnavailable'
+        '504':
+          $ref: '#/components/responses/GatewayTimeout'
+    get:
+      security:
+        - basic_auth: []
+        - hmac_auth: []
+      tags:
+        - Contacts
+      summary: Get contact lists page
+      operationId: getContactListsPage
+      parameters:
+        - name: request
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/GetListsRequest'
+      responses:
+        '200':
+          description: Returns a contact lists page
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PageTokenDtoListData'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '501':
+          $ref: '#/components/responses/RequestNotRecognised'
+        '502':
+          $ref: '#/components/responses/BadGateway'
+        '503':
+          $ref: '#/components/responses/ServerUnavailable'
+        '504':
+          $ref: '#/components/responses/GatewayTimeout'
+  '/api/v1/contacts/lists/{listId}':
+    get:
+      security:
+        - basic_auth: []
+        - hmac_auth: []
+      tags:
+        - Contacts
+      summary: Get a single contact list
+      operationId: getContactListById
+      parameters:
+        - name: listId
+          in: path
+          description: Contact list id in UUID format
+          required: true
+          schema:
+            type: string
+            format: uuid
+          example: 025e93d3-051b-43f9-b12e-4b5842228dee
+      responses:
+        '200':
+          description: Returns a single contact list
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ListData'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '501':
+          $ref: '#/components/responses/RequestNotRecognised'
+        '502':
+          $ref: '#/components/responses/BadGateway'
+        '503':
+          $ref: '#/components/responses/ServerUnavailable'
+        '504':
+          $ref: '#/components/responses/GatewayTimeout'
+    delete:
+      security:
+        - basic_auth: []
+        - hmac_auth: []
+      tags:
+        - Contacts
+      summary: Delete a contact list
+      operationId: deleteContactListById
+      parameters:
+        - name: listId
+          in: path
+          description: Contact list id in UUID format
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Contact list is deleted
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '501':
+          $ref: '#/components/responses/RequestNotRecognised'
+        '502':
+          $ref: '#/components/responses/BadGateway'
+        '503':
+          $ref: '#/components/responses/ServerUnavailable'
+        '504':
+          $ref: '#/components/responses/GatewayTimeout'
+    patch:
+      security:
+        - basic_auth: []
+        - hmac_auth: []
+      tags:
+        - Contacts
+      summary: Update a contact list
+      operationId: updateContactList
+      parameters:
+        - name: listId
+          in: path
+          description: Contact list id in UUID format
+          required: true
+          schema:
+            type: string
+            format: uuid
+          example: 025e93d3-051b-43f9-b12e-4b5842228dee
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateListRequest'
+        required: true
+      responses:
+        '200':
+          description: List is updated
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ListData'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '501':
+          $ref: '#/components/responses/RequestNotRecognised'
+        '502':
+          $ref: '#/components/responses/BadGateway'
+        '503':
+          $ref: '#/components/responses/ServerUnavailable'
+        '504':
+          $ref: '#/components/responses/GatewayTimeout'
+  '/api/v1/contacts/lists/{listId}/contacts':
+    patch:
+      security:
+        - basic_auth: []
+        - hmac_auth: []
+      tags:
+        - Contacts
+      summary: Add or remove multiple contacts to/from a list
+      operationId: modifyContactsInContactList
+      parameters:
+        - name: listId
+          in: path
+          description: Contact list id in UUID format
+          required: true
+          schema:
+            type: string
+            format: uuid
+          example: 025e93d3-051b-43f9-b12e-4b5842228dee
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateContactsListRequest'
+        required: true
+      responses:
+        '200':
+          description: Contacts added/removed to/from list
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ListData'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '501':
+          $ref: '#/components/responses/RequestNotRecognised'
+        '502':
+          $ref: '#/components/responses/BadGateway'
+        '503':
+          $ref: '#/components/responses/ServerUnavailable'
+        '504':
+          $ref: '#/components/responses/GatewayTimeout'
+  '/api/v1/contacts/lists/{listId}/contacts/{contactId}':
+    post:
+      security:
+        - basic_auth: []
+        - hmac_auth: []
+      tags:
+        - Contacts
+      summary: Add contact to a list
+      operationId: addContactToContactList
+      parameters:
+        - name: listId
+          in: path
+          description: Contact list id in UUID format
+          required: true
+          schema:
+            type: string
+            format: uuid
+          example: 025e93d3-051b-43f9-b12e-4b5842228dee
+        - name: contactId
+          in: path
+          description: Contact id to remove in UUID format
+          required: true
+          schema:
+            type: string
+            format: uuid
+          example: 4a03d2d8-1f85-463f-bdb4-2891c17258a7
+      responses:
+        '200':
+          description: Contacts have been added
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ListData'
+        '201':
+          description: Created
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ListData'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '501':
+          $ref: '#/components/responses/RequestNotRecognised'
+        '502':
+          $ref: '#/components/responses/BadGateway'
+        '503':
+          $ref: '#/components/responses/ServerUnavailable'
+        '504':
+          $ref: '#/components/responses/GatewayTimeout'
+    delete:
+      security:
+        - basic_auth: []
+        - hmac_auth: []
+      tags:
+        - Contacts
+      summary: Remove contact from the contact list
+      operationId: removeContactFromContactList
+      parameters:
+        - name: listId
+          in: path
+          description: Contact list id in UUID format
+          required: true
+          schema:
+            type: string
+            format: uuid
+          example: 025e93d3-051b-43f9-b12e-4b5842228dee
+        - name: contactId
+          in: path
+          description: Contact id to add in UUID format
+          required: true
+          schema:
+            type: string
+            format: uuid
+          example: 4a03d2d8-1f85-463f-bdb4-2891c17258a7
+      responses:
+        '204':
+          description: No Content
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '501':
+          $ref: '#/components/responses/RequestNotRecognised'
+        '502':
+          $ref: '#/components/responses/BadGateway'
+        '503':
+          $ref: '#/components/responses/ServerUnavailable'
+        '504':
+          $ref: '#/components/responses/GatewayTimeout'
+  /api/v1/contacts/custom-fields:
+    post:
+      security:
+        - basic_auth: []
+        - hmac_auth: []
+      tags:
+        - Contacts
+      summary: Create a custom field
+      operationId: createCustomField
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomFieldCreateRequest'
+        required: true
+      responses:
+        '201':
+          description: Custom field is created
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CustomFieldData'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '501':
+          $ref: '#/components/responses/RequestNotRecognised'
+        '502':
+          $ref: '#/components/responses/BadGateway'
+        '503':
+          $ref: '#/components/responses/ServerUnavailable'
+        '504':
+          $ref: '#/components/responses/GatewayTimeout'
+    get:
+      security:
+        - basic_auth: []
+        - hmac_auth: []
+      tags:
+        - Contacts
+      summary: Get custom fields page
+      operationId: getCustomFieldsPage
+      parameters:
+        - name: request
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/GetCustomFieldsRequest'
+      responses:
+        '200':
+          description: Returns a custom fields page
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PageTokenDtoCustomFieldData'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '501':
+          $ref: '#/components/responses/RequestNotRecognised'
+        '502':
+          $ref: '#/components/responses/BadGateway'
+        '503':
+          $ref: '#/components/responses/ServerUnavailable'
+        '504':
+          $ref: '#/components/responses/GatewayTimeout'
+  '/api/v1/contacts/custom-fields/{customFieldId}':
+    get:
+      security:
+        - basic_auth: []
+        - hmac_auth: []
+      tags:
+        - Contacts
+      summary: Get a single custom field
+      operationId: getCustomFieldById
+      parameters:
+        - name: customFieldId
+          in: path
+          description: Custom field id in UUID format
+          required: true
+          schema:
+            type: string
+            format: uuid
+          example: 025e93d3-051b-43f9-b12e-4b5842228dee
+      responses:
+        '200':
+          description: Returns a single custom field
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CustomFieldData'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '501':
+          $ref: '#/components/responses/RequestNotRecognised'
+        '502':
+          $ref: '#/components/responses/BadGateway'
+        '503':
+          $ref: '#/components/responses/ServerUnavailable'
+        '504':
+          $ref: '#/components/responses/GatewayTimeout'
+    delete:
+      security:
+        - basic_auth: []
+        - hmac_auth: []
+      tags:
+        - Contacts
+      summary: Delete a custom field
+      operationId: deleteCustomFieldById
+      parameters:
+        - name: customFieldId
+          in: path
+          description: Custom field id in UUID format
+          required: true
+          schema:
+            type: string
+            format: uuid
+          example: 025e93d3-051b-43f9-b12e-4b5842228dee
+      responses:
+        '204':
+          description: Custom field is deleted
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '501':
+          $ref: '#/components/responses/RequestNotRecognised'
+        '502':
+          $ref: '#/components/responses/BadGateway'
+        '503':
+          $ref: '#/components/responses/ServerUnavailable'
+        '504':
+          $ref: '#/components/responses/GatewayTimeout'
+    patch:
+      security:
+        - basic_auth: []
+        - hmac_auth: []
+      tags:
+        - Contacts
+      summary: Update a custom field
+      operationId: updateCustomField
+      parameters:
+        - name: customFieldId
+          in: path
+          description: Custom field id in UUID format
+          required: true
+          schema:
+            type: string
+            format: uuid
+          example: 025e93d3-051b-43f9-b12e-4b5842228dee
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateCustomFieldRequest'
+        required: true
+      responses:
+        '200':
+          description: Custom field is updated
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CustomFieldData'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '501':
+          $ref: '#/components/responses/RequestNotRecognised'
+        '502':
+          $ref: '#/components/responses/BadGateway'
+        '503':
+          $ref: '#/components/responses/ServerUnavailable'
+        '504':
+          $ref: '#/components/responses/GatewayTimeout'
 components:
   schemas:
     metakeyresponse:
@@ -5693,11 +6278,6 @@ components:
           $ref: '#/components/schemas/schedule'
         report:
           $ref: '#/components/schemas/scheduleddetailrequest'
-        message_type:
-          $ref: '#/components/schemas/MessageDirection'
-        report_type:
-          type: string
-          example: detail
         metadata:
           type: object
           description: |-
@@ -5895,11 +6475,6 @@ components:
           $ref: '#/components/schemas/schedule'
         report:
           $ref: '#/components/schemas/scheduledsummaryrequest'
-        message_type:
-          $ref: '#/components/schemas/MessageDirection'
-        report_type:
-          type: string
-          example: detail
         metadata:
           type: object
           description: |-
@@ -6551,7 +7126,7 @@ components:
             original_text: My first message!
             message_id: d781dcab-d9d8-4fb2-9e03-872f07ae94ba
             vendor_account_id:
-              vendor_id: MessageMedia
+              vendor_id: SinchEU
               account_id: MyAccount
             metadata:
               key1: value1
@@ -6566,7 +7141,7 @@ components:
             original_text: My second message!
             message_id: fbb3b3f5-b702-4d8b-ab44-65b2ee39a281
             vendor_account_id:
-              vendor_id: MessageMedia
+              vendor_id: SinchEU
               account_id: MyAccount
             metadata:
               key1: value1
@@ -6595,7 +7170,7 @@ components:
       properties:
         vendor_id:
           type: string
-          example: MessageMedia
+          example: SinchEU
         account_id:
           type: string
           description: The account used to submit the original message.
@@ -6623,7 +7198,7 @@ components:
             destination_number: '+61491570156'
             source_number: '+61491570157'
             vendor_account_id:
-              vendor_id: MessageMedia
+              vendor_id: SinchEU
               account_id: MyAccount
             content: My first reply!
           - metadata:
@@ -6636,7 +7211,7 @@ components:
             destination_number: '+61491570157'
             source_number: '+61491570158'
             vendor_account_id:
-              vendor_id: MessageMedia
+              vendor_id: SinchEU
               account_id: MyAccount
             content: My second reply!
     SourceNumberType:
@@ -9343,6 +9918,894 @@ components:
         - STATUS
       type: string
       example: DAY
+    CreateListRequest:
+      required:
+        - name
+      type: object
+      properties:
+        name:
+          type: string
+          description: Group name
+          example: My group
+        alias:
+          type: string
+          description: Group alias
+          example: Group1
+      description: Contact list create payload
+    ListData:
+      required:
+        - accountId
+        - alias
+        - createdDate
+        - id
+        - lastModifiedDate
+        - name
+        - vendorId
+      type: object
+      properties:
+        id:
+          type: string
+          description: List id in UUID format
+          format: uuid
+          example: 025e93d3-051b-43f9-b12e-4b5842228dee
+        accountId:
+          type: string
+          description: Account id
+        vendorId:
+          type: string
+          description: Vendor id
+        name:
+          type: string
+          description: List name
+          example: My group
+        alias:
+          type: string
+          description: List alias
+          example: VIP group
+        createdDate:
+          type: string
+          description: Create date
+          format: date-time
+          example: '2022-08-18T09:15:03.112Z'
+        lastModifiedDate:
+          type: string
+          description: Last modified date
+          format: date-time
+          example: '2022-08-18T09:15:03.112Z'
+      description: List details data
+    CustomFieldCreateRequest:
+      required:
+        - label
+        - maxLength
+        - mergeTag
+        - type
+      type: object
+      properties:
+        label:
+          type: string
+          description: Custom field label
+          example: Contact name
+        mergeTag:
+          type: string
+          description: Custom field merge tag
+          example: contact_name
+        maxLength:
+          type: integer
+          description: Custom field max length
+          format: int32
+          example: 30
+        type:
+          type: string
+          description: Custom field type
+          example: DATE
+          enum:
+            - DATE
+            - NUMBER
+            - PHONE
+            - TEXT
+            - URL
+            - ZIP_CODE
+            - NAME
+            - EMAIL
+      description: Custom field create payload
+    CustomFieldData:
+      required:
+        - accountId
+        - createdDate
+        - id
+        - label
+        - lastModifiedDate
+        - maxLength
+        - mergeTag
+        - type
+        - vendorId
+      type: object
+      properties:
+        id:
+          type: string
+          description: Custom field id in UUID format
+          format: uuid
+          example: 025e93d3-051b-43f9-b12e-4b5842228dee
+        accountId:
+          type: string
+          description: Account id
+          example: accountId_67846328
+        vendorId:
+          type: string
+          description: Vendor id
+        label:
+          type: string
+          description: Custom field label
+          example: Contact name
+        mergeTag:
+          type: string
+          description: Custom field merge tag
+          example: contact_name
+        maxLength:
+          type: integer
+          description: Custom field max length
+          format: int32
+          example: 30
+        type:
+          type: string
+          description: Custom field type
+          example: DATE
+          enum:
+            - DATE
+            - NUMBER
+            - PHONE
+            - TEXT
+            - URL
+            - ZIP_CODE
+            - NAME
+            - EMAIL
+        createdDate:
+          type: string
+          description: Create date
+          format: date-time
+          example: '2022-08-18T09:15:03.112Z'
+        lastModifiedDate:
+          type: string
+          description: Last modified date
+          format: date-time
+          example: '2022-08-18T09:15:03.112Z'
+      description: Custom field data
+    CreateContactChannelRequest:
+      required:
+        - channelId
+        - type
+      type: object
+      properties:
+        channelId:
+          type: string
+          description: Contact channel id (in case phone number - in E164 international format)
+          example: '+15553456783'
+        type:
+          type: string
+          description: Contact channel type
+          example: SMS
+          enum:
+            - SMS
+            - WHATSAPP
+        subscriptionState:
+          type: string
+          description: Subscription state
+          example: UNSUBSCRIBED
+          enum:
+            - SUBSCRIBED
+            - UNSUBSCRIBED
+      description: Contact channel create payload
+    CreateContactListRequest:
+      required:
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: List id in UUID format
+          format: uuid
+          example: 025e93d3-051b-43f9-b12e-4b5842228dee
+      description: Contact creation list payload
+    CreateContactRequest:
+      required:
+        - channels
+      type: object
+      properties:
+        firstName:
+          type: string
+          description: Contact first name
+          example: Adam
+        lastName:
+          type: string
+          description: Contact last name
+          example: Smith
+        alias:
+          type: string
+          description: 'Contact alias. Used as an alternative name for your contact, as well as an email handle for email to sms'
+          example: user1234
+        dateOfBirth:
+          type: string
+          description: Date of birth
+          format: date
+          example: '2022-08-18'
+        country:
+          type: string
+          description: Country
+          example: US
+        state:
+          type: string
+          description: State
+          example: CA
+        location:
+          type: string
+          description: Location
+          example: Sunset Blvd
+        note:
+          type: string
+          description: Note
+          example: Note
+        channels:
+          type: array
+          description: Contact channels
+          items:
+            $ref: '#/components/schemas/CreateContactChannelRequest'
+        lists:
+          type: array
+          description: Contact lists
+          items:
+            $ref: '#/components/schemas/CreateContactListRequest'
+        customFields:
+          type: array
+          description: Contact custom fields
+          items:
+            $ref: '#/components/schemas/CreateCustomFieldRequest'
+      description: Contact create payload
+    CreateCustomFieldRequest:
+      required:
+        - id
+        - value
+      type: object
+      properties:
+        id:
+          type: string
+          description: Custom Field id in UUID format
+          format: uuid
+          example: 025e93d3-051b-43f9-b12e-4b5842228dee
+        value:
+          type: string
+          description: Custom field value
+          example: John
+      description: Contact custom field create payload
+    ContactChannelData:
+      required:
+        - channelId
+        - type
+      type: object
+      properties:
+        channelId:
+          type: string
+          description: Contact channel id (in case phone number - in E164 international format)
+          example: '+15553456783'
+        type:
+          type: string
+          description: Contact channel type
+          example: SMS
+          enum:
+            - SMS
+            - WHATSAPP
+            - GBM
+            - INSTAGRAM
+            - FACEBOOK
+            - EMAIL
+        subscriptionState:
+          type: string
+          description: Subscription state
+          example: UNSUBSCRIBED
+          enum:
+            - SUBSCRIBED
+            - UNSUBSCRIBED
+      description: Contact channel data
+    ContactCustomFieldData:
+      required:
+        - id
+        - mergeTag
+        - type
+        - value
+      type: object
+      properties:
+        id:
+          type: string
+          description: Custom Field id in UUID format
+          format: uuid
+          example: 025e93d3-051b-43f9-b12e-4b5842228dee
+        mergeTag:
+          type: string
+          description: Custom field merge tag
+          example: contact_name
+        value:
+          type: string
+          description: Custom field value
+          example: John
+        type:
+          type: string
+          description: Custom field type
+          example: DATE
+          enum:
+            - DATE
+            - NUMBER
+            - PHONE
+            - TEXT
+            - URL
+            - ZIP_CODE
+            - NAME
+            - EMAIL
+      description: Custom field data
+    ContactData:
+      required:
+        - accountId
+        - alias
+        - channels
+        - country
+        - createdDate
+        - customFields
+        - firstName
+        - fullName
+        - id
+        - lastModifiedDate
+        - lastName
+        - lists
+        - location
+        - note
+        - state
+        - vendorId
+      type: object
+      properties:
+        id:
+          type: string
+          description: Contact id in UUID format
+          format: uuid
+          example: 025e93d3-051b-43f9-b12e-4b5842228dee
+        accountId:
+          type: string
+          description: Account id
+        vendorId:
+          type: string
+          description: Vendor id
+        firstName:
+          type: string
+          description: Contact first name
+          example: Adam
+        lastName:
+          type: string
+          description: Contact last name
+          example: Smith
+        fullName:
+          type: string
+          description: Contact full name
+          example: Adam Smith
+        alias:
+          type: string
+          description: Contact alias
+          example: VIP contact
+        dateOfBirth:
+          type: string
+          description: Date of birth
+          format: date
+          example: '2022-08-18'
+        country:
+          type: string
+          description: Country
+          example: US
+        state:
+          type: string
+          description: State
+          example: CA
+        location:
+          type: string
+          description: Location
+          example: Sunset Blvd
+        note:
+          type: string
+          description: Note
+          example: Note
+        createdDate:
+          type: string
+          description: Create date
+          format: date-time
+          example: '2022-08-18T09:15:03.112Z'
+        lastModifiedDate:
+          type: string
+          description: Last modified date
+          format: date-time
+          example: '2022-08-18T09:15:03.112Z'
+        customFields:
+          type: array
+          description: List of custom fields
+          items:
+            $ref: '#/components/schemas/ContactCustomFieldData'
+        channels:
+          type: array
+          description: Contact channels
+          items:
+            $ref: '#/components/schemas/ContactChannelData'
+        lists:
+          type: array
+          description: Contact lists
+          items:
+            $ref: '#/components/schemas/ContactListData'
+      description: Contact data
+    ContactListData:
+      required:
+        - id
+        - name
+      type: object
+      properties:
+        id:
+          type: string
+          description: List id in UUID format
+          format: uuid
+          example: 025e93d3-051b-43f9-b12e-4b5842228dee
+        name:
+          type: string
+          description: List name
+          example: My list
+      description: Contact list data
+    UpdateListRequest:
+      required:
+        - name
+      type: object
+      properties:
+        name:
+          type: string
+          description: Contact list name
+          example: My list
+        alias:
+          type: string
+          description: Contact list alias
+          example: List1
+      description: Contact list update payload
+    UpdateContactsListRequest:
+      type: object
+      properties:
+        contactsToAddIds:
+          maxItems: 1000
+          minItems: 0
+          type: array
+          items:
+            type: string
+            description: List of contacts to add to the list in UUID format
+            format: uuid
+        contactsToRemoveIds:
+          maxItems: 1000
+          minItems: 0
+          type: array
+          items:
+            type: string
+            description: List of contacts to remove from the list in UUID format
+            format: uuid
+      description: Contacts list update payload
+    UpdateCustomFieldRequest:
+      type: object
+      properties:
+        label:
+          type: string
+          description: Custom field label
+          example: Contact name
+        maxLength:
+          type: integer
+          description: Custom field max length
+          format: int32
+          example: 30
+      description: Custom field update payload
+    UpdateContactChannelRequest:
+      required:
+        - channelId
+        - type
+      type: object
+      properties:
+        channelId:
+          type: string
+          description: Contact channel id (in case phone number - in E164 international format)
+          example: '+15553456783'
+        type:
+          type: string
+          description: Contact channel type
+          example: SMS
+          enum:
+            - SMS
+            - WHATSAPP
+        subscriptionState:
+          type: string
+          description: Subscription state
+          example: UNSUBSCRIBED
+          enum:
+            - SUBSCRIBED
+            - UNSUBSCRIBED
+      description: Contact channel update payload
+    UpdateContactRequest:
+      type: object
+      properties:
+        firstName:
+          type: string
+          description: Contact first name
+          example: Adam
+        lastName:
+          type: string
+          description: Contact last name
+          example: Smith
+        alias:
+          type: string
+          description: 'Contact alias. Used as an alternative name for your contact, as well as an email handle for email to sms'
+          example: user1234
+        dateOfBirth:
+          type: string
+          description: Date of birth
+          format: date
+          example: '2022-08-18'
+        country:
+          type: string
+          description: Country
+          example: US
+        state:
+          type: string
+          description: State
+          example: CA
+        location:
+          type: string
+          description: Location
+          example: Sunset Blvd
+        note:
+          type: string
+          description: Note
+          example: Note
+        channels:
+          type: array
+          description: Contact channels
+          items:
+            $ref: '#/components/schemas/UpdateContactChannelRequest'
+        lists:
+          type: array
+          description: Contact lists
+          items:
+            $ref: '#/components/schemas/CreateContactListRequest'
+        customFields:
+          type: array
+          description: Contact custom fields
+          items:
+            $ref: '#/components/schemas/UpdateCustomFieldRequest'
+      description: Contact update payload
+    GetListsRequest:
+      type: object
+      properties:
+        nextPageToken:
+          type: string
+        prevPageToken:
+          type: string
+        pageSize:
+          maximum: 1000
+          type: integer
+          format: int32
+        listIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+        alias:
+          type: string
+        name:
+          type: string
+      description: Get contact lists page filter
+    PageTokenDtoListData:
+      required:
+        - content
+        - totalElements
+      type: object
+      properties:
+        content:
+          type: array
+          description: Page content and number of elements is restricted by page size
+          items:
+            $ref: '#/components/schemas/ListData'
+        nextPageToken:
+          type: string
+          description: Pagination token to retrieve the next page
+        prevPageToken:
+          type: string
+          description: Pagination token to retrieve the previous page
+        totalElements:
+          type: integer
+          description: Total number of elements
+          format: int64
+          example: 25
+      description: Page token representation for search result
+    GetCustomFieldsRequest:
+      type: object
+      properties:
+        nextPageToken:
+          type: string
+        prevPageToken:
+          type: string
+        pageSize:
+          maximum: 1000
+          type: integer
+          format: int32
+        customFieldIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+        label:
+          type: string
+        mergeTag:
+          type: string
+      description: Get custom fields page filter
+    PageTokenDtoCustomFieldData:
+      required:
+        - content
+        - totalElements
+      type: object
+      properties:
+        content:
+          type: array
+          description: Page content and number of elements is restricted by page size
+          items:
+            $ref: '#/components/schemas/CustomFieldData'
+        nextPageToken:
+          type: string
+          description: Pagination token to retrieve the next page
+        prevPageToken:
+          type: string
+          description: Pagination token to retrieve the previous page
+        totalElements:
+          type: integer
+          description: Total number of elements
+          format: int64
+          example: 25
+      description: Page token representation for search result
+    GetContactsRequest:
+      type: object
+      properties:
+        nextPageToken:
+          type: string
+        prevPageToken:
+          type: string
+        pageSize:
+          maximum: 1000
+          type: integer
+          format: int32
+        listIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+        contactIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+        channelIds:
+          type: array
+          items:
+            type: string
+        channelTypes:
+          type: array
+          items:
+            type: string
+            enum:
+              - SMS
+              - WHATSAPP
+              - GBM
+              - INSTAGRAM
+              - FACEBOOK
+              - EMAIL
+        channelSubscriptionState:
+          type: string
+          enum:
+            - SUBSCRIBED
+            - UNSUBSCRIBED
+      description: Get contacts page filter payload
+    PageTokenDtoContactData:
+      required:
+        - content
+        - totalElements
+      type: object
+      properties:
+        content:
+          type: array
+          description: Page content and number of elements is restricted by page size
+          items:
+            $ref: '#/components/schemas/ContactData'
+        nextPageToken:
+          type: string
+          description: Pagination token to retrieve the next page
+        prevPageToken:
+          type: string
+          description: Pagination token to retrieve the previous page
+        totalElements:
+          type: integer
+          description: Total number of elements
+          format: int64
+          example: 25
+      description: Page token representation for search result
+    ApiError:
+      required:
+        - detail
+        - title
+        - type
+        - uuid
+      type: object
+      properties:
+        uuid:
+          type: string
+          description: Error id in UUID format
+          format: uuid
+        type:
+          type: string
+          description: Error type
+          enum:
+            - validation
+            - not_found
+            - method_not_allowed
+            - conflict
+            - payload_too_large
+            - unsupported_media_type
+            - message_not_readable
+            - internal_server_error
+            - request_not_recognised
+            - forbidden
+            - bad_gateway
+            - payment_required
+            - unauthorized
+            - unknown
+        title:
+          type: string
+          description: Error title
+        detail:
+          type: string
+          description: Error additional details
+      description: Api error data
+    InvalidInputApiError:
+      required:
+        - detail
+        - invalidFields
+        - title
+        - type
+        - uuid
+      type: object
+      properties:
+        uuid:
+          type: string
+          description: Error id in UUID format
+          format: uuid
+        type:
+          type: string
+          description: Error type
+          enum:
+            - validation
+            - not_found
+            - method_not_allowed
+            - conflict
+            - payload_too_large
+            - unsupported_media_type
+            - message_not_readable
+            - internal_server_error
+            - request_not_recognised
+            - forbidden
+            - bad_gateway
+            - payment_required
+            - unauthorized
+            - unknown
+        title:
+          type: string
+          description: Error title
+        detail:
+          type: string
+          description: Error additional details
+        invalidFields:
+          type: array
+          description: List of invalid fields
+          items:
+            $ref: '#/components/schemas/InvalidInputField'
+      description: Invalid input error data
+    InvalidInputField:
+      required:
+        - code
+        - name
+        - reason
+      type: object
+      properties:
+        name:
+          type: string
+          description: Invalid input field name
+        channelType:
+          type: string
+          description: Invalid channel type
+          enum:
+            - PHONE
+            - WHATSAPP
+            - GBM
+            - INSTAGRAM
+            - FACEBOOK
+            - EMAIL
+        code:
+          type: string
+          description: Invalid input value code
+          enum:
+            - must_not_be_empty
+            - must_be_empty
+            - must_not_be_null
+            - invalid_length
+            - duplicated_value
+            - invalid_format
+            - type_mismatch
+            - missing_parameter
+            - invalid_reference
+            - incorrect_operation
+            - no_such_pattern
+            - constraint_violation
+        reason:
+          type: string
+          description: Error message
+        invalidIds:
+          type: array
+          items:
+            type: string
+      description: Invalid input field
+  responses:
+    BadRequest:
+      description: Request has incorrect values
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InvalidInputApiError'
+    Unauthorized:
+      description: No valid authentication details were provided
+    Forbidden:
+      description: The authenticated user or account doesn't have permission
+    NotFound:
+      description: The specified resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiError'
+    PayloadTooLarge:
+      description: Maximum upload size exceeded
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiError'
+    UnsupportedMediaType:
+      description: Unsupported media type
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiError'
+    InternalServerError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiError'
+    RequestNotRecognised:
+      description: Request not recognised
+    BadGateway:
+      description: Invalid server response
+    ServerUnavailable:
+      description: Server currently unavailable
+    GatewayTimeout:
+      description: Gateway time out
+    PaymentRequired:
+      description: Current user does not have permissions to perform the requested operation
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiError'
+    Conflict:
+      description: Conflict. The entity already exists.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiError'
   headers:
     ExpiresAfter:
       description: date in UTC when token expires
