@@ -766,31 +766,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/detailresponse'
       deprecated: false
-  /v2-preview/reporting/messages/summary:
-    post:
-      security:
-        - basic_auth: [ ]
-        - hmac_auth: [ ]
-      tags:
-        - Messaging Reports
-      summary: Post summary report
-      description: Create daily report summary containing total number of sent, received and billing units.
-      operationId: PostSummaryReport
-      requestBody:
-        description: ''
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/summaryrequest'
-      responses:
-        200:
-          description: A list of all messages received in the specified time window
-          headers: { }
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/summaryresponse'
-      deprecated: false
   /v2-preview/reporting/messages/insights:
     post:
       security:
@@ -806,7 +781,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/summaryrequest'
+              $ref: '#/components/schemas/insightsrequest'
       responses:
         200:
           description: A list of all messages received in the specified time window
@@ -814,7 +789,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/summaryresponse'
+                $ref: '#/components/schemas/insightsresponse'
       deprecated: false
   /v2-preview/reporting/messages/async/detail:
     post:
@@ -6399,8 +6374,8 @@ components:
           type: string
           example: id
           description: Any string that you want to see in the CSV file header.
-    summaryrequest:
-      title: summaryrequest
+    insightsrequest:
+      title: insightsrequest
       required:
         - start_date
         - end_date
@@ -6546,14 +6521,14 @@ components:
             $ref: '#/components/schemas/DetailReportMessageRecord'
         pagination:
           $ref: '#/components/schemas/Paginate'
-    summaryresponse:
-      title: summaryresponse
+    insightsresponse:
+      title: insightsresponse
       type: object
       properties:
         summaries:
           type: array
           items:
-            $ref: '#/components/schemas/summaryitemresponse'
+            $ref: '#/components/schemas/insightsitemresponse'
         total_sent:
           type: number
           example: 100
@@ -6566,8 +6541,8 @@ components:
         total_opt_out:
           type: number
           example: 10
-    summaryitemresponse:
-      title: summaryitemresponse
+    insightsitemresponse:
+      title: insightsitemresponse
       type: object
       properties:
         group:
@@ -6588,9 +6563,9 @@ components:
         sub_group:
           type: array
           items:
-            $ref: '#/components/schemas/summarysubitemresponse'
-    summarysubitemresponse:
-      title: summarysubitemresponse
+            $ref: '#/components/schemas/insightssubitemresponse'
+    insightssubitemresponse:
+      title: insightsubitemresponse
       type: object
       properties:
         date:
