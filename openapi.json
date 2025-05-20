@@ -172,48 +172,6 @@
         "deprecated": false
       }
     },
-    "/v2-preview/reporting/messages/summary": {
-      "post": {
-        "security": [
-          {
-            "basic_auth": []
-          },
-          {
-            "hmac_auth": []
-          }
-        ],
-        "tags": [
-          "Messaging Reports"
-        ],
-        "summary": "Post summary report",
-        "description": "Create daily report summary containing total number of sent, received and billing units.",
-        "operationId": "PostSummaryReport",
-        "requestBody": {
-          "description": "",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/summaryrequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "A list of all messages received in the specified time window",
-            "headers": {},
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/summaryresponse"
-                }
-              }
-            }
-          }
-        },
-        "deprecated": false
-      }
-    },
     "/v2-preview/reporting/messages/insights": {
       "post": {
         "security": [
@@ -235,7 +193,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/summaryrequest"
+                "$ref": "#/components/schemas/insightsrequest"
               }
             }
           }
@@ -247,7 +205,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/summaryresponse"
+                  "$ref": "#/components/schemas/insightsresponse"
                 }
               }
             }
@@ -7929,8 +7887,8 @@
           }
         }
       },
-      "summaryrequest": {
-        "title": "summaryrequest",
+      "insightsrequest": {
+        "title": "insightsrequest",
         "required": [
           "start_date",
           "end_date",
@@ -8121,14 +8079,14 @@
           }
         }
       },
-      "summaryresponse": {
-        "title": "summaryresponse",
+      "insightsresponse": {
+        "title": "insightsresponse",
         "type": "object",
         "properties": {
           "summaries": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/summaryitemresponse"
+              "$ref": "#/components/schemas/insightsitemresponse"
             }
           },
           "total_sent": {
@@ -8149,8 +8107,8 @@
           }
         }
       },
-      "summaryitemresponse": {
-        "title": "summaryitemresponse",
+      "insightsitemresponse": {
+        "title": "insightsitemresponse",
         "type": "object",
         "properties": {
           "group": {
@@ -8176,13 +8134,13 @@
           "sub_group": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/summarysubitemresponse"
+              "$ref": "#/components/schemas/insightssubitemresponse"
             }
           }
         }
       },
-      "summarysubitemresponse": {
-        "title": "summarysubitemresponse",
+      "insightssubitemresponse": {
+        "title": "insightsubitemresponse",
         "type": "object",
         "properties": {
           "date": {
