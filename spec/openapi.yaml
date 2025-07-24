@@ -376,6 +376,8 @@ tags:
       All notifications are JSON encoded and the request expects to receive a response in the HTTP 200 range. If a valid response isn't received the request will be retried in an exponentially backing off fashion.
 
       Delivery Reports may carry an additional charge. For pricing, please contact your Account Manager or Support Team (support@app.sinch.com).
+      
+      To include billing units in your delivery receipts via webhook, ensure the "Show Billing Units" feature is enabled for your account.
 
       For delivery reports or changes in the status of a message, the POST request to the specified URL will be as follows:
         
@@ -550,7 +552,7 @@ tags:
       To learn more about the benefits of the Short Trackable Links feature, [visit our feature page](https://messagemedia.com/au/feature/short-urls/).
   - name: Webhooks Management
     description: >-
-      Webhooks Management API allows you to manage your webhooks configuration. You can subscribe to one or several events, retrieve the webhooks, update them or even delete them if needed.
+      Webhooks Management API allows you to manage your webhooks configuration. You can subscribe to one or several events, retrieve the webhooks, update them or even delete them if needed. To include billing units in your delivery receipts via webhook, ensure the "Show Billing Units" feature is enabled for your account.
   - name: Signature Key Management
     description: |
       As a Sinch customer, you want to be able to ensure that callbacks are coming from Sinch and not from a 3rd party. Since 
@@ -2082,6 +2084,7 @@ paths:
                     "date_received": "2017-05-20T06:30:37.642Z",
                     "status": "enroute",
                     "delay": 0,
+                    "billing_units": 2,
                     "submitted_date": "2017-05-20T06:30:37.639Z",
                     "original_text": "My first message!",
                     "message_id": "d781dcab-d9d8-4fb2-9e03-872f07ae94ba",
@@ -2101,6 +2104,7 @@ paths:
                     "date_received": "2017-05-21T01:46:42.579Z",
                     "status": "enroute",
                     "delay": 0,
+                    "billing_units": 1,
                     "submitted_date": "2017-05-21T01:46:42.574Z",
                     "original_text": "My second message!",
                     "message_id": "fbb3b3f5-b702-4d8b-ab44-65b2ee39a281",
@@ -3463,6 +3467,7 @@ paths:
           "events": ["RECEIVED_SMS"  ],
           "template": {
             "id":"$mtId",
+            "billing_units": 1,
             "status":"$statusCode"}
           "read_timeout": 5000,
           "retries": 3,
