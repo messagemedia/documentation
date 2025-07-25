@@ -2084,7 +2084,7 @@ paths:
                     "date_received": "2017-05-20T06:30:37.642Z",
                     "status": "enroute",
                     "delay": 0,
-                    "billing_units": 2,
+                    "billing_units": 1,
                     "submitted_date": "2017-05-20T06:30:37.639Z",
                     "original_text": "My first message!",
                     "message_id": "d781dcab-d9d8-4fb2-9e03-872f07ae94ba",
