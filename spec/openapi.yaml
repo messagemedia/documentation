@@ -552,7 +552,7 @@ tags:
       To learn more about the benefits of the Short Trackable Links feature, [visit our feature page](https://messagemedia.com/au/feature/short-urls/).
   - name: Webhooks Management
     description: >-
-      Webhooks Management API allows you to manage your webhooks configuration. You can subscribe to one or several events, retrieve the webhooks, update them or even delete them if needed. To include billing units in your delivery receipts via webhook, ensure the "Show Billing Units" feature is enabled for your account.
+      Webhooks Management API allows you to manage your webhooks configuration. You can subscribe to one or several events, retrieve the webhooks, update them or even delete them if needed.
   - name: Signature Key Management
     description: |
       As a Sinch customer, you want to be able to ensure that callbacks are coming from Sinch and not from a 3rd party. Since 
@@ -3467,7 +3467,6 @@ paths:
           "events": ["RECEIVED_SMS"  ],
           "template": {
             "id":"$mtId",
-            "billing_units": 1,
             "status":"$statusCode"}
           "read_timeout": 5000,
           "retries": 3,
