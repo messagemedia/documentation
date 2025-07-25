@@ -7259,6 +7259,11 @@ components:
           description: 'Deprecated, no longer in use'
           format: int32
           example: 0
+        billing_units:
+          type: integer
+          description: 'The billing units of this report'
+          format: int32
+          example: 1
         delivery_report_id:
           type: string
           description: Unique ID for this delivery report
