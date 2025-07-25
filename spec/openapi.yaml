@@ -376,6 +376,8 @@ tags:
       All notifications are JSON encoded and the request expects to receive a response in the HTTP 200 range. If a valid response isn't received the request will be retried in an exponentially backing off fashion.
 
       Delivery Reports may carry an additional charge. For pricing, please contact your Account Manager or Support Team (support@app.sinch.com).
+      
+      To include billing units in your delivery receipts via webhook, ensure the "Show Billing Units" feature is enabled for your account.
 
       For delivery reports or changes in the status of a message, the POST request to the specified URL will be as follows:
         
@@ -2082,6 +2084,7 @@ paths:
                     "date_received": "2017-05-20T06:30:37.642Z",
                     "status": "enroute",
                     "delay": 0,
+                    "billing_units": 0,
                     "submitted_date": "2017-05-20T06:30:37.639Z",
                     "original_text": "My first message!",
                     "message_id": "d781dcab-d9d8-4fb2-9e03-872f07ae94ba",
@@ -2101,6 +2104,7 @@ paths:
                     "date_received": "2017-05-21T01:46:42.579Z",
                     "status": "enroute",
                     "delay": 0,
+                    "billing_units": 0,
                     "submitted_date": "2017-05-21T01:46:42.574Z",
                     "original_text": "My second message!",
                     "message_id": "fbb3b3f5-b702-4d8b-ab44-65b2ee39a281",
@@ -7254,6 +7258,11 @@ components:
           description: 'Deprecated, no longer in use'
           format: int32
           example: 0
+        billing_units:
+          type: integer
+          description: 'The billing units of this report'
+          format: int32
+          example: 1
         delivery_report_id:
           type: string
           description: Unique ID for this delivery report
