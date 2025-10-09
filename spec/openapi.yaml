@@ -6409,7 +6409,7 @@ components:
           description: End date time for report window. By default, the timezone for this parameter
             will be taken from the account settings for the account associated with the
             credentials used to make the request, or the account included in the Account parameter.
-            This can be overridden using the timezone parameter per request. The date must be in ISO8601 format, and after the requested end_date and may include precise time values (e.g., milliseconds).
+            This can be overridden using the timezone parameter per request. The date must be in ISO8601 format, and after the requested start_date and may include precise time values (e.g., milliseconds).
           type: string
           example: "2022-12-14T01:01:01.001z"
         timezone:
