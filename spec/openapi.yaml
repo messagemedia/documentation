@@ -6475,7 +6475,8 @@ components:
             - SMS
             - WHATSAPP
         group_by:
-          description: Group results by a list of values, from the enumerable table above.
+          # TODO: Update docs on 16/Oct/2026 once 13 months of data are available.
+          description: Defines available fields for grouping insights reports. COUNTRY and CHANNEL are supported from 14/Aug/2025, and POSTBACK_DATA is supported from 16/Sep/2025, with data available only from those dates onward.
           type: array
           items:
             $ref: '#/components/schemas/GroupByInsightField'
@@ -9549,8 +9550,6 @@ components:
       example: DAY
     GroupByInsightField:
       title: GroupByInsightField
-      # TODO: Update docs on 16/Oct/2026 once 13 months of data are available.
-      description: Defines available fields for grouping insights reports. COUNTRY and CHANNEL are supported from 14/Aug/2025, and POSTBACK_DATA is supported from 16/Sep/2025, with data for these available only from those dates onward.
       enum:
         - ACCOUNT
         - DAY
