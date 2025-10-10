@@ -6460,7 +6460,7 @@ components:
           example: "true"
         channels:
           # TODO: Update docs on 16/Oct/2026 once 13 months of data are available.
-          description: Filter the report by one or more message channels. Supported from 14/Aug/2025, and data is available only for reports starting from this date.
+          description: Filter the report by one or more message channels. Supported from 14/Aug/2025, and filtering by channels is available only for reports starting from this date.
           type: array
           items:
             type: string
@@ -7438,7 +7438,7 @@ components:
       title: RichMessageType
       type: string
       # TODO: Update docs on 16/Oct/2026 once 13 months of data are available.
-      description: The type of rich message. Supported from 09/Sep/2025, and data is available only for reports starting from this date.
+      description: The type of rich message. Supported from 09/Sep/2025, and this data is available only for reports starting from this date.
       enum:
         - TEXT_MESSAGE
         - MEDIA_MESSAGE
@@ -9550,7 +9550,7 @@ components:
     GroupByInsightField:
       title: GroupByInsightField
       # TODO: Update docs on 16/Oct/2026 once 13 months of data are available.
-      description: Defines available fields for grouping insights reports. COUNTRY and CHANNEL are supported from 14/Aug/2025, and POSTBACK_DATA is supported from 16/Sep/2025, with data available only from those dates onward.
+      description: Defines available fields for grouping insights reports. COUNTRY and CHANNEL are supported from 14/Aug/2025, and POSTBACK_DATA is supported from 16/Sep/2025, with data for these available only from those dates onward.
       enum:
         - ACCOUNT
         - DAY
