@@ -6841,7 +6841,7 @@ components:
           type: string
           example: '2022-12-12T01:01:01.001z'
         end_date:
-          description: 'End date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format, and after the requested end_date and may include precise time values (e.g., milliseconds).'
+          description: 'End date time for report window. By default, the timezone for this parameter will be taken from the account settings for the account associated with the credentials used to make the request, or the account included in the Account parameter. This can be overridden using the timezone parameter per request. The date must be in ISO8601 format, and after the requested start_date and may include precise time values (e.g., milliseconds).'
           type: string
           example: '2022-12-14T01:01:01.001z'
         timezone:
@@ -6887,7 +6887,7 @@ components:
           type: string
           example: 'true'
         channels:
-          description: 'Filter the report by one or more message channels. Supported from 14/Aug/2025, and data is available only for reports starting from this date.'
+          description: 'Filter the report by one or more message channels. Supported from 14/Aug/2025, and filtering by channels is available only for reports starting from this date.'
           type: array
           items:
             type: string
@@ -6902,7 +6902,6 @@ components:
             - SMS
             - WHATSAPP
         group_by:
-          # TODO: Update docs on 16/Oct/2026 once 13 months of data are available.
           description: 'Defines available fields for grouping insights reports. COUNTRY and CHANNEL are supported from 14/Aug/2025, and POSTBACK_DATA is supported from 16/Sep/2025, with data available only from those dates onward.'
           type: array
           items:
@@ -7855,7 +7854,7 @@ components:
     RichMessageType:
       title: RichMessageType
       type: string
-      description: 'The type of rich message. Supported from 09/Sep/2025, and data is available only for reports starting from this date.'
+      description: 'The type of rich message. Supported from 09/Sep/2025, and this data is available only for reports starting from this date.'
       enum:
         - TEXT_MESSAGE
         - MEDIA_MESSAGE
@@ -9950,7 +9949,7 @@ components:
       type: string
       example: DAY
     GroupByInsightField:
-      title: GroupByField
+      title: GroupByInsightField
       enum:
         - ACCOUNT
         - DAY
