@@ -291,7 +291,7 @@ tags:
 
       Delivery Reports may carry an additional charge. For pricing, please contact your Account Manager or Support Team (support@app.sinch.com).
 
-      To include billing units in your delivery receipts via webhook, ensure the "Show Billing Units" feature is enabled for your account.
+      To include billing units in your delivery receipts via Webhooks, ensure that the switch "Enable billing units in Delivery Reports and Callbacks” is enabled in the API settings of your account.
 
       For delivery reports or changes in the status of a message, the POST request to the specified URL will be as follows:
         
@@ -3985,6 +3985,7 @@ paths:
         | **Message Content**| $mtContent, $messageContent, $esc.json($!mtContent) *- when used in `JSON` encoded `template`*| `Hi Derp` | `DR` `MO` `MO MMS` |
         | **Reply Content**| $moContent, $replyContent, $esc.json($!moContent) *- when used in `JSON` encoded `template`*| `Hello Derpina` | `MO` `MO MMS` |
         | **Retry Count**| $retryCount| `1` | `DR` `MO` `MO MMS` |
+        | **Billing Unit**| $billingUnits| `1` | `DR` |
 
          #### Message Statuses
 
