@@ -10244,6 +10244,7 @@ components:
           type: array
           items:
             type: string
+            example: '+15553456783'
         channelTypes:
           type: array
           items:
