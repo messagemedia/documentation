@@ -5085,6 +5085,7 @@ paths:
           schema:
             type: string
             format: uuid
+            example: '3fa85f64-5717-4562-b3fc-2c963f66afa6'
       responses:
         '204':
           description: Contact is deleted
@@ -5124,6 +5125,7 @@ paths:
           schema:
             type: string
             format: uuid
+            example: '3fa85f64-5717-4562-b3fc-2c963f66afa6'
       requestBody:
         content:
           application/json:
@@ -10028,6 +10030,7 @@ components:
             type: string
             description: List of contacts to add to the list in UUID format
             format: uuid
+            example: 025e93d3-051b-43f9-b12e-4b5842228dee
         contactsToRemoveIds:
           maxItems: 1000
           minItems: 0
@@ -10036,6 +10039,7 @@ components:
             type: string
             description: List of contacts to remove from the list in UUID format
             format: uuid
+            example: 025e93d3-051b-43f9-b12e-4b5842228dee
       description: Contacts list update payload
     UpdateCustomFieldRequest:
       type: object
@@ -10147,6 +10151,7 @@ components:
           items:
             type: string
             format: uuid
+            example: 025e93d3-051b-43f9-b12e-4b5842228dee
         alias:
           type: string
         name:
@@ -10191,6 +10196,7 @@ components:
           items:
             type: string
             format: uuid
+            example: 025e93d3-051b-43f9-b12e-4b5842228dee
         label:
           type: string
         mergeTag:
@@ -10240,10 +10246,12 @@ components:
           items:
             type: string
             format: uuid
+            example: 025e93d3-051b-43f9-b12e-4b5842228dee
         channelIds:
           type: array
           items:
             type: string
+            example: '+15553456783'
         channelTypes:
           type: array
           items:
