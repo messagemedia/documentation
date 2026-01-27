@@ -5042,6 +5042,7 @@ paths:
           schema:
             type: string
             format: uuid
+            example: '3fa85f64-5717-4562-b3fc-2c963f66afa6'
       responses:
         '200':
           description: Returns a single contact
@@ -5299,6 +5300,7 @@ paths:
           schema:
             type: string
             format: uuid
+            example: 025e93d3-051b-43f9-b12e-4b5842228dee
       responses:
         '204':
           description: Contact list is deleted
@@ -5338,7 +5340,7 @@ paths:
           schema:
             type: string
             format: uuid
-          example: 025e93d3-051b-43f9-b12e-4b5842228dee
+            example: 025e93d3-051b-43f9-b12e-4b5842228dee
       requestBody:
         content:
           application/json:
@@ -5389,7 +5391,7 @@ paths:
           schema:
             type: string
             format: uuid
-          example: 025e93d3-051b-43f9-b12e-4b5842228dee
+            example: 025e93d3-051b-43f9-b12e-4b5842228dee
       requestBody:
         content:
           application/json:
@@ -5438,7 +5440,7 @@ paths:
           schema:
             type: string
             format: uuid
-          example: 025e93d3-051b-43f9-b12e-4b5842228dee
+            example: 025e93d3-051b-43f9-b12e-4b5842228dee
         - name: contactId
           in: path
           description: Contact id to remove in UUID format
@@ -5446,7 +5448,7 @@ paths:
           schema:
             type: string
             format: uuid
-          example: 4a03d2d8-1f85-463f-bdb4-2891c17258a7
+            example: 4a03d2d8-1f85-463f-bdb4-2891c17258a7
       responses:
         '200':
           description: Contacts have been added
@@ -5494,7 +5496,7 @@ paths:
           schema:
             type: string
             format: uuid
-          example: 025e93d3-051b-43f9-b12e-4b5842228dee
+            example: 025e93d3-051b-43f9-b12e-4b5842228dee
         - name: contactId
           in: path
           description: Contact id to add in UUID format
@@ -5502,7 +5504,7 @@ paths:
           schema:
             type: string
             format: uuid
-          example: 4a03d2d8-1f85-463f-bdb4-2891c17258a7
+            example: 4a03d2d8-1f85-463f-bdb4-2891c17258a7
       responses:
         '204':
           description: No Content
@@ -10133,7 +10135,7 @@ components:
           type: array
           description: Contact custom fields
           items:
-            $ref: '#/components/schemas/UpdateCustomFieldRequest'
+            $ref: '#/components/schemas/CreateCustomFieldRequest'
       description: Contact update payload
     GetListsRequest:
       type: object
@@ -10241,6 +10243,7 @@ components:
           items:
             type: string
             format: uuid
+            example: 025e93d3-051b-43f9-b12e-4b5842228dee
         contactIds:
           type: array
           items:
