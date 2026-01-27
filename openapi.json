@@ -5986,7 +5986,8 @@
             "required": true,
             "schema": {
               "type": "string",
-              "format": "uuid"
+              "format": "uuid",
+              "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
             }
           }
         ],
@@ -6055,7 +6056,8 @@
             "required": true,
             "schema": {
               "type": "string",
-              "format": "uuid"
+              "format": "uuid",
+              "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
             }
           }
         ],
@@ -6117,7 +6119,8 @@
             "required": true,
             "schema": {
               "type": "string",
-              "format": "uuid"
+              "format": "uuid",
+              "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
             }
           }
         ],
@@ -6398,7 +6401,8 @@
             "required": true,
             "schema": {
               "type": "string",
-              "format": "uuid"
+              "format": "uuid",
+              "example": "025e93d3-051b-43f9-b12e-4b5842228dee"
             }
           }
         ],
@@ -6460,9 +6464,9 @@
             "required": true,
             "schema": {
               "type": "string",
-              "format": "uuid"
-            },
-            "example": "025e93d3-051b-43f9-b12e-4b5842228dee"
+              "format": "uuid",
+              "example": "025e93d3-051b-43f9-b12e-4b5842228dee"
+            }
           }
         ],
         "requestBody": {
@@ -6542,9 +6546,9 @@
             "required": true,
             "schema": {
               "type": "string",
-              "format": "uuid"
-            },
-            "example": "025e93d3-051b-43f9-b12e-4b5842228dee"
+              "format": "uuid",
+              "example": "025e93d3-051b-43f9-b12e-4b5842228dee"
+            }
           }
         ],
         "requestBody": {
@@ -6621,9 +6625,9 @@
             "required": true,
             "schema": {
               "type": "string",
-              "format": "uuid"
-            },
-            "example": "025e93d3-051b-43f9-b12e-4b5842228dee"
+              "format": "uuid",
+              "example": "025e93d3-051b-43f9-b12e-4b5842228dee"
+            }
           },
           {
             "name": "contactId",
@@ -6632,9 +6636,9 @@
             "required": true,
             "schema": {
               "type": "string",
-              "format": "uuid"
-            },
-            "example": "4a03d2d8-1f85-463f-bdb4-2891c17258a7"
+              "format": "uuid",
+              "example": "4a03d2d8-1f85-463f-bdb4-2891c17258a7"
+            }
           }
         ],
         "responses": {
@@ -6709,9 +6713,9 @@
             "required": true,
             "schema": {
               "type": "string",
-              "format": "uuid"
-            },
-            "example": "025e93d3-051b-43f9-b12e-4b5842228dee"
+              "format": "uuid",
+              "example": "025e93d3-051b-43f9-b12e-4b5842228dee"
+            }
           },
           {
             "name": "contactId",
@@ -6720,9 +6724,9 @@
             "required": true,
             "schema": {
               "type": "string",
-              "format": "uuid"
-            },
-            "example": "4a03d2d8-1f85-463f-bdb4-2891c17258a7"
+              "format": "uuid",
+              "example": "4a03d2d8-1f85-463f-bdb4-2891c17258a7"
+            }
           }
         ],
         "responses": {
@@ -12785,7 +12789,8 @@
             "items": {
               "type": "string",
               "description": "List of contacts to add to the list in UUID format",
-              "format": "uuid"
+              "format": "uuid",
+              "example": "025e93d3-051b-43f9-b12e-4b5842228dee"
             }
           },
           "contactsToRemoveIds": {
@@ -12795,7 +12800,8 @@
             "items": {
               "type": "string",
               "description": "List of contacts to remove from the list in UUID format",
-              "format": "uuid"
+              "format": "uuid",
+              "example": "025e93d3-051b-43f9-b12e-4b5842228dee"
             }
           }
         },
@@ -12913,7 +12919,7 @@
             "type": "array",
             "description": "Contact custom fields",
             "items": {
-              "$ref": "#/components/schemas/UpdateCustomFieldRequest"
+              "$ref": "#/components/schemas/CreateCustomFieldRequest"
             }
           }
         },
@@ -12937,7 +12943,8 @@
             "type": "array",
             "items": {
               "type": "string",
-              "format": "uuid"
+              "format": "uuid",
+              "example": "025e93d3-051b-43f9-b12e-4b5842228dee"
             }
           },
           "alias": {
@@ -12998,7 +13005,8 @@
             "type": "array",
             "items": {
               "type": "string",
-              "format": "uuid"
+              "format": "uuid",
+              "example": "025e93d3-051b-43f9-b12e-4b5842228dee"
             }
           },
           "label": {
@@ -13059,20 +13067,23 @@
             "type": "array",
             "items": {
               "type": "string",
-              "format": "uuid"
+              "format": "uuid",
+              "example": "025e93d3-051b-43f9-b12e-4b5842228dee"
             }
           },
           "contactIds": {
             "type": "array",
             "items": {
               "type": "string",
-              "format": "uuid"
+              "format": "uuid",
+              "example": "025e93d3-051b-43f9-b12e-4b5842228dee"
             }
           },
           "channelIds": {
             "type": "array",
             "items": {
-              "type": "string"
+              "type": "string",
+              "example": "+15553456783"
             }
           },
           "channelTypes": {
