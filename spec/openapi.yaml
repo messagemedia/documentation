@@ -6301,6 +6301,10 @@ components:
           description: Filter the report to only include messages that triggered an opt-out
           type: string
           example: "true"
+        include_contacts:
+          description: When the flag is 'true' the 'Contact Name' column will be visible in the delivered report
+          type: string
+          example: "true"
         message_format:
           $ref: '#/components/schemas/format'
         fields:
