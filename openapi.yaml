@@ -347,6 +347,8 @@ tags:
 
       * **Delay**: _Deprecated, no longer in use_
 
+      * **Billing Units**: The number of billing units charged for the message.
+
       * **Submitted Date**: Date time status of the message changed in UTC. For a delivered DR this may indicate the time at which the message was received on the handset.
 
       * **Original Text**: Text of the original message.
@@ -354,8 +356,6 @@ tags:
       * **Message ID**: ID of the original message.
 
       * **Vendor Account ID**: The account used to submit the original message. The vendor will always be `SinchEU`
-
-      * **Billing Units**: The number of billing units charged for the message.
 
       * **Error Code**: A status code which provides additional information about the message status:
 
