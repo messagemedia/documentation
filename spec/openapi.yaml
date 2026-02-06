@@ -7629,6 +7629,10 @@ components:
           type: number
           description: The amount of messages received
           example: 1
+        billing_category:
+          type: string
+          description: The billing category applied to this RCS message (e.g. RCS_BASIC, RCS_SINGLE, RCS_RICH, RCS_RICH_MEDIA).
+          example: RCS_BASIC
         message_type:
           $ref: '#/components/schemas/RichMessageType'
         metadata:
