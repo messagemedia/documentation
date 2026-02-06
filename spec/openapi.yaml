@@ -7631,7 +7631,7 @@ components:
           example: 1
         billing_category:
           type: string
-          description: The billing category applied to this RCS message (e.g. RCS_BASIC, RCS_SINGLE, RCS_RICH, RCS_RICH_MEDIA).
+          description: The billing category applied to this RCS message (e.g. RCS_BASIC, RCS_SINGLE, RCS_RICH, RCS_RICH_MEDIA). Supported from 5/Feb/2026. This field is only available for messages sent on or after this date.
           example: RCS_BASIC
         message_type:
           $ref: '#/components/schemas/RichMessageType'
