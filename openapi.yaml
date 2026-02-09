@@ -6615,6 +6615,14 @@ components:
           description: Filter results by source address.
           type: string
           example: '+61555555555'
+        sources:
+          description: Filter results by multiple source addresses. This property overrides the `source` parameter.
+          type: array
+          items:
+            type: string
+          example:
+            - '+61555555555'
+            - '+614987654321'
         destination:
           description: Filter results by destination address.
           type: string
@@ -6862,10 +6870,26 @@ components:
           description: Filter results by source address.
           type: string
           example: '+61555555555'
+        sources:
+          description: Filter results by multiple source addresses. This property overrides the `source` parameter.
+          type: array
+          items:
+            type: string
+          example:
+            - '+61555555555'
+            - '+614987654321'
         destination:
           description: Filter results by destination address.
           type: string
           example: '+61555555555'
+        destinations:
+          description: Filter results by multiple destination addresses. This property overrides the `destination` parameter.
+          type: array
+          items:
+            type: string
+          example:
+            - '+61555555555'
+            - '+614987654321'
         metadata_key:
           description: Filter results for messages that include a metadata key.
           type: string
@@ -8010,6 +8034,10 @@ components:
           type: number
           description: The amount of messages received
           example: 1
+        billing_category:
+          type: string
+          description: 'The billing category applied to this RCS message (e.g. RCS_BASIC, RCS_SINGLE, RCS_RICH, RCS_RICH_MEDIA). Supported from 5/Feb/2026. This field is only available for RCS messages and only for messages sent on or after this date.'
+          example: RCS_BASIC
         message_type:
           $ref: '#/components/schemas/RichMessageType'
         metadata:
