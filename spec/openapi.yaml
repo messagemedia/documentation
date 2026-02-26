@@ -1304,6 +1304,7 @@ paths:
         delivered to. This should be specified in E.164
           international format. For information on E.164, please refer to http://en.wikipedia.org/wiki/E.164.
           A destination number is required.
+        ⚠️ IMDA TLS Compliance Notice: From 1 April 2026, all requests sending messages to Singapore (+65) numbers must use TLS 1.3 or higher. Requests using an older TLS version will be rejected with HTTP 422 Unprocessable Entity.
 
         - ```format``` The format specifies which format the message will be
         sent as, ```SMS``` (text message), ```MMS``` (multimedia message)
