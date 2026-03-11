@@ -908,6 +908,137 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/fieldsresponse'
+  /v2-preview/reporting/messages/async/reports:
+    get:
+      security:
+        - basic_auth: [ ]
+        - hmac_auth: [ ]
+        - bearer_auth: [ ]
+      tags:
+        - Messaging Reports
+      summary: Get async report history
+      description: Returns a list of asynchronous reports that have been requested by the current account.
+      operationId: GetAsyncReportHistory
+      parameters:
+        - name: page_size
+          in: query
+          description: The number of items to return per page.
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: integer
+            example: 10
+        - name: page_token
+          in: query
+          description: A pagination token returned from a previous call. Pass this to retrieve the next page of results.
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: eyJyZXBvcnRJZCI6IjUxZjAwOTdmLTkwYjItNGE1OS1hZDg4LWEwZmQ5M2FiYWE4MiJ9
+        - name: report_name
+          in: query
+          description: Filter results by report name.
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: My Detail Report
+        - name: status
+          in: query
+          description: Filter results by report status. Can be specified multiple times.
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - REQUESTED
+                - RUNNING
+                - FAILED
+                - CANCELLED
+                - DONE
+        - name: start_date
+          in: query
+          description: Filter reports requested on or after this date (ISO 8601).
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+            format: date-time
+            example: 2020-05-28T10:27:46.259Z
+        - name: end_date
+          in: query
+          description: Filter reports requested on or before this date (ISO 8601).
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+            format: date-time
+            example: 2020-06-28T10:27:46.259Z
+        - name: sort_direction
+          in: query
+          description: Sort direction for the results.
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+            enum:
+              - ASCENDING
+              - DESCENDING
+            example: DESCENDING
+      responses:
+        200:
+          description: A list of async reports for the current account.
+          headers: { }
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/reporthistoryresponses'
+      deprecated: false
+  /v2-preview/reporting/messages/async/reports/{reportId}/download-url:
+    get:
+      security:
+        - basic_auth: [ ]
+        - hmac_auth: [ ]
+        - bearer_auth: [ ]
+      tags:
+        - Messaging Reports
+      summary: Get async report download URL
+      description: >-
+        Returns a temporary Amazon S3 pre-signed URL for downloading the generated report.
+        The URL allows customers to securely download the report file directly from S3
+        using the provided reportId.
+      operationId: GetAsyncReportDownloadUrl
+      parameters:
+        - name: reportId
+          in: path
+          description: The ID of the report to download.
+          required: true
+          style: simple
+          schema:
+            type: string
+            format: uuid
+            example: 51f0097f-90b2-4a59-ad88-a0fd93abaa82
+      responses:
+        200:
+          description: A pre-signed S3 URL for downloading the report.
+          headers: { }
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/presignedurlresponse'
+        404:
+          description: Report not found.
+      deprecated: false
   /v2-preview/reporting/detail/scheduled:
     post:
       security:
@@ -6580,6 +6711,110 @@ components:
             type: string
             example: [ id, content, meta1 ]
           description: An array of fields to be retrieved.
+    reporthistoryresponses:
+      title: reporthistoryresponses
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/reporthistoryresponse'
+          description: A list of report history items.
+        next_page_token:
+          type: string
+          description: A token to retrieve the next page of results. Absent if there are no more pages.
+          example: eyJyZXBvcnRJZCI6IjUxZjAwOTdmLTkwYjItNGE1OS1hZDg4LWEwZmQ5M2FiYWE4MiJ9
+    reporthistoryresponse:
+      title: reporthistoryresponse
+      type: object
+      properties:
+        report_id:
+          type: string
+          format: uuid
+          description: Unique identifier for the report.
+          example: 51f0097f-90b2-4a59-ad88-a0fd93abaa82
+        report_name:
+          type: string
+          description: The name of the report.
+          example: My Detail Report
+        report_type:
+          type: string
+          description: The type of the report.
+          enum:
+            - DETAIL
+            - SUMMARY
+          example: DETAIL
+        direction:
+          type: string
+          description: The message direction the report covers.
+          enum:
+            - INBOUND
+            - OUTBOUND
+            - ALL
+          example: OUTBOUND
+        requested_by:
+          type: string
+          description: The account ID of the user who requested the report.
+          example: MyAccount
+        requested_at:
+          type: string
+          format: date-time
+          description: The date and time when the report was requested (ISO 8601).
+          example: 2020-06-01T10:00:00.000Z
+        updated_at:
+          type: string
+          format: date-time
+          description: The date and time when the report was last updated (ISO 8601).
+          example: 2020-06-01T10:05:00.000Z
+        status:
+          type: string
+          description: The current status of the report.
+          enum:
+            - REQUESTED
+            - RUNNING
+            - FAILED
+            - CANCELLED
+            - DONE
+          example: DONE
+        account_id:
+          type: string
+          description: The account ID associated with the report.
+          example: MyAccount
+        vendor_id:
+          type: string
+          description: The vendor ID associated with the report.
+          example: messagemedia
+        s3_file_size:
+          type: integer
+          format: int64
+          description: The size of the report file in bytes.
+          example: 204800
+    presignedurlresponse:
+      title: presignedurlresponse
+      type: object
+      properties:
+        download_url:
+          type: string
+          description: The pre-signed Amazon S3 URL for downloading the report file.
+          example: https://s3.amazonaws.com/reports/51f0097f.csv?AWSAccessKeyId=EXAMPLE
+        file_name:
+          type: string
+          description: The filename of the report CSV.
+          example: report-51f0097f-90b2-4a59-ad88-a0fd93abaa82.csv
+        file_size:
+          type: integer
+          format: int64
+          description: The size of the report file in bytes.
+          example: 204800
+        expires_in_seconds:
+          type: integer
+          description: The number of seconds until the pre-signed URL expires.
+          example: 3600
+        expires_at:
+          type: integer
+          format: int64
+          description: Unix timestamp (seconds) when the pre-signed URL expires.
+          example: 1622555046
     detailresponse:
       title: detailresponse
       type: object
@@ -10527,3 +10762,7 @@ components:
       # The following options are specific to apiKey type
       in: header # Where API key will be passed: header or query
       name: Authorization # API key parameter name
+    bearer_auth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
