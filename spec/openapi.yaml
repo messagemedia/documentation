@@ -949,7 +949,7 @@ paths:
             example: My Detail Report
         - name: status
           in: query
-          description: Filter results by report status. Can be specified multiple times.
+          description: Filter results by report status. Multiple statuses can be specified.
           required: false
           style: form
           explode: true
@@ -1014,9 +1014,8 @@ paths:
         - Messaging Reports
       summary: Get async report download URL
       description: >-
-        Returns a temporary Amazon S3 pre-signed URL for downloading the generated report.
-        The URL allows customers to securely download the report file directly from S3
-        using the provided reportId.
+        Returns a temporary pre-signed URL for downloading the generated report.
+        The URL allows customers to securely download the report file directly using the provided reportId.
       operationId: GetAsyncReportDownloadUrl
       parameters:
         - name: reportId
@@ -1030,7 +1029,7 @@ paths:
             example: 51f0097f-90b2-4a59-ad88-a0fd93abaa82
       responses:
         200:
-          description: A pre-signed S3 URL for downloading the report.
+          description: A pre-signed URL for downloading the report.
           headers: { }
           content:
             application/json:
@@ -6754,7 +6753,7 @@ components:
           example: OUTBOUND
         requested_by:
           type: string
-          description: The account ID of the user who requested the report.
+          description: The UUID of the user who requested the report.
           example: MyAccount
         requested_at:
           type: string
@@ -6795,7 +6794,7 @@ components:
       properties:
         download_url:
           type: string
-          description: The pre-signed Amazon S3 URL for downloading the report file.
+          description: The pre-signed URL for downloading the report file.
           example: https://s3.amazonaws.com/reports/51f0097f.csv?AWSAccessKeyId=EXAMPLE
         file_name:
           type: string
