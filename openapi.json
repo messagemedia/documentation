@@ -395,6 +395,194 @@
         }
       }
     },
+    "/v2-preview/reporting/messages/async/reports": {
+      "get": {
+        "security": [
+          {
+            "basic_auth": []
+          },
+          {
+            "hmac_auth": []
+          },
+          {
+            "bearer_auth": []
+          }
+        ],
+        "tags": [
+          "Messaging Reports"
+        ],
+        "summary": "Get async report history",
+        "description": "Returns a list of asynchronous reports that have been requested by the current account.",
+        "operationId": "GetAsyncReportHistory",
+        "parameters": [
+          {
+            "name": "page_size",
+            "in": "query",
+            "description": "The number of items to return per page.",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "integer",
+              "example": 10
+            }
+          },
+          {
+            "name": "page_token",
+            "in": "query",
+            "description": "A pagination token returned from a previous call. Pass this to retrieve the next page of results.",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "example": "eyJyZXBvcnRJZCI6IjUxZjAwOTdmLTkwYjItNGE1OS1hZDg4LWEwZmQ5M2FiYWE4MiJ9"
+            }
+          },
+          {
+            "name": "report_name",
+            "in": "query",
+            "description": "Filter results by report name.",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "example": "My Detail Report"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "Filter results by report status. Multiple statuses can be specified.",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "REQUESTED",
+                  "RUNNING",
+                  "FAILED",
+                  "CANCELLED",
+                  "DONE"
+                ]
+              }
+            }
+          },
+          {
+            "name": "start_date",
+            "in": "query",
+            "description": "Filter reports requested on or after this date (ISO 8601).",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time",
+              "example": "2020-05-28T10:27:46.259Z"
+            }
+          },
+          {
+            "name": "end_date",
+            "in": "query",
+            "description": "Filter reports requested on or before this date (ISO 8601).",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time",
+              "example": "2020-06-28T10:27:46.259Z"
+            }
+          },
+          {
+            "name": "sort_direction",
+            "in": "query",
+            "description": "Sort direction for the results.",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ASCENDING",
+                "DESCENDING"
+              ],
+              "example": "DESCENDING"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of async reports for the current account.",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/reporthistoryresponses"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/v2-preview/reporting/messages/async/reports/{reportId}/download-url": {
+      "get": {
+        "security": [
+          {
+            "basic_auth": []
+          },
+          {
+            "hmac_auth": []
+          },
+          {
+            "bearer_auth": []
+          }
+        ],
+        "tags": [
+          "Messaging Reports"
+        ],
+        "summary": "Get async report download URL",
+        "description": "Returns a temporary pre-signed URL for downloading the generated report. The URL allows customers to securely download the report file directly using the provided reportId.",
+        "operationId": "GetAsyncReportDownloadUrl",
+        "parameters": [
+          {
+            "name": "reportId",
+            "in": "path",
+            "description": "The ID of the report to download.",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "51f0097f-90b2-4a59-ad88-a0fd93abaa82"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A pre-signed URL for downloading the report.",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/presignedurlresponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Report not found."
+          }
+        },
+        "deprecated": false
+      }
+    },
     "/v2-preview/reporting/detail/scheduled": {
       "post": {
         "security": [
@@ -939,7 +1127,7 @@
           "Messages"
         ],
         "summary": "Send messages",
-        "description": "Submit one or more (up to 100 per request) SMS, MMS or text to voice\nmessages for delivery.\n\nThe most basic message has the following structure:\n\n```json\n\n{\n    \"messages\": [\n        {\n            \"content\": \"My first message!\",\n            \"destination_number\": \"+61491570156\"\n        }\n    ]\n}\n\n```\n\nMore advanced delivery features can be specified by setting the\nfollowing properties in a message:\n\n- ```callback_url``` A URL can be included with each message to which\nWebhooks will be pushed to via a HTTP POST request. Webhooks will be sent if and when the status of the message changes as it is processed (if the delivery report property of the request is set to ```true```) and when replies are received. Specifying a callback URL is optional.\n\n- ```content``` The content of the message. This can be a Unicode string, up to 5,000 characters long.\n  Message content is required.\n\n- ```delivery_report``` Delivery reports can be requested with each\nmessage. If delivery reports are requested, a webhook will be submitted to the ```callback_url``` property specified for the message (or to the webhooks)\n  specified for the account every time the status of the message changes as it is processed. The\n  current status of the message can also be retrieved via the Delivery Reports endpoint of the\n  Messages API. Delivery reports are optional and by default will not be requested.\n\n- ```destination_number``` The destination number the message should be\ndelivered to. This should be specified in E.164\n  international format. For information on E.164, please refer to http://en.wikipedia.org/wiki/E.164.\n  A destination number is required.\n\n- ```format``` The format specifies which format the message will be\nsent as, ```SMS``` (text message), ```MMS``` (multimedia message)\n  or ```TTS``` (text to speech). With ```TTS``` format, we will call the destination number and read out the\n  message using a computer generated voice. Specifying a format is optional, by default ```SMS``` will be used.\n\n- ```source_number_type``` If a source number is specified, the type of\nsource number may also be\n  specified. This is recommended when using a source address type that is not an internationally\n  formatted number, available options are ```INTERNATIONAL```, ```ALPHANUMERIC``` or ```SHORTCODE```. Specifying a\n  source number type is only valid when the ```source_number``` parameter is specified and is optional.\n  If a source number is specified and no source number type is specified, the source number type will be\n  inferred from the source number, however this may be inaccurate.\n\n- ```source_number```[optional]  Specify a source number to be used.  Refer to the section below for more information on source numbers.  \n⚠️ The number or sender ID must be registered to your account (from 1-Mar-2024).\n\n  #### Source number (sender ID)\n  \n  There are several options for the number or sender ID that will show as the source of an outbound message. Some things to note:\n    - If you do not specify a source number, the message will be sent with the default number for your account.\n      - The default may be a number you have purchased from us - such as a dedicated number, a 10-digit longcode or toll-free number (US/CA), or a shortcode. Log into the web portal to manage your numbers.\n      - If your account has multiple numbers, you can specify which source number to use in the request.\n      - If your account does not have a number, your message may be sent using our shared number pool (in certain countries only)\n    - `Alpha tag:` In some countries (AU, GB, some others), you may be able to send using an alpha tag - text that represents your brand of business.  Before using an alpha tag, you must register it in the Numbers section of the web portal.\n    - `Other numbers:` You may use numbers that you own as the source number, but you must register them in the Numbers section of the web portal to confirm  you have a right to use the number.\n  If you need to register a large number of source numbers/sender IDs, consider using our [Source Address API](https://messagemedia.github.io/documentation/#tag/Source-Address)\n  \n  ⚠️ If you specify a source_number that is not registered to your account, the message may fail to send, or may be sent with an alternative number.\n\n- ```media``` The media is used to specify a list of URLs of the media file(s) that you are trying to send. \nSupported file formats include png, jpeg and gif. ```format``` parameter must be set to ```MMS``` for this to\nwork.\n\n- ```subject``` The subject field is used to denote subject of the MMS\nmessage and has a maximum size of 64 characters long. Specifying a\nsubject is optional.\n\n- ```scheduled``` A message can be scheduled for delivery in the future\nby setting the scheduled property.\n  The scheduled property expects a date time specified in ISO 8601 format. The scheduled time must be\n  provided in UTC and is optional. If no scheduled property is set, the message will be delivered immediately.\n\n- ```message_expiry_timestamp``` A message expiry timestamp can be\nprovided to specify the latest time\n  at which the message should be delivered. If the message cannot be delivered before the specified\n  message expiry timestamp elapses, the message will be discarded. Specifying a message expiry \n  timestamp is optional.\n\n- ```metadata``` Metadata can be included with the message which will\nthen be included with any delivery\n  reports or replies matched to the message. This can be used to create powerful two-way messaging\n  applications without having to store persistent data in the application. Up to 10 key / value metadata data\n  pairs can be specified in a message. Each key can be up to 100 characters long, and each value up to \n  256 characters long. Specifying metadata for a message is optional.\n\nThe response body of a successful POST request to the messages endpoint\nwill include a ```messages``` property which contains a list of all messages submitted. The list of\nmessages submitted will reflect the list of messages included in the request, but each message\nwill also contain two new properties, ```message_id``` and ```status```. The returned message ID\nwill be a 36 character UUID which can be used to check the status of the message via the Get Message\nStatus endpoint. The status of the message which reflect the status of the message at submission\ntime which will always be ```queued```. See the Delivery Reports section of this documentation for\nmore information on message statuses.\n\n*Note: when sending multiple messages in a request, all messages must be valid for the request \nto be successful. If any messages in the request are invalid, no messages will be sent.*\n",
+        "description": "Submit one or more (up to 100 per request) SMS, MMS or text to voice\nmessages for delivery.\n\nThe most basic message has the following structure:\n\n```json\n\n{\n    \"messages\": [\n        {\n            \"content\": \"My first message!\",\n            \"destination_number\": \"+61491570156\"\n        }\n    ]\n}\n\n```\n\nMore advanced delivery features can be specified by setting the\nfollowing properties in a message:\n\n- ```callback_url``` A URL can be included with each message to which\nWebhooks will be pushed to via a HTTP POST request. Webhooks will be sent if and when the status of the message changes as it is processed (if the delivery report property of the request is set to ```true```) and when replies are received. Specifying a callback URL is optional.\n\n- ```content``` The content of the message. This can be a Unicode string, up to 5,000 characters long.\n  Message content is required.\n\n- ```delivery_report``` Delivery reports can be requested with each\nmessage. If delivery reports are requested, a webhook will be submitted to the ```callback_url``` property specified for the message (or to the webhooks)\n  specified for the account every time the status of the message changes as it is processed. The\n  current status of the message can also be retrieved via the Delivery Reports endpoint of the\n  Messages API. Delivery reports are optional and by default will not be requested.\n\n- ```destination_number``` The destination number the message should be\ndelivered to. This should be specified in E.164\n  international format. For information on E.164, please refer to http://en.wikipedia.org/wiki/E.164.\n  A destination number is required.  \n⚠️ IMDA TLS Compliance Notice: From 1 April 2026, all requests sending messages to Singapore (+65) numbers must use TLS 1.3 or higher. Requests using an older TLS version will be rejected with HTTP 422 Unprocessable Entity.\n\n- ```format``` The format specifies which format the message will be\nsent as, ```SMS``` (text message), ```MMS``` (multimedia message)\n  or ```TTS``` (text to speech). With ```TTS``` format, we will call the destination number and read out the\n  message using a computer generated voice. Specifying a format is optional, by default ```SMS``` will be used.\n\n- ```source_number_type``` If a source number is specified, the type of\nsource number may also be\n  specified. This is recommended when using a source address type that is not an internationally\n  formatted number, available options are ```INTERNATIONAL```, ```ALPHANUMERIC``` or ```SHORTCODE```. Specifying a\n  source number type is only valid when the ```source_number``` parameter is specified and is optional.\n  If a source number is specified and no source number type is specified, the source number type will be\n  inferred from the source number, however this may be inaccurate.\n\n- ```source_number```[optional]  Specify a source number to be used.  Refer to the section below for more information on source numbers.  \n⚠️ The number or sender ID must be registered to your account (from 1-Mar-2024).\n\n  #### Source number (sender ID)\n  \n  There are several options for the number or sender ID that will show as the source of an outbound message. Some things to note:\n    - If you do not specify a source number, the message will be sent with the default number for your account.\n      - The default may be a number you have purchased from us - such as a dedicated number, a 10-digit longcode or toll-free number (US/CA), or a shortcode. Log into the web portal to manage your numbers.\n      - If your account has multiple numbers, you can specify which source number to use in the request.\n      - If your account does not have a number, your message may be sent using our shared number pool (in certain countries only)\n    - `Alpha tag:` In some countries (AU, GB, some others), you may be able to send using an alpha tag - text that represents your brand of business.  Before using an alpha tag, you must register it in the Numbers section of the web portal.\n    - `Other numbers:` You may use numbers that you own as the source number, but you must register them in the Numbers section of the web portal to confirm  you have a right to use the number.\n  If you need to register a large number of source numbers/sender IDs, consider using our [Source Address API](https://messagemedia.github.io/documentation/#tag/Source-Address)\n  \n  ⚠️ If you specify a source_number that is not registered to your account, the message may fail to send, or may be sent with an alternative number.\n\n- ```media``` The media is used to specify a list of URLs of the media file(s) that you are trying to send. \nSupported file formats include png, jpeg and gif. ```format``` parameter must be set to ```MMS``` for this to\nwork.\n\n- ```subject``` The subject field is used to denote subject of the MMS\nmessage and has a maximum size of 64 characters long. Specifying a\nsubject is optional.\n\n- ```scheduled``` A message can be scheduled for delivery in the future\nby setting the scheduled property.\n  The scheduled property expects a date time specified in ISO 8601 format. The scheduled time must be\n  provided in UTC and is optional. If no scheduled property is set, the message will be delivered immediately.\n\n- ```message_expiry_timestamp``` A message expiry timestamp can be\nprovided to specify the latest time\n  at which the message should be delivered. If the message cannot be delivered before the specified\n  message expiry timestamp elapses, the message will be discarded. Specifying a message expiry \n  timestamp is optional.\n\n- ```metadata``` Metadata can be included with the message which will\nthen be included with any delivery\n  reports or replies matched to the message. This can be used to create powerful two-way messaging\n  applications without having to store persistent data in the application. Up to 10 key / value metadata data\n  pairs can be specified in a message. Each key can be up to 100 characters long, and each value up to \n  256 characters long. Specifying metadata for a message is optional.\n\nThe response body of a successful POST request to the messages endpoint\nwill include a ```messages``` property which contains a list of all messages submitted. The list of\nmessages submitted will reflect the list of messages included in the request, but each message\nwill also contain two new properties, ```message_id``` and ```status```. The returned message ID\nwill be a 36 character UUID which can be used to check the status of the message via the Get Message\nStatus endpoint. The status of the message which reflect the status of the message at submission\ntime which will always be ```queued```. See the Delivery Reports section of this documentation for\nmore information on message statuses.\n\n*Note: when sending multiple messages in a request, all messages must be valid for the request \nto be successful. If any messages in the request are invalid, no messages will be sent.*\n",
         "operationId": "SendMessages",
         "parameters": [],
         "requestBody": {
@@ -8139,6 +8327,138 @@
           }
         }
       },
+      "reporthistoryresponses": {
+        "title": "reporthistoryresponses",
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/reporthistoryresponse"
+            },
+            "description": "A list of report history items."
+          },
+          "next_page_token": {
+            "type": "string",
+            "description": "A token to retrieve the next page of results. Absent if there are no more pages.",
+            "example": "eyJyZXBvcnRJZCI6IjUxZjAwOTdmLTkwYjItNGE1OS1hZDg4LWEwZmQ5M2FiYWE4MiJ9"
+          }
+        }
+      },
+      "reporthistoryresponse": {
+        "title": "reporthistoryresponse",
+        "type": "object",
+        "properties": {
+          "report_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Unique identifier for the report.",
+            "example": "51f0097f-90b2-4a59-ad88-a0fd93abaa82"
+          },
+          "report_name": {
+            "type": "string",
+            "description": "The name of the report.",
+            "example": "My Detail Report"
+          },
+          "report_type": {
+            "type": "string",
+            "description": "The type of the report.",
+            "enum": [
+              "DETAIL",
+              "SUMMARY"
+            ],
+            "example": "DETAIL"
+          },
+          "direction": {
+            "type": "string",
+            "description": "The message direction the report covers.",
+            "enum": [
+              "INBOUND",
+              "OUTBOUND",
+              "ALL"
+            ],
+            "example": "OUTBOUND"
+          },
+          "requested_by": {
+            "type": "string",
+            "description": "The UUID of the user who requested the report.",
+            "example": "MyAccount"
+          },
+          "requested_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The date and time when the report was requested (ISO 8601).",
+            "example": "2020-06-01T10:00:00.000Z"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The date and time when the report was last updated (ISO 8601).",
+            "example": "2020-06-01T10:05:00.000Z"
+          },
+          "status": {
+            "type": "string",
+            "description": "The current status of the report.",
+            "enum": [
+              "REQUESTED",
+              "RUNNING",
+              "FAILED",
+              "CANCELLED",
+              "DONE"
+            ],
+            "example": "DONE"
+          },
+          "account_id": {
+            "type": "string",
+            "description": "The account ID associated with the report.",
+            "example": "MyAccount"
+          },
+          "vendor_id": {
+            "type": "string",
+            "description": "The vendor ID associated with the report.",
+            "example": "messagemedia"
+          },
+          "s3_file_size": {
+            "type": "integer",
+            "format": "int64",
+            "description": "The size of the report file in bytes.",
+            "example": 204800
+          }
+        }
+      },
+      "presignedurlresponse": {
+        "title": "presignedurlresponse",
+        "type": "object",
+        "properties": {
+          "download_url": {
+            "type": "string",
+            "description": "The pre-signed URL for downloading the report file.",
+            "example": "https://s3.amazonaws.com/reports/51f0097f.csv?AWSAccessKeyId=EXAMPLE"
+          },
+          "file_name": {
+            "type": "string",
+            "description": "The filename of the report CSV.",
+            "example": "report-51f0097f-90b2-4a59-ad88-a0fd93abaa82.csv"
+          },
+          "file_size": {
+            "type": "integer",
+            "format": "int64",
+            "description": "The size of the report file in bytes.",
+            "example": 204800
+          },
+          "expires_in_seconds": {
+            "type": "integer",
+            "description": "The number of seconds until the pre-signed URL expires.",
+            "example": 3600
+          },
+          "expires_at": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Unix timestamp (seconds) when the pre-signed URL expires.",
+            "example": 1622555046
+          }
+        }
+      },
       "detailresponse": {
         "title": "detailresponse",
         "type": "object",
@@ -13443,6 +13763,11 @@
         "type": "apiKey",
         "in": "header",
         "name": "Authorization"
+      },
+      "bearer_auth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
       }
     }
   }
