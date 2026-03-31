@@ -7950,14 +7950,25 @@
             "example": "+61555555555"
           },
           "metadata_key": {
-            "description": "Filter results for messages that include a metadata key.",
+            "description": "Filter results for messages that include a metadata key. Can be used independently for searching.",
             "type": "string",
             "example": "broadcastId"
           },
           "metadata_value": {
-            "description": "Filter results for messages that include a metadata key containing this value. If this parameter is provided, the metadata_key parameter must also be provided.",
+            "description": "Filter results for messages that include a metadata key containing this value. If this parameter is provided, the metadata_key parameter must also be provided. Cannot be used together with metadata_values.",
             "type": "string",
             "example": "ABC"
+          },
+          "metadata_values": {
+            "description": "Filter results for messages that include a metadata key containing these values. Must be used together with metadata_key. Cannot be used together with metadata_value.",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": [
+              "meta1",
+              "meta2"
+            ]
           },
           "accounts": {
             "description": "Filter results by a specific account. By default results will be returned for the account associated with the authentication credentials and all sub-accounts.",
@@ -8037,14 +8048,25 @@
             "example": "+61555555555"
           },
           "metadata_key": {
-            "description": "Filter results for messages that include a metadata key.",
+            "description": "Filter results for messages that include a metadata key. Can be used independently for searching.",
             "type": "string",
             "example": "broadcastId"
           },
           "metadata_value": {
-            "description": "Filter results for messages that include a metadata key containing this value. If this parameter is provided, the metadata_key parameter must also be provided.",
+            "description": "Filter results for messages that include a metadata key containing this value. If this parameter is provided, the metadata_key parameter must also be provided. Cannot be used together with metadata_values.",
             "type": "string",
             "example": "ABC"
+          },
+          "metadata_values": {
+            "description": "Filter results for messages that include a metadata key containing these values. Must be used together with metadata_key. Cannot be used together with metadata_value.",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": [
+              "meta1",
+              "meta2"
+            ]
           },
           "accounts": {
             "description": "Filter results by a specific account. By default results will be returned for the account associated with the authentication credentials and all sub-accounts.",
@@ -8169,14 +8191,25 @@
             ]
           },
           "metadata_key": {
-            "description": "Filter results for messages that include a metadata key.",
+            "description": "Filter results for messages that include a metadata key. Can be used independently for searching.",
             "type": "string",
             "example": "broadcastId"
           },
           "metadata_value": {
-            "description": "Filter results for messages that include a metadata key containing this value. If this parameter is provided, the metadata_key parameter must also be provided.",
+            "description": "Filter results for messages that include a metadata key containing this value. If this parameter is provided, the metadata_key parameter must also be provided. Cannot be used together with metadata_values.",
             "type": "string",
             "example": "ABC"
+          },
+          "metadata_values": {
+            "description": "Filter results for messages that include a metadata key containing these values. Must be used together with metadata_key. Cannot be used together with metadata_value.",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": [
+              "meta1",
+              "meta2"
+            ]
           },
           "accounts": {
             "description": "Filter results by a specific account. By default results will be returned for the account associated with the authentication credentials and all sub-accounts.",
