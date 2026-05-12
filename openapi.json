@@ -7971,6 +7971,17 @@
               "+614987654321"
             ]
           },
+          "addresses": {
+            "description": "Filter messages where source OR destination matches one of the provided values. This parameter can only be set when \"direction\" is \"all\" and cannot be used in the same request as the \"source\", \"destination\", \"sources\", or \"destinations\" parameters.",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": [
+              "+61400000001",
+              "+61400000002"
+            ]
+          },
           "metadata_key": {
             "description": "Filter results for messages that include a metadata key. Can be used independently for searching.",
             "type": "string",
