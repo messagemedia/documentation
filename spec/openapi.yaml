@@ -6433,7 +6433,7 @@ components:
             - "+61555555555"
             - "+614987654321"
         addresses:
-          description: Filter messages where source OR destination matches one of the provided values. Only applicable when direction is ALL. Cannot be combined with source, destination, sources, or destinations.
+          description: Filter messages where source OR destination matches one of the provided values. This parameter can only be set when "direction" is "all" and cannot be used in the same request as the "source", "destination", "sources", or "destinations" parameters.
           type: array
           items:
             type: string
