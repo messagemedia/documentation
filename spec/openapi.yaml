@@ -3676,6 +3676,65 @@ paths:
         | **Reply Content**| $moContent, $replyContent, $esc.json($!moContent) *- when used in `JSON` encoded `template`*| `Hello Derpina` | `MO` `MO MMS` |
         | **Retry Count**| $retryCount| `1` | `DR` `MO` `MO MMS` |
         | **Billing Unit**| $billingUnits| `1` | `DR` |
+        | **Attachments**| $attachments, refer to example below on how to use in `JSON` encoded `template`| <code>[<br>  {<br>    "content_type": "image/png",<br>    "content": "...",<br>    "original_name": "file.png"<br>  }<br>]</code> | `MO MMS` |
+        
+        #### Sample Templates
+        
+        ##### MO / MO MMS
+        
+        ```
+        {
+          "account_id": "$accountId",
+          "reply_id": "$replyId",
+          "destination_number": "$destinationAddress",
+          "source_number": "$sourceAddress",
+          "date_received": "$receivedTimestamp",
+          "message_id": "$messageId",
+          #if ($attachments)
+          "attachments": [
+            #foreach ($entry in $attachments)
+            {
+              "content_type": "$entry.contentType",
+              "content": "$entry.base64",
+              "original_name": "$entry.originalName"
+            }#if( $foreach.hasNext ),#end
+            #end
+          ],
+          #else
+          "content": "$esc.json($moContent)",
+          #end
+          "metadata": {
+            #foreach ($entry in $metadata.entrySet())
+            "$entry.key": "$entry.value"#if( $foreach.hasNext ),#end
+            #end
+          }
+        }
+        ```
+        
+        ##### DR (Delivery Report)
+        
+        ```
+        {
+          "delivery_report_id": "$drId",
+          "source_number": "$sourceAddress",
+          "date_received": "$receivedTimestamp",
+          "status": "$status",
+          "delay": "0",
+          "submitted_date": "$submittedTimestamp",
+          "message_id": "$messageId",
+          "original_text": "$esc.json($!mtContent)",
+          "vendor_account_id": {
+            "vendor_id": "$vendorId",
+            "account_id": "$accountId"
+          },
+          "error_code": "$statusCode",
+          "metadata": {
+            #foreach($key in $metadata.keySet())
+            "$key": "$esc.json($metadata.get($key))"#if( $velocityHasNext ),#end
+            #end
+          }
+        }
+        ```
         
          #### Message Statuses
         
