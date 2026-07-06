@@ -1200,7 +1200,7 @@ paths:
                 $ref: '#/components/schemas/404response'
       deprecated: false
       x-code-samples:
-        - lang: 'C#'
+        - lang: C#
           source: |-
             string messageId = "messageId2";
 
@@ -1319,7 +1319,7 @@ paths:
                 $ref: '#/components/schemas/404response'
       deprecated: false
       x-code-samples:
-        - lang: 'C#'
+        - lang: C#
           source: |-
             string messageId = "messageId2";
             CancelScheduledMessageRequest body = new CancelScheduledMessageRequest();
@@ -1559,7 +1559,7 @@ paths:
                 $ref: '#/components/schemas/403response'
       deprecated: false
       x-code-samples:
-        - lang: 'C#'
+        - lang: C#
           source: |-
             SendMessagesRequest body = new SendMessagesRequest();
             body.Messages = new List<Message>();
@@ -2541,7 +2541,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/404response'
       x-code-samples:
-        - lang: 'C#'
+        - lang: C#
           source: ''
         - lang: Java
           source: |-
@@ -2638,7 +2638,7 @@ paths:
                 $ref: '#/components/schemas/404response'
       deprecated: false
       x-code-samples:
-        - lang: 'C#'
+        - lang: C#
           source: ''
         - lang: Java
           source: |-
@@ -2809,7 +2809,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/404response'
       x-code-samples:
-        - lang: 'C#'
+        - lang: C#
           source: ''
         - lang: Java
           source: |-
@@ -2905,7 +2905,7 @@ paths:
                 $ref: '#/components/schemas/404response'
       deprecated: false
       x-code-samples:
-        - lang: 'C#'
+        - lang: C#
           source: ''
         - lang: Java
           source: |-
@@ -2974,7 +2974,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/403response'
       x-code-samples:
-        - lang: 'C#'
+        - lang: C#
           source: ''
         - lang: Java
           source: ''
@@ -3024,7 +3024,7 @@ paths:
                   - 61491570157
       deprecated: false
       x-code-samples:
-        - lang: 'C#'
+        - lang: C#
           source: ''
         - lang: Java
           source: ''
@@ -3070,7 +3070,7 @@ paths:
           description: ''
       deprecated: false
       x-code-samples:
-        - lang: 'C#'
+        - lang: C#
           source: ''
         - lang: Java
           source: ''
@@ -3122,7 +3122,7 @@ paths:
                     authorised: false
       deprecated: false
       x-code-samples:
-        - lang: 'C#'
+        - lang: C#
           source: ''
         - lang: Java
           source: ''
@@ -3216,7 +3216,7 @@ paths:
                 message: Invalid authentication credentials
       deprecated: false
       x-code-samples:
-        - lang: 'C#'
+        - lang: C#
           source: ''
         - lang: Java
           source: ''
@@ -3292,7 +3292,7 @@ paths:
                 message: Not found
       deprecated: false
       x-code-samples:
-        - lang: 'C#'
+        - lang: C#
           source: ''
         - lang: Java
           source: ''
@@ -3363,7 +3363,7 @@ paths:
                 message: Not found
       deprecated: false
       x-code-samples:
-        - lang: 'C#'
+        - lang: C#
           source: ''
         - lang: Java
           source: ''
@@ -3450,7 +3450,7 @@ paths:
                 message: Not found
       deprecated: false
       x-code-samples:
-        - lang: 'C#'
+        - lang: C#
           source: ''
         - lang: Java
           source: ''
@@ -3508,7 +3508,7 @@ paths:
                 message: Invalid authentication credentials
       deprecated: false
       x-code-samples:
-        - lang: 'C#'
+        - lang: C#
           source: ''
         - lang: Java
           source: ''
@@ -3579,7 +3579,7 @@ paths:
                 message: Invalid authentication credentials
       deprecated: false
       x-code-samples:
-        - lang: 'C#'
+        - lang: C#
           source: ''
         - lang: Java
           source: ''
@@ -3741,7 +3741,7 @@ paths:
                 message: Invalid authentication credentials
       deprecated: false
       x-code-samples:
-        - lang: 'C#'
+        - lang: C#
           source: ''
         - lang: Java
           source: ''
@@ -3841,7 +3841,7 @@ paths:
           description: System Error
       deprecated: false
       x-code-samples:
-        - lang: 'C#'
+        - lang: C#
           source: ''
         - lang: Java
           source: ''
@@ -3923,7 +3923,7 @@ paths:
           description: System Error
       deprecated: false
       x-code-samples:
-        - lang: 'C#'
+        - lang: C#
           source: ''
         - lang: Java
           source: ''
@@ -4008,7 +4008,7 @@ paths:
                 message: Something went wrong. Please try again later.
       deprecated: false
       x-code-samples:
-        - lang: 'C#'
+        - lang: C#
           source: ''
         - lang: Java
           source: ''
@@ -4237,7 +4237,7 @@ paths:
                 message: A webhook with the given url and method already exists.
       deprecated: false
       x-code-samples:
-        - lang: 'C#'
+        - lang: C#
           source: ''
         - lang: Java
           source: ''
@@ -4283,7 +4283,7 @@ paths:
           description: ''
       deprecated: false
       x-code-samples:
-        - lang: 'C#'
+        - lang: C#
           source: ''
         - lang: Java
           source: ''
@@ -4368,7 +4368,7 @@ paths:
           description: ''
       deprecated: false
       x-code-samples:
-        - lang: 'C#'
+        - lang: C#
           source: ''
         - lang: Java
           source: ''
@@ -4457,7 +4457,7 @@ paths:
                 message: This feature has not been enabled in your account.
       deprecated: false
       x-code-samples:
-        - lang: 'C#'
+        - lang: C#
           source: ''
         - lang: Java
           source: ''
@@ -4576,7 +4576,7 @@ paths:
                 message: This feature has not been enabled in your account.
       deprecated: false
       x-code-samples:
-        - lang: 'C#'
+        - lang: C#
           source: ''
         - lang: Java
           source: ''
@@ -4660,7 +4660,7 @@ paths:
                 message: Entity not found
       deprecated: false
       x-code-samples:
-        - lang: 'C#'
+        - lang: C#
           source: ''
         - lang: Java
           source: ''
@@ -4713,7 +4713,7 @@ paths:
                 message: Entity not found
       deprecated: false
       x-code-samples:
-        - lang: 'C#'
+        - lang: C#
           source: ''
         - lang: Java
           source: ''
@@ -4816,7 +4816,7 @@ paths:
                 message: Entity not found
       deprecated: false
       x-code-samples:
-        - lang: 'C#'
+        - lang: C#
           source: ''
         - lang: Java
           source: ''
@@ -4881,7 +4881,7 @@ paths:
                 message: Currently no key is enabled
       deprecated: false
       x-code-samples:
-        - lang: 'C#'
+        - lang: C#
           source: ''
         - lang: Java
           source: ''
@@ -4918,7 +4918,7 @@ paths:
                 message: This feature has not been enabled in your account.
       deprecated: false
       x-code-samples:
-        - lang: 'C#'
+        - lang: C#
           source: ''
         - lang: Java
           source: ''
