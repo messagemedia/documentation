@@ -10,6 +10,7 @@ info:
     url: 'https://cdn-assets-eu.frontify.com/s3/frontify-enterprise-files-eu/eyJwYXRoIjoic2luY2hcL2ZpbGVcL0xYSFMxOTZQSlJpbjJLdFcxclc1LnBuZyJ9:sinch:G873APD1uAA-wfyymEBENuKEj4S5FAt8gk6_fSrqIbM?width=2400'
   description: |
     # Introduction
+
     The Sinch APIs provide powerful business messaging capabilities across sending, receiving, and processing SMS, MMS, and rich messaging. 
 
     All requests to the Sinch REST API must be authenticated, this can either be done using Basic Authentication or by signing with a HMAC signature.
