@@ -34,6 +34,8 @@ info:
     
     For APAC instance, use https://api.messagemedia.com
     
+    For US instance please use https://us.app.api.sinch.com
+    
     # Credentials
       
     To access the API, an API key and secret are required.
@@ -243,8 +245,6 @@ tags:
       ### Ruby
       [APIAuth](https://github.com/mgomes/api_auth) Ruby Gem 
 
-      ## Postman Collections
-
   - name: Sub-accounts
     description: |
       ## Performing actions on behalf of sub-accounts
@@ -375,7 +375,7 @@ tags:
       
       All notifications are JSON encoded and the request expects to receive a response in the HTTP 200 range. If a valid response isn't received the request will be retried in an exponentially backing off fashion.
 
-      Delivery Reports may carry an additional charge. For pricing, please contact your Account Manager or Support Team (support@app.sinch.com).
+      Delivery Reports may carry an additional charge. For pricing, please contact your Account Manager or Support Team [support@app.sinch.com](mailto:support@app.sinch.com).
       
       To include billing units in your delivery receipts via Webhooks, ensure that the switch "Enable billing units in Delivery Reports and Callbacks” is enabled in the API settings of your account.
 
@@ -441,7 +441,7 @@ tags:
 
       * **Message ID**: ID of the original message.
 
-      * **Vendor Account ID**: The account used to submit the original message. The vendor will always be `SinchEU`
+      * **Vendor Account ID**: The account used to submit the original message.
 
       * **Error Code**: A status code which provides additional information about the message status:
 
@@ -518,7 +518,7 @@ tags:
       
       To learn more about the benefits of dedicated numbers, and their use cases, visit our [feature page](https://messagemedia.com/au/feature/dedicated-virtual-numbers/).
       
-      This is a paid feature and must be enabled on your account. Please contact [support@app.sinch.com](support@app.sinch.com) or your account manager.
+      This is a paid feature and must be enabled on your account. Please contact [support@app.sinch.com](mailto:support@app.sinch.com) or your account manager.
       
       ## Concepts
 
@@ -550,7 +550,7 @@ tags:
       this feature, allowing users to obtain details regarding 
       the number of click-throughs on each URL.
 
-      To enable this feature on your account, contact your account manager or contact support on [support@app.sinch.com](support@app.sinch.com).
+      To enable this feature on your account, contact your account manager or contact support on [support@app.sinch.com](mailto:support@app.sinch.com).
 
       To learn more about the benefits of the Short Trackable Links feature, [visit our feature page](https://messagemedia.com/au/feature/short-urls/).
   - name: Webhooks Management
@@ -712,7 +712,12 @@ tags:
         * **Custom Fields**: Additional fields that can be tailored to complement the basic contact fields.
 
 servers:
+  - url: 'https://eu.app.api.sinch.com/'
+    description: 'EU instance'
   - url: 'https://api.messagemedia.com/'
+    description: 'APAC instance'
+  - url: 'https://us.app.api.sinch.com/'
+    description: 'US instance'
 
 # Holds the relative paths to the individual endpoints. The path is appended to the
 # basePath in order to construct the full URL.
@@ -2221,7 +2226,7 @@ paths:
                     "original_text": "My first message!",
                     "message_id": "d781dcab-d9d8-4fb2-9e03-872f07ae94ba",
                     "vendor_account_id": {
-                        "vendor_id": "SinchEU",
+                        "vendor_id": "MyVendor",
                         "account_id": "MyAccount"
                     },
                     "metadata": {
@@ -2241,7 +2246,7 @@ paths:
                     "original_text": "My second message!",
                     "message_id": "fbb3b3f5-b702-4d8b-ab44-65b2ee39a281",
                     "vendor_account_id": {
-                        "vendor_id": "SinchEU",
+                        "vendor_id": "MyVendor",
                         "account_id": "MyAccount"
                     },
                     "metadata": {
@@ -2319,7 +2324,7 @@ paths:
                     original_text: My first message!
                     message_id: d781dcab-d9d8-4fb2-9e03-872f07ae94ba
                     vendor_account_id:
-                      vendor_id: SinchEU
+                      vendor_id: MyVendor
                       account_id: MyAccount
                     metadata:
                       key1: value1
@@ -2334,7 +2339,7 @@ paths:
                     original_text: My second message!
                     message_id: fbb3b3f5-b702-4d8b-ab44-65b2ee39a281
                     vendor_account_id:
-                      vendor_id: SinchEU
+                      vendor_id: MyVendor
                       account_id: MyAccount
                     metadata:
                       key1: value1
@@ -2451,7 +2456,7 @@ paths:
         number associated with
 
         an account, known as a dedicated inbound number (contact
-        <support@app.sinch.com> for more
+        [support@app.sinch.com](mailto:support@app.sinch.com) for more
 
         information on dedicated inbound numbers).
 
@@ -2479,7 +2484,7 @@ paths:
                     "destination_number": "+61491570156",
                     "source_number": "+61491570157",
                     "vendor_account_id": {
-                        "vendor_id": "SinchEU",
+                        "vendor_id": "MyVendor",
                         "account_id": "MyAccount"
                     },
                     "content": "My first reply!"
@@ -2496,7 +2501,7 @@ paths:
                     "destination_number": "+61491570157",
                     "source_number": "+61491570158",
                     "vendor_account_id": {
-                        "vendor_id": "SinchEU",
+                        "vendor_id": "MyVendor",
                         "account_id": "MyAccount"
                     },
                     "content": "My second reply!"
@@ -2575,7 +2580,7 @@ paths:
                     destination_number: '+61491570156'
                     source_number: '+61491570157'
                     vendor_account_id:
-                      vendor_id: SinchEU
+                      vendor_id: MyVendor
                       account_id: MyAccount
                     content: My first reply!
                   - metadata:
@@ -2588,7 +2593,7 @@ paths:
                     destination_number: '+61491570157'
                     source_number: '+61491570158'
                     vendor_account_id:
-                      vendor_id: SinchEU
+                      vendor_id: MyVendor
                       account_id: MyAccount
                     content: My second reply!
         '403':
@@ -7063,7 +7068,7 @@ components:
             original_text: My first message!
             message_id: d781dcab-d9d8-4fb2-9e03-872f07ae94ba
             vendor_account_id:
-              vendor_id: SinchEU
+              vendor_id: MyVendor
               account_id: MyAccount
             metadata:
               key1: value1
@@ -7079,7 +7084,7 @@ components:
             original_text: My second message!
             message_id: fbb3b3f5-b702-4d8b-ab44-65b2ee39a281
             vendor_account_id:
-              vendor_id: SinchEU
+              vendor_id: MyVendor
               account_id: MyAccount
             metadata:
               key1: value1
@@ -7108,7 +7113,7 @@ components:
       properties:
         vendor_id:
           type: string
-          example: SinchEU
+          example: MyVendor
         account_id:
           type: string
           description: The account used to submit the original message.
@@ -7136,7 +7141,7 @@ components:
             destination_number: '+61491570156'
             source_number: '+61491570157'
             vendor_account_id:
-              vendor_id: SinchEU
+              vendor_id: MyVendor
               account_id: MyAccount
             content: My first reply!
           - metadata:
@@ -7149,7 +7154,7 @@ components:
             destination_number: '+61491570157'
             source_number: '+61491570158'
             vendor_account_id:
-              vendor_id: SinchEU
+              vendor_id: MyVendor
               account_id: MyAccount
             content: My second reply!
     SourceNumberType:
