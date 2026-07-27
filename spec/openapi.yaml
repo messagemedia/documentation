@@ -6035,11 +6035,52 @@ components:
         source:
           type: string
           example: "+61555555555"
-          description: The source phone number.
+          description: Filter results by source address.
+        sources:
+          description: Filter results by multiple source addresses. This property overrides the `source` parameter.
+          type: array
+          items:
+            type: string
+          example:
+            - "+61555555555"
+            - "+614987654321"
         destination:
           type: string
           example: "+61555555555"
-          description: The destination phone number.
+          description: Filter results by destination address.
+        destinations:
+          description: Filter results by multiple destination addresses. This property overrides the `destination` parameter.
+          type: array
+          items:
+            type: string
+          example:
+            - "+61555555555"
+            - "+614987654321"
+        addresses:
+          description: Filter messages where source OR destination matches one of the provided values. This parameter can only be set when `direction` is `all` and cannot be used in the same request as the `source`, `destination`, `sources`, or `destinations` parameters.
+          type: array
+          items:
+            type: string
+          example:
+            - "+61400000001"
+            - "+61400000002"
+        message_format:
+          $ref: '#/components/schemas/format'
+        channels:
+          description: Filter the report by one or more message channels.
+          type: array
+          items:
+            type: string
+            enum:
+              - SMS
+              - MMS
+              - TTS
+              - RCS
+              - WHATSAPP
+              - CHANNEL
+          example:
+            - SMS
+            - WHATSAPP
         metadata_key:
           type: string
           example: broadcastId
@@ -6247,11 +6288,50 @@ components:
         source:
           type: string
           example: "+61555555555"
-          description: The source phone number.
+          description: Filter results by source address.
+        sources:
+          description: Filter results by multiple source addresses. This property overrides the `source` parameter.
+          type: array
+          items:
+            type: string
+          example:
+            - "+61555555555"
+            - "+614987654321"
         destination:
           type: string
           example: "+61555555555"
-          description: The destination phone number.
+          description: Filter results by destination address.
+        destinations:
+          description: Filter results by multiple destination addresses. This property overrides the `destination` parameter.
+          type: array
+          items:
+            type: string
+          example:
+            - "+61555555555"
+            - "+614987654321"
+        addresses:
+          description: Filter messages where source OR destination matches one of the provided values. This parameter can only be set when `direction` is `all` and cannot be used in the same request as the `source`, `destination`, `sources`, or `destinations` parameters.
+          type: array
+          items:
+            type: string
+          example:
+            - "+61400000001"
+            - "+61400000002"
+        channels:
+          description: Filter the report by one or more message channels.
+          type: array
+          items:
+            type: string
+            enum:
+              - SMS
+              - MMS
+              - TTS
+              - RCS
+              - WHATSAPP
+              - CHANNEL
+          example:
+            - SMS
+            - WHATSAPP
         metadata_key:
           type: string
           example: broadcastId
@@ -6346,6 +6426,14 @@ components:
           example:
             - "+61555555555"
             - "+614987654321"
+        addresses:
+          description: Filter messages where source OR destination matches one of the provided values. This parameter can only be set when `direction` is `all` and cannot be used in the same request as the `source`, `destination`, `sources`, or `destinations` parameters.
+          type: array
+          items:
+            type: string
+          example:
+            - "+61400000001"
+            - "+61400000002"
         metadata_key:
           description: Filter results for messages that include a metadata key.
           type: string
@@ -6458,7 +6546,7 @@ components:
             - "+61555555555"
             - "+614987654321"
         addresses:
-          description: Filter messages where source OR destination matches one of the provided values. This parameter can only be set when "direction" is "all" and cannot be used in the same request as the "source", "destination", "sources", or "destinations" parameters.
+          description: Filter messages where source OR destination matches one of the provided values. This parameter can only be set when `direction` is `all` and cannot be used in the same request as the `source`, `destination`, `sources`, or `destinations` parameters.
           type: array
           items:
             type: string
@@ -6502,6 +6590,21 @@ components:
           example: "true"
         message_format:
           $ref: '#/components/schemas/format'
+        channels:
+          description: Filter the report by one or more message channels.
+          type: array
+          items:
+            type: string
+            enum:
+              - SMS
+              - MMS
+              - TTS
+              - RCS
+              - WHATSAPP
+              - CHANNEL
+          example:
+            - SMS
+            - WHATSAPP
         fields:
           description: Can be used for async detail report to select the fields to export csv files
           type: array
@@ -6557,6 +6660,29 @@ components:
           example:
             - "+61555555555"
             - "+614987654321"
+        addresses:
+          description: Filter messages where source OR destination matches one of the provided values. This parameter can only be set when `direction` is `all` and cannot be used in the same request as the `source`, `destination`, `sources`, or `destinations` parameters.
+          type: array
+          items:
+            type: string
+          example:
+            - "+61400000001"
+            - "+61400000002"
+        channels:
+          description: Filter the report by one or more message channels.
+          type: array
+          items:
+            type: string
+            enum:
+              - SMS
+              - MMS
+              - TTS
+              - RCS
+              - WHATSAPP
+              - CHANNEL
+          example:
+            - SMS
+            - WHATSAPP
         metadata_key:
           description: Filter results for messages that include a metadata key. Can be used independently for searching.
           type: string
@@ -6670,6 +6796,14 @@ components:
           example:
             - "+61555555555"
             - "+614987654321"
+        addresses:
+          description: Filter messages where source OR destination matches one of the provided values. This parameter can only be set when `direction` is `all` and cannot be used in the same request as the `source`, `destination`, `sources`, or `destinations` parameters.
+          type: array
+          items:
+            type: string
+          example:
+            - "+61400000001"
+            - "+61400000002"
         metadata_key:
           description: Filter results for messages that include a metadata key. Can be used independently for searching.
           type: string
@@ -9886,6 +10020,7 @@ components:
     format:
       title: MessageType
       type: array
+      deprecated: true
       items:
         type: string
         enum:
@@ -9894,7 +10029,9 @@ components:
           - TTS
           - RCS
           - CHANNEL
-      description: Format of message type.
+      description: >-
+        Format of message type. Deprecated — use the `channels` parameter instead,
+        which provides equivalent and expanded message-type filtering.
       example:
         - MMS
         - TTS
