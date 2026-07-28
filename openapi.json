@@ -40,7 +40,7 @@
     },
     {
       "name": "Delivery Reports",
-      "description": "If a callback URL is specified in the submit message request, then changes to the message status, \nreplies received in response to the message or delivery reports received for the message will be pushed via a HTTP POST request. An alternative to delivery reports via callbacks is custom webhooks using the webhooks management API. \n\nAll notifications are JSON encoded and the request expects to receive a response in the HTTP 200 range. If a valid response isn't received the request will be retried in an exponentially backing off fashion.\n\nDelivery Reports may carry an additional charge. For pricing, please contact your Account Manager or Support Team (support@app.sinch.com).\n\nTo include billing units in your delivery receipts via Webhooks, ensure that the switch \"Enable billing units in Delivery Reports and Callbacks” is enabled in the API settings of your account.\n\nFor delivery reports or changes in the status of a message, the POST request to the specified URL will be as follows:\n  \n  _Note, multiple delivery report notifications will be recieved for a single message._\n\n```json\n{\n  \"callback_url\":\"http://mockbin.org/bin/ac52ebd4-eca1-4c86-bf38-4dce79633906\",\n  \"delivery_report_id\":\"693e87f2-a553-4281-9ffe-ddf04cbc4bf3\",\n  \"source_number\":\"+61491570156\",\n  \"date_received\":\"2016-11-03T11:49:02.807Z\",\n  \"status\":\"delivered\",\n  \"delay\":0,\n  \"billing_units\":1,\n  \"submitted_date\":\"2016-11-03T11:49:01.551Z\",\n  \"original_text\":\"Hello world!\",\n  \"message_id\":\"389dc1a8-62a4-4110-ba61-af94806c006f\",\n  \"vendor_account_id\":{\n    \"vendor_id\":\"MessageMedia\",\n    \"account_id\":\"MyAccount\"\n  },\n  \"error_code\":\"220\",\n  \"metadata\":{\n    \"key\":\"value\"\n  }\n}\n```\n\n\nThe properties included in the notification are as follows:\n\n* **Callback URL**: The URL specified as the callback URL in the original submit message request.\n\n* **Delivery Report ID**: A unique ID for the delivery report that this notification represents.\n\n* **Source Number**: The destination address of the original message.\n\n* **Date Received**: The date and time at which this notification was generated in UTC.\n\n* **Status**: The status of the message as indicated by this delivery report. The status field can be one of the following values:\n\n  * `enroute`: Message has been received by the gateway and is being processed (or waiting to be processed).\n\n  * `submitted`: Message has been submitted to a provider/carrier for delivery.\n\n  * `delivered`: Message delivery has been confirmed by the provider, including to the handset (where possible).\n\n  * `expired`: The message has expired.\n\n  * `rejected`: The message will not be delivered - permanent failure. Reasons may include usage limit exceeded, insufficient credit, number blocked, or content filtered\n\n  * `failed`: The message has failed. Reasons may include no active routes to destination or undeliverable by downstream provider.\n\n* **Delay**: _Deprecated, no longer in use_\n\n* **Billing Units**: The number of billing units charged for the message.\n\n* **Submitted Date**: Date time status of the message changed in UTC. For a delivered DR this may indicate the time at which the message was received on the handset.\n\n* **Original Text**: Text of the original message.\n\n* **Message ID**: ID of the original message.\n\n* **Vendor Account ID**: The account used to submit the original message. The vendor will always be `SinchEU`\n\n* **Error Code**: A status code which provides additional information about the message status:\n\n  * `101`: Message being processed by the gateway.\n  \n  * `102`: Message is being rerouted to a different provider after failing via the first provider.\n  \n  * `151`: Message held for screening.\n  \n  * `200`: Message submitted to downstream provider for delivery.\n  \n  * `210`: Message accepted by downstream provider.\n  \n  * `211`: Message is enroute for delivery by provider.\n  \n  * `212`: Message submitted. Delivery pending.\n  \n  * `213`: Message scheduled for delivery by downstream provider.\n  \n  * `220`: Message delivered.\n  \n  * `221`: Message delivered to the handset.\n  \n  * `320`: Message validity period has expired (prior to submission).\n  \n  * `401`: Message validity period has expired (before delivery).\n  \n  * `301`: Usage threshold reached. Message discarded.\n  \n  * `302`: Destination address blocked. Message discarded.\n  \n  * `303`: Source address blocked. Message discarded.\n  \n  * `304`: Message dropped. Contact support.\n  \n  * `305`: Message discarded due to duplicate detection.\n  \n  * `402`: Message rejected by downstream provider.\n  \n  * `403`: Message skipped by downstream provider.\n  \n  * `410`: Invalid source address.\n  \n  * `411`: Invalid destination address.\n  \n  * `412`: Destination address blocked.\n  \n  * `413`: SMS service unavailable on destination.\n  \n  * `414`: Destination unreachable.\n  \n  * `330`: Gateway failure.\n  \n  * `331`: Message discarded.\n  \n  * `332`: No available route to destination.\n  \n  * `333`: Source address unsupported for this destination.\n  \n  * `400`: Message failed; undeliverable.\n  \n  * `405`: Message cancelled or deleted by provider.\n"
+      "description": "If a callback URL is specified in the submit message request, then changes to the message status, \nreplies received in response to the message or delivery reports received for the message will be pushed via a HTTP POST request. An alternative to delivery reports via callbacks is custom webhooks using the webhooks management API. \n\nAll notifications are JSON encoded and the request expects to receive a response in the HTTP 200 range. If a valid response isn't received the request will be retried in an exponentially backing off fashion.\n\nDelivery Reports may carry an additional charge. For pricing, please contact your Account Manager or Support Team (support@app.sinch.com).\n\nTo include billing units in your delivery receipts via Webhooks, ensure that the switch \"Enable billing units in Delivery Reports and Callbacks” is enabled in the API settings of your account.\n\nFor delivery reports or changes in the status of a message, the POST request to the specified URL will be as follows:\n  \n  _Note, multiple delivery report notifications will be recieved for a single message._\n\n```json\n{\n  \"callback_url\":\"http://mockbin.org/bin/ac52ebd4-eca1-4c86-bf38-4dce79633906\",\n  \"delivery_report_id\":\"693e87f2-a553-4281-9ffe-ddf04cbc4bf3\",\n  \"source_number\":\"+61491570156\",\n  \"date_received\":\"2016-11-03T11:49:02.807Z\",\n  \"status\":\"delivered\",\n  \"delay\":0,\n  \"submitted_date\":\"2016-11-03T11:49:01.551Z\",\n  \"original_text\":\"Hello world!\",\n  \"message_id\":\"389dc1a8-62a4-4110-ba61-af94806c006f\",\n  \"vendor_account_id\":{\n    \"vendor_id\":\"MessageMedia\",\n    \"account_id\":\"MyAccount\"\n  },\n  \"error_code\":\"220\",\n  \"metadata\":{\n    \"key\":\"value\"\n  }\n}\n```\n\n\nThe properties included in the notification are as follows:\n\n* **Callback URL**: The URL specified as the callback URL in the original submit message request.\n\n* **Delivery Report ID**: A unique ID for the delivery report that this notification represents.\n\n* **Source Number**: The destination address of the original message.\n\n* **Date Received**: The date and time at which this notification was generated in UTC.\n\n* **Status**: The status of the message as indicated by this delivery report. The status field can be one of the following values:\n\n  * `enroute`: Message has been received by the gateway and is being processed (or waiting to be processed).\n\n  * `submitted`: Message has been submitted to a provider/carrier for delivery.\n\n  * `delivered`: Message delivery has been confirmed by the provider, including to the handset (where possible).\n\n  * `expired`: The message has expired.\n\n  * `rejected`: The message will not be delivered - permanent failure. Reasons may include usage limit exceeded, insufficient credit, number blocked, or content filtered\n\n  * `failed`: The message has failed. Reasons may include no active routes to destination or undeliverable by downstream provider.\n\n* **Delay**: _Deprecated, no longer in use_\n\n* **Submitted Date**: Date time status of the message changed in UTC. For a delivered DR this may indicate the time at which the message was received on the handset.\n\n* **Original Text**: Text of the original message.\n\n* **Message ID**: ID of the original message.\n\n* **Vendor Account ID**: The account used to submit the original message. The vendor will always be `SinchEU`\n\n* **Error Code**: A status code which provides additional information about the message status:\n\n  * `101`: Message being processed by the gateway.\n  \n  * `102`: Message is being rerouted to a different provider after failing via the first provider.\n  \n  * `151`: Message held for screening.\n  \n  * `200`: Message submitted to downstream provider for delivery.\n  \n  * `210`: Message accepted by downstream provider.\n  \n  * `211`: Message is enroute for delivery by provider.\n  \n  * `212`: Message submitted. Delivery pending.\n  \n  * `213`: Message scheduled for delivery by downstream provider.\n  \n  * `220`: Message delivered.\n  \n  * `221`: Message delivered to the handset.\n  \n  * `320`: Message validity period has expired (prior to submission).\n  \n  * `401`: Message validity period has expired (before delivery).\n  \n  * `301`: Usage threshold reached. Message discarded.\n  \n  * `302`: Destination address blocked. Message discarded.\n  \n  * `303`: Source address blocked. Message discarded.\n  \n  * `304`: Message dropped. Contact support.\n  \n  * `305`: Message discarded due to duplicate detection.\n  \n  * `402`: Message rejected by downstream provider.\n  \n  * `403`: Message skipped by downstream provider.\n  \n  * `410`: Invalid source address.\n  \n  * `411`: Invalid destination address.\n  \n  * `412`: Destination address blocked.\n  \n  * `413`: SMS service unavailable on destination.\n  \n  * `414`: Destination unreachable.\n  \n  * `330`: Gateway failure.\n  \n  * `331`: Message discarded.\n  \n  * `332`: No available route to destination.\n  \n  * `333`: Source address unsupported for this destination.\n  \n  * `400`: Message failed; undeliverable.\n  \n  * `405`: Message cancelled or deleted by provider.\n"
     },
     {
       "name": "Replies",
@@ -68,7 +68,7 @@
     },
     {
       "name": "Signature Key Management",
-      "description": "As a Sinch customer, you want to be able to ensure that callbacks are coming from Sinch and not from a 3rd party. Since \nthese are calls to your own system, you should be provided with an extra level of security \nwhen calling your resources.\n\nThe Sinch Signature Key API provides a number of endpoints \nfor managing key used to sign each unique request to ensure security \nand the requests can't (easily) be spoofed. This is similar to using \nHMAC in your outbound messaging (rather than HTTP Basic).\n\nThe Signature Key API provides seven main endpoints:\n- ```Create signature key``` Create a new signature key for signature verification in callbacks.\n- ```Get signature key detail``` Retrieve the current detail of a signature key using the key_id returned in the ```create signature key``` endpoint.\n- ```Delete signature key``` Delete a signature key using the key_id returned in the ```create signature key``` endpoint.\n- ```Get signature key list``` Retrieve the paginated list of signature keys.\n- ```Enable signature key``` Enable a signature key using the key_id returned in the ```create signature key``` endpoint.\n- ```Get enabled signature key``` Retrieve the current enabled signature key.\n- ```Disable an enabled signature key``` Disable the current enabled signature key.\n"
+      "description": "As a Sinch customer, you want to be able to ensure that callbacks are coming from Sinch and not from a 3rd party. Since \nthese are calls to your own system, you should be provided with an extra level of security \nwhen calling your resources.\n\nThe Sinch Signature Key API provides a number of endpoints \nfor managing key used to sign each unique request to ensure security \nand the requests can't (easily) be spoofed. This is similar to using \nHMAC in your outbound messaging (rather than HTTP Basic).\n\n*Note: This API is only available in the APAC region.*\n\nThe Signature Key API provides seven main endpoints:\n- ```Create signature key``` Create a new signature key for signature verification in callbacks.\n- ```Get signature key detail``` Retrieve the current detail of a signature key using the key_id returned in the ```create signature key``` endpoint.\n- ```Delete signature key``` Delete a signature key using the key_id returned in the ```create signature key``` endpoint.\n- ```Get signature key list``` Retrieve the paginated list of signature keys.\n- ```Enable signature key``` Enable a signature key using the key_id returned in the ```create signature key``` endpoint.\n- ```Get enabled signature key``` Retrieve the current enabled signature key.\n- ```Disable an enabled signature key``` Disable the current enabled signature key.\n"
     },
     {
       "name": "Mobile Landing Pages (beta)",
@@ -393,194 +393,6 @@
             }
           }
         }
-      }
-    },
-    "/v2-preview/reporting/messages/async/reports": {
-      "get": {
-        "security": [
-          {
-            "basic_auth": []
-          },
-          {
-            "hmac_auth": []
-          },
-          {
-            "bearer_auth": []
-          }
-        ],
-        "tags": [
-          "Messaging Reports"
-        ],
-        "summary": "Get async report history",
-        "description": "Returns a list of asynchronous reports that have been requested by the current account.",
-        "operationId": "GetAsyncReportHistory",
-        "parameters": [
-          {
-            "name": "page_size",
-            "in": "query",
-            "description": "The number of items to return per page.",
-            "required": false,
-            "style": "form",
-            "explode": true,
-            "schema": {
-              "type": "integer",
-              "example": 10
-            }
-          },
-          {
-            "name": "page_token",
-            "in": "query",
-            "description": "A pagination token returned from a previous call. Pass this to retrieve the next page of results.",
-            "required": false,
-            "style": "form",
-            "explode": true,
-            "schema": {
-              "type": "string",
-              "example": "eyJyZXBvcnRJZCI6IjUxZjAwOTdmLTkwYjItNGE1OS1hZDg4LWEwZmQ5M2FiYWE4MiJ9"
-            }
-          },
-          {
-            "name": "report_name",
-            "in": "query",
-            "description": "Filter results by report name.",
-            "required": false,
-            "style": "form",
-            "explode": true,
-            "schema": {
-              "type": "string",
-              "example": "My Detail Report"
-            }
-          },
-          {
-            "name": "status",
-            "in": "query",
-            "description": "Filter results by report status. Multiple statuses can be specified.",
-            "required": false,
-            "style": "form",
-            "explode": true,
-            "schema": {
-              "type": "array",
-              "items": {
-                "type": "string",
-                "enum": [
-                  "REQUESTED",
-                  "RUNNING",
-                  "FAILED",
-                  "CANCELLED",
-                  "DONE"
-                ]
-              }
-            }
-          },
-          {
-            "name": "start_date",
-            "in": "query",
-            "description": "Filter reports requested on or after this date (ISO 8601).",
-            "required": false,
-            "style": "form",
-            "explode": true,
-            "schema": {
-              "type": "string",
-              "format": "date-time",
-              "example": "2020-05-28T10:27:46.259Z"
-            }
-          },
-          {
-            "name": "end_date",
-            "in": "query",
-            "description": "Filter reports requested on or before this date (ISO 8601).",
-            "required": false,
-            "style": "form",
-            "explode": true,
-            "schema": {
-              "type": "string",
-              "format": "date-time",
-              "example": "2020-06-28T10:27:46.259Z"
-            }
-          },
-          {
-            "name": "sort_direction",
-            "in": "query",
-            "description": "Sort direction for the results.",
-            "required": false,
-            "style": "form",
-            "explode": true,
-            "schema": {
-              "type": "string",
-              "enum": [
-                "ASCENDING",
-                "DESCENDING"
-              ],
-              "example": "DESCENDING"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "A list of async reports for the current account.",
-            "headers": {},
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/reporthistoryresponses"
-                }
-              }
-            }
-          }
-        },
-        "deprecated": false
-      }
-    },
-    "/v2-preview/reporting/messages/async/reports/{reportId}/download-url": {
-      "get": {
-        "security": [
-          {
-            "basic_auth": []
-          },
-          {
-            "hmac_auth": []
-          },
-          {
-            "bearer_auth": []
-          }
-        ],
-        "tags": [
-          "Messaging Reports"
-        ],
-        "summary": "Get async report download URL",
-        "description": "Returns a temporary pre-signed URL for downloading the generated report. The URL allows customers to securely download the report file directly using the provided reportId.",
-        "operationId": "GetAsyncReportDownloadUrl",
-        "parameters": [
-          {
-            "name": "reportId",
-            "in": "path",
-            "description": "The ID of the report to download.",
-            "required": true,
-            "style": "simple",
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "example": "51f0097f-90b2-4a59-ad88-a0fd93abaa82"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "A pre-signed URL for downloading the report.",
-            "headers": {},
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/presignedurlresponse"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Report not found."
-          }
-        },
-        "deprecated": false
       }
     },
     "/v2-preview/reporting/detail/scheduled": {
@@ -1127,7 +939,7 @@
           "Messages"
         ],
         "summary": "Send messages",
-        "description": "Submit one or more (up to 100 per request) SMS, MMS or text to voice\nmessages for delivery.\n\nThe most basic message has the following structure:\n\n```json\n\n{\n    \"messages\": [\n        {\n            \"content\": \"My first message!\",\n            \"destination_number\": \"+61491570156\"\n        }\n    ]\n}\n\n```\n\nMore advanced delivery features can be specified by setting the\nfollowing properties in a message:\n\n- ```callback_url``` A URL can be included with each message to which\nWebhooks will be pushed to via a HTTP POST request. Webhooks will be sent if and when the status of the message changes as it is processed (if the delivery report property of the request is set to ```true```) and when replies are received. Specifying a callback URL is optional.\n\n- ```content``` The content of the message. This can be a Unicode string, up to 5,000 characters long.\n  Message content is required.\n\n- ```delivery_report``` Delivery reports can be requested with each\nmessage. If delivery reports are requested, a webhook will be submitted to the ```callback_url``` property specified for the message (or to the webhooks)\n  specified for the account every time the status of the message changes as it is processed. The\n  current status of the message can also be retrieved via the Delivery Reports endpoint of the\n  Messages API. Delivery reports are optional and by default will not be requested.\n\n- ```destination_number``` The destination number the message should be\ndelivered to. This should be specified in E.164\n  international format. For information on E.164, please refer to http://en.wikipedia.org/wiki/E.164.\n  A destination number is required.  \n⚠️ IMDA TLS Compliance Notice: From 1 April 2026, all requests sending messages to Singapore (+65) numbers must use TLS 1.3 or higher. Requests using an older TLS version will be rejected with HTTP 422 Unprocessable Entity.\n\n- ```format``` The format specifies which format the message will be\nsent as, ```SMS``` (text message), ```MMS``` (multimedia message)\n  or ```TTS``` (text to speech). With ```TTS``` format, we will call the destination number and read out the\n  message using a computer generated voice. Specifying a format is optional, by default ```SMS``` will be used.\n\n- ```source_number_type``` If a source number is specified, the type of\nsource number may also be\n  specified. This is recommended when using a source address type that is not an internationally\n  formatted number, available options are ```INTERNATIONAL```, ```ALPHANUMERIC``` or ```SHORTCODE```. Specifying a\n  source number type is only valid when the ```source_number``` parameter is specified and is optional.\n  If a source number is specified and no source number type is specified, the source number type will be\n  inferred from the source number, however this may be inaccurate.\n\n- ```source_number```[optional]  Specify a source number to be used.  Refer to the section below for more information on source numbers.  \n⚠️ The number or sender ID must be registered to your account (from 1-Mar-2024).\n\n  #### Source number (sender ID)\n  \n  There are several options for the number or sender ID that will show as the source of an outbound message. Some things to note:\n    - If you do not specify a source number, the message will be sent with the default number for your account.\n      - The default may be a number you have purchased from us - such as a dedicated number, a 10-digit longcode or toll-free number (US/CA), or a shortcode. Log into the web portal to manage your numbers.\n      - If your account has multiple numbers, you can specify which source number to use in the request.\n      - If your account does not have a number, your message may be sent using our shared number pool (in certain countries only)\n    - `Alpha tag:` In some countries (AU, GB, some others), you may be able to send using an alpha tag - text that represents your brand of business.  Before using an alpha tag, you must register it in the Numbers section of the web portal.\n    - `Other numbers:` You may use numbers that you own as the source number, but you must register them in the Numbers section of the web portal to confirm  you have a right to use the number.\n  If you need to register a large number of source numbers/sender IDs, consider using our [Source Address API](https://messagemedia.github.io/documentation/#tag/Source-Address)\n  \n  ⚠️ If you specify a source_number that is not registered to your account, the message may fail to send, or may be sent with an alternative number.\n\n- ```media``` The media is used to specify a list of URLs of the media file(s) that you are trying to send. \nSupported file formats include png, jpeg and gif. ```format``` parameter must be set to ```MMS``` for this to\nwork.\n\n- ```subject``` The subject field is used to denote subject of the MMS\nmessage and has a maximum size of 64 characters long. Specifying a\nsubject is optional.\n\n- ```scheduled``` A message can be scheduled for delivery in the future\nby setting the scheduled property.\n  The scheduled property expects a date time specified in ISO 8601 format. The scheduled time must be\n  provided in UTC and is optional. If no scheduled property is set, the message will be delivered immediately.\n\n- ```message_expiry_timestamp``` A message expiry timestamp can be\nprovided to specify the latest time\n  at which the message should be delivered. If the message cannot be delivered before the specified\n  message expiry timestamp elapses, the message will be discarded. Specifying a message expiry \n  timestamp is optional.\n\n- ```metadata``` Metadata can be included with the message which will\nthen be included with any delivery\n  reports or replies matched to the message. This can be used to create powerful two-way messaging\n  applications without having to store persistent data in the application. Up to 10 key / value metadata data\n  pairs can be specified in a message. Each key can be up to 100 characters long, and each value up to \n  256 characters long. Specifying metadata for a message is optional.\n\nThe response body of a successful POST request to the messages endpoint\nwill include a ```messages``` property which contains a list of all messages submitted. The list of\nmessages submitted will reflect the list of messages included in the request, but each message\nwill also contain two new properties, ```message_id``` and ```status```. The returned message ID\nwill be a 36 character UUID which can be used to check the status of the message via the Get Message\nStatus endpoint. The status of the message which reflect the status of the message at submission\ntime which will always be ```queued```. See the Delivery Reports section of this documentation for\nmore information on message statuses.\n\n*Note: when sending multiple messages in a request, all messages must be valid for the request \nto be successful. If any messages in the request are invalid, no messages will be sent.*\n",
+        "description": "Submit one or more (up to 100 per request) SMS, MMS or text to voice\nmessages for delivery.\n\nThe most basic message has the following structure:\n\n```json\n\n{\n    \"messages\": [\n        {\n            \"content\": \"My first message!\",\n            \"destination_number\": \"+61491570156\"\n        }\n    ]\n}\n\n```\n\nMore advanced delivery features can be specified by setting the\nfollowing properties in a message:\n\n- ```callback_url``` A URL can be included with each message to which\nWebhooks will be pushed to via a HTTP POST request. Webhooks will be sent if and when the status of the message changes as it is processed (if the delivery report property of the request is set to ```true```) and when replies are received. Specifying a callback URL is optional.\n\n- ```content``` The content of the message. This can be a Unicode string, up to 5,000 characters long.\n  Message content is required.\n\n- ```delivery_report``` Delivery reports can be requested with each\nmessage. If delivery reports are requested, a webhook will be submitted to the ```callback_url``` property specified for the message (or to the webhooks)\n  specified for the account every time the status of the message changes as it is processed. The\n  current status of the message can also be retrieved via the Delivery Reports endpoint of the\n  Messages API. Delivery reports are optional and by default will not be requested.\n\n- ```destination_number``` The destination number the message should be\ndelivered to. This should be specified in E.164\n  international format. For information on E.164, please refer to http://en.wikipedia.org/wiki/E.164.\n  A destination number is required.\n\n- ```format``` The format specifies which format the message will be\nsent as, ```SMS``` (text message), ```MMS``` (multimedia message)\n  or ```TTS``` (text to speech). With ```TTS``` format, we will call the destination number and read out the\n  message using a computer generated voice. Specifying a format is optional, by default ```SMS``` will be used.\n\n- ```source_number_type``` If a source number is specified, the type of\nsource number may also be\n  specified. This is recommended when using a source address type that is not an internationally\n  formatted number, available options are ```INTERNATIONAL```, ```ALPHANUMERIC``` or ```SHORTCODE```. Specifying a\n  source number type is only valid when the ```source_number``` parameter is specified and is optional.\n  If a source number is specified and no source number type is specified, the source number type will be\n  inferred from the source number, however this may be inaccurate.\n\n- ```source_number```[optional]  Specify a source number to be used.  Refer to the section below for more information on source numbers.  \n⚠️ The number or sender ID must be registered to your account (from 1-Mar-2024).\n\n  #### Source number (sender ID)\n  \n  There are several options for the number or sender ID that will show as the source of an outbound message. Some things to note:\n    - If you do not specify a source number, the message will be sent with the default number for your account.\n      - The default may be a number you have purchased from us - such as a dedicated number, a 10-digit longcode or toll-free number (US/CA), or a shortcode. Log into the web portal to manage your numbers.\n      - If your account has multiple numbers, you can specify which source number to use in the request.\n      - If your account does not have a number, your message may be sent using our shared number pool (in certain countries only)\n    - `Alpha tag:` In some countries (AU, GB, some others), you may be able to send using an alpha tag - text that represents your brand of business.  Before using an alpha tag, you must register it in the Numbers section of the web portal.\n    - `Other numbers:` You may use numbers that you own as the source number, but you must register them in the Numbers section of the web portal to confirm  you have a right to use the number.\n  If you need to register a large number of source numbers/sender IDs, consider using our [Source Address API](https://messagemedia.github.io/documentation/#tag/Source-Address)\n  \n  ⚠️ If you specify a source_number that is not registered to your account, the message may fail to send, or may be sent with an alternative number.\n\n- ```media``` The media is used to specify a list of URLs of the media file(s) that you are trying to send. \nSupported file formats include png, jpeg and gif. ```format``` parameter must be set to ```MMS``` for this to\nwork.\n\n- ```subject``` The subject field is used to denote subject of the MMS\nmessage and has a maximum size of 64 characters long. Specifying a\nsubject is optional.\n\n- ```scheduled``` A message can be scheduled for delivery in the future\nby setting the scheduled property.\n  The scheduled property expects a date time specified in ISO 8601 format. The scheduled time must be\n  provided in UTC and is optional. If no scheduled property is set, the message will be delivered immediately.\n\n- ```message_expiry_timestamp``` A message expiry timestamp can be\nprovided to specify the latest time\n  at which the message should be delivered. If the message cannot be delivered before the specified\n  message expiry timestamp elapses, the message will be discarded. Specifying a message expiry \n  timestamp is optional.\n\n- ```metadata``` Metadata can be included with the message which will\nthen be included with any delivery\n  reports or replies matched to the message. This can be used to create powerful two-way messaging\n  applications without having to store persistent data in the application. Up to 10 key / value metadata data\n  pairs can be specified in a message. Each key can be up to 100 characters long, and each value up to \n  256 characters long. Specifying metadata for a message is optional.\n\nThe response body of a successful POST request to the messages endpoint\nwill include a ```messages``` property which contains a list of all messages submitted. The list of\nmessages submitted will reflect the list of messages included in the request, but each message\nwill also contain two new properties, ```message_id``` and ```status```. The returned message ID\nwill be a 36 character UUID which can be used to check the status of the message via the Get Message\nStatus endpoint. The status of the message which reflect the status of the message at submission\ntime which will always be ```queued```. See the Delivery Reports section of this documentation for\nmore information on message statuses.\n\n*Note: when sending multiple messages in a request, all messages must be valid for the request \nto be successful. If any messages in the request are invalid, no messages will be sent.*\n",
         "operationId": "SendMessages",
         "parameters": [],
         "requestBody": {
@@ -1258,7 +1070,7 @@
           "Source Address"
         ],
         "summary": "Request a Sender Address",
-        "description": "Submit a request to register a new Sender ID. When making a request to this endpoint, you will always need to specify ```sender_address_type``` and ```usage_type``` parameters. The following table shows the acceptable values and combinations for these parameters:\n  | Sender ID       | sender_address_type | usage_type     |\n  |---              |---                  |---             |\n  | Alpha tag       | `ALPHANUMERIC`      | `ALPHANUMERIC` |\n  | Personal number | `INTERNATIONAL`     | `OWN_NUMBER`   | \n\nThe other parameters required for your request will depend on the type of Sender ID you are registering.\n\n### Sender ID is an Alpha Tag\nThe following parameters are used when registering an alpha tag as a Sender ID:\n  - ```sender_address:``` **(Required)**. The alphanumeric string that you wish register as an alpha tag. This parameter is case insensitive. If this alpha tag already exists on your account, you will receive a conflict error message.\n  - ```destination_countries:``` **(Required)**. The countries that you wish to register the alpha tag for use in, in two-character ISO 3166 format. Currently AD, AI, AL, AS, AT, AW, BA, BB, BH, BW, CD, CH, CK, CY, DE, DJ, DK, DM, EE, ES, FI, FJ, FM, FO, FR, GB, GD, GG, GI, GL, GM, GQ, GR, GY, IL, IM, IS, JE, JM, JP, KI, KY, LA, LI, LS, LT, LU, LV, MC, ME, MH, MO, MR, MS, MT, MV, NC, NF, NL, NO, NR, NU, PF, PM, PT, SB, SC, SE, SH, SL, SM, ST, TC, TD, TO, VC, VG and WS are supported.\n  - ```sender_address_type:``` **(Required)**. For alpha tags this is always ALPHANUMERIC\n  - ```usage_type:``` **(Required)**. For alpha tags this is always ALPHANUMERIC\n  - ```label:``` **(Optional)**. A reference name for the sender ID to allow you to easily track it.\n  - ```reason:``` **(Required)**. This is a specifically formatted string made up of the following sub-items (all of which are required):\n\n    - `useCase:` one of the following:\n      - `SOLE_TRADER_NAME`\n      - `COMPANY_NAME`\n      - `PARTNERSHIP_NAME`\n      - `REGISTERED_TRUST_NAME`\n      - `CO_OPERATIVE_NAME`\n      - `INDIGENOUS_CORPORATION_NAME`\n      - `REGISTERED_ORGANISATION_NAME`\n      - `PERSONAL_NAME`\n      - `AUSTRALIAN_TRADEMARK`\n      - `INTERNATIONAL_TRADEMARK`\n      - `AUSTRALIAN_GOVERNMENT_AGENCY_OR_ENTITY`\n      - `FOREIGN_GOVERNMENT_AGENCY_OR_ENTITY`\n      - `PRODUCT_OR_SERVICE_NAME`\n      - `ACRONYM_INITIALISM`\n      - `CONTRACTION_OF_NAME`\n      - `OTHER`\n    - `description:` A description used if OTHER was selected as the use case. Limited to 200 characters.\n\n    - `email:` The preferred contact email for our approval team when additional details are required.\n\n    - `australianGovernmentAgencyOrEntityName:` The name of your organsation.\n\n    - `abn:` Your organisation’s Australian Business Number\n\n    - `statement:` A legal declaration\n      - If applying for your own business: “We are authorized to use the Sender ID with a valid use case.”\n      - If applying on behalf of a third-party entity: “We are authorized to use the Sender ID on behalf of [full entity name of sender] with a valid use case.”\n\nThe reason parameter must contain all the above items. A well formatted reason looks like the following:\n  - \"reason\": \"{\\n&nbsp;&nbsp;\\\\\"useCase\\\\\":\\\\\"AUSTRALIAN_GOVERNMENT_AGENCY_OR_ENTITY\\\\\",\\n&nbsp;&nbsp;\\\\\"description\\\\\":\\\\\"bal bla\\\\\",\\n&nbsp;&nbsp;\\\\\"email\\\\\":\\\\\"example@email.com\\\\\",\\n&nbsp;&nbsp;\\\\\"australianGovernmentAgencyOrEntityName\\\\\":\\\\\"bla bla\\\\\",\\n&nbsp;&nbsp;\\\\\"statement\\\\\":\\\\\"We are authorised to use the Sender ID on behalf of [full entity name of sender] with a valid use case.\\\\\"\\n}\\n\"\n\n### Sender ID is a Personal Number\nThe following parameters are used when registering a personal mobile phone number as a Sender ID: \n\n  - ```sender_address:``` **(Required)**. The phone number that you wish register as a personal number. This number must be in E.164. If this number is already registered to an account, you will receive a conflict error message. \n\n  - ```destination_countries:``` **(Required)**. The country of the number that you wish to register, in two-character ISO 3166 format. Refer to the **Types of Sender ID** section for a list of currently supported countries. \n\n  - ```sender_address_type:``` **(Required)**. For personal numbers this is always INTERNATIONAL \n\n  - ```usage_type:``` **(Required)**. For personal numbers this is always OWN_NUMBER \n\n  - ```label:``` **(Optional)**. A reference name for the sender ID to allow you to easily track it. \n\n  - ```Reason:``` **(Required)**. A string describing why you wish to register the number as a Sender ID. Limited to 200 characters.\n",
+        "description": "Submit a request to register a new Sender ID. When making a request to this endpoint, you will always need to specify ```sender_address_type``` and ```usage_type``` parameters. The following table shows the acceptable values and combinations for these parameters:\n  | Sender ID       | sender_address_type | usage_type     |\n  |---              |---                  |---             |\n  | Alpha tag       | `ALPHANUMERIC`      | `ALPHANUMERIC` |\n  | Personal number | `INTERNATIONAL`     | `OWN_NUMBER`   | \n\nThe other parameters required for your request will depend on the type of Sender ID you are registering.\n\n### Sender ID is an Alpha Tag\nThe following parameters are used when registering an alpha tag as a Sender ID:\n  - ```sender_address:``` **(Required)**. The alphanumeric string that you wish register as an alpha tag. This parameter is case insensitive. If this alpha tag already exists on your account, you will receive a conflict error message.\n  - ```destination_countries:``` **(Required)**. The countries that you wish to register the alpha tag for use in, in two-character ISO 3166 format. Currently AD, AI, AL, AS, AT, AU, AW, BA, BB, BH, BW, CD, CH, CK, CY, DE, DJ, DK, DM, EE, ES, FI, FJ, FM, FO, FR, GB, GD, GG, GI, GL, GM, GQ, GR, GY, IL, IM, IS, JE, JM, JP, KI, KY, LA, LI, LS, LT, LU, LV, MC, ME, MH, MO, MR, MS, MT, MV, NC, NF, NL, NO, NR, NU, PF, PM, PT, SB, SC, SE, SH, SL, SM, ST, TC, TD, TO, VC, VG and WS are supported.\n  - ```sender_address_type:``` **(Required)**. For alpha tags this is always ALPHANUMERIC\n  - ```usage_type:``` **(Required)**. For alpha tags this is always ALPHANUMERIC\n  - ```label:``` **(Optional)**. A reference name for the sender ID to allow you to easily track it.\n  - ```reason:``` **(Required)**. This is a specifically formatted string made up of the following sub-items (all of which are required):\n\n    - `useCase:` one of the following:\n      - `SOLE_TRADER_NAME`\n      - `COMPANY_NAME`\n      - `PARTNERSHIP_NAME`\n      - `REGISTERED_TRUST_NAME`\n      - `CO_OPERATIVE_NAME`\n      - `INDIGENOUS_CORPORATION_NAME`\n      - `REGISTERED_ORGANISATION_NAME`\n      - `PERSONAL_NAME`\n      - `AUSTRALIAN_TRADEMARK`\n      - `INTERNATIONAL_TRADEMARK`\n      - `AUSTRALIAN_GOVERNMENT_AGENCY_OR_ENTITY`\n      - `FOREIGN_GOVERNMENT_AGENCY_OR_ENTITY`\n      - `PRODUCT_OR_SERVICE_NAME`\n      - `ACRONYM_INITIALISM`\n      - `CONTRACTION_OF_NAME`\n      - `OTHER`\n    - `description:` A description used if OTHER was selected as the use case. Limited to 200 characters.\n\n    - `email:` The preferred contact email for our approval team when additional details are required.\n\n    - `australianGovernmentAgencyOrEntityName:` The name of your organsation.\n\n    - `abn:` Your organisation’s Australian Business Number\n\n    - `statement:` A legal declaration\n      - If applying for your own business: “We are authorized to use the Sender ID with a valid use case.”\n      - If applying on behalf of a third-party entity: “We are authorized to use the Sender ID on behalf of [full entity name of sender] with a valid use case.”\n\nThe reason parameter must contain all the above items. A well formatted reason looks like the following:\n  - \"reason\": \"{\\n&nbsp;&nbsp;\\\\\"useCase\\\\\":\\\\\"AUSTRALIAN_GOVERNMENT_AGENCY_OR_ENTITY\\\\\",\\n&nbsp;&nbsp;\\\\\"description\\\\\":\\\\\"bal bla\\\\\",\\n&nbsp;&nbsp;\\\\\"email\\\\\":\\\\\"example@email.com\\\\\",\\n&nbsp;&nbsp;\\\\\"australianGovernmentAgencyOrEntityName\\\\\":\\\\\"bla bla\\\\\",\\n&nbsp;&nbsp;\\\\\"statement\\\\\":\\\\\"We are authorised to use the Sender ID on behalf of [full entity name of sender] with a valid use case.\\\\\"\\n}\\n\"\n\n### Sender ID is a Personal Number\nThe following parameters are used when registering a personal mobile phone number as a Sender ID: \n\n  - ```sender_address:``` **(Required)**. The phone number that you wish register as a personal number. This number must be in E.164. If this number is already registered to an account, you will receive a conflict error message. \n\n  - ```destination_countries:``` **(Required)**. The country of the number that you wish to register, in two-character ISO 3166 format. Refer to the **Types of Sender ID** section for a list of currently supported countries. \n\n  - ```sender_address_type:``` **(Required)**. For personal numbers this is always INTERNATIONAL \n\n  - ```usage_type:``` **(Required)**. For personal numbers this is always OWN_NUMBER \n\n  - ```label:``` **(Optional)**. A reference name for the sender ID to allow you to easily track it. \n\n  - ```Reason:``` **(Required)**. A string describing why you wish to register the number as a Sender ID. Limited to 200 characters.\n",
         "operationId": "requestSenderAddressUsingPOST",
         "parameters": [],
         "requestBody": {
@@ -2048,7 +1860,7 @@
           "Delivery Reports"
         ],
         "summary": "Check delivery reports",
-        "description": "Check for any delivery reports that have been received.\nDelivery reports are a notification of the change in status of a message as it is being processed.\nEach request to the check delivery reports endpoint will return any delivery reports received that\nhave not yet been confirmed using the confirm delivery reports endpoint. A response from the check\ndelivery reports endpoint will have the following structure:\n```json\n{\n    \"delivery_reports\": [\n        {\n            \"callback_url\": \"https://my.callback.url.com\",\n            \"delivery_report_id\": \"01e1fa0a-6e27-4945-9cdb-18644b4de043\",\n            \"source_number\": \"+61491570157\",\n            \"date_received\": \"2017-05-20T06:30:37.642Z\",\n            \"status\": \"enroute\",\n            \"delay\": 0,\n            \"billing_units\": 1,\n            \"submitted_date\": \"2017-05-20T06:30:37.639Z\",\n            \"original_text\": \"My first message!\",\n            \"message_id\": \"d781dcab-d9d8-4fb2-9e03-872f07ae94ba\",\n            \"vendor_account_id\": {\n                \"vendor_id\": \"SinchEU\",\n                \"account_id\": \"MyAccount\"\n            },\n            \"metadata\": {\n                \"key1\": \"value1\",\n                \"key2\": \"value2\"\n            }\n        },\n        {\n            \"callback_url\": \"https://my.callback.url.com\",\n            \"delivery_report_id\": \"0edf9022-7ccc-43e6-acab-480e93e98c1b\",\n            \"source_number\": \"+61491570158\",\n            \"date_received\": \"2017-05-21T01:46:42.579Z\",\n            \"status\": \"enroute\",\n            \"delay\": 0,\n            \"billing_units\": 1,\n            \"submitted_date\": \"2017-05-21T01:46:42.574Z\",\n            \"original_text\": \"My second message!\",\n            \"message_id\": \"fbb3b3f5-b702-4d8b-ab44-65b2ee39a281\",\n            \"vendor_account_id\": {\n                \"vendor_id\": \"SinchEU\",\n                \"account_id\": \"MyAccount\"\n            },\n            \"metadata\": {\n                \"key1\": \"value1\",\n                \"key2\": \"value2\"\n            }\n        }\n    ]\n}\n```\nEach delivery report will contain details about the message, including any metadata specified\nand the new status of the message (as each delivery report indicates a change in status of a\nmessage) and the timestamp at which the status changed. Every delivery report will have a \nunique delivery report ID for use with the confirm delivery reports endpoint.\n*Note: The source number and destination number properties in a delivery report are the inverse of\nthose specified in the message that the delivery report relates to. The source number of the\ndelivery report is the destination number of the original message.*\nSubsequent requests to the check delivery reports endpoint will return the same delivery reports\nand a maximum of 100 delivery reports will be returned in each request. Applications should use the\nconfirm delivery reports endpoint in the following pattern so that delivery reports that have been\nprocessed are no longer returned in subsequent check delivery reports requests. The expiry date for getting an entity is 45 days.\n1. Call check delivery reports endpoint\n2. Process each delivery report\n3. Confirm all processed delivery reports using the confirm delivery reports endpoint\n*Note: It is recommended to use the Webhooks feature to receive reply messages rather than\npolling the check delivery reports endpoint.*",
+        "description": "Check for any delivery reports that have been received.\nDelivery reports are a notification of the change in status of a message as it is being processed.\nEach request to the check delivery reports endpoint will return any delivery reports received that\nhave not yet been confirmed using the confirm delivery reports endpoint. A response from the check\ndelivery reports endpoint will have the following structure:\n```json\n{\n    \"delivery_reports\": [\n        {\n            \"callback_url\": \"https://my.callback.url.com\",\n            \"delivery_report_id\": \"01e1fa0a-6e27-4945-9cdb-18644b4de043\",\n            \"source_number\": \"+61491570157\",\n            \"date_received\": \"2017-05-20T06:30:37.642Z\",\n            \"status\": \"enroute\",\n            \"delay\": 0,\n            \"billing_units\": 0,\n            \"submitted_date\": \"2017-05-20T06:30:37.639Z\",\n            \"original_text\": \"My first message!\",\n            \"message_id\": \"d781dcab-d9d8-4fb2-9e03-872f07ae94ba\",\n            \"vendor_account_id\": {\n                \"vendor_id\": \"SinchEU\",\n                \"account_id\": \"MyAccount\"\n            },\n            \"metadata\": {\n                \"key1\": \"value1\",\n                \"key2\": \"value2\"\n            }\n        },\n        {\n            \"callback_url\": \"https://my.callback.url.com\",\n            \"delivery_report_id\": \"0edf9022-7ccc-43e6-acab-480e93e98c1b\",\n            \"source_number\": \"+61491570158\",\n            \"date_received\": \"2017-05-21T01:46:42.579Z\",\n            \"status\": \"enroute\",\n            \"delay\": 0,\n            \"billing_units\": 0,\n            \"submitted_date\": \"2017-05-21T01:46:42.574Z\",\n            \"original_text\": \"My second message!\",\n            \"message_id\": \"fbb3b3f5-b702-4d8b-ab44-65b2ee39a281\",\n            \"vendor_account_id\": {\n                \"vendor_id\": \"SinchEU\",\n                \"account_id\": \"MyAccount\"\n            },\n            \"metadata\": {\n                \"key1\": \"value1\",\n                \"key2\": \"value2\"\n            }\n        }\n    ]\n}\n```\nEach delivery report will contain details about the message, including any metadata specified\nand the new status of the message (as each delivery report indicates a change in status of a\nmessage) and the timestamp at which the status changed. Every delivery report will have a \nunique delivery report ID for use with the confirm delivery reports endpoint.\n*Note: The source number and destination number properties in a delivery report are the inverse of\nthose specified in the message that the delivery report relates to. The source number of the\ndelivery report is the destination number of the original message.*\nSubsequent requests to the check delivery reports endpoint will return the same delivery reports\nand a maximum of 100 delivery reports will be returned in each request. Applications should use the\nconfirm delivery reports endpoint in the following pattern so that delivery reports that have been\nprocessed are no longer returned in subsequent check delivery reports requests. The expiry date for getting an entity is 45 days.\n1. Call check delivery reports endpoint\n2. Process each delivery report\n3. Confirm all processed delivery reports using the confirm delivery reports endpoint\n*Note: It is recommended to use the Webhooks feature to receive reply messages rather than\npolling the check delivery reports endpoint.*",
         "operationId": "CheckDeliveryReports",
         "parameters": [],
         "responses": {
@@ -4148,7 +3960,7 @@
           "Webhooks Management"
         ],
         "summary": "Create webhook",
-        "description": "Create a webhook for one or more of the specified events.\n\nA webhook would typically have the following structure:\n\n```\n{ \n  \"url\": \"http://webhook.com\",\n  \"method\": \"POST\",\n  \"encoding\": \"JSON\",  \n  \"headers\": {\"Account\": \"DeveloperPortal7000\"  },  \n  \"events\": [\"RECEIVED_SMS\"  ],\n  \"template\": {\n    \"id\":\"$mtId\",\n    \"status\":\"$statusCode\"}\n  \"read_timeout\": 5000,\n  \"retries\": 3,\n  \"retry_delay\": 30\n  }\n\n```\n\nA valid webhook must consist of the following properties:\n\n- ```url``` The configured URL which will trigger the webhook when a selected event occurs.\n\n- ```method``` The methods to map CRUD (create, retrieve, update, delete) operations to HTTP requests.\n\n- ```encoding``` Webhooks can be delivered using different content types. You can choose from ```JSON```, ```FORM_ENCODED``` or ```XML```. This will automatically add the Content-Type header for you so you don't have to add it again in the `headers` property.\n\n- ```headers``` HTTP header fields which provide required information about the request or response, or about the object sent in the message body. This should NOT include the `Content-Type` header.\n\n- ```events``` Event or events that will trigger the webhook. Atleast one event should be present.\n\n- ```template``` The structure of the payload that will be returned. You can format this in JSON or XML.\n\n- ```read_timeout``` (Optional) The read timeout for the call to the Webhook in milliseconds. Set to 20000 by default, max 60000.\n\n- ```retries``` (Optional) The read timeout for the call to the Webhook in milliseconds. Set to 20000 by default, max 60000.\n\n- ```retry_delay``` (Optional) The delay period between retries in seconds. Minimum of 5, max 60.\n\n\n\n\n#### Types of Events\n\nYou can select all of the events (listed below) or combine them in whatever way you like but atleast one event must be used. Otherwise, the webhook won't be created.\n\nA webhook will be triggered when any one or more of the events occur:\n\n+ **SMS** \n  + `RECEIVED_SMS` Receive an SMS\n  + `OPT_OUT_SMS` Opt-out occured\n+ **MMS**\n  + `RECEIVED_MMS` Receive an MMS\n+ **DR (Delivery Reports)**\n  + `ENROUTE_DR` Message is enroute\n  + `EXPIRED_DR` Message has expired\n  + `REJECTED_DR` Message is rejected\n  + `FAILED_DR` Message has failed\n  + `DELIVERED_DR` Message is delivered\n  + `SUBMITTED_DR` Message is submitted\n\n#### Template Parameters\n\nYou can choose what to include in the data that will be sent as the payload via the Webhook. It's upto you to choose what format you would like the payload to be returned. You can choose between JSON or XML.\n\nKeep in my mind, if you've chosen JSON as the format, you must escape the JSON in the template value (see example above).\n\nThe table illustrates a list of all the parameters that can be included in the template and which event types it can be applied to.\n\n| Data  | Parameter Name | Example | Event Type |\n|:--|--|--|--:|\n| **Service Type**  | $type| `SMS` | `DR` `MO` `MO MMS` |\n| **Message ID**  | $mtId, $messageId| `877c19ef-fa2e-4cec-827a-e1df9b5509f7` | `DR` `MO` `MO MMS`|\n| **Delivery Report ID** |$drId, $reportId| `01e1fa0a-6e27-4945-9cdb-18644b4de043` | `DR` |\n| **Reply ID**| $moId, $replyId| `a175e797-2b54-468b-9850-41a3eab32f74` | `MO` `MO MMS` |\n| **Account ID**  | $accountId| `DeveloperPortal7000` | `DR` `MO` `MO MMS` |\n| **Message Timestamp**  | $submittedTimestamp| `2016-12-07T08:43:00.850Z` | `DR` `MO` `MO MMS` |\n| **Provider Timestamp**  | $receivedTimestamp| `2016-12-07T08:44:00.850Z` | `DR` `MO` `MO MMS` |\n| **Message Status** | $status| `enroute` | `DR` |\\n| **Status Code**  | $statusCode| `200` | `DR` |\n| **External Metadata** | $metadata.get('key')| `name` | `DR` `MO` `MO MMS` |\n| **Source Address**| $sourceAddress| `+61491570156` | `DR` `MO` `MO MMS` |\n| **Destination Address**| $destinationAddress| `+61491593156` | `MO` `MO MMS` |\n| **Message Content**| $mtContent, $messageContent, $esc.json($!mtContent) *- when used in `JSON` encoded `template`*| `Hi Derp` | `DR` `MO` `MO MMS` |\n| **Reply Content**| $moContent, $replyContent, $esc.json($!moContent) *- when used in `JSON` encoded `template`*| `Hello Derpina` | `MO` `MO MMS` |\n| **Retry Count**| $retryCount| `1` | `DR` `MO` `MO MMS` |\n| **Billing Unit**| $billingUnits| `1` | `DR` |\n| **Attachments**| $attachments, refer to example below on how to use in `JSON` encoded `template`| <code>[<br>  {<br>    \"content_type\": \"image/png\",<br>    \"content\": \"...\",<br>    \"original_name\": \"file.png\"<br>  }<br>]</code> | `MO MMS` |\n\n#### Example Webhook Request with Templates\n\n##### MO / MO MMS\n\n```\n{\n  \"url\": \"http://webhook.com\",\n  \"method\": \"POST\",\n  \"encoding\": \"JSON\",\n  \"events\": [\"RECEIVED_MMS\"],\n  \"template\": \"{  \\\"account_id\\\": \\\"$accountId\\\",  \\\"reply_id\\\": \\\"$replyId\\\",  \\\"destination_number\\\": \\\"$destinationAddress\\\",  \\\"source_number\\\": \\\"$sourceAddress\\\",  \\\"date_received\\\": \\\"$receivedTimestamp\\\",  \\\"message_id\\\": \\\"$messageId\\\",  #if ($attachments)  \\\"attachments\\\": [   #foreach ($entry in $attachments)    {      \\\"content_type\\\": \\\"$entry.contentType\\\",      \\\"content\\\": \\\"$entry.base64\\\",      \\\"original_name\\\": \\\"$entry.originalName\\\"    }#if( $foreach.hasNext ),#end    #end  ],  #else  \\\"content\\\": \\\"$esc.json($moContent)\\\",  #end  \\\"metadata\\\": {    #foreach ($entry in $metadata.entrySet())    \\\"$entry.key\\\": \\\"$entry.value\\\"#if( $foreach.hasNext ),#end    #end  }}\"\n}\n```\n\n##### DR (Delivery Report)\n\n```\n{\n  \"url\": \"http://webhook.com\",\n  \"method\": \"POST\",\n  \"encoding\": \"JSON\",\n  \"events\": [\"DELIVERED_DR\"],\n  \"template\": \"{  \\\"delivery_report_id\\\": \\\"$drId\\\",  \\\"source_number\\\": \\\"$sourceAddress\\\",  \\\"date_received\\\": \\\"$receivedTimestamp\\\",  \\\"status\\\": \\\"$status\\\",  \\\"delay\\\": \\\"0\\\",  \\\"submitted_date\\\": \\\"$submittedTimestamp\\\",  \\\"message_id\\\": \\\"$messageId\\\",  \\\"original_text\\\": \\\"$esc.json($!mtContent)\\\",  \\\"vendor_account_id\\\": {    \\\"vendor_id\\\": \\\"$vendorId\\\",    \\\"account_id\\\": \\\"$accountId\\\"  },  \\\"error_code\\\": \\\"$statusCode\\\",  \\\"metadata\\\": {    #foreach($key in $metadata.keySet())    \\\"$key\\\": \\\"$esc.json($metadata.get($key))\\\"#if( $velocityHasNext ),#end    #end  }}\"\n}\n```\n\n #### Message Statuses\n\nDelivery Reports indicate message status. A message can have one of the following statuses:\n* `enroute`: Message has been received by the gateway and is being processed (or waiting to be processed).\n* `submitted`: Message has been submitted to a provider/carrier for delivery.\n* `delivered`: Message delivery has been confirmed by the provider, including to the handset (where possible).\n* `expired`: The message has expired.\n* `rejected`: The message will not be delivered - permanent failure. Reasons may include usage limit exceeded, insufficient credit, number blocked, or content filtered\n* `failed`: The message has failed. Reasons may include no active routes to destination or undeliverable by downstream provider.\n\n#### Message Status Codes\nStatus codes provide more granular insight into a message's status. A message can have one of the following status codes:\n* `101`: Message being processed by the gateway.\n* `102`: Message is being rerouted to a different provider after failing via the first provider.\n* `151`: Message held for screening.\n* `200`: Message submitted to downstream provider for  delivery.\n* `210`: Message accepted by downstream provider.\n* `211`: Message is enroute for delivery by provider.\n* `212`: Message submitted. Delivery pending.\n* `213`: Message scheduled for delivery by downstream  provider.\n* `220`: Message delivered.\n* `221`: Message delivered to the handset.\n* `320`: Message validity period has expired (prior to  submission).\n* `401`: Message validity period has expired (before delivery ).\n* `301`: Usage threshold reached. Message discarded.\n* `302`: Destination address blocked. Message discarded.\n* `303`: Source address blocked. Message discarded.\n* `304`: Message dropped. Contact support.\n* `305`: Message discarded due to duplicate detection.\n* `402`: Message rejected by downstream provider.\n* `403`: Message skipped by downstream provider.\n* `410`: Invalid source address.\n* `411`: Invalid destination address.\n* `412`: Destination address blocked.\n* `413`: SMS service unavailable on destination.\n* `414`: Destination unreachable.\n* `330`: Gateway failure.\n* `331`: Message discarded.\n* `332`: No available route to destination.\n* `333`: Source address unsupported for this destination.\n* `400`: Message failed; undeliverable.\n* `405`: Message cancelled or deleted by provider.\n\n*Note: A 400 response will be returned if the `url` is invalid, the `events`, `encoding` or `method` is null or the `headers` has a Content-Type  attribute.*\n",
+        "description": "Create a webhook for one or more of the specified events.\n\nA webhook would typically have the following structure:\n\n```\n{ \n  \"url\": \"http://webhook.com\",\n  \"method\": \"POST\",\n  \"encoding\": \"JSON\",  \n  \"headers\": {\"Account\": \"DeveloperPortal7000\"  },  \n  \"events\": [\"RECEIVED_SMS\"  ],\n  \"template\": {\n    \"id\":\"$mtId\",\n    \"status\":\"$statusCode\"}\n  \"read_timeout\": 5000,\n  \"retries\": 3,\n  \"retry_delay\": 30\n  }\n\n```\n\nA valid webhook must consist of the following properties:\n\n- ```url``` The configured URL which will trigger the webhook when a selected event occurs.\n\n- ```method``` The methods to map CRUD (create, retrieve, update, delete) operations to HTTP requests.\n\n- ```encoding``` Webhooks can be delivered using different content types. You can choose from ```JSON```, ```FORM_ENCODED``` or ```XML```. This will automatically add the Content-Type header for you so you don't have to add it again in the `headers` property.\n\n- ```headers``` HTTP header fields which provide required information about the request or response, or about the object sent in the message body. This should NOT include the `Content-Type` header.\n\n- ```events``` Event or events that will trigger the webhook. Atleast one event should be present.\n\n- ```template``` The structure of the payload that will be returned. You can format this in JSON or XML.\n\n- ```read_timeout``` (Optional) The read timeout for the call to the Webhook in milliseconds. Set to 20000 by default, max 60000.\n\n- ```retries``` (Optional) The read timeout for the call to the Webhook in milliseconds. Set to 20000 by default, max 60000.\n\n- ```retry_delay``` (Optional) The delay period between retries in seconds. Minimum of 5, max 60.\n\n\n\n\n#### Types of Events\n\nYou can select all of the events (listed below) or combine them in whatever way you like but atleast one event must be used. Otherwise, the webhook won't be created.\n\nA webhook will be triggered when any one or more of the events occur:\n\n+ **SMS** \n  + `RECEIVED_SMS` Receive an SMS\n  + `OPT_OUT_SMS` Opt-out occured\n+ **MMS**\n  + `RECEIVED_MMS` Receive an MMS\n+ **DR (Delivery Reports)**\n  + `ENROUTE_DR` Message is enroute\n  + `EXPIRED_DR` Message has expired\n  + `REJECTED_DR` Message is rejected\n  + `FAILED_DR` Message has failed\n  + `DELIVERED_DR` Message is delivered\n  + `SUBMITTED_DR` Message is submitted\n\n#### Template Parameters\n\nYou can choose what to include in the data that will be sent as the payload via the Webhook. It's upto you to choose what format you would like the payload to be returned. You can choose between JSON or XML.\n\nKeep in my mind, if you've chosen JSON as the format, you must escape the JSON in the template value (see example above).\n\nThe table illustrates a list of all the parameters that can be included in the template and which event types it can be applied to.\n\n| Data  | Parameter Name | Example | Event Type |\n|:--|--|--|--:|\n| **Service Type**  | $type| `SMS` | `DR` `MO` `MO MMS` |\n| **Message ID**  | $mtId, $messageId| `877c19ef-fa2e-4cec-827a-e1df9b5509f7` | `DR` `MO` `MO MMS`|\n| **Delivery Report ID** |$drId, $reportId| `01e1fa0a-6e27-4945-9cdb-18644b4de043` | `DR` |\n| **Reply ID**| $moId, $replyId| `a175e797-2b54-468b-9850-41a3eab32f74` | `MO` `MO MMS` |\n| **Account ID**  | $accountId| `DeveloperPortal7000` | `DR` `MO` `MO MMS` |\n| **Message Timestamp**  | $submittedTimestamp| `2016-12-07T08:43:00.850Z` | `DR` `MO` `MO MMS` |\n| **Provider Timestamp**  | $receivedTimestamp| `2016-12-07T08:44:00.850Z` | `DR` `MO` `MO MMS` |\n| **Message Status** | $status| `enroute` | `DR` |\\n| **Status Code**  | $statusCode| `200` | `DR` |\n| **External Metadata** | $metadata.get('key')| `name` | `DR` `MO` `MO MMS` |\n| **Source Address**| $sourceAddress| `+61491570156` | `DR` `MO` `MO MMS` |\n| **Destination Address**| $destinationAddress| `+61491593156` | `MO` `MO MMS` |\n| **Message Content**| $mtContent, $messageContent, $esc.json($!mtContent) *- when used in `JSON` encoded `template`*| `Hi Derp` | `DR` `MO` `MO MMS` |\n| **Reply Content**| $moContent, $replyContent, $esc.json($!moContent) *- when used in `JSON` encoded `template`*| `Hello Derpina` | `MO` `MO MMS` |\n| **Retry Count**| $retryCount| `1` | `DR` `MO` `MO MMS` |\n| **Billing Unit**| $billingUnits| `1` | `DR` |\n\n #### Message Statuses\n\nDelivery Reports indicate message status. A message can have one of the following statuses:\n* `enroute`: Message has been received by the gateway and is being processed (or waiting to be processed).\n* `submitted`: Message has been submitted to a provider/carrier for delivery.\n* `delivered`: Message delivery has been confirmed by the provider, including to the handset (where possible).\n* `expired`: The message has expired.\n* `rejected`: The message will not be delivered - permanent failure. Reasons may include usage limit exceeded, insufficient credit, number blocked, or content filtered\n* `failed`: The message has failed. Reasons may include no active routes to destination or undeliverable by downstream provider.\n\n#### Message Status Codes\nStatus codes provide more granular insight into a message's status. A message can have one of the following status codes:\n* `101`: Message being processed by the gateway.\n* `102`: Message is being rerouted to a different provider after failing via the first provider.\n* `151`: Message held for screening.\n* `200`: Message submitted to downstream provider for  delivery.\n* `210`: Message accepted by downstream provider.\n* `211`: Message is enroute for delivery by provider.\n* `212`: Message submitted. Delivery pending.\n* `213`: Message scheduled for delivery by downstream  provider.\n* `220`: Message delivered.\n* `221`: Message delivered to the handset.\n* `320`: Message validity period has expired (prior to  submission).\n* `401`: Message validity period has expired (before delivery ).\n* `301`: Usage threshold reached. Message discarded.\n* `302`: Destination address blocked. Message discarded.\n* `303`: Source address blocked. Message discarded.\n* `304`: Message dropped. Contact support.\n* `305`: Message discarded due to duplicate detection.\n* `402`: Message rejected by downstream provider.\n* `403`: Message skipped by downstream provider.\n* `410`: Invalid source address.\n* `411`: Invalid destination address.\n* `412`: Destination address blocked.\n* `413`: SMS service unavailable on destination.\n* `414`: Destination unreachable.\n* `330`: Gateway failure.\n* `331`: Message discarded.\n* `332`: No available route to destination.\n* `333`: Source address unsupported for this destination.\n* `400`: Message failed; undeliverable.\n* `405`: Message cancelled or deleted by provider.\n\n*Note: A 400 response will be returned if the `url` is invalid, the `events`, `encoding` or `method` is null or the `headers` has a Content-Type  attribute.*\n",
         "operationId": "CreateWebhook",
         "parameters": [],
         "requestBody": {
@@ -6174,8 +5986,7 @@
             "required": true,
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+              "format": "uuid"
             }
           }
         ],
@@ -6244,8 +6055,7 @@
             "required": true,
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+              "format": "uuid"
             }
           }
         ],
@@ -6307,8 +6117,7 @@
             "required": true,
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+              "format": "uuid"
             }
           }
         ],
@@ -6589,8 +6398,7 @@
             "required": true,
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "example": "025e93d3-051b-43f9-b12e-4b5842228dee"
+              "format": "uuid"
             }
           }
         ],
@@ -6652,9 +6460,9 @@
             "required": true,
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "example": "025e93d3-051b-43f9-b12e-4b5842228dee"
-            }
+              "format": "uuid"
+            },
+            "example": "025e93d3-051b-43f9-b12e-4b5842228dee"
           }
         ],
         "requestBody": {
@@ -6734,9 +6542,9 @@
             "required": true,
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "example": "025e93d3-051b-43f9-b12e-4b5842228dee"
-            }
+              "format": "uuid"
+            },
+            "example": "025e93d3-051b-43f9-b12e-4b5842228dee"
           }
         ],
         "requestBody": {
@@ -6813,9 +6621,9 @@
             "required": true,
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "example": "025e93d3-051b-43f9-b12e-4b5842228dee"
-            }
+              "format": "uuid"
+            },
+            "example": "025e93d3-051b-43f9-b12e-4b5842228dee"
           },
           {
             "name": "contactId",
@@ -6824,9 +6632,9 @@
             "required": true,
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "example": "4a03d2d8-1f85-463f-bdb4-2891c17258a7"
-            }
+              "format": "uuid"
+            },
+            "example": "4a03d2d8-1f85-463f-bdb4-2891c17258a7"
           }
         ],
         "responses": {
@@ -6901,9 +6709,9 @@
             "required": true,
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "example": "025e93d3-051b-43f9-b12e-4b5842228dee"
-            }
+              "format": "uuid"
+            },
+            "example": "025e93d3-051b-43f9-b12e-4b5842228dee"
           },
           {
             "name": "contactId",
@@ -6912,9 +6720,9 @@
             "required": true,
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "example": "4a03d2d8-1f85-463f-bdb4-2891c17258a7"
-            }
+              "format": "uuid"
+            },
+            "example": "4a03d2d8-1f85-463f-bdb4-2891c17258a7"
           }
         ],
         "responses": {
@@ -7803,17 +7611,6 @@
             "type": "string",
             "example": "+61555555555"
           },
-          "sources": {
-            "description": "Filter results by multiple source addresses. This property overrides the `source` parameter.",
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "example": [
-              "+61555555555",
-              "+614987654321"
-            ]
-          },
           "destination": {
             "description": "Filter results by destination address.",
             "type": "string",
@@ -7944,64 +7741,20 @@
             "type": "string",
             "example": "+61555555555"
           },
-          "sources": {
-            "description": "Filter results by multiple source addresses. This property overrides the `source` parameter.",
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "example": [
-              "+61555555555",
-              "+614987654321"
-            ]
-          },
           "destination": {
             "description": "Filter results by destination address.",
             "type": "string",
             "example": "+61555555555"
           },
-          "destinations": {
-            "description": "Filter results by multiple destination addresses. This property overrides the `destination` parameter.",
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "example": [
-              "+61555555555",
-              "+614987654321"
-            ]
-          },
-          "addresses": {
-            "description": "Filter messages where source OR destination matches one of the provided values. This parameter can only be set when \"direction\" is \"all\" and cannot be used in the same request as the \"source\", \"destination\", \"sources\", or \"destinations\" parameters.",
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "example": [
-              "+61400000001",
-              "+61400000002"
-            ]
-          },
           "metadata_key": {
-            "description": "Filter results for messages that include a metadata key. Can be used independently for searching.",
+            "description": "Filter results for messages that include a metadata key.",
             "type": "string",
             "example": "broadcastId"
           },
           "metadata_value": {
-            "description": "Filter results for messages that include a metadata key containing this value. If this parameter is provided, the metadata_key parameter must also be provided. Cannot be used together with metadata_values.",
+            "description": "Filter results for messages that include a metadata key containing this value. If this parameter is provided, the metadata_key parameter must also be provided.",
             "type": "string",
             "example": "ABC"
-          },
-          "metadata_values": {
-            "description": "Filter results for messages that include a metadata key containing these values. Must be used together with metadata_key. Cannot be used together with metadata_value.",
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "example": [
-              "meta1",
-              "meta2"
-            ]
           },
           "accounts": {
             "description": "Filter results by a specific account. By default results will be returned for the account associated with the authentication credentials and all sub-accounts.",
@@ -8075,53 +7828,20 @@
             "type": "string",
             "example": "+61555555555"
           },
-          "sources": {
-            "description": "Filter results by multiple source addresses. This property overrides the `source` parameter.",
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "example": [
-              "+61555555555",
-              "+614987654321"
-            ]
-          },
           "destination": {
             "description": "Filter results by destination address.",
             "type": "string",
             "example": "+61555555555"
           },
-          "destinations": {
-            "description": "Filter results by multiple destination addresses. This property overrides the `destination` parameter.",
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "example": [
-              "+61555555555",
-              "+614987654321"
-            ]
-          },
           "metadata_key": {
-            "description": "Filter results for messages that include a metadata key. Can be used independently for searching.",
+            "description": "Filter results for messages that include a metadata key.",
             "type": "string",
             "example": "broadcastId"
           },
           "metadata_value": {
-            "description": "Filter results for messages that include a metadata key containing this value. If this parameter is provided, the metadata_key parameter must also be provided. Cannot be used together with metadata_values.",
+            "description": "Filter results for messages that include a metadata key containing this value. If this parameter is provided, the metadata_key parameter must also be provided.",
             "type": "string",
             "example": "ABC"
-          },
-          "metadata_values": {
-            "description": "Filter results for messages that include a metadata key containing these values. Must be used together with metadata_key. Cannot be used together with metadata_value.",
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "example": [
-              "meta1",
-              "meta2"
-            ]
           },
           "accounts": {
             "description": "Filter results by a specific account. By default results will be returned for the account associated with the authentication credentials and all sub-accounts.",
@@ -8218,53 +7938,20 @@
             "type": "string",
             "example": "+61555555555"
           },
-          "sources": {
-            "description": "Filter results by multiple source addresses. This property overrides the `source` parameter.",
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "example": [
-              "+61555555555",
-              "+614987654321"
-            ]
-          },
           "destination": {
             "description": "Filter results by destination address.",
             "type": "string",
             "example": "+61555555555"
           },
-          "destinations": {
-            "description": "Filter results by multiple destination addresses. This property overrides the `destination` parameter.",
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "example": [
-              "+61555555555",
-              "+614987654321"
-            ]
-          },
           "metadata_key": {
-            "description": "Filter results for messages that include a metadata key. Can be used independently for searching.",
+            "description": "Filter results for messages that include a metadata key.",
             "type": "string",
             "example": "broadcastId"
           },
           "metadata_value": {
-            "description": "Filter results for messages that include a metadata key containing this value. If this parameter is provided, the metadata_key parameter must also be provided. Cannot be used together with metadata_values.",
+            "description": "Filter results for messages that include a metadata key containing this value. If this parameter is provided, the metadata_key parameter must also be provided.",
             "type": "string",
             "example": "ABC"
-          },
-          "metadata_values": {
-            "description": "Filter results for messages that include a metadata key containing these values. Must be used together with metadata_key. Cannot be used together with metadata_value.",
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "example": [
-              "meta1",
-              "meta2"
-            ]
           },
           "accounts": {
             "description": "Filter results by a specific account. By default results will be returned for the account associated with the authentication credentials and all sub-accounts.",
@@ -8412,138 +8099,6 @@
               ]
             },
             "description": "An array of fields to be retrieved."
-          }
-        }
-      },
-      "reporthistoryresponses": {
-        "title": "reporthistoryresponses",
-        "type": "object",
-        "properties": {
-          "items": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/reporthistoryresponse"
-            },
-            "description": "A list of report history items."
-          },
-          "next_page_token": {
-            "type": "string",
-            "description": "A token to retrieve the next page of results. Absent if there are no more pages.",
-            "example": "eyJyZXBvcnRJZCI6IjUxZjAwOTdmLTkwYjItNGE1OS1hZDg4LWEwZmQ5M2FiYWE4MiJ9"
-          }
-        }
-      },
-      "reporthistoryresponse": {
-        "title": "reporthistoryresponse",
-        "type": "object",
-        "properties": {
-          "report_id": {
-            "type": "string",
-            "format": "uuid",
-            "description": "Unique identifier for the report.",
-            "example": "51f0097f-90b2-4a59-ad88-a0fd93abaa82"
-          },
-          "report_name": {
-            "type": "string",
-            "description": "The name of the report.",
-            "example": "My Detail Report"
-          },
-          "report_type": {
-            "type": "string",
-            "description": "The type of the report.",
-            "enum": [
-              "DETAIL",
-              "SUMMARY"
-            ],
-            "example": "DETAIL"
-          },
-          "direction": {
-            "type": "string",
-            "description": "The message direction the report covers.",
-            "enum": [
-              "INBOUND",
-              "OUTBOUND",
-              "ALL"
-            ],
-            "example": "OUTBOUND"
-          },
-          "requested_by": {
-            "type": "string",
-            "description": "The UUID of the user who requested the report.",
-            "example": "MyAccount"
-          },
-          "requested_at": {
-            "type": "string",
-            "format": "date-time",
-            "description": "The date and time when the report was requested (ISO 8601).",
-            "example": "2020-06-01T10:00:00.000Z"
-          },
-          "updated_at": {
-            "type": "string",
-            "format": "date-time",
-            "description": "The date and time when the report was last updated (ISO 8601).",
-            "example": "2020-06-01T10:05:00.000Z"
-          },
-          "status": {
-            "type": "string",
-            "description": "The current status of the report.",
-            "enum": [
-              "REQUESTED",
-              "RUNNING",
-              "FAILED",
-              "CANCELLED",
-              "DONE"
-            ],
-            "example": "DONE"
-          },
-          "account_id": {
-            "type": "string",
-            "description": "The account ID associated with the report.",
-            "example": "MyAccount"
-          },
-          "vendor_id": {
-            "type": "string",
-            "description": "The vendor ID associated with the report.",
-            "example": "messagemedia"
-          },
-          "s3_file_size": {
-            "type": "integer",
-            "format": "int64",
-            "description": "The size of the report file in bytes.",
-            "example": 204800
-          }
-        }
-      },
-      "presignedurlresponse": {
-        "title": "presignedurlresponse",
-        "type": "object",
-        "properties": {
-          "download_url": {
-            "type": "string",
-            "description": "The pre-signed URL for downloading the report file.",
-            "example": "https://s3.amazonaws.com/reports/51f0097f.csv?AWSAccessKeyId=EXAMPLE"
-          },
-          "file_name": {
-            "type": "string",
-            "description": "The filename of the report CSV.",
-            "example": "report-51f0097f-90b2-4a59-ad88-a0fd93abaa82.csv"
-          },
-          "file_size": {
-            "type": "integer",
-            "format": "int64",
-            "description": "The size of the report file in bytes.",
-            "example": 204800
-          },
-          "expires_in_seconds": {
-            "type": "integer",
-            "description": "The number of seconds until the pre-signed URL expires.",
-            "example": 3600
-          },
-          "expires_at": {
-            "type": "integer",
-            "format": "int64",
-            "description": "Unix timestamp (seconds) when the pre-signed URL expires.",
-            "example": 1622555046
           }
         }
       },
@@ -8752,7 +8307,6 @@
               "date_received": "2017-05-20T06:30:37.642Z",
               "status": "enroute",
               "delay": 0,
-              "billing_units": 1,
               "submitted_date": "2017-05-20T06:30:37.639Z",
               "original_text": "My first message!",
               "message_id": "d781dcab-d9d8-4fb2-9e03-872f07ae94ba",
@@ -8772,7 +8326,6 @@
               "date_received": "2017-05-21T01:46:42.579Z",
               "status": "submitted",
               "delay": 0,
-              "billing_units": 1,
               "submitted_date": "2017-05-21T01:46:42.574Z",
               "original_text": "My second message!",
               "message_id": "fbb3b3f5-b702-4d8b-ab44-65b2ee39a281",
@@ -9895,11 +9448,6 @@
             "type": "number",
             "description": "The amount of messages received",
             "example": 1
-          },
-          "billing_category": {
-            "type": "string",
-            "description": "The billing category applied to this RCS message (e.g. RCS_BASIC, RCS_SINGLE, RCS_RICH, RCS_RICH_MEDIA). Supported from 5/Feb/2026. This field is only available for RCS messages and only for messages sent on or after this date.",
-            "example": "RCS_BASIC"
           },
           "message_type": {
             "$ref": "#/components/schemas/RichMessageType"
@@ -13237,8 +12785,7 @@
             "items": {
               "type": "string",
               "description": "List of contacts to add to the list in UUID format",
-              "format": "uuid",
-              "example": "025e93d3-051b-43f9-b12e-4b5842228dee"
+              "format": "uuid"
             }
           },
           "contactsToRemoveIds": {
@@ -13248,8 +12795,7 @@
             "items": {
               "type": "string",
               "description": "List of contacts to remove from the list in UUID format",
-              "format": "uuid",
-              "example": "025e93d3-051b-43f9-b12e-4b5842228dee"
+              "format": "uuid"
             }
           }
         },
@@ -13367,7 +12913,7 @@
             "type": "array",
             "description": "Contact custom fields",
             "items": {
-              "$ref": "#/components/schemas/CreateCustomFieldRequest"
+              "$ref": "#/components/schemas/UpdateCustomFieldRequest"
             }
           }
         },
@@ -13391,8 +12937,7 @@
             "type": "array",
             "items": {
               "type": "string",
-              "format": "uuid",
-              "example": "025e93d3-051b-43f9-b12e-4b5842228dee"
+              "format": "uuid"
             }
           },
           "alias": {
@@ -13453,8 +12998,7 @@
             "type": "array",
             "items": {
               "type": "string",
-              "format": "uuid",
-              "example": "025e93d3-051b-43f9-b12e-4b5842228dee"
+              "format": "uuid"
             }
           },
           "label": {
@@ -13515,23 +13059,20 @@
             "type": "array",
             "items": {
               "type": "string",
-              "format": "uuid",
-              "example": "025e93d3-051b-43f9-b12e-4b5842228dee"
+              "format": "uuid"
             }
           },
           "contactIds": {
             "type": "array",
             "items": {
               "type": "string",
-              "format": "uuid",
-              "example": "025e93d3-051b-43f9-b12e-4b5842228dee"
+              "format": "uuid"
             }
           },
           "channelIds": {
             "type": "array",
             "items": {
-              "type": "string",
-              "example": "+15553456783"
+              "type": "string"
             }
           },
           "channelTypes": {
@@ -13554,6 +13095,10 @@
               "SUBSCRIBED",
               "UNSUBSCRIBED"
             ]
+          },
+          "query": {
+            "type": "string",
+            "example": "john"
           }
         },
         "description": "Get contacts page filter payload"
@@ -13851,11 +13396,6 @@
         "type": "apiKey",
         "in": "header",
         "name": "Authorization"
-      },
-      "bearer_auth": {
-        "type": "http",
-        "scheme": "bearer",
-        "bearerFormat": "JWT"
       }
     }
   }

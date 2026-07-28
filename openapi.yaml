@@ -305,7 +305,6 @@ tags:
         "date_received":"2016-11-03T11:49:02.807Z",
         "status":"delivered",
         "delay":0,
-        "billing_units":1,
         "submitted_date":"2016-11-03T11:49:01.551Z",
         "original_text":"Hello world!",
         "message_id":"389dc1a8-62a4-4110-ba61-af94806c006f",
@@ -346,8 +345,6 @@ tags:
         * `failed`: The message has failed. Reasons may include no active routes to destination or undeliverable by downstream provider.
 
       * **Delay**: _Deprecated, no longer in use_
-
-      * **Billing Units**: The number of billing units charged for the message.
 
       * **Submitted Date**: Date time status of the message changed in UTC. For a delivered DR this may indicate the time at which the message was received on the handset.
 
@@ -455,6 +452,8 @@ tags:
       for managing key used to sign each unique request to ensure security 
       and the requests can't (easily) be spoofed. This is similar to using 
       HMAC in your outbound messaging (rather than HTTP Basic).
+
+      *Note: This API is only available in the APAC region.*
 
       The Signature Key API provides seven main endpoints:
       - ```Create signature key``` Create a new signature key for signature verification in callbacks.
@@ -791,134 +790,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/fieldsresponse'
-  /v2-preview/reporting/messages/async/reports:
-    get:
-      security:
-        - basic_auth: []
-        - hmac_auth: []
-        - bearer_auth: []
-      tags:
-        - Messaging Reports
-      summary: Get async report history
-      description: Returns a list of asynchronous reports that have been requested by the current account.
-      operationId: GetAsyncReportHistory
-      parameters:
-        - name: page_size
-          in: query
-          description: The number of items to return per page.
-          required: false
-          style: form
-          explode: true
-          schema:
-            type: integer
-            example: 10
-        - name: page_token
-          in: query
-          description: A pagination token returned from a previous call. Pass this to retrieve the next page of results.
-          required: false
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: eyJyZXBvcnRJZCI6IjUxZjAwOTdmLTkwYjItNGE1OS1hZDg4LWEwZmQ5M2FiYWE4MiJ9
-        - name: report_name
-          in: query
-          description: Filter results by report name.
-          required: false
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: My Detail Report
-        - name: status
-          in: query
-          description: Filter results by report status. Multiple statuses can be specified.
-          required: false
-          style: form
-          explode: true
-          schema:
-            type: array
-            items:
-              type: string
-              enum:
-                - REQUESTED
-                - RUNNING
-                - FAILED
-                - CANCELLED
-                - DONE
-        - name: start_date
-          in: query
-          description: Filter reports requested on or after this date (ISO 8601).
-          required: false
-          style: form
-          explode: true
-          schema:
-            type: string
-            format: date-time
-            example: 2020-05-28T10:27:46.259Z
-        - name: end_date
-          in: query
-          description: Filter reports requested on or before this date (ISO 8601).
-          required: false
-          style: form
-          explode: true
-          schema:
-            type: string
-            format: date-time
-            example: 2020-06-28T10:27:46.259Z
-        - name: sort_direction
-          in: query
-          description: Sort direction for the results.
-          required: false
-          style: form
-          explode: true
-          schema:
-            type: string
-            enum:
-              - ASCENDING
-              - DESCENDING
-            example: DESCENDING
-      responses:
-        '200':
-          description: A list of async reports for the current account.
-          headers: {}
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/reporthistoryresponses'
-      deprecated: false
-  '/v2-preview/reporting/messages/async/reports/{reportId}/download-url':
-    get:
-      security:
-        - basic_auth: []
-        - hmac_auth: []
-        - bearer_auth: []
-      tags:
-        - Messaging Reports
-      summary: Get async report download URL
-      description: Returns a temporary pre-signed URL for downloading the generated report. The URL allows customers to securely download the report file directly using the provided reportId.
-      operationId: GetAsyncReportDownloadUrl
-      parameters:
-        - name: reportId
-          in: path
-          description: The ID of the report to download.
-          required: true
-          style: simple
-          schema:
-            type: string
-            format: uuid
-            example: 51f0097f-90b2-4a59-ad88-a0fd93abaa82
-      responses:
-        '200':
-          description: A pre-signed URL for downloading the report.
-          headers: {}
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/presignedurlresponse'
-        '404':
-          description: Report not found.
-      deprecated: false
   /v2-preview/reporting/detail/scheduled:
     post:
       security:
@@ -1200,7 +1071,7 @@ paths:
                 $ref: '#/components/schemas/404response'
       deprecated: false
       x-code-samples:
-        - lang: C#
+        - lang: 'C#'
           source: |-
             string messageId = "messageId2";
 
@@ -1319,7 +1190,7 @@ paths:
                 $ref: '#/components/schemas/404response'
       deprecated: false
       x-code-samples:
-        - lang: C#
+        - lang: 'C#'
           source: |-
             string messageId = "messageId2";
             CancelScheduledMessageRequest body = new CancelScheduledMessageRequest();
@@ -1428,8 +1299,7 @@ paths:
         - ```destination_number``` The destination number the message should be
         delivered to. This should be specified in E.164
           international format. For information on E.164, please refer to http://en.wikipedia.org/wiki/E.164.
-          A destination number is required.  
-        ⚠️ IMDA TLS Compliance Notice: From 1 April 2026, all requests sending messages to Singapore (+65) numbers must use TLS 1.3 or higher. Requests using an older TLS version will be rejected with HTTP 422 Unprocessable Entity.
+          A destination number is required.
 
         - ```format``` The format specifies which format the message will be
         sent as, ```SMS``` (text message), ```MMS``` (multimedia message)
@@ -1559,7 +1429,7 @@ paths:
                 $ref: '#/components/schemas/403response'
       deprecated: false
       x-code-samples:
-        - lang: C#
+        - lang: 'C#'
           source: |-
             SendMessagesRequest body = new SendMessagesRequest();
             body.Messages = new List<Message>();
@@ -1808,7 +1678,7 @@ paths:
         ### Sender ID is an Alpha Tag
         The following parameters are used when registering an alpha tag as a Sender ID:
           - ```sender_address:``` **(Required)**. The alphanumeric string that you wish register as an alpha tag. This parameter is case insensitive. If this alpha tag already exists on your account, you will receive a conflict error message.
-          - ```destination_countries:``` **(Required)**. The countries that you wish to register the alpha tag for use in, in two-character ISO 3166 format. Currently AD, AI, AL, AS, AT, AW, BA, BB, BH, BW, CD, CH, CK, CY, DE, DJ, DK, DM, EE, ES, FI, FJ, FM, FO, FR, GB, GD, GG, GI, GL, GM, GQ, GR, GY, IL, IM, IS, JE, JM, JP, KI, KY, LA, LI, LS, LT, LU, LV, MC, ME, MH, MO, MR, MS, MT, MV, NC, NF, NL, NO, NR, NU, PF, PM, PT, SB, SC, SE, SH, SL, SM, ST, TC, TD, TO, VC, VG and WS are supported.
+          - ```destination_countries:``` **(Required)**. The countries that you wish to register the alpha tag for use in, in two-character ISO 3166 format. Currently AD, AI, AL, AS, AT, AU, AW, BA, BB, BH, BW, CD, CH, CK, CY, DE, DJ, DK, DM, EE, ES, FI, FJ, FM, FO, FR, GB, GD, GG, GI, GL, GM, GQ, GR, GY, IL, IM, IS, JE, JM, JP, KI, KY, LA, LI, LS, LT, LU, LV, MC, ME, MH, MO, MR, MS, MT, MV, NC, NF, NL, NO, NR, NU, PF, PM, PT, SB, SC, SE, SH, SL, SM, ST, TC, TD, TO, VC, VG and WS are supported.
           - ```sender_address_type:``` **(Required)**. For alpha tags this is always ALPHANUMERIC
           - ```usage_type:``` **(Required)**. For alpha tags this is always ALPHANUMERIC
           - ```label:``` **(Optional)**. A reference name for the sender ID to allow you to easily track it.
@@ -2434,7 +2304,7 @@ paths:
                     "date_received": "2017-05-20T06:30:37.642Z",
                     "status": "enroute",
                     "delay": 0,
-                    "billing_units": 1,
+                    "billing_units": 0,
                     "submitted_date": "2017-05-20T06:30:37.639Z",
                     "original_text": "My first message!",
                     "message_id": "d781dcab-d9d8-4fb2-9e03-872f07ae94ba",
@@ -2454,7 +2324,7 @@ paths:
                     "date_received": "2017-05-21T01:46:42.579Z",
                     "status": "enroute",
                     "delay": 0,
-                    "billing_units": 1,
+                    "billing_units": 0,
                     "submitted_date": "2017-05-21T01:46:42.574Z",
                     "original_text": "My second message!",
                     "message_id": "fbb3b3f5-b702-4d8b-ab44-65b2ee39a281",
@@ -2541,7 +2411,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/404response'
       x-code-samples:
-        - lang: C#
+        - lang: 'C#'
           source: ''
         - lang: Java
           source: |-
@@ -2638,7 +2508,7 @@ paths:
                 $ref: '#/components/schemas/404response'
       deprecated: false
       x-code-samples:
-        - lang: C#
+        - lang: 'C#'
           source: ''
         - lang: Java
           source: |-
@@ -2809,7 +2679,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/404response'
       x-code-samples:
-        - lang: C#
+        - lang: 'C#'
           source: ''
         - lang: Java
           source: |-
@@ -2905,7 +2775,7 @@ paths:
                 $ref: '#/components/schemas/404response'
       deprecated: false
       x-code-samples:
-        - lang: C#
+        - lang: 'C#'
           source: ''
         - lang: Java
           source: |-
@@ -2974,7 +2844,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/403response'
       x-code-samples:
-        - lang: C#
+        - lang: 'C#'
           source: ''
         - lang: Java
           source: ''
@@ -3024,7 +2894,7 @@ paths:
                   - 61491570157
       deprecated: false
       x-code-samples:
-        - lang: C#
+        - lang: 'C#'
           source: ''
         - lang: Java
           source: ''
@@ -3070,7 +2940,7 @@ paths:
           description: ''
       deprecated: false
       x-code-samples:
-        - lang: C#
+        - lang: 'C#'
           source: ''
         - lang: Java
           source: ''
@@ -3122,7 +2992,7 @@ paths:
                     authorised: false
       deprecated: false
       x-code-samples:
-        - lang: C#
+        - lang: 'C#'
           source: ''
         - lang: Java
           source: ''
@@ -3216,7 +3086,7 @@ paths:
                 message: Invalid authentication credentials
       deprecated: false
       x-code-samples:
-        - lang: C#
+        - lang: 'C#'
           source: ''
         - lang: Java
           source: ''
@@ -3292,7 +3162,7 @@ paths:
                 message: Not found
       deprecated: false
       x-code-samples:
-        - lang: C#
+        - lang: 'C#'
           source: ''
         - lang: Java
           source: ''
@@ -3363,7 +3233,7 @@ paths:
                 message: Not found
       deprecated: false
       x-code-samples:
-        - lang: C#
+        - lang: 'C#'
           source: ''
         - lang: Java
           source: ''
@@ -3450,7 +3320,7 @@ paths:
                 message: Not found
       deprecated: false
       x-code-samples:
-        - lang: C#
+        - lang: 'C#'
           source: ''
         - lang: Java
           source: ''
@@ -3508,7 +3378,7 @@ paths:
                 message: Invalid authentication credentials
       deprecated: false
       x-code-samples:
-        - lang: C#
+        - lang: 'C#'
           source: ''
         - lang: Java
           source: ''
@@ -3579,7 +3449,7 @@ paths:
                 message: Invalid authentication credentials
       deprecated: false
       x-code-samples:
-        - lang: C#
+        - lang: 'C#'
           source: ''
         - lang: Java
           source: ''
@@ -3741,7 +3611,7 @@ paths:
                 message: Invalid authentication credentials
       deprecated: false
       x-code-samples:
-        - lang: C#
+        - lang: 'C#'
           source: ''
         - lang: Java
           source: ''
@@ -3841,7 +3711,7 @@ paths:
           description: System Error
       deprecated: false
       x-code-samples:
-        - lang: C#
+        - lang: 'C#'
           source: ''
         - lang: Java
           source: ''
@@ -3923,7 +3793,7 @@ paths:
           description: System Error
       deprecated: false
       x-code-samples:
-        - lang: C#
+        - lang: 'C#'
           source: ''
         - lang: Java
           source: ''
@@ -4008,7 +3878,7 @@ paths:
                 message: Something went wrong. Please try again later.
       deprecated: false
       x-code-samples:
-        - lang: C#
+        - lang: 'C#'
           source: ''
         - lang: Java
           source: ''
@@ -4116,33 +3986,6 @@ paths:
         | **Reply Content**| $moContent, $replyContent, $esc.json($!moContent) *- when used in `JSON` encoded `template`*| `Hello Derpina` | `MO` `MO MMS` |
         | **Retry Count**| $retryCount| `1` | `DR` `MO` `MO MMS` |
         | **Billing Unit**| $billingUnits| `1` | `DR` |
-        | **Attachments**| $attachments, refer to example below on how to use in `JSON` encoded `template`| <code>[<br>  {<br>    "content_type": "image/png",<br>    "content": "...",<br>    "original_name": "file.png"<br>  }<br>]</code> | `MO MMS` |
-
-        #### Example Webhook Request with Templates
-
-        ##### MO / MO MMS
-
-        ```
-        {
-          "url": "http://webhook.com",
-          "method": "POST",
-          "encoding": "JSON",
-          "events": ["RECEIVED_MMS"],
-          "template": "{  \"account_id\": \"$accountId\",  \"reply_id\": \"$replyId\",  \"destination_number\": \"$destinationAddress\",  \"source_number\": \"$sourceAddress\",  \"date_received\": \"$receivedTimestamp\",  \"message_id\": \"$messageId\",  #if ($attachments)  \"attachments\": [   #foreach ($entry in $attachments)    {      \"content_type\": \"$entry.contentType\",      \"content\": \"$entry.base64\",      \"original_name\": \"$entry.originalName\"    }#if( $foreach.hasNext ),#end    #end  ],  #else  \"content\": \"$esc.json($moContent)\",  #end  \"metadata\": {    #foreach ($entry in $metadata.entrySet())    \"$entry.key\": \"$entry.value\"#if( $foreach.hasNext ),#end    #end  }}"
-        }
-        ```
-
-        ##### DR (Delivery Report)
-
-        ```
-        {
-          "url": "http://webhook.com",
-          "method": "POST",
-          "encoding": "JSON",
-          "events": ["DELIVERED_DR"],
-          "template": "{  \"delivery_report_id\": \"$drId\",  \"source_number\": \"$sourceAddress\",  \"date_received\": \"$receivedTimestamp\",  \"status\": \"$status\",  \"delay\": \"0\",  \"submitted_date\": \"$submittedTimestamp\",  \"message_id\": \"$messageId\",  \"original_text\": \"$esc.json($!mtContent)\",  \"vendor_account_id\": {    \"vendor_id\": \"$vendorId\",    \"account_id\": \"$accountId\"  },  \"error_code\": \"$statusCode\",  \"metadata\": {    #foreach($key in $metadata.keySet())    \"$key\": \"$esc.json($metadata.get($key))\"#if( $velocityHasNext ),#end    #end  }}"
-        }
-        ```
 
          #### Message Statuses
 
@@ -4237,7 +4080,7 @@ paths:
                 message: A webhook with the given url and method already exists.
       deprecated: false
       x-code-samples:
-        - lang: C#
+        - lang: 'C#'
           source: ''
         - lang: Java
           source: ''
@@ -4283,7 +4126,7 @@ paths:
           description: ''
       deprecated: false
       x-code-samples:
-        - lang: C#
+        - lang: 'C#'
           source: ''
         - lang: Java
           source: ''
@@ -4368,7 +4211,7 @@ paths:
           description: ''
       deprecated: false
       x-code-samples:
-        - lang: C#
+        - lang: 'C#'
           source: ''
         - lang: Java
           source: ''
@@ -4457,7 +4300,7 @@ paths:
                 message: This feature has not been enabled in your account.
       deprecated: false
       x-code-samples:
-        - lang: C#
+        - lang: 'C#'
           source: ''
         - lang: Java
           source: ''
@@ -4576,7 +4419,7 @@ paths:
                 message: This feature has not been enabled in your account.
       deprecated: false
       x-code-samples:
-        - lang: C#
+        - lang: 'C#'
           source: ''
         - lang: Java
           source: ''
@@ -4660,7 +4503,7 @@ paths:
                 message: Entity not found
       deprecated: false
       x-code-samples:
-        - lang: C#
+        - lang: 'C#'
           source: ''
         - lang: Java
           source: ''
@@ -4713,7 +4556,7 @@ paths:
                 message: Entity not found
       deprecated: false
       x-code-samples:
-        - lang: C#
+        - lang: 'C#'
           source: ''
         - lang: Java
           source: ''
@@ -4816,7 +4659,7 @@ paths:
                 message: Entity not found
       deprecated: false
       x-code-samples:
-        - lang: C#
+        - lang: 'C#'
           source: ''
         - lang: Java
           source: ''
@@ -4881,7 +4724,7 @@ paths:
                 message: Currently no key is enabled
       deprecated: false
       x-code-samples:
-        - lang: C#
+        - lang: 'C#'
           source: ''
         - lang: Java
           source: ''
@@ -4918,7 +4761,7 @@ paths:
                 message: This feature has not been enabled in your account.
       deprecated: false
       x-code-samples:
-        - lang: C#
+        - lang: 'C#'
           source: ''
         - lang: Java
           source: ''
@@ -5677,7 +5520,6 @@ paths:
           schema:
             type: string
             format: uuid
-            example: 3fa85f64-5717-4562-b3fc-2c963f66afa6
       responses:
         '200':
           description: Returns a single contact
@@ -5721,7 +5563,6 @@ paths:
           schema:
             type: string
             format: uuid
-            example: 3fa85f64-5717-4562-b3fc-2c963f66afa6
       responses:
         '204':
           description: Contact is deleted
@@ -5761,7 +5602,6 @@ paths:
           schema:
             type: string
             format: uuid
-            example: 3fa85f64-5717-4562-b3fc-2c963f66afa6
       requestBody:
         content:
           application/json:
@@ -5935,7 +5775,6 @@ paths:
           schema:
             type: string
             format: uuid
-            example: 025e93d3-051b-43f9-b12e-4b5842228dee
       responses:
         '204':
           description: Contact list is deleted
@@ -5975,7 +5814,7 @@ paths:
           schema:
             type: string
             format: uuid
-            example: 025e93d3-051b-43f9-b12e-4b5842228dee
+          example: 025e93d3-051b-43f9-b12e-4b5842228dee
       requestBody:
         content:
           application/json:
@@ -6026,7 +5865,7 @@ paths:
           schema:
             type: string
             format: uuid
-            example: 025e93d3-051b-43f9-b12e-4b5842228dee
+          example: 025e93d3-051b-43f9-b12e-4b5842228dee
       requestBody:
         content:
           application/json:
@@ -6075,7 +5914,7 @@ paths:
           schema:
             type: string
             format: uuid
-            example: 025e93d3-051b-43f9-b12e-4b5842228dee
+          example: 025e93d3-051b-43f9-b12e-4b5842228dee
         - name: contactId
           in: path
           description: Contact id to remove in UUID format
@@ -6083,7 +5922,7 @@ paths:
           schema:
             type: string
             format: uuid
-            example: 4a03d2d8-1f85-463f-bdb4-2891c17258a7
+          example: 4a03d2d8-1f85-463f-bdb4-2891c17258a7
       responses:
         '200':
           description: Contacts have been added
@@ -6131,7 +5970,7 @@ paths:
           schema:
             type: string
             format: uuid
-            example: 025e93d3-051b-43f9-b12e-4b5842228dee
+          example: 025e93d3-051b-43f9-b12e-4b5842228dee
         - name: contactId
           in: path
           description: Contact id to add in UUID format
@@ -6139,7 +5978,7 @@ paths:
           schema:
             type: string
             format: uuid
-            example: 4a03d2d8-1f85-463f-bdb4-2891c17258a7
+          example: 4a03d2d8-1f85-463f-bdb4-2891c17258a7
       responses:
         '204':
           description: No Content
@@ -6769,14 +6608,6 @@ components:
           description: Filter results by source address.
           type: string
           example: '+61555555555'
-        sources:
-          description: Filter results by multiple source addresses. This property overrides the `source` parameter.
-          type: array
-          items:
-            type: string
-          example:
-            - '+61555555555'
-            - '+614987654321'
         destination:
           description: Filter results by destination address.
           type: string
@@ -6876,50 +6707,18 @@ components:
           description: Filter results by source address.
           type: string
           example: '+61555555555'
-        sources:
-          description: Filter results by multiple source addresses. This property overrides the `source` parameter.
-          type: array
-          items:
-            type: string
-          example:
-            - '+61555555555'
-            - '+614987654321'
         destination:
           description: Filter results by destination address.
           type: string
           example: '+61555555555'
-        destinations:
-          description: Filter results by multiple destination addresses. This property overrides the `destination` parameter.
-          type: array
-          items:
-            type: string
-          example:
-            - '+61555555555'
-            - '+614987654321'
-        addresses:
-          description: 'Filter messages where source OR destination matches one of the provided values. This parameter can only be set when "direction" is "all" and cannot be used in the same request as the "source", "destination", "sources", or "destinations" parameters.'
-          type: array
-          items:
-            type: string
-          example:
-            - '+61400000001'
-            - '+61400000002'
         metadata_key:
-          description: Filter results for messages that include a metadata key. Can be used independently for searching.
+          description: Filter results for messages that include a metadata key.
           type: string
           example: broadcastId
         metadata_value:
-          description: 'Filter results for messages that include a metadata key containing this value. If this parameter is provided, the metadata_key parameter must also be provided. Cannot be used together with metadata_values.'
+          description: 'Filter results for messages that include a metadata key containing this value. If this parameter is provided, the metadata_key parameter must also be provided.'
           type: string
           example: ABC
-        metadata_values:
-          description: Filter results for messages that include a metadata key containing these values. Must be used together with metadata_key. Cannot be used together with metadata_value.
-          type: array
-          items:
-            type: string
-          example:
-            - meta1
-            - meta2
         accounts:
           description: Filter results by a specific account. By default results will be returned for the account associated with the authentication credentials and all sub-accounts.
           type: array
@@ -6973,42 +6772,18 @@ components:
           description: Filter results by source address.
           type: string
           example: '+61555555555'
-        sources:
-          description: Filter results by multiple source addresses. This property overrides the `source` parameter.
-          type: array
-          items:
-            type: string
-          example:
-            - '+61555555555'
-            - '+614987654321'
         destination:
           description: Filter results by destination address.
           type: string
           example: '+61555555555'
-        destinations:
-          description: Filter results by multiple destination addresses. This property overrides the `destination` parameter.
-          type: array
-          items:
-            type: string
-          example:
-            - '+61555555555'
-            - '+614987654321'
         metadata_key:
-          description: Filter results for messages that include a metadata key. Can be used independently for searching.
+          description: Filter results for messages that include a metadata key.
           type: string
           example: broadcastId
         metadata_value:
-          description: 'Filter results for messages that include a metadata key containing this value. If this parameter is provided, the metadata_key parameter must also be provided. Cannot be used together with metadata_values.'
+          description: 'Filter results for messages that include a metadata key containing this value. If this parameter is provided, the metadata_key parameter must also be provided.'
           type: string
           example: ABC
-        metadata_values:
-          description: Filter results for messages that include a metadata key containing these values. Must be used together with metadata_key. Cannot be used together with metadata_value.
-          type: array
-          items:
-            type: string
-          example:
-            - meta1
-            - meta2
         accounts:
           description: Filter results by a specific account. By default results will be returned for the account associated with the authentication credentials and all sub-accounts.
           type: array
@@ -7080,42 +6855,18 @@ components:
           description: Filter results by source address.
           type: string
           example: '+61555555555'
-        sources:
-          description: Filter results by multiple source addresses. This property overrides the `source` parameter.
-          type: array
-          items:
-            type: string
-          example:
-            - '+61555555555'
-            - '+614987654321'
         destination:
           description: Filter results by destination address.
           type: string
           example: '+61555555555'
-        destinations:
-          description: Filter results by multiple destination addresses. This property overrides the `destination` parameter.
-          type: array
-          items:
-            type: string
-          example:
-            - '+61555555555'
-            - '+614987654321'
         metadata_key:
-          description: Filter results for messages that include a metadata key. Can be used independently for searching.
+          description: Filter results for messages that include a metadata key.
           type: string
           example: broadcastId
         metadata_value:
-          description: 'Filter results for messages that include a metadata key containing this value. If this parameter is provided, the metadata_key parameter must also be provided. Cannot be used together with metadata_values.'
+          description: 'Filter results for messages that include a metadata key containing this value. If this parameter is provided, the metadata_key parameter must also be provided.'
           type: string
           example: ABC
-        metadata_values:
-          description: Filter results for messages that include a metadata key containing these values. Must be used together with metadata_key. Cannot be used together with metadata_value.
-          type: array
-          items:
-            type: string
-          example:
-            - meta1
-            - meta2
         accounts:
           description: Filter results by a specific account. By default results will be returned for the account associated with the authentication credentials and all sub-accounts.
           type: array
@@ -7226,110 +6977,6 @@ components:
               - content
               - meta1
           description: An array of fields to be retrieved.
-    reporthistoryresponses:
-      title: reporthistoryresponses
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/reporthistoryresponse'
-          description: A list of report history items.
-        next_page_token:
-          type: string
-          description: A token to retrieve the next page of results. Absent if there are no more pages.
-          example: eyJyZXBvcnRJZCI6IjUxZjAwOTdmLTkwYjItNGE1OS1hZDg4LWEwZmQ5M2FiYWE4MiJ9
-    reporthistoryresponse:
-      title: reporthistoryresponse
-      type: object
-      properties:
-        report_id:
-          type: string
-          format: uuid
-          description: Unique identifier for the report.
-          example: 51f0097f-90b2-4a59-ad88-a0fd93abaa82
-        report_name:
-          type: string
-          description: The name of the report.
-          example: My Detail Report
-        report_type:
-          type: string
-          description: The type of the report.
-          enum:
-            - DETAIL
-            - SUMMARY
-          example: DETAIL
-        direction:
-          type: string
-          description: The message direction the report covers.
-          enum:
-            - INBOUND
-            - OUTBOUND
-            - ALL
-          example: OUTBOUND
-        requested_by:
-          type: string
-          description: The UUID of the user who requested the report.
-          example: MyAccount
-        requested_at:
-          type: string
-          format: date-time
-          description: The date and time when the report was requested (ISO 8601).
-          example: 2020-06-01T10:00:00.000Z
-        updated_at:
-          type: string
-          format: date-time
-          description: The date and time when the report was last updated (ISO 8601).
-          example: 2020-06-01T10:05:00.000Z
-        status:
-          type: string
-          description: The current status of the report.
-          enum:
-            - REQUESTED
-            - RUNNING
-            - FAILED
-            - CANCELLED
-            - DONE
-          example: DONE
-        account_id:
-          type: string
-          description: The account ID associated with the report.
-          example: MyAccount
-        vendor_id:
-          type: string
-          description: The vendor ID associated with the report.
-          example: messagemedia
-        s3_file_size:
-          type: integer
-          format: int64
-          description: The size of the report file in bytes.
-          example: 204800
-    presignedurlresponse:
-      title: presignedurlresponse
-      type: object
-      properties:
-        download_url:
-          type: string
-          description: The pre-signed URL for downloading the report file.
-          example: 'https://s3.amazonaws.com/reports/51f0097f.csv?AWSAccessKeyId=EXAMPLE'
-        file_name:
-          type: string
-          description: The filename of the report CSV.
-          example: report-51f0097f-90b2-4a59-ad88-a0fd93abaa82.csv
-        file_size:
-          type: integer
-          format: int64
-          description: The size of the report file in bytes.
-          example: 204800
-        expires_in_seconds:
-          type: integer
-          description: The number of seconds until the pre-signed URL expires.
-          example: 3600
-        expires_at:
-          type: integer
-          format: int64
-          description: Unix timestamp (seconds) when the pre-signed URL expires.
-          example: 1622555046
     detailresponse:
       title: detailresponse
       type: object
@@ -7485,7 +7132,6 @@ components:
             date_received: '2017-05-20T06:30:37.642Z'
             status: enroute
             delay: 0
-            billing_units: 1
             submitted_date: '2017-05-20T06:30:37.639Z'
             original_text: My first message!
             message_id: d781dcab-d9d8-4fb2-9e03-872f07ae94ba
@@ -7501,7 +7147,6 @@ components:
             date_received: '2017-05-21T01:46:42.579Z'
             status: submitted
             delay: 0
-            billing_units: 1
             submitted_date: '2017-05-21T01:46:42.574Z'
             original_text: My second message!
             message_id: fbb3b3f5-b702-4d8b-ab44-65b2ee39a281
@@ -8356,10 +8001,6 @@ components:
           type: number
           description: The amount of messages received
           example: 1
-        billing_category:
-          type: string
-          description: 'The billing category applied to this RCS message (e.g. RCS_BASIC, RCS_SINGLE, RCS_RICH, RCS_RICH_MEDIA). Supported from 5/Feb/2026. This field is only available for RCS messages and only for messages sent on or after this date.'
-          example: RCS_BASIC
         message_type:
           $ref: '#/components/schemas/RichMessageType'
         metadata:
@@ -10781,7 +10422,6 @@ components:
             type: string
             description: List of contacts to add to the list in UUID format
             format: uuid
-            example: 025e93d3-051b-43f9-b12e-4b5842228dee
         contactsToRemoveIds:
           maxItems: 1000
           minItems: 0
@@ -10790,7 +10430,6 @@ components:
             type: string
             description: List of contacts to remove from the list in UUID format
             format: uuid
-            example: 025e93d3-051b-43f9-b12e-4b5842228dee
       description: Contacts list update payload
     UpdateCustomFieldRequest:
       type: object
@@ -10880,7 +10519,7 @@ components:
           type: array
           description: Contact custom fields
           items:
-            $ref: '#/components/schemas/CreateCustomFieldRequest'
+            $ref: '#/components/schemas/UpdateCustomFieldRequest'
       description: Contact update payload
     GetListsRequest:
       type: object
@@ -10898,7 +10537,6 @@ components:
           items:
             type: string
             format: uuid
-            example: 025e93d3-051b-43f9-b12e-4b5842228dee
         alias:
           type: string
         name:
@@ -10943,7 +10581,6 @@ components:
           items:
             type: string
             format: uuid
-            example: 025e93d3-051b-43f9-b12e-4b5842228dee
         label:
           type: string
         mergeTag:
@@ -10988,18 +10625,15 @@ components:
           items:
             type: string
             format: uuid
-            example: 025e93d3-051b-43f9-b12e-4b5842228dee
         contactIds:
           type: array
           items:
             type: string
             format: uuid
-            example: 025e93d3-051b-43f9-b12e-4b5842228dee
         channelIds:
           type: array
           items:
             type: string
-            example: '+15553456783'
         channelTypes:
           type: array
           items:
@@ -11016,6 +10650,9 @@ components:
           enum:
             - SUBSCRIBED
             - UNSUBSCRIBED
+        query:
+          type: string
+          example: john
       description: Get contacts page filter payload
     PageTokenDtoContactData:
       required:
@@ -11233,7 +10870,3 @@ components:
       type: apiKey
       in: header
       name: Authorization
-    bearer_auth:
-      type: http
-      scheme: bearer
-      bearerFormat: JWT
