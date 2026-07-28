@@ -5,6 +5,9 @@
     "swagger-repo": "^2.0.0-rc.15"
   },
   "private": true,
+  "overrides": {
+    "gh-pages": "^6.1.1"
+  },
   "scripts": {
     "start": "swagger-repo serve",
     "build": "swagger-repo build -o web_deploy",
