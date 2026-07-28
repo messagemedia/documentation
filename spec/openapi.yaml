@@ -10224,30 +10224,41 @@ components:
       properties:
         nextPageToken:
           type: string
+          description: Pagination token to retrieve the next page
         prevPageToken:
           type: string
+          description: Pagination token to retrieve the previous page
         pageSize:
           maximum: 1000
+          description: Number of elements per page
           type: integer
           format: int32
+          example: 25
         listIds:
           type: array
+          description: List of contact list ids in UUID format
           items:
             type: string
             format: uuid
+            example: '025e93d3-051b-43f9-b12e-4b5842228dee'
         contactIds:
           type: array
+          description: List of contact ids in UUID format
           items:
             type: string
             format: uuid
+            example: '025e93d3-051b-43f9-b12e-4b5842228dee'
         channelIds:
           type: array
+          description: List of contact channel ids (in case phone number - in E164 international format)
           items:
             type: string
+            example: '+15553456783'
         channelTypes:
           type: array
           items:
             type: string
+            description: Contact channel type
             enum:
               - SMS
               - WHATSAPP
@@ -10257,9 +10268,14 @@ components:
               - EMAIL
         channelSubscriptionState:
           type: string
+          description: Channel subscription state
           enum:
             - SUBSCRIBED
             - UNSUBSCRIBED
+        query:
+          type: string
+          description: Free-text search across contact name, email, custom fields and channel identifiers.
+          example: Adam
       description: Get contacts page filter payload
     PageTokenDtoContactData:
       required:
