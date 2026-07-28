@@ -6067,20 +6067,7 @@ components:
         message_format:
           $ref: '#/components/schemas/format'
         channels:
-          description: Filter the report by one or more message channels.
-          type: array
-          items:
-            type: string
-            enum:
-              - SMS
-              - MMS
-              - TTS
-              - RCS
-              - WHATSAPP
-              - CHANNEL
-          example:
-            - SMS
-            - WHATSAPP
+          $ref: '#/components/schemas/channels'
         metadata_key:
           type: string
           example: broadcastId
@@ -6318,20 +6305,7 @@ components:
             - "+61400000001"
             - "+61400000002"
         channels:
-          description: Filter the report by one or more message channels.
-          type: array
-          items:
-            type: string
-            enum:
-              - SMS
-              - MMS
-              - TTS
-              - RCS
-              - WHATSAPP
-              - CHANNEL
-          example:
-            - SMS
-            - WHATSAPP
+          $ref: '#/components/schemas/channels'
         metadata_key:
           type: string
           example: broadcastId
@@ -6478,20 +6452,7 @@ components:
         message_format:
           $ref: '#/components/schemas/format'
         channels:
-          description: Filter the report by one or more message channels.
-          type: array
-          items:
-            type: string
-            enum:
-              - SMS
-              - MMS
-              - TTS
-              - RCS
-              - WHATSAPP
-              - CHANNEL
-          example:
-            - SMS
-            - WHATSAPP
+          $ref: '#/components/schemas/channels'
         page:
           description: Page number for paging through paginated result sets.
           type: number
@@ -6591,20 +6552,7 @@ components:
         message_format:
           $ref: '#/components/schemas/format'
         channels:
-          description: Filter the report by one or more message channels.
-          type: array
-          items:
-            type: string
-            enum:
-              - SMS
-              - MMS
-              - TTS
-              - RCS
-              - WHATSAPP
-              - CHANNEL
-          example:
-            - SMS
-            - WHATSAPP
+          $ref: '#/components/schemas/channels'
         fields:
           description: Can be used for async detail report to select the fields to export csv files
           type: array
@@ -6669,20 +6617,7 @@ components:
             - "+61400000001"
             - "+61400000002"
         channels:
-          description: Filter the report by one or more message channels.
-          type: array
-          items:
-            type: string
-            enum:
-              - SMS
-              - MMS
-              - TTS
-              - RCS
-              - WHATSAPP
-              - CHANNEL
-          example:
-            - SMS
-            - WHATSAPP
+          $ref: '#/components/schemas/channels'
         metadata_key:
           description: Filter results for messages that include a metadata key. Can be used independently for searching.
           type: string
@@ -10035,6 +9970,22 @@ components:
       example:
         - MMS
         - TTS
+    channels:
+      title: Channels
+      description: Filter the report by one or more channels.
+      type: array
+      items:
+        type: string
+        enum:
+          - SMS
+          - MMS
+          - TTS
+          - RCS
+          - WHATSAPP
+          - CHANNEL
+      example:
+        - SMS
+        - WHATSAPP
     GroupByField:
       title: GroupByField
       enum:
