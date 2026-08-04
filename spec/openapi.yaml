@@ -290,6 +290,19 @@ tags:
   - name: Source Address
     description: |
       The source address API provides several endpoints for you to request an SMS sender ID and track its approval status.
+
+      ### Sender address request vs sender address
+
+      This API uses two different resources, each with its own UUID:
+
+      | | Sender address **request** | Approved sender **address** |
+      |---|----------------------------|-----------------------------|
+      | What it is | Your registration / verification application | The approved sender ID on your account |
+      | Path | `/v1/messaging/numbers/sender_address/requests` | `/v1/messaging/numbers/sender_address/addresses` |
+      | `id` returned by | **Request a Sender Address** (`POST .../requests`) | **Get all approved sender addresses** (`GET .../addresses/`) |
+      | Use that `id` for | Get request status, submit a verification code | Get, update, re-verify, or **delete** the sender |
+
+      The request `id` and the address `id` are **not the same**. After a sender is approved, call **Get all approved sender addresses** to obtain the address `id` before deleting or managing it. Using the request `id` on address endpoints (for example delete) returns `404 Not found`.
       
       **What is Trusted Sender ID?**
 
@@ -337,9 +350,10 @@ tags:
         Personal numbers can currently be registered through the Source Address API for the following countries: ```AT```, ```AU```, ```CH```, ```CY```, ```DE```, ```DK```, ```EE```, ```ES```, ```FI```, ```GB```, ```HR```, ```IE```, ```IT```, ```LT```, ```LU```, ```LV```, ```MT```, ```NL```, ```NO```, ```PT```, ```SE```, and ```SI```
 
         To register a personal number as a Sender ID you must:
-        1. Make a request to the **Request a Sender Address** endpoint
+        1. Make a request to the **Request a Sender Address** endpoint (store the **request** UUID for verification)
         2. A unique verification code will be sent to the requested number
         3. Make a request to the **Submitting a Verification Code** endpoint, using the verification code that was sent in the previous step. A 200 OK response will indicate the number has been verified and is ready for use.
+        4. To delete or manage the sender later, call **Get all approved sender addresses** and use the **address** UUID from that response (different from the request UUID in step 1).
 
         ⚠️ Own numbers need to be re-verified every 12 months. You will be notified by email that verification of your number is about to expire.
 
@@ -1572,7 +1586,11 @@ paths:
         - Source Address
       summary: Request a Sender Address
       description: |
-        Submit a request to register a new Sender ID. When making a request to this endpoint, you will always need to specify ```sender_address_type``` and ```usage_type``` parameters. The following table shows the acceptable values and combinations for these parameters:
+        Submit a **sender address request** to register a new Sender ID.
+
+        The `id` in the response is the **request** UUID. Use it only with request endpoints (get status, submit verification code). It is **not** the approved sender address UUID. After approval, use **Get all approved sender addresses** to get the address `id` needed to delete or manage the sender.
+
+        When making a request to this endpoint, you will always need to specify ```sender_address_type``` and ```usage_type``` parameters. The following table shows the acceptable values and combinations for these parameters:
           | Sender ID       | sender_address_type | usage_type     |
           |---              |---                  |---             |
           | Alpha tag       | `ALPHANUMERIC`      | `ALPHANUMERIC` |
@@ -1739,13 +1757,13 @@ paths:
       description: |
         Complete the 2FA verification process required to register a Personal Number as a Sender ID.
         The following parameters are required for this request:
-          - ```id:``` The UUID received in the API response of your request to the **Request a Sender Address** endpoint.
+          - ```id:``` The **sender address request** UUID returned by **Request a Sender Address** (not the approved sender address UUID).
           - ```verification_code:``` The six-digit code received via SMS to the phone number that you are attempting to register
       operationId: SubmittingVerificationCodePost
       parameters:
         - name: id
           in: path
-          description: '36 character UUID.'
+          description: 'Sender address request UUID (from POST .../requests).'
           required: true
           style: simple
           schema:
@@ -1801,7 +1819,7 @@ paths:
         The reverification process is quite similar to the original verification process for the Sender Address, and requires a fresh 2FA check.
         
         To reverify an OWN_NUMBER Sender Address:
-          1. Retrieve the UUID for the OWN_NUMBER using the **Get all approved sender addresses** endpoint
+          1. Retrieve the **sender address** UUID for the OWN_NUMBER using the **Get all approved sender addresses** endpoint (not the request UUID from create)
           2. Make a request to this endpoint to trigger the 2FA check
           3. Make a POST request to the **Submit verification code endpoint**, providing the new 2FA code in the body of the request
       operationId: reVerifySenderAddressUsingPOST
@@ -1811,7 +1829,7 @@ paths:
       parameters:
         - name: id
           in: path
-          description: Sender Address ID
+          description: Sender address UUID (from GET .../addresses/), not the request UUID
           required: true
           style: simple
           schema:
@@ -1853,7 +1871,8 @@ paths:
         - Source Address
       summary: Get status of a sender address request
       description: |
-        Retrieve the current status of a sender address request using the request ID returned in the sender address request end point.
+        Retrieve the current status of a **sender address request** using the request UUID returned by **Request a Sender Address**.
+        This is not the approved sender address UUID used for list, get, or delete.
         A successful request to the get message status endpoint will return a response body as follows:
         ```json
         {
@@ -1876,7 +1895,7 @@ paths:
       parameters:
         - name: id
           in: path
-          description: '36 character UUID.'
+          description: 'Sender address request UUID (from POST .../requests).'
           required: true
           style: simple
           schema:
@@ -1919,7 +1938,9 @@ paths:
       summary: Get all approved sender addresses
       operationId: GetAllApprovedSenderAddresses
       description: |
-        Retrieve all sender addresses currently registered to your account.
+        Retrieve all **approved sender addresses** currently registered to your account.
+
+        Each item's `id` is the **sender address** UUID. Use this UUID to get, update, re-verify, or delete a sender. It is different from the request UUID returned when you created the sender.
       parameters:
         - name: sender_address
           in: query
@@ -2046,11 +2067,12 @@ paths:
       summary: Get sender address by id
       operationId: GetSenderAddressById
       description: |
-        Retrieve a sender address currently registered to your account by Id
+        Retrieve an approved sender address by its **sender address** UUID (from **Get all approved sender addresses**).
+        Do not use the request UUID returned by **Request a Sender Address**.
       parameters:
         - name: id
           in: path
-          description: The UUID of the sender address
+          description: Sender address UUID (from GET .../addresses/), not the request UUID
           required: true
           schema:
             type: string
@@ -2086,12 +2108,15 @@ paths:
         - Source Address
       summary: Delete Sender Address
       description: |
-        Remove any registered sender addresses that are no longer required from your account.
+        Remove an approved sender address from your account.
+
+        The path `id` must be the **sender address** UUID from **Get all approved sender addresses**.
+        Using the **request** UUID from **Request a Sender Address** will return `404 Not found`.
       operationId: deleteSenderAddressUsingDELETE
       parameters:
         - name: id
           in: path
-          description: The UUID of the sender address
+          description: Sender address UUID (from GET .../addresses/), not the request UUID
           required: true
           schema:
             type: string
@@ -2136,11 +2161,12 @@ paths:
       summary: Update My Own Number Label
       description: |
         Update label for my own number only.
+        The path `id` must be the **sender address** UUID from **Get all approved sender addresses**, not the request UUID.
       operationId: updateSenderAddressUsingPATCH
       parameters:
         - name: id
           in: path
-          description: The UUID of the sender address
+          description: Sender address UUID (from GET .../addresses/), not the request UUID
           required: true
           schema:
             type: string
@@ -7418,7 +7444,7 @@ components:
         id:
           type: string
           format: uuid
-          description: Primary ID of the record
+          description: Sender address request UUID (not the approved sender address UUID)
           example: "6f79a12e-14f1-4776-adc0-5c5e48a999b7"
         sender_address:
           type: string
@@ -7469,7 +7495,7 @@ components:
         id:
           type: string
           format: uuid
-          description: Primary ID of the record
+          description: Sender address request UUID (not the approved sender address UUID)
           example: "6f79a12e-14f1-4776-adc0-5c5e48a999b8"
         sender_address:
           type: string
@@ -7582,7 +7608,7 @@ components:
               id:
                 type: string
                 format: uuid
-                description: Primary ID of the record
+                description: Approved sender address UUID (use for get, update, re-verify, and delete)
               sender_address:
                 type: string
                 description: The Sender Address to be requested
@@ -7648,7 +7674,7 @@ components:
         id:
           type: string
           format: uuid
-          description: Primary ID of the record
+          description: Approved sender address UUID (use for get, update, re-verify, and delete)
           example: "6f79a12e-14f1-4776-adc0-5c5e48a999b8"
         sender_address:
           type: string
