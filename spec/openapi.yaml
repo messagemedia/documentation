@@ -1063,7 +1063,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/scheduledreportresponse'
       deprecated: false
-  /v2-preview/reporting/detail/scheduled/{scheduled_id}:
+  /v2-preview/reporting/detail/scheduled/{id}:
     put:
       security:
         - basic_auth: []
@@ -1075,7 +1075,7 @@ paths:
         Updates a selected scheduled report in detail, which contains a total number of sent, received and billing units.
       operationId: updatedetailscheduledreport
       parameters:
-        - name: scheduled_id
+        - name: id
           in: path
           required: true
           schema:
@@ -1124,7 +1124,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/scheduledreportresponse'
       deprecated: false
-  /v2-preview/reporting/summary/scheduled/{scheduled_id}:
+  /v2-preview/reporting/summary/scheduled/{id}:
     put:
       security:
         - basic_auth: []
@@ -1136,7 +1136,7 @@ paths:
         Updates a selected scheduled report summary, which contains a total number of sent, received and billing units.
       operationId: updatesummaryscheduledreport
       parameters:
-        - name: scheduled_id
+        - name: id
           in: path
           required: true
           schema:
@@ -1195,7 +1195,7 @@ paths:
         404:
           description: Scheduled report not found.
       deprecated: false
-  /v2-preview/reporting/scheduled/{scheduled_id}:
+  /v2-preview/reporting/scheduled/{id}:
     get:
       security:
         - basic_auth: [ ]
@@ -1206,7 +1206,7 @@ paths:
       description: Retrieves a scheduled report by providing its id.
       operationId: GetScheduledReport
       parameters:
-        - name: scheduled_id
+        - name: id
           in: path
           required: true
           schema:
@@ -1234,7 +1234,7 @@ paths:
       description: Deletes a scheduled report by providing its id.
       operationId: DeleteScheduledReport
       parameters:
-        - name: scheduled_id
+        - name: id
           in: path
           required: true
           schema:
@@ -5917,13 +5917,16 @@ components:
       title: chronosscheduleresponse
       type: object
       properties:
-        page_token:
-          type: string
-          example: abc123
-        page_size:
-          type: number
-          example: 20
-          description: Number of results to return in a page for paginated result sets.
+        pagination:
+          type: object
+          properties:
+            page_token:
+              type: string
+              example: abc123
+            page_size:
+              type: number
+              example: 20
+              description: Number of results to return in a page for paginated result sets.
         data:
           type: array
           items:
@@ -6093,8 +6096,8 @@ components:
             $ref: '#/components/schemas/MessageStatus'
           description: An array of message statuses.
         opt_out:
-          type: string
-          example: "true"
+          type: boolean
+          example: true
           description: Filter the report to only include messages that triggered an opt-out
         delivery_options:
           type: array
@@ -6158,6 +6161,15 @@ components:
         report_type:
           type: string
           example: detail
+        metadata:
+          type: object
+          description: >-
+            Metadata for the scheduled report specified as a set of key value pairs, each
+            key can be up to 100 characters long and each value can be up to 256
+            characters long.
+          example:
+            - "myKey": "myValue"
+            - "anotherKey": "anotherValue"
     scheduledreportresponse:
       title: scheduledreportresponse
       type: object
@@ -6331,8 +6343,8 @@ components:
             - ENROUTE
           description: An array of message statuses.
         opt_out:
-          type: string
-          example: "true"
+          type: boolean
+          example: true
           description: Filter the report to only include messages that triggered an opt-out.
         group_by:
           type: array
@@ -6443,23 +6455,26 @@ components:
             $ref: '#/components/schemas/MessageStatus'
         opt_out:
           description: Filter the report to only include messages that triggered an opt-out
-          type: string
-          example: "true"
+          type: boolean
+          example: true
         mms_media:
           description: Filter results by mms media.
-          type: string
-          example: "true"
+          type: boolean
+          example: true
         message_format:
           $ref: '#/components/schemas/format'
         channels:
           $ref: '#/components/schemas/channels'
         page:
           description: Page number for paging through paginated result sets.
-          type: number
+          type: integer
+          minimum: 0
           example: 0
         page_size:
           description: Number of results to return in a page for paginated result sets.
-          type: number
+          type: integer
+          minimum: 1
+          maximum: 100
           example: 20
     asyncsentmessagesdetailrequest:
       title: asyncsentmessagesdetailrequest
@@ -6547,12 +6562,53 @@ components:
             $ref: '#/components/schemas/MessageStatus'
         opt_out:
           description: Filter the report to only include messages that triggered an opt-out
-          type: string
-          example: "true"
+          type: boolean
+          example: true
         message_format:
           $ref: '#/components/schemas/format'
         channels:
           $ref: '#/components/schemas/channels'
+        sort_by:
+          $ref: '#/components/schemas/sort_by'
+        sort_direction:
+          $ref: '#/components/schemas/sort_direction'
+        period:
+          $ref: '#/components/schemas/ReportPeriod'
+        include_contacts:
+          type: boolean
+          description: Whether to include contact details in the report.
+          example: false
+        account_names:
+          type: array
+          description: A list of account label overrides for the accounts included in the report.
+          items:
+            type: object
+            properties:
+              account_id:
+                type: string
+              label:
+                type: string
+        label:
+          type: string
+          description: A label for this report.
+        user_id:
+          type: string
+          description: The ID of the user requesting the report.
+        is_support:
+          type: boolean
+          description: Whether the report is being requested by support on behalf of the account.
+        report_type:
+          type: string
+          description: The type of report being requested.
+          enum:
+            - DETAIL
+            - SUMMARY
+            - USER_USAGE
+            - SUB_ACCOUNT_USAGE
+            - GENERIC
+        responded:
+          type: boolean
+          description: Filter results by whether the message received a response.
         fields:
           description: Can be used for async detail report to select the fields to export csv files
           type: array
@@ -6652,8 +6708,8 @@ components:
           description: A list of message statuses to filter the report by.
         opt_out:
           description: Filter the report to only include messages that triggered an opt-out
-          type: string
-          example: "false"
+          type: boolean
+          example: false
         group_by:
           description: Group results by a list of values, from the enumerable table above.
           type: array
@@ -6662,6 +6718,14 @@ components:
           example:
             - WEEK
             - ACCOUNT
+        account_activity:
+          type: string
+          description: Filter accounts included in the report by activity level.
+          enum:
+            - ALL
+            - COLD
+            - ACTIVE
+          example: ALL
         delivery_options:
           description: A list of options to configure the delivery of the report.
           type: array
@@ -6777,8 +6841,8 @@ components:
             - ENROUTE
         opt_out:
           description: Filter the report to only include messages that triggered an opt-out
-          type: string
-          example: "true"
+          type: boolean
+          example: true
         channels:
           # TODO: Update docs on 16/Oct/2026 once 13 months of data are available.
           description: Filter the report by one or more message channels. Supported from 14/Aug/2025, and filtering by channels is available only for reports starting from this date.
@@ -6812,11 +6876,14 @@ components:
         - end_date
       properties:
         page:
-          type: number
+          type: integer
+          minimum: 0
           description: Page number for paging through paginated result sets.
           example: 2
         page_size:
-          type: number
+          type: integer
+          minimum: 1
+          maximum: 100
           description: Number of results to return in a page for paginated result sets.
           example: 15
         start_date:
@@ -6946,6 +7013,9 @@ components:
           format: int64
           description: The size of the report file in bytes.
           example: 204800
+        request_data:
+          type: object
+          description: The original report request parameters that were submitted, as an echo of the request body/query used to generate this report.
     presignedurlresponse:
       title: presignedurlresponse
       type: object
@@ -7009,6 +7079,10 @@ components:
         group:
           type: string
           example: Account1
+        date:
+          type: string
+          description: "One or more dates seperated by a comma, e.g. 2022-05-18,2022-05-19"
+          example: "2020-11-01"
         total_sent:
           type: number
           example: 60
@@ -7021,7 +7095,7 @@ components:
         total_opt_out:
           type: number
           example: 7
-        sub_group:
+        sub_groups:
           type: array
           items:
             $ref: '#/components/schemas/insightssubitemresponse'
@@ -8008,6 +8082,20 @@ components:
           type: string
           description: Country of the destination address
           example: 'AU'
+        source_address_country:
+          type: string
+          description: Country of the source address
+          example: 'AU'
+        in_response_to:
+          type: string
+          description: The ID of the message this message is a reply to, if any.
+          format: uuid
+        action:
+          type: string
+          description: The action taken on the message, if any.
+        media_url:
+          type: string
+          description: URL of the media attached to this message, if any (MMS/RCS).
         content:
           maxLength: 5000
           minLength: 1
@@ -8030,23 +8118,24 @@ components:
         message_type:
           $ref: '#/components/schemas/RichMessageType'
         metadata:
-          type: object
+          type: array
           description: >-
-            Metadata for the message specified as a set of key value pairs, each
-            key can be up to 100 characters long and each value can be up to 256
-            characters long
-
-            ```
-
-            {
-               "myKey": "myValue",
-               "anotherKey": "anotherValue"
-            }
-
-            ```
+            Metadata for the message, returned as a list of key/value pairs, each
+            key up to 100 characters long and each value up to 256 characters long.
+          items:
+            type: object
+            properties:
+              key:
+                type: string
+                example: myKey
+              value:
+                type: string
+                example: myValue
           example:
-            - "myKey": "myValue"
-            - "anotherKey": "anotherValue"
+            - key: myKey
+              value: myValue
+            - key: anotherKey
+              value: anotherValue
     Sendmessagesresponse:
       title: Sendmessagesresponse
       type: object
@@ -8129,6 +8218,8 @@ components:
       properties:
         delivery_type:
           type: string
+          enum:
+            - EMAIL
           description: How to deliver the report.
           example: EMAIL
         delivery_addresses:
@@ -8141,6 +8232,8 @@ components:
           description: A list of email addresses to use as the recipient of the email. Only works for EMAIL delivery type
         delivery_format:
           type: string
+          enum:
+            - CSV
           description: Format of the report.
           example: CSV
       description: A delivery option
@@ -8187,17 +8280,19 @@ components:
     sort_by:
       title: sort_by
       enum:
-        - ACCOUNT
-        - ACTION
-        - DESTINATION_ADDRESS
-        - DESTINATION_ADDRESS_COUNTRY
         - FORMAT
+        - DIRECTION
+        - STATUS
         - SOURCE_ADDRESS
+        - DESTINATION_ADDRESS
+        - STATUS_CODE
+        - ACCOUNT_ID
+        - DESTINATION_ADDRESS_COUNTRY
         - SOURCE_ADDRESS_COUNTRY
         - TIMESTAMP
       type: string
       description: Field to sort results set by
-      example: ACCOUNT
+      example: TIMESTAMP
     sort_direction:
       title: sort_direction
       enum:
@@ -9997,6 +10092,10 @@ components:
         - METADATA_KEY
         - METADATA_VALUE
         - STATUS
+        - COUNTRY
+        - CHANNEL
+        - POSTBACK_DATA
+        - MESSAGE_TYPE
       type: string
       example: DAY
     GroupByInsightField:
@@ -10013,6 +10112,7 @@ components:
         - COUNTRY
         - CHANNEL
         - POSTBACK_DATA
+        - MESSAGE_TYPE
       type: string
       example: DAY
     CreateListRequest:
